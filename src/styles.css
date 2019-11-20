@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  --color-text-primary: #2a3443;
+  --color-text-secondary: #5e6673;
+  --color-background: #db960a;
+  --color-light-grey: #f4f3f2;
+  --color-divider: rgba(0, 0, 0, 0.12);
+
+  /* https://material.io/components/cards/cards.html#usage */
+  --material-card-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  --material-card-shadow-inset: 0 0 0 0 rgba(0, 0, 0, 0.2),
+    0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+
+  /* https://css-tricks.com/snippets/css/system-font-stack/ */
+  --system-font-stack: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol';
+
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--system-font-stack);
+  color: var(--color-text-primary);
+  font-size: 18px;
+  line-height: 1.5rem;
+}
+
+html,
+body,
+main {
+  width: 100%;
+  height: 100%;
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK TC';
+  src: url('./assets/fonts/noto-sans-tc_regular_zh_lzh_785da7cebd0b.woff2')
+      format('woff2'),
+    url('./assets/fonts/noto-sans-tc_regular_zh_lzh_785da7cebd0b.ttf')
+      format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK TC';
+  src: url('./assets/fonts/noto-sans-tc_bold_zh_lzh_bbcfc9a4d4b2.woff2')
+      format('woff2'),
+    url('./assets/fonts/noto-sans-tc_bold_zh_lzh_bbcfc9a4d4b2.ttf')
+      format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.header-title {
+  margin-left: 24px;
+  margin-right: 18px;
+  font-family: Roboto, Source Sans Pro, sans-serif;
+}
+
+[hidden] {
+  display: none;
+}
+
+h1,
+nav {
+  display: inline-block;
+}
+
+header,
+nav {
+  padding-left: 16px;
+  padding-bottom: 8px;
+}
+
+main {
+  padding: 16px;
+}
+
+header {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  box-shadow: 0 4px 8px #888888;
+}
+
+@media screen and (max-width: 860px) {
+  vaadin-tabs {
+    display: none;
+  }
+}
+
+vaadin-tab {
+  color: var(--color-text-primary);
+}
+
+vaadin-app-layout {
+  --vaadin-app-layout-navbar-background: var(--color-background);
+}
+
+.content {
+  margin-left: 24px;
+}
+
+a.menu-tab {
+  text-decoration: none;
+}

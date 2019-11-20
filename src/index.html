@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Buddhanexus</title>
+
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
+    <meta name="theme-color" content="#2A3443" />
+    <meta name="description" content="Buddhistnexus" />
+
+    <!-- iOS -->
+    <link rel="apple-touch-icon" href="./assets/icons/icon-192x192.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-title" content="Buddhanexus" />
+
+    <script>
+      if (!window.customElements) {
+        document.write('<!--');
+      }
+    </script>
+    <!-- ! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
+  </head>
+
+  <body>
+    <vaadin-app-layout>
+      <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
+      <h1 slot="navbar" class="header-title">Buddhanexus</h1>
+      <vaadin-tabs
+        slot="navbar"
+        theme="minimal"
+        style="margin: 0 auto; flex: 1;"
+      >
+        <a class="menu-tab" href="/"><vaadin-tab>Home</vaadin-tab></a>
+        <a class="menu-tab" href="/pli/text"><vaadin-tab>Pali</vaadin-tab></a>
+        <a class="menu-tab" href="/tib/text"
+          ><vaadin-tab>Tibetan</vaadin-tab></a
+        >
+        <a class="menu-tab" href="/chn/text"><vaadin-tab>Chinese</vaadin-tab></a>
+        <a class="menu-tab" href="/visual"
+          ><vaadin-tab>Visual Charts</vaadin-tab></a
+        >
+      </vaadin-tabs>
+      <div id="menu-drawer" slot="drawer">
+        <navigation-menu></navigation-menu>
+      </div>
+      <main></main>
+    </vaadin-app-layout>
+  </body>
+</html>

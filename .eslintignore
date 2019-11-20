@@ -1,0 +1,8 @@
+node_modules/*
+dist/*
+webpack.config.js
+webpack.development.js
+webpack.production.js
+jquery.fancybox.pack.js
+jquery.min.js
+network/js/*
