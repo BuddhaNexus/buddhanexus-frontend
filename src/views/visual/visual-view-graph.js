@@ -1,13 +1,17 @@
-import { css, customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement, property } from 'lit-element';
 
 import { getDataForVisual } from '../../api/actions';
 import '../utility/LoadingSpinner';
 import { getGoogleGraphOptions } from './visualViewUtils';
+import styles from './visual-view-graph.styles';
 
 @customElement('visual-view-graph')
 export class VisualViewGraph extends LitElement {
   @property({ type: Array }) graphData;
   @property({ type: String }) language;
+  @property({ type: Number }) currentPage = 0;
+  @property({ type: Number }) totalPages;
+  @property({ type: Number }) pageSize;
   @property({ type: String }) searchItem;
   @property({ type: String }) selectedCollections;
   @property({ type: String }) chartHeight;
@@ -15,15 +19,7 @@ export class VisualViewGraph extends LitElement {
   @property({ type: String }) fetchError;
 
   static get styles() {
-    return [
-      css`
-        #parallels-chart {
-          font: 13px sans-serif;
-          padding: 30px;
-          width: 93vw;
-        }
-      `,
-    ];
+    return [styles];
   }
 
   updated(_changedProperties) {
@@ -35,7 +31,68 @@ export class VisualViewGraph extends LitElement {
       ) {
         this.fetchData();
       }
+      if (['currentPage'].includes(propName) && !this.fetchLoading) {
+        this.adjustChartHeight();
+      }
     });
+  }
+  paginateGraphData(graphData) {
+    let paginatedGraphData = [];
+    let currentPage = [];
+    let alreadyFoundTexts = [];
+    let count = 0;
+    let entryCount = 0;
+    graphData.forEach(entry => {
+      currentPage.push(entry);
+      entryCount += 1;
+      if (!alreadyFoundTexts.includes(entry[0])) {
+        alreadyFoundTexts.push(entry[0]);
+        count += 1;
+      }
+      if (count >= this.pageSize || entryCount == graphData.length) {
+        paginatedGraphData.push(currentPage);
+        currentPage = [];
+        count = 0;
+      }
+    });
+    return paginatedGraphData;
+  }
+  decreaseCurrentPage() {
+    if (this.currentPage > 0) {
+      this.currentPage -= 1;
+    }
+  }
+  increaseCurrentPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage += 1;
+    }
+  }
+  createPageDisplay() {
+    if (this.totalPages <= 1) {
+      return ``;
+    } else {
+      let pages = [];
+      for (let i = 0; i < this.totalPages; i++) {
+        let currentClass = 'element';
+        if (i == this.currentPage) {
+          currentClass += ' active';
+        }
+        pages.push(
+          html`
+            <span class="${currentClass}" @click="${(this.currentPage = i)}"
+              >${i + 1}</span
+            >
+          `
+        );
+      }
+      return html`
+        <div id="pages-display">
+          <span class="element" @click="${this.decreaseCurrentPage()}">«</span>
+          ${pages}
+          <span class="element" @click="${this.increaseCurrentPage()}">»</span>
+        </div>
+      `;
+    }
   }
 
   async fetchData() {
@@ -54,32 +111,19 @@ export class VisualViewGraph extends LitElement {
       selected: this.selectedCollections,
       language: this.language,
     });
-
-    // These chartHeight values are just guesses. It might have to be adjusted when more data is loaded.
-    // When a good way of dealing with this is found, this function needs clearning up too.
-    this.chartHeight = '';
-    let heightMultiplyFactor = graphdata.length / window.innerHeight;
-    if (heightMultiplyFactor <= 0.5) {
-      this.chartHeight = '84vh';
-    } else if (heightMultiplyFactor <= 1) {
-      this.chartHeight = graphdata.length * heightMultiplyFactor * 3 + 'px';
-    } else if (heightMultiplyFactor <= 1.5) {
-      this.chartHeight = graphdata.length * heightMultiplyFactor * 2 + 'px';
-    } else if (heightMultiplyFactor <= 2) {
-      this.chartHeight =
-        (graphdata.length * heightMultiplyFactor * 3) / 2 + 'px';
-    } else if (heightMultiplyFactor <= 3) {
-      this.chartHeight = graphdata.length * heightMultiplyFactor + 'px';
-    } else if (heightMultiplyFactor <= 4) {
-      this.chartHeight = graphdata.length / 2 + 'px';
-    } else if (heightMultiplyFactor <= 5) {
-      this.chartHeight = graphdata.length / 2.5 + 'px';
-    } else {
-      this.chartHeight = '20000px';
-    }
-    this.graphData = graphdata;
+    this.graphData = this.paginateGraphData(graphdata);
+    this.totalPages = this.graphData.length;
+    this.adjustChartHeight();
     this.fetchError = error;
     this.fetchLoading = false;
+  }
+  adjustChartHeight() {
+    this.chartHeight = '84vh';
+    if (this.graphData) {
+      if (this.graphData[this.currentPage].length * 2 > 800) {
+        this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
+      }
+    }
   }
 
   // When the chart is clicked, the value of it is checked. If is is on the left side (L), it opens when we are
@@ -106,22 +150,25 @@ export class VisualViewGraph extends LitElement {
     }
 
     console.log('rendering visual graph view');
-
-    return html`
-      <google-chart
-        id="parallels-chart"
-        type="sankey"
-        .cols="${[
-          { label: 'From', type: 'string' },
-          { label: 'To', type: 'string' },
-          { label: 'Weight', type: 'number' },
-        ]}"
-        style="height: ${this.chartHeight}"
-        .rows="${this.graphData}"
-        .options="${getGoogleGraphOptions}"
-        @google-chart-select="${this.selectSubCollection}"
-      >
-      </google-chart>
-    `;
+    if (this.graphData) {
+      return html`
+        ${this.createPageDisplay()}
+        <google-chart
+          id="parallels-chart"
+          type="sankey"
+          .cols="${[
+            { label: 'From', type: 'string' },
+            { label: 'To', type: 'string' },
+            { label: 'Weight', type: 'number' },
+          ]}"
+          style="height: ${this.chartHeight}"
+          .rows="${this.graphData[this.currentPage]}"
+          .options="${getGoogleGraphOptions}"
+          @google-chart-select="${this.selectSubCollection}"
+        >
+        </google-chart>
+        ${this.createPageDisplay()}
+      `;
+    }
   }
 }

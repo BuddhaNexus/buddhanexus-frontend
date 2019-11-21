@@ -9,12 +9,18 @@ import './visual-view-graph';
 export class VisualView extends LitElement {
   @property({ type: String }) searchItem;
   @property({ type: Array }) selectedCollections;
-
+  @property({ type: Number }) pageSize = 100;
   async firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
   }
-
+  setPageSize = pageSize => {
+    this.pageSize = pageSize;
+  };
   setSelection = (searchItem, selectedCollections) => {
+    console.log('SEARCH ITEM', searchItem);
+    console.log('SELECTED COLLECTION', selectedCollections);
+    console.log('OLD SEARCH ITEM', this.searchItem);
+    console.log('OLD SELECTED COLLECTION', this.selectedCollections);
     (this.searchItem = searchItem),
       (this.selectedCollections = selectedCollections);
   };
@@ -24,11 +30,13 @@ export class VisualView extends LitElement {
     return html`
       <visual-view-header
         .setSelection="${this.setSelection}"
+        .setPageSize="${this.setPageSize}"
       ></visual-view-header>
       <div class="graph-wrapper">
         <visual-view-graph
           .searchItem="${this.searchItem}"
           .selectedCollections="${this.selectedCollections}"
+          .pageSize="${this.pageSize}"
         >
         </visual-view-graph>
       </div>
