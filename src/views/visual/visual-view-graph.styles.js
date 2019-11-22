@@ -7,9 +7,12 @@ export default css`
     width: 93vw;
   }
   #pages-display {
-    position: relative;
-    top: 50%;
-    transform: perspective(1px) translateY(-50%);
+   text-align: center;
+  }
+  #inner-pages {
+   display:inline-block;
+   padding-top: 10px;
+   padding-bottom: 10px;
   }
   .element {
     cursor: pointer;

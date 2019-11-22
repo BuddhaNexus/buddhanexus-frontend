@@ -86,10 +86,11 @@ export class VisualViewGraph extends LitElement {
         );
       }
       return html`
-        <div id="pages-display">
+        <div id="pages-display"><div id="inner-pages">
           <span class="element" @click="${this.decreaseCurrentPage}">«</span>
           ${pages}
           <span class="element" @click="${this.increaseCurrentPage}">»</span>
+         </div>
         </div>
       `;
 
