@@ -32,6 +32,7 @@ export class VisualViewGraph extends LitElement {
         this.fetchData();
       }
       if (['currentPage'].includes(propName) && !this.fetchLoading) {
+        console.log('ADJUSTING CHART HEIGHT');
         this.adjustChartHeight();
       }
     });
@@ -79,7 +80,11 @@ export class VisualViewGraph extends LitElement {
         }
         pages.push(
           html`
-            <span class="${currentClass}" @click="${(this.currentPage = i)}"
+            <span
+              class="${currentClass}"
+              @click="${function() {
+                this.currentPage = i;
+              }}"
               >${i + 1}</span
             >
           `
@@ -87,11 +92,19 @@ export class VisualViewGraph extends LitElement {
       }
       return html`
         <div id="pages-display">
-          <span class="element" @click="${this.decreaseCurrentPage()}">«</span>
+          <span class="element" @click="${this.decreaseCurrentPage}">«</span>
           ${pages}
-          <span class="element" @click="${this.increaseCurrentPage()}">»</span>
+          <span class="element" @click="${this.increaseCurrentPage}">»</span>
         </div>
       `;
+
+      // return html`
+      //   <div id="pages-display">
+      //     <span class="element" @click="${this.decreaseCurrentPage}">«</span>
+      //     ${pages}
+      //     <span class="element" @click="${this.increaseCurrentPage}">»</span>
+      //   </div>
+      // `;
     }
   }
 

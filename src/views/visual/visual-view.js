@@ -17,10 +17,6 @@ export class VisualView extends LitElement {
     this.pageSize = pageSize;
   };
   setSelection = (searchItem, selectedCollections) => {
-    console.log('SEARCH ITEM', searchItem);
-    console.log('SELECTED COLLECTION', selectedCollections);
-    console.log('OLD SEARCH ITEM', this.searchItem);
-    console.log('OLD SELECTED COLLECTION', this.selectedCollections);
     (this.searchItem = searchItem),
       (this.selectedCollections = selectedCollections);
   };

@@ -36,6 +36,7 @@ export const getGoogleGraphOptions = {
     node: {
       width: 40,
       interactivity: true,
+      nodePadding: 20,
       colors: graphColors,
       label: {
         fontSize: 14,
