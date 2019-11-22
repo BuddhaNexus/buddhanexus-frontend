@@ -13,12 +13,20 @@ export class VisualView extends LitElement {
   async firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
   }
+  async updated(_changedProperties) {
+    console.log('main loop updated', _changedProperties);
+  }
+
   setPageSize = pageSize => {
     this.pageSize = pageSize;
   };
   setSelection = (searchItem, selectedCollections) => {
+    console.log('SET SELECTION');
+    this.searchItem = '';
+    this.selectedCollections = [];
     (this.searchItem = searchItem),
       (this.selectedCollections = selectedCollections);
+    this.requestFullUpdate();
   };
 
   render() {

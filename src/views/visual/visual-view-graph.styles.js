@@ -7,8 +7,9 @@ export default css`
     width: 93vw;
   }
   #pages-display {
-    margin: 0 auto;
-    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
   }
   .element {
     cursor: pointer;

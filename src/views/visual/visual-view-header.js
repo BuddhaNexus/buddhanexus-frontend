@@ -78,6 +78,7 @@ export class VisualViewHeader extends LitElement {
 
   returnToMainCollection() {
     if (this.searchItem && this.selectedCollections.length > 0) {
+      console.log('RETURN TO MAIN COLLECTION');
       this.setSelection(this.searchItem + '_', this.selectedCollections);
     }
   }

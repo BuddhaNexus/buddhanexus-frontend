@@ -23,7 +23,7 @@ export class VisualViewGraph extends LitElement {
   }
 
   updated(_changedProperties) {
-    console.log('visual view updated. ', _changedProperties);
+    console.log('visual view graph updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (
         ['searchItem', 'selectedCollections'].includes(propName) &&
@@ -32,7 +32,6 @@ export class VisualViewGraph extends LitElement {
         this.fetchData();
       }
       if (['currentPage'].includes(propName) && !this.fetchLoading) {
-        console.log('ADJUSTING CHART HEIGHT');
         this.adjustChartHeight();
       }
     });
@@ -133,12 +132,13 @@ export class VisualViewGraph extends LitElement {
   adjustChartHeight() {
     this.chartHeight = '84vh';
     if (this.graphData) {
-      if (this.graphData[this.currentPage].length * 2 > 800) {
-        this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
+      if (this.graphData[this.currentPage]) {
+        if (this.graphData[this.currentPage].length * 2 > 800) {
+          this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
+        }
       }
     }
   }
-
   // When the chart is clicked, the value of it is checked. If is is on the left side (L), it opens when we are
   // in collection-view and shows the files underneath. If we already see the files it opens a new window
   // with the graph-view for that file.
