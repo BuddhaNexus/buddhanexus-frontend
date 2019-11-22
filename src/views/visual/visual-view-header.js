@@ -77,9 +77,9 @@ export class VisualViewHeader extends LitElement {
   }
 
   returnToMainCollection() {
-      if (this.searchItem && this.selectedCollections.length > 0) {
-	this.setSelection(this.searchItem, this.selectedCollections);
-	  }    
+    if (this.searchItem && this.selectedCollections.length > 0) {
+      this.setSelection(this.searchItem, this.selectedCollections);
+    }
   }
 
   render() {

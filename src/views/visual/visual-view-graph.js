@@ -155,15 +155,14 @@ export class VisualViewGraph extends LitElement {
 
   render() {
     if (this.fetchLoading) {
-      return html`
-        <bn-loading-spinner></bn-loading-spinner>
-      `;
+      // prettier-ignore
+      return html`<bn-loading-spinner></bn-loading-spinner>`;
     }
 
     console.log('rendering visual graph view');
     if (this.graphData) {
-      return html`
-        ${this.createPageDisplay()}
+      // prettier-ignore
+      return html`${this.createPageDisplay()}
         <google-chart
           id="parallels-chart"
           type="sankey"
@@ -175,8 +174,7 @@ export class VisualViewGraph extends LitElement {
           style="height: ${this.chartHeight}"
           .rows="${this.graphData[this.currentPage]}"
           .options="${getGoogleGraphOptions}"
-          @google-chart-select="${this.selectSubCollection}"
-        >
+          @google-chart-select="${this.selectSubCollection}">
         </google-chart>
         ${this.createPageDisplay()}
       `;
