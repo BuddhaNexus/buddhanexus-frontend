@@ -84,18 +84,12 @@ export class VisualViewGraph extends LitElement {
       if (i == this.currentPage) {
         currentClass += ' active';
       }
+      // prettier-ignore
       pages.push(
-        html`
-          <span
-            class="${currentClass}"
-            @click="${function() {
-              this.currentPage = i;
-            }}"
-            >${i + 1}</span
-          >
-        `
+        html`<span class="${currentClass}" @click="${function() {this.currentPage = i;}}">${i + 1}</span>`
       );
     }
+    // prettier-ignore
     return html`
       <div id="pages-display">
         <div id="inner-pages">
@@ -103,8 +97,7 @@ export class VisualViewGraph extends LitElement {
           ${pages}
           <span class="element" @click="${this.increaseCurrentPage}">»</span>
         </div>
-      </div>
-    `;
+      </div>`;
   }
 
   async fetchData() {
