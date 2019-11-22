@@ -17,13 +17,13 @@ export class VisualViewGraph extends LitElement {
   @property({ type: String }) chartHeight;
   @property({ type: String }) fetchLoading;
   @property({ type: String }) fetchError;
+  @property({ type: Function }) setSelection;
 
   static get styles() {
     return [styles];
   }
 
   updated(_changedProperties) {
-    console.log('visual view graph updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (
         ['searchItem', 'selectedCollections'].includes(propName) &&
@@ -31,7 +31,7 @@ export class VisualViewGraph extends LitElement {
       ) {
         this.fetchData();
       }
-      if (['currentPage'].includes(propName) && !this.fetchLoading) {
+	if (['currentPage'].includes(propName) && !this.fetchLoading) {
         this.adjustChartHeight();
       }
     });
@@ -67,7 +67,7 @@ export class VisualViewGraph extends LitElement {
       this.currentPage += 1;
     }
   }
-  createPageDisplay() {
+    createPageDisplay() {
     if (this.totalPages <= 1) {
       return ``;
     } else {
@@ -79,11 +79,7 @@ export class VisualViewGraph extends LitElement {
         }
         pages.push(
           html`
-            <span
-              class="${currentClass}"
-              @click="${function() {
-                this.currentPage = i;
-              }}"
+            <span class="${currentClass}" @click="${function(){this.currentPage = i}}"
               >${i + 1}</span
             >
           `
@@ -97,6 +93,7 @@ export class VisualViewGraph extends LitElement {
         </div>
       `;
 
+	
       // return html`
       //   <div id="pages-display">
       //     <span class="element" @click="${this.decreaseCurrentPage}">«</span>
@@ -131,13 +128,13 @@ export class VisualViewGraph extends LitElement {
   }
   adjustChartHeight() {
     this.chartHeight = '84vh';
-    if (this.graphData) {
-      if (this.graphData[this.currentPage]) {
-        if (this.graphData[this.currentPage].length * 2 > 800) {
-          this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
-        }
+      if (this.graphData) {
+	  if(this.graphData[this.currentPage]){
+	      if (this.graphData[this.currentPage].length * 2 > 800) {
+		  this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
+	      }
+	  }
       }
-    }
   }
   // When the chart is clicked, the value of it is checked. If is is on the left side (L), it opens when we are
   // in collection-view and shows the files underneath. If we already see the files it opens a new window
@@ -145,7 +142,8 @@ export class VisualViewGraph extends LitElement {
   selectSubCollection(e) {
     let targetItem = e.detail.chart.getSelection()[0].name.split(' ')[0];
     if (targetItem && targetItem.startsWith('L')) {
-      this.searchItem = this.language + '_' + targetItem.substring(2);
+	//this.searchItem = this.language + '_' + targetItem.substring(2);
+	this.setSelection(this.language + '_' + targetItem.substring(2),this.selectedCollections);
     } else if (targetItem && !targetItem.startsWith('R')) {
       let win = window.open(
         `../${this.language}/graph/${targetItem}`,

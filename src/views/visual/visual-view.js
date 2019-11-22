@@ -14,19 +14,15 @@ export class VisualView extends LitElement {
     super.firstUpdated(_changedProperties);
   }
   async updated(_changedProperties) {
-    console.log('main loop updated', _changedProperties);
+      console.log("main loop updated",_changedProperties);
   }
-
+    
   setPageSize = pageSize => {
     this.pageSize = pageSize;
   };
-  setSelection = (searchItem, selectedCollections) => {
-    console.log('SET SELECTION');
-    this.searchItem = '';
-    this.selectedCollections = [];
+    setSelection = (searchItem, selectedCollections) => {
     (this.searchItem = searchItem),
-      (this.selectedCollections = selectedCollections);
-    this.requestFullUpdate();
+	(this.selectedCollections = selectedCollections);
   };
 
   render() {
@@ -41,6 +37,7 @@ export class VisualView extends LitElement {
           .searchItem="${this.searchItem}"
           .selectedCollections="${this.selectedCollections}"
           .pageSize="${this.pageSize}"
+          .setSelection="${this.setSelection}"
         >
         </visual-view-graph>
       </div>
