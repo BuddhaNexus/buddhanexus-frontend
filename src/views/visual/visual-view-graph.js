@@ -50,7 +50,6 @@ export class VisualViewGraph extends LitElement {
     let count = 0;
     let entryCount = 0;
     graphData.forEach(entry => {
-      console.log('ENTRY', entry);
       entry[2] = this.smoothGraphValues(entry[2]);
       currentPage.push(entry);
       entryCount += 1;
@@ -113,9 +112,7 @@ export class VisualViewGraph extends LitElement {
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
     const searchTerm = this.searchItem.split('_')[1];
-
     console.log('visual view: fetching data', this.searchItem);
-
     const { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,
@@ -163,7 +160,6 @@ export class VisualViewGraph extends LitElement {
       // prettier-ignore
       return html`<bn-loading-spinner></bn-loading-spinner>`;
     }
-
     console.log('rendering visual graph view');
     if (this.graphData) {
       // prettier-ignore
