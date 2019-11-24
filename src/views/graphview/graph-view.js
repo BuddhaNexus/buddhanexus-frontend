@@ -23,7 +23,9 @@ export class GraphView extends LitElement {
   @property({ type: Number }) score;
   @property({ type: Array }) targetCollection;
 
-  @property({ type: Array }) graphData;
+  @property({ type: Array }) pieGraphData;
+  @property({ type: Array }) histogramGraphData;
+  @property({ type: String }) graphHeight;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
 
@@ -33,6 +35,8 @@ export class GraphView extends LitElement {
 
   async firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
+    this.graphHeight =
+      window.innerHeight < 700 ? window.innerHeight * 0.85 + 'px' : '600px';
     await this.fetchData();
   }
 
@@ -61,15 +65,19 @@ export class GraphView extends LitElement {
     }
     this.fetchLoading = true;
 
-    const { graphdata, error } = await getDataForGraph({
+    const { piegraphdata, histogramgraphdata, error } = await getDataForGraph({
       fileName: this.fileName,
       score: this.score,
       co_occ: this.cooccurance,
       par_length: this.quoteLength,
       target_collection: this.targetCollection,
     });
-
-    this.graphData = graphdata;
+    let histogramdata = [];
+    for (let i = 0; i < histogramgraphdata.length * 0.1; i++) {
+      histogramdata.push(histogramgraphdata[i]);
+    }
+    this.histogramGraphData = histogramdata;
+    this.pieGraphData = piegraphdata;
     this.fetchError = error;
 
     this.fetchLoading = false;
@@ -93,19 +101,42 @@ export class GraphView extends LitElement {
         .fileName="${this.fileName}"
         .infoModalContent="${GraphViewInfoModalContent()}"
       ></data-view-header>
-      <div class="graph-wrapper">
+      <div
+        class="pie-wrapper"
+        style="height: ${this.graphHeight}; margin-bottom: 24px"
+      >
         <google-chart
-          id="parallels-chart"
+          id="pie-chart"
           type="pie"
           .cols="${[
             { label: 'Collection', type: 'string' },
-            { label: 'Parallels', type: 'number' },
+            { label: 'Match-lengths', type: 'number' },
           ]}"
-          .rows="${this.graphData}"
+          .rows="${this.pieGraphData}"
           .options="${{
             width: window.innerWidth < 1000 ? window.innerWidth : 1000,
             height: window.innerHeight < 700 ? window.innerHeight : 700,
             chartArea: { left: 0, top: 0, width: '85%', height: '85%' },
+          }}"
+        >
+        </google-chart>
+      </div>
+      <div class="histogram-wrapper" style="height: ${this.graphHeight}">
+        <google-chart
+          id="histogram-chart"
+          type="histogram"
+          .cols="${[
+            { label: 'Collection', type: 'string' },
+            { label: 'Match-lengths', type: 'number' },
+          ]}"
+          .rows="${this.histogramGraphData}"
+          .options="${{
+            title: '10% of files with highest match-length',
+            legend: { position: 'none' },
+            histogram: { lastBucketPercentile: 10 },
+            width: window.innerWidth < 1000 ? window.innerWidth : 1000,
+            height: window.innerHeight < 700 ? window.innerHeight : 700,
+            chartArea: { left: 0, top: 0, width: '85%', height: '75%' },
           }}"
         >
         </google-chart>
