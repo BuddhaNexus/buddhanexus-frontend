@@ -3,21 +3,23 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { getDataForVisual } from '../../api/actions';
 import '../utility/LoadingSpinner';
 import { getGoogleGraphOptions } from './visualViewUtils';
+
 import styles from './visual-view-graph.styles';
 
 @customElement('visual-view-graph')
 export class VisualViewGraph extends LitElement {
+  @property({ type: String }) searchItem;
+  @property({ type: String }) selectedCollections;
+  @property({ type: Number }) pageSize;
+  @property({ type: Function }) setSelection;
+
   @property({ type: Array }) graphData;
   @property({ type: String }) language;
   @property({ type: Number }) currentPage = 0;
   @property({ type: Number }) totalPages;
-  @property({ type: Number }) pageSize;
-  @property({ type: String }) searchItem;
-  @property({ type: String }) selectedCollections;
   @property({ type: String }) chartHeight;
   @property({ type: String }) fetchLoading;
   @property({ type: String }) fetchError;
-  @property({ type: Function }) setSelection;
 
   static get styles() {
     return [styles];
@@ -36,9 +38,11 @@ export class VisualViewGraph extends LitElement {
       }
     });
   }
+
   smoothGraphValues(value) {
     return value ** 0.33;
   }
+
   paginateGraphData(graphData) {
     let paginatedGraphData = [];
     let currentPage = [];
@@ -62,56 +66,43 @@ export class VisualViewGraph extends LitElement {
     });
     return paginatedGraphData;
   }
+
   decreaseCurrentPage() {
     if (this.currentPage > 0) {
       this.currentPage -= 1;
     }
   }
+
   increaseCurrentPage() {
     if (this.currentPage < this.totalPages - 1) {
       this.currentPage += 1;
     }
   }
+
   createPageDisplay() {
     if (this.totalPages <= 1) {
-      return ``;
-    } else {
-      let pages = [];
-      for (let i = 0; i < this.totalPages; i++) {
-        let currentClass = 'element';
-        if (i == this.currentPage) {
-          currentClass += ' active';
-        }
-        pages.push(
-          html`
-            <span
-              class="${currentClass}"
-              @click="${function() {
-                this.currentPage = i;
-              }}"
-              >${i + 1}</span
-            >
-          `
-        );
-      }
-      return html`
-        <div id="pages-display">
-          <div id="inner-pages">
-            <span class="element" @click="${this.decreaseCurrentPage}">«</span>
-            ${pages}
-            <span class="element" @click="${this.increaseCurrentPage}">»</span>
-          </div>
-        </div>
-      `;
-
-      // return html`
-      //   <div id="pages-display">
-      //     <span class="element" @click="${this.decreaseCurrentPage}">«</span>
-      //     ${pages}
-      //     <span class="element" @click="${this.increaseCurrentPage}">»</span>
-      //   </div>
-      // `;
+      return;
     }
+    let pages = [];
+    for (let i = 0; i < this.totalPages; i++) {
+      let currentClass = 'element';
+      if (i == this.currentPage) {
+        currentClass += ' active';
+      }
+      // prettier-ignore
+      pages.push(
+        html`<span class="${currentClass}" @click="${function() {this.currentPage = i;}}">${i + 1}</span>`
+      );
+    }
+    // prettier-ignore
+    return html`
+      <div id="pages-display">
+        <div id="inner-pages">
+          <span class="element" @click="${this.decreaseCurrentPage}">«</span>
+          ${pages}
+          <span class="element" @click="${this.increaseCurrentPage}">»</span>
+        </div>
+      </div>`;
   }
 
   async fetchData() {
@@ -136,23 +127,24 @@ export class VisualViewGraph extends LitElement {
     this.fetchError = error;
     this.fetchLoading = false;
   }
+
   adjustChartHeight() {
     this.chartHeight = '84vh';
-    if (this.graphData) {
-      if (this.graphData[this.currentPage]) {
-        if (this.graphData[this.currentPage].length * 2 > 800) {
-          this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
-        }
-      }
+    if (
+      this.graphData &&
+      this.graphData[this.currentPage] &&
+      this.graphData[this.currentPage].length * 2 > 800
+    ) {
+      this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
     }
   }
+
   // When the chart is clicked, the value of it is checked. If is is on the left side (L), it opens when we are
   // in collection-view and shows the files underneath. If we already see the files it opens a new window
   // with the graph-view for that file.
   selectSubCollection(e) {
     let targetItem = e.detail.chart.getSelection()[0].name.split(' ')[0];
     if (targetItem && targetItem.startsWith('L')) {
-      //this.searchItem = this.language + '_' + targetItem.substring(2);
       this.setSelection(
         this.language + '_' + targetItem.substring(2),
         this.selectedCollections
@@ -168,15 +160,14 @@ export class VisualViewGraph extends LitElement {
 
   render() {
     if (this.fetchLoading) {
-      return html`
-        <bn-loading-spinner></bn-loading-spinner>
-      `;
+      // prettier-ignore
+      return html`<bn-loading-spinner></bn-loading-spinner>`;
     }
 
     console.log('rendering visual graph view');
     if (this.graphData) {
-      return html`
-        ${this.createPageDisplay()}
+      // prettier-ignore
+      return html`${this.createPageDisplay()}
         <google-chart
           id="parallels-chart"
           type="sankey"
@@ -188,8 +179,7 @@ export class VisualViewGraph extends LitElement {
           style="height: ${this.chartHeight}"
           .rows="${this.graphData[this.currentPage]}"
           .options="${getGoogleGraphOptions}"
-          @google-chart-select="${this.selectSubCollection}"
-        >
+          @google-chart-select="${this.selectSubCollection}">
         </google-chart>
         ${this.createPageDisplay()}
       `;
