@@ -16,7 +16,6 @@ export class VisualViewHeader extends LitElement {
   @property({ type: Array }) targetCollectionData;
   @property({ type: Array }) selectedCollections = [];
   @property({ type: Function }) setSelection;
-  @property({ type: Function }) setPageSize;
   @property({ type: String }) fetchError;
 
   static get styles() {

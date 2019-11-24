@@ -4,26 +4,31 @@ export default css`
   #parallels-chart {
     font: 13px sans-serif;
     padding: 30px;
-    width: 93vw;
+    width: 93%;
   }
+
   #pages-display {
-   text-align: center;
+    text-align: center;
   }
+
   #inner-pages {
-   display:inline-block;
-   padding-top: 10px;
-   padding-bottom: 10px;
+    display: inline-block;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
+
   .element {
     cursor: pointer;
     color: black;
     float: left;
     padding: 8px 16px;
   }
+
   .active {
-    background-color: #db960a;
+    background-color: var(--color-background);
     color: black;
   }
+
   .element:hover:not(.active) {
     background-color: #ddd;
   }

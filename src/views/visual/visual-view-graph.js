@@ -10,11 +10,12 @@ import styles from './visual-view-graph.styles';
 export class VisualViewGraph extends LitElement {
   @property({ type: String }) searchItem;
   @property({ type: String }) selectedCollections;
-  @property({ type: Number }) pageSize;
   @property({ type: Function }) setSelection;
 
   @property({ type: Array }) graphData;
+  @property({ type: Number }) pageSize = 100;
   @property({ type: String }) language;
+  @property({ type: String }) targetItem;
   @property({ type: Number }) currentPage = 0;
   @property({ type: Number }) totalPages;
   @property({ type: String }) chartHeight;
@@ -33,14 +34,17 @@ export class VisualViewGraph extends LitElement {
       ) {
         this.fetchData();
       }
-      if (['currentPage'].includes(propName) && !this.fetchLoading) {
+      if (propName == 'currentPage' && !this.fetchLoading) {
         this.adjustChartHeight();
       }
     });
   }
 
   smoothGraphValues(value) {
-    // this function is used to determine how much large collections are shrinked and smaller collections are enlarged, resulting in a compression effect that makes the rendering of smaller entities more readable. a value of ** 1 means nothing is changed. The smaller the value is, the stronger the graph is 'compressed'.
+    // this function is used to determine how much large collections are shrinked and
+    // smaller collections are enlarged, resulting in a compression effect that makes
+    // the rendering of smaller entities more readable. a value of ** 1 means nothing
+    // is changed. The smaller the value is, the stronger the graph is 'compressed'.
     return value ** 0.33;
   }
 
@@ -50,18 +54,23 @@ export class VisualViewGraph extends LitElement {
     let alreadyFoundTexts = [];
     let count = 0;
     let entryCount = 0;
+
     graphData.forEach(entry => {
       entry[2] = this.smoothGraphValues(entry[2]);
-      currentPage.push(entry);
-      entryCount += 1;
+
       if (!alreadyFoundTexts.includes(entry[0])) {
         alreadyFoundTexts.push(entry[0]);
         count += 1;
+        if (count > this.pageSize) {
+          paginatedGraphData.push(currentPage);
+          currentPage = [];
+          count = 1;
+        }
       }
-      if (count >= this.pageSize || entryCount == graphData.length) {
+      currentPage.push(entry);
+      entryCount += 1;
+      if (entryCount == graphData.length) {
         paginatedGraphData.push(currentPage);
-        currentPage = [];
-        count = 0;
       }
     });
     return paginatedGraphData;
@@ -89,12 +98,14 @@ export class VisualViewGraph extends LitElement {
       if (i == this.currentPage) {
         currentClass += ' active';
       }
-      // prettier-ignore
       pages.push(
-        html`<span class="${currentClass}" @click="${function() {this.currentPage = i;}}">${i + 1}</span>`
+        html`
+          <span class="${currentClass}" @click="${() => (this.currentPage = i)}"
+            >${i + 1}</span
+          >
+        `
       );
     }
-    // prettier-ignore
     return html`
       <div id="pages-display">
         <div id="inner-pages">
@@ -102,7 +113,8 @@ export class VisualViewGraph extends LitElement {
           ${pages}
           <span class="element" @click="${this.increaseCurrentPage}">»</span>
         </div>
-      </div>`;
+      </div>
+    `;
   }
 
   async fetchData() {
@@ -110,8 +122,10 @@ export class VisualViewGraph extends LitElement {
       this.fetchLoading = false;
       return;
     }
+    this.currentPage = 0;
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
+    this.pageSize = this.language === 'pli' ? 50 : 100;
     const searchTerm = this.searchItem.split('_')[1];
     console.log('visual view: fetching data', this.searchItem);
     const { graphdata, error } = await getDataForVisual({
@@ -128,43 +142,49 @@ export class VisualViewGraph extends LitElement {
 
   adjustChartHeight() {
     this.chartHeight = '84vh';
-    if (
-      this.graphData &&
-      this.graphData[this.currentPage] &&
-      this.graphData[this.currentPage].length * 2 > 800
-    ) {
+    if (!this.graphData || !this.graphData[this.currentPage]) {
+      return;
+    }
+    if (this.graphData[this.currentPage].length > 400) {
       this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
     }
   }
 
-  // When the chart is clicked, the value of it is checked. If is is on the left side (L), it opens when we are
+  // When the chart is clicked, the value of it is checked. If is is on the left side, it opens when we are
   // in collection-view and shows the files underneath. If we already see the files it opens a new window
-  // with the graph-view for that file.
+  // with the text-view for that file.
   selectSubCollection(e) {
-    let targetItem = e.detail.chart.getSelection()[0].name.split(' ')[0];
-    if (targetItem && targetItem.startsWith('L')) {
-      this.setSelection(
-        this.language + '_' + targetItem.substring(2),
-        this.selectedCollections
-      );
-    } else if (targetItem && !targetItem.startsWith('R')) {
-      let win = window.open(
-        `../${this.language}/graph/${targetItem}`,
-        '_blank'
-      );
-      win.focus();
+    if (!e.detail.chart.getSelection()[0]) {
+      return;
     }
+    let targetItem = e.detail.chart.getSelection()[0].name;
+    if (!targetItem || targetItem.match(/_\(/)) {
+      return;
+    }
+    if (targetItem === this.targetItem) {
+      let win = window.open(`../${this.language}/text/${targetItem}`, '_blank');
+      win.focus();
+      return;
+    }
+    this.targetItem = targetItem;
+    const selectedTarget = targetItem.match(/ \((.*?)\)/);
+    const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
+    this.setSelection(
+      this.language + '_' + setSelectionTarget,
+      this.selectedCollections
+    );
   }
 
   render() {
     if (this.fetchLoading) {
-      // prettier-ignore
-      return html`<bn-loading-spinner></bn-loading-spinner>`;
+      return html`
+        <bn-loading-spinner></bn-loading-spinner>
+      `;
     }
     console.log('rendering visual graph view');
     if (this.graphData) {
-      // prettier-ignore
-      return html`${this.createPageDisplay()}
+      return html`
+        ${this.createPageDisplay()}
         <google-chart
           id="parallels-chart"
           type="sankey"
@@ -176,7 +196,8 @@ export class VisualViewGraph extends LitElement {
           style="height: ${this.chartHeight}"
           .rows="${this.graphData[this.currentPage]}"
           .options="${getGoogleGraphOptions}"
-          @google-chart-select="${this.selectSubCollection}">
+          @google-chart-select="${this.selectSubCollection}"
+        >
         </google-chart>
         ${this.createPageDisplay()}
       `;
