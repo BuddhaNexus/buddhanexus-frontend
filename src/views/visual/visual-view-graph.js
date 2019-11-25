@@ -14,6 +14,7 @@ export class VisualViewGraph extends LitElement {
 
   @property({ type: Array }) graphData;
   @property({ type: Number }) pageSize = 100;
+  @property({ type: Number }) lastPageSize;
   @property({ type: String }) language;
   @property({ type: String }) targetItem;
   @property({ type: Number }) currentPage = 0;
@@ -46,6 +47,7 @@ export class VisualViewGraph extends LitElement {
     // the rendering of smaller entities more readable. a value of ** 1 means nothing
     // is changed. The smaller the value is, the stronger the graph is 'compressed'.
     return value ** 0.33;
+    // We can also add language specific values here.
   }
 
   paginateGraphData(graphData) {
@@ -71,6 +73,7 @@ export class VisualViewGraph extends LitElement {
       entryCount += 1;
       if (entryCount == graphData.length) {
         paginatedGraphData.push(currentPage);
+        this.lastPageSize = count;
       }
     });
     return paginatedGraphData;
@@ -145,8 +148,17 @@ export class VisualViewGraph extends LitElement {
     if (!this.graphData || !this.graphData[this.currentPage]) {
       return;
     }
+    let leftPageSize = this.pageSize;
+    if (this.currentPage + 1 === this.graphData.length) {
+      leftPageSize = this.lastPageSize;
+    }
+    let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
+
     if (this.graphData[this.currentPage].length > 400) {
       this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
+    }
+    if (rightPageSize / leftPageSize < 0.2) {
+      this.chartHeight = this.graphData[this.currentPage].length * 4 + 'px';
     }
   }
 
@@ -161,13 +173,13 @@ export class VisualViewGraph extends LitElement {
     if (!targetItem || targetItem.match(/_\(/)) {
       return;
     }
-    if (targetItem === this.targetItem) {
+    const selectedTarget = targetItem.match(/ \((.*?)\)/);
+    if (targetItem === this.targetItem && !selectedTarget) {
       let win = window.open(`../${this.language}/text/${targetItem}`, '_blank');
       win.focus();
       return;
     }
     this.targetItem = targetItem;
-    const selectedTarget = targetItem.match(/ \((.*?)\)/);
     const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
     this.setSelection(
       this.language + '_' + setSelectionTarget,
