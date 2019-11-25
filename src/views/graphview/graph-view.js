@@ -128,7 +128,7 @@ export class GraphView extends LitElement {
       </div>
 
       <div id="histogram-title">
-        10% of files with highest match-length
+        Distribution of the top 10% of the files that have matches with the Inquiry Text
         <vaadin-dialog
           id="info-histogram"
           aria-label="simple"
@@ -136,8 +136,7 @@ export class GraphView extends LitElement {
           @opened-changed="${this.setIsDialogOpen}"
         >
           <template>
-            The top 10% of the files are displayed in order of match-length as
-            displayed on the x-axis.
+            The distribution of the top 10% of the files that have matches with the Inquiry Text is displayed based on the accumulated length of the approximate matches.         
           </template>
         </vaadin-dialog>
         <vaadin-button class="info-button" @click="${this.openDialog}">
