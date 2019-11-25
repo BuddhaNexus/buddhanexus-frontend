@@ -1,16 +1,15 @@
 # Buddhanexus project
 
-This site is under development. Please check the development branch for latest.
+This site is under development.
 This works together with the buddhanexus backend repository.
-In the future we plan to move these repositories to a dedicated organisational GitHub.
 
 # Buddhanexus Segment Parallels Tables
 
-This is site for Pali, Sanskrit and Tibetan segment parallels using SIF-weighted averages of word vectors.
+This is site for Pali, Sanskrit, Tibetan and Chinese segment parallels using SIF-weighted averages of word vectors.
 More details here:
 https://github.com/sebastian-nehrdich/gretil-quotations
 
-This is an ongoing and not finished project. Sutta files have been removed from this repro due to their size but will be uploaded once they are all finished.
+This is an ongoing and not finished project. Sutta files have been removed from this repro due to their size.
 
 After downloading the repro, unzip and run:
 

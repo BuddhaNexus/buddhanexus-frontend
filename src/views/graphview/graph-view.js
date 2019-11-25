@@ -6,6 +6,7 @@ import '@google-web-components/google-chart/google-chart.js';
 import { getDataForGraph } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
+import styles from './graph-view.styles';
 
 const GraphViewInfoModalContent = () => html`
   <div>
@@ -28,15 +29,16 @@ export class GraphView extends LitElement {
   @property({ type: String }) graphHeight;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
+  @property({ type: Boolean }) isDialogOpen = false;
 
   static get styles() {
-    return [sharedDataViewStyles];
+    return [styles, sharedDataViewStyles];
   }
 
   async firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
     this.graphHeight =
-      window.innerHeight < 700 ? window.innerHeight * 0.85 + 'px' : '600px';
+      window.innerHeight < 700 ? window.innerHeight * 0.8 + 'px' : '500px';
     await this.fetchData();
   }
 
@@ -83,6 +85,11 @@ export class GraphView extends LitElement {
     this.fetchLoading = false;
   }
 
+  // TODO: refactor the header for the histogram into it's own element.
+  openDialog = () => (this.isDialogOpen = true);
+
+  setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
+
   render() {
     if (this.fetchLoading) {
       return html`
@@ -101,10 +108,8 @@ export class GraphView extends LitElement {
         .fileName="${this.fileName}"
         .infoModalContent="${GraphViewInfoModalContent()}"
       ></data-view-header>
-      <div
-        class="pie-wrapper"
-        style="height: ${this.graphHeight}; margin-bottom: 24px"
-      >
+
+      <div id="pie-wrapper" style="height: ${this.graphHeight}">
         <google-chart
           id="pie-chart"
           type="pie"
@@ -115,13 +120,31 @@ export class GraphView extends LitElement {
           .rows="${this.pieGraphData}"
           .options="${{
             width: window.innerWidth < 1000 ? window.innerWidth : 1000,
-            height: window.innerHeight < 700 ? window.innerHeight : 700,
-            chartArea: { left: 0, top: 0, width: '85%', height: '85%' },
+            height: window.innerHeight < 700 ? window.innerHeight * 0.7 : 500,
+            chartArea: { left: 0, top: 0, width: '100%', height: '100%' },
           }}"
         >
         </google-chart>
       </div>
-      <div class="histogram-wrapper" style="height: ${this.graphHeight}">
+
+      <div id="histogram-title">
+        Distribution of the top 10% of the files that have matches with the Inquiry Text
+        <vaadin-dialog
+          id="info-histogram"
+          aria-label="simple"
+          .opened="${this.isDialogOpen}"
+          @opened-changed="${this.setIsDialogOpen}"
+        >
+          <template>
+            The distribution of the top 10% of the files that have matches with the Inquiry Text is displayed based on the accumulated length of the approximate matches.         
+          </template>
+        </vaadin-dialog>
+        <vaadin-button class="info-button" @click="${this.openDialog}">
+          <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
+        </vaadin-button>
+      </div>
+
+      <div id="histogram-wrapper" style="height: ${this.graphHeight}">
         <google-chart
           id="histogram-chart"
           type="histogram"
@@ -131,12 +154,13 @@ export class GraphView extends LitElement {
           ]}"
           .rows="${this.histogramGraphData}"
           .options="${{
-            title: '10% of files with highest match-length',
-            legend: { position: 'none' },
-            histogram: { lastBucketPercentile: 10 },
+            maxNumBuckets: 10,
             width: window.innerWidth < 1000 ? window.innerWidth : 1000,
-            height: window.innerHeight < 700 ? window.innerHeight : 700,
-            chartArea: { left: 0, top: 0, width: '85%', height: '75%' },
+            height:
+              window.innerHeight < 700
+                ? window.innerHeight * 0.7
+                : window.innerHeight * 0.85,
+            chartArea: { left: 0, top: 0, width: '100%', height: '90%' },
           }}"
         >
         </google-chart>
