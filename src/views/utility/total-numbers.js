@@ -51,7 +51,7 @@ export class totalNumbers extends LitElement {
     const numbersCount =
       this.parallelCount > 10000 ? `More than 10.000` : this.parallelCount;
     this.totalNumbersText = html`
-      ${numbersCount} approximate matches (number of quotes) have been found for
+      ${numbersCount} approximate matches have been found for
       ${fileNameForDisplay} with the current filters
     `;
   }

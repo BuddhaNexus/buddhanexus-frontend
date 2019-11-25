@@ -10,13 +10,9 @@ export class VisualView extends LitElement {
   @property({ type: String }) searchItem;
   @property({ type: Array }) selectedCollections;
 
-  async firstUpdated(_changedProperties) {
-    super.firstUpdated(_changedProperties);
-  }
-
   setSelection = (searchItem, selectedCollections) => {
-    (this.searchItem = searchItem),
-      (this.selectedCollections = selectedCollections);
+    this.searchItem = searchItem;
+    this.selectedCollections = selectedCollections;
   };
 
   render() {
@@ -29,6 +25,7 @@ export class VisualView extends LitElement {
         <visual-view-graph
           .searchItem="${this.searchItem}"
           .selectedCollections="${this.selectedCollections}"
+          .setSelection="${this.setSelection}"
         >
         </visual-view-graph>
       </div>
