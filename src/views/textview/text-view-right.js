@@ -207,22 +207,20 @@ export class TextViewRight extends LitElement {
       );
     }
   }
-
   render() {
-    if (this.fetchLoading && this.rightFileName) {
-      return html`
-        <bn-loading-spinner marginAdjust="-340px"></bn-loading-spinner>
-      `;
-    }
-
     console.log('rendering text-view right');
     return html`
+      ${this.fetchLoading && this.rightFileName
+        ? html`
+            <bn-loading-spinner marginAdjust="-300px"></bn-loading-spinner>
+          `
+        : null}
       ${TextViewLayoutRight(
         this.textRight,
         this.parallels,
         this.displayParallels,
         this.rightTextData
-      )}
+      )};
     `;
   }
 }
