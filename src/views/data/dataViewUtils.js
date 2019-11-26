@@ -10,13 +10,17 @@ export const updateFileParamInBrowserLocation = (
   } else {
     const pathParams = location.href.split('/');
     const urlWithoutLastParam = pathParams
-      .splice(0, pathParams.length - 2)
+      .splice(0, pathParams.length - 1)
       .join('/');
-    history.replaceState(
-      {},
-      null,
-      `${urlWithoutLastParam}/${fileName}/${activeSegment}`
-    );
+    if (activeSegment) {
+      history.replaceState(
+        {},
+        null,
+        `${urlWithoutLastParam}/${fileName}/${activeSegment}`
+      );
+    } else {
+      history.replaceState({}, null, `${urlWithoutLastParam}/${fileName}`);
+    }
   }
 };
 
