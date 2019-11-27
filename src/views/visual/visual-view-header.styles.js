@@ -14,9 +14,6 @@ export default css`
 
   #visual-back-button {
     display: inline-flex;
-    background-color: #0031ca;
-    color: white;
-    font-weight: bold;
     height: 32px;
     background-color: white;
     cursor: pointer;

@@ -12,6 +12,13 @@ import styles from './visual-view-header.styles';
 @customElement('visual-view-header')
 export class VisualViewHeader extends LitElement {
   @property({ type: String }) searchItem = '';
+  @property({ type: Array }) languages = [
+    { language: 'tib', label: 'Tibetan' },
+    { language: 'pli', label: 'Pali' },
+    { language: 'skt', label: 'Sanskrit' },
+    { language: 'chn', label: 'Chinese' },
+  ];
+  @property({ type: String }) activeLanguage;
   @property({ type: Array }) collectionData;
   @property({ type: Array }) targetCollectionData;
   @property({ type: Array }) selectedCollections = [];
@@ -74,60 +81,92 @@ export class VisualViewHeader extends LitElement {
     this.searchItem = e.target.value;
     this.selectedCollections = [];
   }
+  handleLanguageChanged(e) {
+    this.activeLanguage = e.target.value;
+  }
 
   returnToMainCollection() {
     if (this.searchItem && this.selectedCollections.length > 0) {
       this.setSelection(this.searchItem, this.selectedCollections);
     }
   }
-
+  limitCollectionData(collection) {
+    let resultCollection = collection.map(entry => {
+      if (entry.collectionlanguage == this.activeLanguage) {
+        return entry;
+      }
+    });
+    return resultCollection;
+  }
   render() {
     return html`
       <p class="explanation-text">
-        Select the main source and target collections.<br />Click on any
-        collection on the left side in the chart to open it.
+        Select the language, Inquiry and Hit Collections.<br />Click on any
+        collection on the left side in the chart to open it. More than one Hit
+        Collection can be selected.
       </p>
       <div class="selection-box">
         <vaadin-combo-box
           id="visual-view-dropdown"
-          label="Source Collection"
-          item-label-path="collectionname"
-          item-value-path="collectionkey"
-          selected-item="${this.searchItem}"
-          @value-changed="${this.handleCollectionChanged}"
-          .items="${this.collectionData}"
+          label="Select Language"
+          item-label-path="label"
+          item-value-path="language"
+          @value-changed="${this.handleLanguageChanged}"
+          .items="${this.languages}"
         >
           <template>
             <strong style="display: inline; margin-bottom: 4px;"
-              >[[item.collectionname]]</strong
+              >[[item.label]]</strong
             >
             <small style="display: inline;">[[item.collectionlanguage]]</small>
           </template>
         </vaadin-combo-box>
-
-        ${this.searchItem
+        ${this.activeLanguage
           ? html`
-              <vaadin-button
-                theme="contrast primary small"
-                id="visual-back-button"
-                @click="${this.returnToMainCollection}"
-                title="Return to main source collection"
+              <vaadin-combo-box
+                id="visual-view-dropdown"
+                label="Inquiry Collection"
+                item-label-path="collectionname"
+                item-value-path="collectionkey"
+                selected-item="${this.searchItem}"
+                @value-changed="${this.handleCollectionChanged}"
+                .items="${this.limitCollectionData(this.collectionData)}"
               >
-                <iron-icon
-                  id="visual-back-icon"
-                  icon="vaadin:arrow-circle-left-o"
-                  slot="prefix"
-                ></iron-icon>
-              </vaadin-button>
+                <template>
+                  <strong style="display: inline; margin-bottom: 4px;"
+                    >[[item.collectionname]]</strong
+                  >
+                  <small style="display: inline;"
+                    >[[item.collectionlanguage]]</small
+                  >
+                </template>
+              </vaadin-combo-box>
+              ${this.searchItem
+                ? html`
               <multiselect-combo-box
-                Label="Target Collections:"
+                Label="Hit Collections"
                 id="target-visual-view-dropdown"
                 item-label-path="collectionname"
                 @selected-items-changed="${this.handleTargetCollectionChanged}"
                 .items="${this.targetCollectionData}"
                 item-value-path="collectionkey"
               >
-              </multiselect-combo-box>
+          </multiselect-combo-box>
+	                <vaadin-button
+                theme="contrast primary small"
+                id="visual-back-button"
+                @click="${this.returnToMainCollection}"
+                title="Return to main source collection"
+              >
+              <vaadin-button
+                theme="contrast primary small"
+                id="visual-back-button"
+                @click="${this.returnToMainCollection}"
+                title="Return to main source collection"
+              >Go back to top level
+              </vaadin-button>
+            `
+                : null}
             `
           : null}
       </div>
