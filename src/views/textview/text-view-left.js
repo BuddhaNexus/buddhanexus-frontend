@@ -34,14 +34,15 @@ export class TextViewLeft extends LitElement {
 
   // TODO: see if this might be better done in connectedCallback to avoid extra render
   firstUpdated() {
-    if (!this.leftTextData) {
-      if (this.leftActiveSegment == undefined) {
-        this.leftActiveSegment = 'none';
-      } else {
-        this.leftTextData = { selectedParallels: [this.leftActiveSegment] };
-      }
-      this.fetchDataText();
+    if (this.leftTextData) {
+      return;
     }
+    if (this.leftActiveSegment == undefined) {
+      this.leftActiveSegment = 'none';
+    } else {
+      this.leftTextData = { selectedParallels: [this.leftActiveSegment] };
+    }
+    this.fetchDataText();
   }
 
   // TODO - needs refactoring
@@ -99,11 +100,7 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
-    if (textleft.length != 200) {
-      this.endOfLeftTextFlag = true;
-    } else {
-      this.endOfLeftTextFlag = false;
-    }
+    this.endOfLeftTextFlag = textleft.length != 200 ? true : false;
     this.textLeft = this.textLeft.concat(textleft);
     this.textLeft = removeDuplicates(this.textLeft, 'segnr');
     this.textLeftBySegNr = {};
