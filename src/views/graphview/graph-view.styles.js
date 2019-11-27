@@ -18,12 +18,7 @@ export default css`
     margin-left: 12px;
     background-color: white;
     cursor: pointer;
-  }
-
-  vaadin-button {
-    background-color: #0031ca;
     color: rgba(0, 0, 0, 0.54);
     font-weight: bold;
-    height: 32px;
   }
 `;

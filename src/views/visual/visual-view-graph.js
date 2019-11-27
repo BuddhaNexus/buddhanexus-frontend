@@ -129,7 +129,10 @@ export class VisualViewGraph extends LitElement {
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
     this.pageSize = this.language === 'pli' ? 50 : 100;
-    const searchTerm = this.searchItem.split('_')[1];
+    let searchTerm = this.searchItem;
+    searchTerm = !searchTerm.includes('acip')
+      ? searchTerm.split('_')[1]
+      : searchTerm.replace('tib_', '');
     console.log('visual view: fetching data', this.searchItem);
     const { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
@@ -157,7 +160,7 @@ export class VisualViewGraph extends LitElement {
     if (this.graphData[this.currentPage].length > 400) {
       this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
     }
-    if (rightPageSize / leftPageSize < 0.2) {
+    if (this.language === 'pli' && rightPageSize / leftPageSize < 0.2) {
       this.chartHeight = this.graphData[this.currentPage].length * 4 + 'px';
     }
   }
