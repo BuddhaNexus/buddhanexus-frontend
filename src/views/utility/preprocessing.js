@@ -62,31 +62,24 @@ export const highlightTextByOffset = (
   return returnArray;
 };
 
-const hsl_col_perc = (percent, start, end) => {
-  var a = percent / 100,
-    b = (end - start) * a,
-    c = b + start;
-  // Return a CSS HSL string
-  /*
-    Quick ref:
-    0 – red
-    60 – yellow
-    120 – green
-    180 – turquoise
-    240 – blue
-    300 – pink
-    360 – red
-    */
-  return 'hsl(' + c + ', 100%, 50%)';
-};
-
-// TODO this function is not yet revised or tested to work with the new refactored code.
 const getCooccuranceColor = cooc => {
-  if (cooc > 5) {
-    cooc = 5;
+  const colorTable = {
+    1: '#0CC0E8',
+    2: '#610CE8',
+    3: '#610CE8',
+    4: '#AA00FF',
+    5: '#DC0CE8',
+    6: '#FF0093',
+    7: '#E80C0C',
+    8: '#FF2A00',
+    9: '#E8550C',
+    10: '#FF860D',
+  };
+  if (cooc < 10) {
+    return colorTable[cooc];
+  } else {
+    return colorTable[10];
   }
-  let percent = cooc * 20;
-  return hsl_col_perc(percent, 170, 360);
 };
 
 export const segmentArrayToString = segmentArray => {
