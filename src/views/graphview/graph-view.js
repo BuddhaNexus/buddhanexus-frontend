@@ -75,7 +75,7 @@ export class GraphView extends LitElement {
       target_collection: this.targetCollection,
     });
     let histogramdata = [];
-    for (let i = 0; i < histogramgraphdata.length * 0.1; i++) {
+    for (let i = 0; i < Math.min(50, histogramgraphdata.length); i++) {
       histogramdata.push(histogramgraphdata[i]);
     }
     this.histogramGraphData = histogramdata;
@@ -128,7 +128,7 @@ export class GraphView extends LitElement {
       </div>
 
       <div id="histogram-title">
-        Distribution of the top 10% of the files that have matches with the Inquiry Text
+        Distribution of the top files that have matches with the Inquiry Text
         <vaadin-dialog
           id="info-histogram"
           aria-label="simple"
@@ -136,7 +136,10 @@ export class GraphView extends LitElement {
           @opened-changed="${this.setIsDialogOpen}"
         >
           <template>
-            The distribution of the top 10% of the files that have matches with the Inquiry Text is displayed based on the accumulated length of the approximate matches.         
+            The distribution of the top files that have matches with the Inquiry
+            Text is displayed based on the accumulated length of the approximate
+            matches.<br />
+            The top files to a maximum of 50 are shown.
           </template>
         </vaadin-dialog>
         <vaadin-button class="info-button" @click="${this.openDialog}">
