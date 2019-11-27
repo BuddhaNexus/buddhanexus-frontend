@@ -36,6 +36,7 @@ export class TableViewTable extends LitElement {
 
     return parSegLabel;
   };
+
   createUrl = segmentNr => {
     let lang = getLanguageFromFilename(segmentNr);
     let textName = segmentNr.split(':')[0];

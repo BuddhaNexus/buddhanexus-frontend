@@ -69,4 +69,9 @@ export default css`
     margin-top: 4px;
     margin-bottom: 4px;
   }
+
+  .open-link-icon {
+    float: right;
+    width: 18px;
+  }
 `;
