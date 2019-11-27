@@ -20,7 +20,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: Object }) leftTextData;
   @property({ type: Number }) score;
   @property({ type: String }) leftActiveSegment;
-
+  @property({ type: String }) endOfLeftTextFlag = false;
   @property({ type: Array }) textLeft = [];
   @property({ type: Object }) parallels = {};
   @property({ type: String }) noScrolling = true;
@@ -34,6 +34,9 @@ export class TextViewLeft extends LitElement {
 
   // TODO: see if this might be better done in connectedCallback to avoid extra render
   firstUpdated() {
+    if (this.leftTextData) {
+      return;
+    }
     if (this.leftActiveSegment == undefined) {
       this.leftActiveSegment = 'none';
     } else {
@@ -97,6 +100,7 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
+    this.endOfLeftTextFlag = textleft.length != 200 ? true : false;
     this.textLeft = this.textLeft.concat(textleft);
     this.textLeft = removeDuplicates(this.textLeft, 'segnr');
     this.textLeftBySegNr = {};
@@ -171,11 +175,13 @@ export class TextViewLeft extends LitElement {
 
     let targets = this.shadowRoot.querySelectorAll('.left-segment');
     for (let i = 0; i <= targets.length; i++) {
-      if (targets[i] && i > targets.length - 50) {
-        // add observer to the last 10 left-segments
-        observer.observe(targets[i]);
-      } else if (targets[i]) {
-        observer.unobserve(targets[i]);
+      if (!this.endOfLeftTextFlag) {
+        if (targets[i] && i > targets.length - 50) {
+          // add observer to the last 10 left-segments
+          observer.observe(targets[i]);
+        } else if (targets[i]) {
+          observer.unobserve(targets[i]);
+        }
       }
     }
   }
