@@ -75,11 +75,7 @@ const getCooccuranceColor = cooc => {
     9: '#E8550C',
     10: '#FF860D',
   };
-  if (cooc < 10) {
-    return colorTable[cooc];
-  } else {
-    return colorTable[10];
-  }
+  return cooc < 10 ? colorTable[cooc] : colorTable[10];
 };
 
 export const segmentArrayToString = segmentArray => {
@@ -157,7 +153,6 @@ export function tokenizeWords(
       words = preprocessTibetan(inputData);
     }
   }
-
   return words;
 }
 
@@ -176,6 +171,9 @@ export function replaceSegmentForDisplay(segment, lang) {
 
 export function replaceFileNameForDisplay(fileName) {
   const lang = getLanguageFromFilename(fileName);
+  if (!window.menuData) {
+    return;
+  }
   if (window.menuData[lang] && window.menuData[lang][fileName]) {
     let displayName = window.menuData[lang][fileName];
     return html`

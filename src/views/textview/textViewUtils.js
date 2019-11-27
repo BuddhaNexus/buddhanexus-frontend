@@ -80,10 +80,6 @@ export const highlightActiveMainElement = (
       colourValues.push(0);
     }
   }
-  console.log(rootSegnr);
-  console.log(selectedNumbers);
-  console.log(startoffset);
-  console.log(endoffset);
   // only on the right side will we add a colour value; on the left side, this shall remain 0.
   if (!rightMode) {
     return colourValues.map(colour => colour - 1);
@@ -98,10 +94,8 @@ export const highlightActiveMainElement = (
     ) {
       colourValues[i] = 1;
     }
-    if (
-      rootSegnr == selectedNumbers.slice(-1)[0] &&
-      position > endoffset - 1 // danger: this _might_ be bad in the case of chinese; debug this carefully.
-    ) {
+    // danger: postion > endoffset -1 _might_ be bad in the case of chinese; debug this carefully.
+    if (rootSegnr == selectedNumbers.slice(-1)[0] && position > endoffset - 1) {
       colourValues[i] = 0;
     }
   }

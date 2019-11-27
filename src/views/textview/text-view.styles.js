@@ -7,6 +7,7 @@ export default css`
 
   .top-level-split {
     height: calc(100vh - 140px);
+    margin-bottom: 24px;
   }
 
   .selected-segment {

@@ -221,7 +221,7 @@ export class TextViewRight extends LitElement {
         this.parallels,
         this.displayParallels,
         this.rightTextData
-      )};
+      )}
     `;
   }
 }
@@ -267,6 +267,9 @@ const rightSegmentContainer = (
   clickFunction,
   rightTextData
 ) => {
+  if (!segmentNr) {
+    return null;
+  }
   let colorValues = [];
   let rightSideHighlight = 0;
   if (rightTextData.selectedParallels.indexOf(segmentNr) > -1) {
