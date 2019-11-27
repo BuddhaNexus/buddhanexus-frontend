@@ -15,7 +15,7 @@ export class VisualViewHeader extends LitElement {
   @property({ type: Array }) languages = [
     { language: 'tib', label: 'Tibetan' },
     { language: 'pli', label: 'Pali' },
-    { language: 'skt', label: 'Sanskrit' },
+    // { language: 'skt', label: 'Sanskrit' },
     { language: 'chn', label: 'Chinese' },
   ];
   @property({ type: String }) activeLanguage;
@@ -61,12 +61,7 @@ export class VisualViewHeader extends LitElement {
     console.log('visual chart menu: fetching data');
 
     const { result, error } = await getCollectionsForVisual();
-
-    // This is a temporary hack to take out sanskrit data collections.
-    const filteredResults = result.filter(
-      entry => entry.collectionlanguage !== 'skt'
-    );
-    this.collectionData = filteredResults;
+    this.collectionData = result;
     this.fetchError = error;
   }
 
@@ -81,6 +76,7 @@ export class VisualViewHeader extends LitElement {
     this.searchItem = e.target.value;
     this.selectedCollections = [];
   }
+
   handleLanguageChanged(e) {
     this.activeLanguage = e.target.value;
   }
@@ -90,6 +86,7 @@ export class VisualViewHeader extends LitElement {
       this.setSelection(this.searchItem, this.selectedCollections);
     }
   }
+
   limitCollectionData(collection) {
     let resultCollection = collection.map(entry => {
       if (entry.collectionlanguage == this.activeLanguage) {
@@ -98,6 +95,7 @@ export class VisualViewHeader extends LitElement {
     });
     return resultCollection;
   }
+
   render() {
     return html`
       <p class="explanation-text">
@@ -143,29 +141,24 @@ export class VisualViewHeader extends LitElement {
               </vaadin-combo-box>
               ${this.searchItem
                 ? html`
-              <multiselect-combo-box
-                Label="Hit Collections"
-                id="target-visual-view-dropdown"
-                item-label-path="collectionname"
-                @selected-items-changed="${this.handleTargetCollectionChanged}"
-                .items="${this.targetCollectionData}"
-                item-value-path="collectionkey"
-              >
-          </multiselect-combo-box>
-	                <vaadin-button
-                theme="contrast primary small"
-                id="visual-back-button"
-                @click="${this.returnToMainCollection}"
-                title="Return to main source collection"
-              >
-              <vaadin-button
-                theme="contrast primary small"
-                id="visual-back-button"
-                @click="${this.returnToMainCollection}"
-                title="Return to main source collection"
-              >Go back to top level
-              </vaadin-button>
-            `
+                    <multiselect-combo-box
+                      Label="Hit Collections"
+                      id="target-visual-view-dropdown"
+                      item-label-path="collectionname"
+                      @selected-items-changed="${this
+                        .handleTargetCollectionChanged}"
+                      .items="${this.targetCollectionData}"
+                      item-value-path="collectionkey"
+                    >
+                    </multiselect-combo-box>
+                    <vaadin-button
+                      theme="contrast primary small"
+                      id="visual-back-button"
+                      @click="${this.returnToMainCollection}"
+                      name="Return to top level"
+                      >Go back to top level
+                    </vaadin-button>
+                  `
                 : null}
             `
           : null}

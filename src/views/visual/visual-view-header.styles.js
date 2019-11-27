@@ -33,4 +33,18 @@ export default css`
   p.explanation-text {
     text-align: center;
   }
+
+  #visual-back-button[name]:hover:after {
+    content: attr(name);
+    background-color: #002080;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px #888888;
+    color: white;
+    opacity: 0.9;
+    font-size: 14px;
+    padding: 4px 8px;
+    position: absolute;
+    z-index: 99;
+    font-weight: bold;
+  }
 `;
