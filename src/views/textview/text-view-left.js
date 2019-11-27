@@ -46,6 +46,7 @@ export class TextViewLeft extends LitElement {
 
   // TODO - needs refactoring
   updated(_changedProperties) {
+    console.log('updated text-view-left properties.', _changedProperties);
     this.scrollLeftText();
     if (this.leftActiveSegment == undefined) {
       this.leftActiveSegment = 'none';
