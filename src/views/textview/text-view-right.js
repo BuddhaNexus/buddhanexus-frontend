@@ -270,6 +270,7 @@ const rightSegmentContainer = (
   let colorValues = [];
   let rightSideHighlight = 0;
   if (rightTextData.selectedParallels.indexOf(segmentNr) > -1) {
+    console.log('RIGHTTEXTDATA', rightTextData);
     rightSideHighlight = 1;
     colorValues = highlightActiveMainElement(
       segText,
@@ -279,6 +280,7 @@ const rightSegmentContainer = (
       rightTextData.endoffset,
       true
     );
+    console.log('COLORVALUES', colorValues);
   } else if (current_parallels[0]) {
     colorValues = findColorValues(segText, segmentNr, current_parallels);
   }

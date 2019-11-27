@@ -54,7 +54,6 @@ export class TextViewLeft extends LitElement {
 
     _changedProperties.forEach((oldValue, propName) => {
       if (['fileName'].includes(propName)) {
-        console.log('CHANGED', _changedProperties);
         this.textLeft = [];
         this.parallels = {};
         this.leftActiveSegment = 'none';
