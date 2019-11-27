@@ -103,7 +103,10 @@ export class DataView extends LitElement {
   setSortMethod = e => (this.sortMethod = e.target.value);
 
   setLimitCollection = limitCollection => {
-    this.limitCollection = limitCollection;
+    // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
+    if (this.limitCollection.toString() !== limitCollection.toString()) {
+      this.limitCollection = limitCollection;
+    }
     if (this.fileName) {
       this.applyFilter();
     }
