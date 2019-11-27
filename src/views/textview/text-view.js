@@ -186,6 +186,7 @@ export class TextView extends LitElement {
         endoffset: endoffset,
       };
     } else {
+      this.fileName = selectedParallels[0].replace(/:.*/, '');
       this.leftTextData = { selectedParallels, startoffset, endoffset };
     }
   }

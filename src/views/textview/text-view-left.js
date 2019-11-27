@@ -54,25 +54,26 @@ export class TextViewLeft extends LitElement {
 
     _changedProperties.forEach((oldValue, propName) => {
       if (['fileName'].includes(propName)) {
-        this.leftActiveSegment = 'none';
-        this.parallels = {};
+        console.log('CHANGED', _changedProperties);
         this.textLeft = [];
+        this.parallels = {};
+        this.leftActiveSegment = 'none';
+        // there is a very tricky race condition when moving from the right-side display to the left side, since both leftTextdata and fileName get updated; in order to avoid strange bugs in the display of the leftside text, we need to catch this:
+        if (!_changedProperties.has('leftTextData')) {
+          this.fetchDataText();
+        }
       }
     });
     _changedProperties.forEach((oldValue, propName) => {
       if (['leftTextData'].includes(propName)) {
         this.noScrolling = false;
-        this.leftActiveSegment = this.leftTextData.selectedParallels[0];
         this.parallels = {};
         this.textLeft = [];
+        this.leftActiveSegment = this.leftTextData.selectedParallels[0];
         this.fetchDataText();
-      }
-      if (['textLeft'].includes(propName)) {
-        this.addSegmentObservers();
       }
       if (
         [
-          'fileName',
           'leftActiveSegment',
           'score',
           'cooccurance',
@@ -82,6 +83,10 @@ export class TextViewLeft extends LitElement {
         !this.fetchLoading
       ) {
         this.fetchDataText();
+      }
+
+      if (['textLeft'].includes(propName)) {
+        this.addSegmentObservers();
       }
     });
   }
