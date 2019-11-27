@@ -129,7 +129,12 @@ export class VisualViewGraph extends LitElement {
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
     this.pageSize = this.language === 'pli' ? 50 : 100;
-    const searchTerm = this.searchItem.split('_')[1];
+    let searchTerm = this.searchItem;
+    if (!searchTerm.includes('acip')) {
+      searchTerm = searchTerm.split('_')[1];
+    } else {
+      searchTerm = searchTerm.replace('tib_', '');
+    }
     console.log('visual view: fetching data', this.searchItem);
     const { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
