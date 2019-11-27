@@ -3,48 +3,48 @@ import { css } from 'lit-element';
 export default css`
   .selection-box {
     display: flex;
-    align-items: baseline;
-    margin-left: 12px;
+    flex-direction: column;
+    margin: 16px 16px 0 16px;
   }
 
-  #visual-view-dropdown {
+  .visual-view-options-card {
+    padding: 12px 24px 24px 24px;
+    background-color: var(--color-light-grey);
+    border-radius: 4px;
+    box-shadow: var(--material-card-shadow);
+  }
+
+  vaadin-combo-box {
     display: flex-start;
-    margin: 0 24px;
+    margin: 0 12px;
   }
 
   #visual-back-button {
     display: inline-flex;
     height: 32px;
-    background-color: white;
     cursor: pointer;
+    color: #0031ca;
+    font-weight: bold;
+    margin-left: 12px;
   }
 
   #visual-back-icon {
     color: #0031ca;
-    margin: 0px;
+    margin-left: 0px;
   }
 
   #target-visual-view-dropdown {
     display: flex-end;
-    margin: 0 24px;
+    margin: 0 12px;
     width: 400px;
   }
 
-  p.explanation-text {
-    text-align: center;
-  }
-
-  #visual-back-button[name]:hover:after {
-    content: attr(name);
-    background-color: #002080;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px #888888;
-    color: white;
-    opacity: 0.9;
-    font-size: 14px;
-    padding: 4px 8px;
-    position: absolute;
-    z-index: 99;
+  .info-button {
+    padding: 0;
+    min-width: 24px;
+    height: 24px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.54);
     font-weight: bold;
   }
 `;

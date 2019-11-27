@@ -4,6 +4,7 @@ import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-icons/vaadin-icons';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
+import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 
 import { getCollectionsForVisual } from '../menus/actions';
 
@@ -23,6 +24,7 @@ export class VisualViewHeader extends LitElement {
   @property({ type: Array }) targetCollectionData;
   @property({ type: Array }) selectedCollections = [];
   @property({ type: Function }) setSelection;
+  @property({ type: Boolean }) isDialogOpen;
   @property({ type: String }) fetchError;
 
   static get styles() {
@@ -37,7 +39,7 @@ export class VisualViewHeader extends LitElement {
   updated(_changedProperties) {
     console.log('visual header properties updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
-      if (['searchItem'].includes(propName)) {
+      if (propName === 'searchItem') {
         this.setTargetCollectionData();
       }
     });
@@ -96,72 +98,107 @@ export class VisualViewHeader extends LitElement {
     return resultCollection;
   }
 
+  // TODO: Move info the dialog to a separate element. Also in graph view.
+  openDialog = () => (this.isDialogOpen = true);
+
+  setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
+
   render() {
     return html`
-      <p class="explanation-text">
-        Select the language, Inquiry and Hit Collections.<br />Click on any
-        collection on the left side in the chart to open it. More than one Hit
-        Collection can be selected.
-      </p>
       <div class="selection-box">
-        <vaadin-combo-box
-          id="visual-view-dropdown"
-          label="Select Language"
-          item-label-path="label"
-          item-value-path="language"
-          @value-changed="${this.handleLanguageChanged}"
-          .items="${this.languages}"
-        >
-          <template>
-            <strong style="display: inline; margin-bottom: 4px;"
-              >[[item.label]]</strong
-            >
-            <small style="display: inline;">[[item.collectionlanguage]]</small>
-          </template>
-        </vaadin-combo-box>
-        ${this.activeLanguage
-          ? html`
-              <vaadin-combo-box
-                id="visual-view-dropdown"
-                label="Inquiry Collection"
-                item-label-path="collectionname"
-                item-value-path="collectionkey"
-                selected-item="${this.searchItem}"
-                @value-changed="${this.handleCollectionChanged}"
-                .items="${this.limitCollectionData(this.collectionData)}"
+        <div class="visual-view-options-card">
+          <vaadin-dialog
+            id="info-visual"
+            aria-label="simple"
+            .opened="${this.isDialogOpen}"
+            @opened-changed="${this.setIsDialogOpen}"
+          >
+            <template>
+              <strong
+                >Sankey graph of all matches of the available
+                collections.</strong
+              ><br /><br />
+              Select the language, Inquiry and Hit Collections.<br />Click on
+              any collection on the left side in the chart to open it. More than
+              one Hit Collection can be selected.
+            </template>
+          </vaadin-dialog>
+          <vaadin-button class="info-button" @click="${this.openDialog}">
+            <iron-icon
+              class="info-icon"
+              icon="vaadin:info-circle-o"
+            ></iron-icon>
+          </vaadin-button>
+
+          <vaadin-combo-box
+            id="visual-view-language-dropdown"
+            label="Select Language"
+            item-label-path="label"
+            item-value-path="language"
+            @value-changed="${this.handleLanguageChanged}"
+            .items="${this.languages}"
+          >
+            <template>
+              <strong style="display: inline; margin-bottom: 4px;"
+                >[[item.label]]</strong
               >
-                <template>
-                  <strong style="display: inline; margin-bottom: 4px;"
-                    >[[item.collectionname]]</strong
-                  >
-                  <small style="display: inline;"
-                    >[[item.collectionlanguage]]</small
-                  >
-                </template>
-              </vaadin-combo-box>
-              ${this.searchItem
-                ? html`
-                    <multiselect-combo-box
-                      Label="Hit Collections"
-                      id="target-visual-view-dropdown"
-                      item-label-path="collectionname"
-                      @selected-items-changed="${this
-                        .handleTargetCollectionChanged}"
-                      .items="${this.targetCollectionData}"
-                      item-value-path="collectionkey"
+              <small style="display: inline;"
+                >[[item.collectionlanguage]]</small
+              >
+            </template>
+          </vaadin-combo-box>
+
+          ${this.activeLanguage
+            ? html`
+                <vaadin-combo-box
+                  id="visual-view-collection-dropdown"
+                  label="Inquiry Collection"
+                  item-label-path="collectionname"
+                  item-value-path="collectionkey"
+                  selected-item="${this.searchItem}"
+                  @value-changed="${this.handleCollectionChanged}"
+                  .items="${this.limitCollectionData(this.collectionData)}"
+                >
+                  <template>
+                    <strong style="display: inline; margin-bottom: 4px;"
+                      >[[item.collectionname]]</strong
                     >
-                    </multiselect-combo-box>
-                    <vaadin-button
-                      theme="contrast primary small"
-                      id="visual-back-button"
-                      @click="${this.returnToMainCollection}"
-                      name="Return to top level"
-                      >Go back to top level
-                    </vaadin-button>
-                  `
-                : null}
-            `
-          : null}
+                    <small style="display: inline;"
+                      >[[item.collectionlanguage]]</small
+                    >
+                  </template>
+                </vaadin-combo-box>
+
+                ${this.searchItem
+                  ? html`
+                      <multiselect-combo-box
+                        Label="Hit Collections"
+                        id="target-visual-view-dropdown"
+                        item-label-path="collectionname"
+                        @selected-items-changed="${this
+                          .handleTargetCollectionChanged}"
+                        .items="${this.targetCollectionData}"
+                        item-value-path="collectionkey"
+                      >
+                      </multiselect-combo-box>
+                      <vaadin-button
+                        id="visual-back-button"
+                        theme="contrast primary small"
+                        @click="${this.returnToMainCollection}"
+                        title="Return to top level"
+                      >
+                        <iron-icon
+                          id="visual-back-icon"
+                          icon="vaadin:backwards"
+                          slot="prefix"
+                        ></iron-icon>
+                        Back
+                      </vaadin-button>
+                    `
+                  : null}
+              `
+            : null}
+        </div>
       </div>
     `;
   }

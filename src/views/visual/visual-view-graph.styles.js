@@ -13,8 +13,7 @@ export default css`
 
   #inner-pages {
     display: inline-block;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 12px;
   }
 
   .element {

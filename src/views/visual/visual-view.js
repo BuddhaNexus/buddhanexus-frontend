@@ -21,7 +21,7 @@ export class VisualView extends LitElement {
       <visual-view-header
         .setSelection="${this.setSelection}"
       ></visual-view-header>
-      <div class="graph-wrapper">
+      <div class="graph-wrapper" style="margin-bottom: 12px">
         <visual-view-graph
           .searchItem="${this.searchItem}"
           .selectedCollections="${this.selectedCollections}"
