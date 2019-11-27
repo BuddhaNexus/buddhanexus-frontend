@@ -41,6 +41,7 @@ export class TextViewRight extends LitElement {
 
   // TODO This will need some refactoring
   updated(_changedProperties) {
+    console.log('updated text-view-right properties', _changedProperties);
     this.scrollRightText();
     _changedProperties.forEach((oldValue, propName) => {
       if (['rightFileName'].includes(propName)) {
@@ -60,7 +61,8 @@ export class TextViewRight extends LitElement {
           'sortMethod',
           'quoteLength',
           'limitCollection',
-        ].includes(propName)
+        ].includes(propName) &&
+        !this.fetchLoading
       ) {
         this.fetchDataText();
       }
@@ -74,7 +76,6 @@ export class TextViewRight extends LitElement {
       if (['rightTextData'].includes(propName)) {
         this.noScrolling = false;
         this.activeSegment = this.rightTextData.selectedParallels[0];
-        this.fetchDataText();
       }
     });
   }
@@ -220,7 +221,7 @@ export class TextViewRight extends LitElement {
         this.parallels,
         this.displayParallels,
         this.rightTextData
-      )};
+      )}
     `;
   }
 }
@@ -266,6 +267,9 @@ const rightSegmentContainer = (
   clickFunction,
   rightTextData
 ) => {
+  if (!segmentNr) {
+    return null;
+  }
   let colorValues = [];
   let rightSideHighlight = 0;
   if (rightTextData.selectedParallels.indexOf(segmentNr) > -1) {

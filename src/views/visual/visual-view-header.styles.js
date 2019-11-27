@@ -46,5 +46,6 @@ export default css`
     cursor: pointer;
     color: rgba(0, 0, 0, 0.54);
     font-weight: bold;
+    background-color: #f4f3f2;
   }
 `;

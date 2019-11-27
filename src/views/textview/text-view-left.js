@@ -20,6 +20,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: Object }) leftTextData;
   @property({ type: Number }) score;
   @property({ type: String }) leftActiveSegment;
+
   @property({ type: String }) endOfLeftTextFlag = false;
   @property({ type: Array }) textLeft = [];
   @property({ type: Object }) parallels = {};
@@ -47,32 +48,36 @@ export class TextViewLeft extends LitElement {
 
   // TODO - needs refactoring
   updated(_changedProperties) {
+    console.log('updated text-view-left properties.', _changedProperties);
     this.scrollLeftText();
     if (this.leftActiveSegment == undefined) {
       this.leftActiveSegment = 'none';
     }
 
     _changedProperties.forEach((oldValue, propName) => {
-      if (['fileName'].includes(propName)) {
-        this.leftActiveSegment = 'none';
-        this.parallels = {};
+      if (propName === 'fileName') {
         this.textLeft = [];
+        this.parallels = {};
+        this.leftActiveSegment = 'none';
+        // there is a very tricky race condition when moving from the right-side
+        // display to the left side, since both leftTextdata and fileName get updated;
+        // in order to avoid strange bugs in the display of the leftside text,
+        // we need to catch this:
+        if (!_changedProperties.has('leftTextData')) {
+          this.fetchDataText();
+        }
       }
     });
     _changedProperties.forEach((oldValue, propName) => {
-      if (['leftTextData'].includes(propName)) {
+      if (propName === 'leftTextData') {
         this.noScrolling = false;
-        this.leftActiveSegment = this.leftTextData.selectedParallels[0];
         this.parallels = {};
         this.textLeft = [];
+        this.leftActiveSegment = this.leftTextData.selectedParallels[0];
         this.fetchDataText();
-      }
-      if (['textLeft'].includes(propName)) {
-        this.addSegmentObservers();
       }
       if (
         [
-          'fileName',
           'leftActiveSegment',
           'score',
           'cooccurance',
@@ -82,6 +87,10 @@ export class TextViewLeft extends LitElement {
         !this.fetchLoading
       ) {
         this.fetchDataText();
+      }
+
+      if (propName === 'textLeft') {
+        this.addSegmentObservers();
       }
     });
   }
