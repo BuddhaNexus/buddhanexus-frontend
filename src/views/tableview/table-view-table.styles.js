@@ -60,6 +60,9 @@ export default css`
     font-size: 18px;
     margin-top: 8px;
     margin-bottom: 8px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
   }
 
   .horizontal-divider {
