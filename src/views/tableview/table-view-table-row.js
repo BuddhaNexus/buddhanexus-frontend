@@ -13,11 +13,16 @@ export const TableViewTableRow = ({
   html`
     <div class="table-view-table__row">
       <div
-        onclick="window.open('${rootUrl}','_blank');"
         class="table-view-table__cell table-view-table__cell-segment material-card"
       >
         <header class="table-view-table__segment-id">
           ${rootSegmentId}
+          <iron-icon
+            class="open-link-icon"
+            icon="vaadin:external-browser"
+            title="Display this text in a new tab"
+            onclick="window.open('${rootUrl}','_blank');"
+          ></iron-icon>
         </header>
         <div class="horizontal-divider"></div>
         <div class="table-view-table__text">
@@ -25,7 +30,6 @@ export const TableViewTableRow = ({
         </div>
       </div>
       <div
-        onclick="window.open('${parUrl}','_blank');"
         class="table-view-table__cell table-view-table__cell-parallel material-card"
       >
         <header class="table-view-table__cell-header">
@@ -40,6 +44,12 @@ export const TableViewTableRow = ({
               >Length: <b>${parLength}</b></span
             >
           </div>
+          <iron-icon
+            class="open-link-icon"
+            icon="vaadin:external-browser"
+            title="Display this text in a new tab"
+            onclick="window.open('${parUrl}','_blank');"
+          ></iron-icon>
         </header>
         <div class="horizontal-divider"></div>
         <div class="table-view-table__text">
