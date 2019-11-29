@@ -7,6 +7,7 @@ export const TableViewTableRow = ({
   parallelSegmentId,
   score,
   parLength,
+  rootLength,
   rootUrl,
   parUrl,
 }) =>
@@ -15,8 +16,15 @@ export const TableViewTableRow = ({
       <div
         class="table-view-table__cell table-view-table__cell-segment material-card"
       >
-        <header class="table-view-table__segment-id">
-          ${rootSegmentId}
+        <header class="table-view-table__cell-header">
+          <span class="table-view-table__segment-id">
+            ${rootSegmentId}
+          </span>
+          <div class="table-view-table__parallel-details">
+            <span class="table-view-table__parallel-details-badge"
+              >Length: <b>${rootLength}</b></span
+            >
+          </div>
           <iron-icon
             class="open-link-icon"
             icon="vaadin:external-browser"

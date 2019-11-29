@@ -68,6 +68,7 @@ export class TableViewTable extends LitElement {
             parallelSegmentId: this.getParallelSegmentId(parallel),
             score: parallel.score,
             parLength: parallel.par_length,
+            rootLength: parallel.root_length,
             rootUrl: this.createUrl(parallel.root_segnr[0]),
             parUrl: this.createUrl(parallel.par_segnr[0]),
           })
