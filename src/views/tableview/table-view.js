@@ -3,6 +3,7 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 import { getTableViewData } from '../../api/actions';
 import '../data/data-view-header';
 import './table-view-table.js';
+import { getLanguageFromFilename } from '../utility/views-common';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 
@@ -23,6 +24,8 @@ export class TableView extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: String }) sortMethod;
   @property({ type: Array }) limitCollection;
+
+  @property({ type: String }) lang;
   @property({ type: Array }) parallelsData = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
@@ -44,12 +47,12 @@ export class TableView extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-
     await this.fetchData();
   }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
+    this.lang = getLanguageFromFilename(this.fileName);
     _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [
@@ -153,6 +156,7 @@ export class TableView extends LitElement {
         .cooccurance="${this.cooccurance}"
         .limitCollection="${this.limitCollection}"
         .fileName="${this.fileName}"
+        .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
       ></data-view-header>
       <table-view-table

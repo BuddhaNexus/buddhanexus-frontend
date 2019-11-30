@@ -2,6 +2,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 
 import { getSegmentsForFile } from '../../api/actions';
 import NumbersViewTable from './numbers-view-table';
+import { getLanguageFromFilename } from '../utility/views-common';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './numbers-view.styles';
@@ -22,6 +23,7 @@ export class NumbersView extends LitElement {
   @property({ type: Number }) score;
 
   @property({ type: Array }) segmentsData;
+  @property({ type: String }) lang;
   @property({ type: Array }) collectionsData;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
@@ -37,6 +39,7 @@ export class NumbersView extends LitElement {
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
+    this.lang = getLanguageFromFilename(this.fileName);
     console.log('numbers view updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (
@@ -93,6 +96,7 @@ export class NumbersView extends LitElement {
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
         .fileName="${this.fileName}"
+        .language="${this.lang}"
         .infoModalContent="${NumbersViewInfoModalContent()}"
       ></data-view-header>
       <div class="table-wrapper">

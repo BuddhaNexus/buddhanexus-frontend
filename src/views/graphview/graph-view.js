@@ -4,6 +4,7 @@ import '@google-web-components/google-chart/google-chart-loader.js';
 import '@google-web-components/google-chart/google-chart.js';
 
 import { getDataForGraph } from '../../api/actions';
+import { getLanguageFromFilename } from '../utility/views-common';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './graph-view.styles';
@@ -27,6 +28,7 @@ export class GraphView extends LitElement {
   @property({ type: Array }) pieGraphData;
   @property({ type: Array }) histogramGraphData;
   @property({ type: String }) graphHeight;
+  @property({ type: String }) lang;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: Boolean }) isDialogOpen = false;
@@ -39,6 +41,7 @@ export class GraphView extends LitElement {
     super.firstUpdated(_changedProperties);
     this.graphHeight =
       window.innerHeight < 700 ? window.innerHeight * 0.8 + 'px' : '500px';
+    this.lang = getLanguageFromFilename(this.fileName);
     await this.fetchData();
   }
 
@@ -106,6 +109,7 @@ export class GraphView extends LitElement {
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
         .fileName="${this.fileName}"
+        .language="${this.lang}"
         .infoModalContent="${GraphViewInfoModalContent()}"
       ></data-view-header>
 
