@@ -9,9 +9,11 @@ import sharedDataViewStyles from '../data/data-view-shared.styles';
 
 const TableViewInfoModalContent = () => html`
   <div>
-    Displays only the parallel numbers. It is possible to sort the parallels
-    according to their position in the main text, grouped by the text in which
-    they appear and by their length.
+    <p>
+      Displays only the parallel numbers. It is possible to sort the parallels
+      according to their position in the main text, grouped by the text in which
+      they appear and by their length.
+    </p>
   </div>
 `;
 

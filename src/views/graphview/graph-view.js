@@ -11,9 +11,11 @@ import styles from './graph-view.styles';
 
 const GraphViewInfoModalContent = () => html`
   <div>
-    Displays a pie-chart of the distribution across collections of all the
-    parallels found with current filters. <br />
-    The distribution is weighted by length of parallels found.
+    <p>
+      Displays a pie-chart of the distribution across collections of all the
+      parallels found with current filters.
+    </p>
+    <p>The distribution is weighted by length of parallels found.</p>
   </div>
 `;
 

@@ -9,8 +9,10 @@ import styles from './numbers-view.styles';
 
 const NumbersViewInfoModalContent = () => html`
   <div>
-    Displays potential parallels by numbers sorted by segment as they appear in
-    the text.
+    <p>
+      Displays potential parallels by numbers sorted by segment as they appear
+      in the text.
+    </p>
   </div>
 `;
 
