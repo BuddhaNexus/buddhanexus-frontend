@@ -3,14 +3,17 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 import { getTableViewData } from '../../api/actions';
 import '../data/data-view-header';
 import './table-view-table.js';
+import { getLanguageFromFilename } from '../utility/views-common';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 
 const TableViewInfoModalContent = () => html`
   <div>
-    Displays only the parallel numbers. It is possible to sort the parallels
-    according to their position in the main text, grouped by the text in which
-    they appear and by their length.
+    <p>
+      Displays only the parallel numbers. It is possible to sort the parallels
+      according to their position in the main text, grouped by the text in which
+      they appear and by their length.
+    </p>
   </div>
 `;
 
@@ -23,6 +26,8 @@ export class TableView extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: String }) sortMethod;
   @property({ type: Array }) limitCollection;
+
+  @property({ type: String }) lang;
   @property({ type: Array }) parallelsData = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
@@ -44,12 +49,12 @@ export class TableView extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-
     await this.fetchData();
   }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
+    this.lang = getLanguageFromFilename(this.fileName);
     _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [
@@ -153,6 +158,7 @@ export class TableView extends LitElement {
         .cooccurance="${this.cooccurance}"
         .limitCollection="${this.limitCollection}"
         .fileName="${this.fileName}"
+        .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
       ></data-view-header>
       <table-view-table

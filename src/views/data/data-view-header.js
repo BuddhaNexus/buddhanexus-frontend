@@ -15,6 +15,7 @@ class DataViewHeader extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: String }) infoModalContent;
+  @property({ type: String }) language;
 
   @property({ type: Boolean }) isDialogOpen = false;
 
@@ -75,6 +76,14 @@ class DataViewHeader extends LitElement {
         >
           <template>
             ${this.infoModalContent}
+            ${this.language === 'pli'
+              ? html`
+                  <p>
+                    <strong>NOTE</strong>: For technical reasons, the
+                    co-occurances for Pāḷi texts are limited to maximum 50.
+                  </p>
+                `
+              : ``}
           </template>
         </vaadin-dialog>
         <vaadin-button class="info-button" @click="${this.openDialog}">

@@ -217,6 +217,7 @@ export class TextView extends LitElement {
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
           .fileName="${this.fileName}"
+          .language="${this.lang}"
           .infoModalContent="${TextViewInfoModalContent()}"
         ></data-view-header>
         <table class="text-view-table">
