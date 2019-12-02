@@ -65,7 +65,7 @@ export const highlightTextByOffset = (
 const getCooccuranceColor = cooc => {
   const colorTable = {
     1: '#0CC0E8',
-    2: '#610CE8',
+    2: '#0039FF',
     3: '#610CE8',
     4: '#AA00FF',
     5: '#DC0CE8',

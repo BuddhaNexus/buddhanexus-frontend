@@ -15,14 +15,65 @@ import styles from './text-view.styles';
 const TextViewInfoModalContent = () => html`
   <div>
     <p>
-      The color coding in the text in the left panel indicates how many
-      parallels are to be encountered at a certain position given the current
-      filters.
+      The color coding of the syllables in the Inquiry Text on the left side
+      indicates how many approximate matches are to be encountered at a certain
+      syllable according to the current filter settings.
     </p>
-    <p>
-      The colors range from light blue (1 parallel) to red (5 or more parallels)
-    </p>
-    <p>When no colors are displayed, please change the filter settings.</p>
+    <table style="width:50%" align="left">
+      <tr>
+        <th>Number of approximate matches</th>
+        <th>Color</th>
+      </tr>
+      <tr>
+        <th>0</th>
+        <th bgcolor="#000000"></th>
+      </tr>
+
+      <tr>
+        <th>1</th>
+        <th bgcolor="#0CC0E8"></th>
+      </tr>
+      <tr>
+        <th>2</th>
+        <th bgcolor="#0039FF"></th>
+      </tr>
+      <tr>
+        <th>3</th>
+        <th bgcolor="#610CE8"></th>
+      </tr>
+      <tr>
+        <th>4</th>
+        <th bgcolor="#AA00FF"></th>
+      </tr>
+      <tr>
+        <th>5</th>
+        <th bgcolor="#DC0CE8"></th>
+      </tr>
+      <tr>
+        <th>6</th>
+        <th bgcolor="#FF0093"></th>
+      </tr>
+      <tr>
+        <th>7</th>
+        <th bgcolor="#E80C0C"></th>
+      </tr>
+      <tr>
+        <th>8</th>
+        <th bgcolor="#FF2A00"></th>
+      </tr>
+      <tr>
+        <th>9</th>
+        <th bgcolor="#E8550C"></th>
+      </tr>
+      <tr>
+        <th>10 or more</th>
+        <th bgcolor="#FF860D"></th>
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+    </table>
   </div>
 `;
 
@@ -287,8 +338,8 @@ export class TextView extends LitElement {
                     `
                   : html`
                       <p style="margin-top:0">
-                        Click on a parallel to display the full text of the
-                        relevant sutta.
+                        Click on a match in the middle column in order to
+                        display the full Hit Text here.
                       </p>
                     `}
               </div>

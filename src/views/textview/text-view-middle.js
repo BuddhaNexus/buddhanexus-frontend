@@ -189,9 +189,9 @@ export class TextView extends LitElement {
     if (!this.data.activeSegment) {
       return html`
         <span lang="en"
-          >Click on a segment in the text to display the parallels. Only colored
-          text has parallels. Black text has no parallels with the current
-          filters.</span
+          >Click on a syllable in the Inquiry Text to display the approximate
+          matches. Only colored syllables have parallels. Black text has no
+          parallels with the current filter settings.</span
         >
       `;
     }
