@@ -106,6 +106,17 @@ export class DataView extends LitElement {
     // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
     if (this.limitCollection.toString() !== limitCollection.toString()) {
       this.limitCollection = limitCollection;
+      console.log('LIMIT COLLECTION', this.limitCollection);
+    }
+    if (this.fileName) {
+      this.applyFilter();
+    }
+  };
+
+  setLimitCollectionExclude = limitCollectionExclude => {
+    // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
+    if (this.limitCollection.toString() !== limitCollectionExclude.toString()) {
+      this.limitCollectionExclude = limitCollectionExclude;
     }
     if (this.fileName) {
       this.applyFilter();

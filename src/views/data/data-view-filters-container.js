@@ -8,6 +8,7 @@ import '@polymer/paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
+import { sortByKey } from '../utility/views-common';
 
 import '../utility/LoadingSpinner';
 import {
@@ -44,6 +45,8 @@ export class DataViewFiltersContainer extends LitElement {
   // local properties
   @property({ type: Array }) selectedFilenames = [];
   @property({ type: Array }) selectedCategories = [];
+  @property({ type: Array }) selectedFilenamesExclude = [];
+  @property({ type: Array }) selectedCategoriesExclude = [];
   @property({ type: Array }) selectedCollections = [];
   @property({ type: Array }) filterFilesData = [];
   @property({ type: Array }) filterCategoriesData = [];
@@ -71,16 +74,32 @@ export class DataViewFiltersContainer extends LitElement {
       language: this.language,
     });
     this.filterFilesData = filteritems;
+
     this.filterFilesDataError = error;
     this.filterFilesDataLoading = false;
   }
 
+  preprocessCategoriesList(categoriesList) {
+    if (this.language == 'tib') {
+      categoriesList = categoriesList.map(item => {
+        return {
+          category: item.category,
+          categoryname:
+            '• ' + item.categoryname.replace(/([KT])[0-9]+(.*)/g, '$2 ($1)'),
+        };
+      });
+      categoriesList.push({ category: 'T', categoryname: 'TENGYUR (ALL)' });
+      categoriesList.push({ category: 'K', categoryname: 'KANGYUR (ALL)' });
+    }
+    return sortByKey(categoriesList, 'category');
+  }
+
   async fetchFilterCategories() {
     this.filterCategoriesDataLoading = true;
-    const { categoryitems, error } = await getCategoriesForFilterMenu({
+    let { categoryitems, error } = await getCategoriesForFilterMenu({
       language: this.language,
     });
-    this.filterCategoriesData = categoryitems;
+    this.filterCategoriesData = this.preprocessCategoriesList(categoryitems);
     this.filterCategoriesDataError = error;
     this.filterCategoriesDataLoading = false;
   }
@@ -107,6 +126,18 @@ export class DataViewFiltersContainer extends LitElement {
     this.updateFilters();
   }
 
+  handleFilesExcludeComboBoxChanged = e => {
+    let filenamesExclude = e.detail.value.map(item => item.filename);
+    this.selectedFilenamesExclude = filenamesExclude.map(item => '!' + item);
+    this.updateFilters();
+  };
+
+  handleCategoriesExcludeComboBoxChanged(e) {
+    let CategoriesExclude = e.detail.value.map(item => item.category);
+    this.selectedCategoriesExclude = CategoriesExclude.map(item => '!' + item);
+    this.updateFilters();
+  }
+
   handleTargetComboBoxChanged(e) {
     this.selectedCollections = e.detail.value.map(item => item.collectionkey);
     this.updateTargetFilters();
@@ -116,6 +147,8 @@ export class DataViewFiltersContainer extends LitElement {
     this.updateLimitCollection([
       ...this.selectedFilenames,
       ...this.selectedCategories,
+      ...this.selectedFilenamesExclude,
+      ...this.selectedCategoriesExclude,
     ]);
   };
 
@@ -134,7 +167,165 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowTargetDropdown() {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
   }
+  createFilesCollectionFilters() {
+    return html`
+      <div class="file-categories-filters">
+        ${this.filterCategoriesDataLoading
+          ? html`
+              <span>Loading...</span>
+            `
+          : html`
+              <multiselect-combo-box
+                Label="Limit to collections:"
+                id="filter-collection"
+                item-label-path="categoryname"
+                style="display: ${this.shouldShowFilterDropdown()
+                  ? 'inline-flex'
+                  : 'none'}"
+                @selected-items-changed="${this
+                  .handleCategoriesComboBoxChanged}"
+                .items="${this.filterCategoriesData}"
+                item-value-path="category"
+              >
+              </multiselect-combo-box>
+            `}
+        ${this.filterFilesDataLoading
+          ? html`
+              <span>Loading...</span>
+            `
+          : html`
+              <multiselect-combo-box
+                Label="Limit to files:"
+                id="filter-filename"
+                style="display: ${this.shouldShowFilterDropdown()
+                  ? 'inline-flex'
+                  : 'none'}"
+                item-label-path="categoryname"
+                @selected-items-changed="${this.handleFilesComboBoxChanged}"
+                .items="${this.filterFilesData}"
+                item-value-path="filename"
+              >
+              </multiselect-combo-box>
+            `}
+        <br />
+        ${this.filterCategoriesDataLoading
+          ? html`
+              <span>Loading...</span>
+            `
+          : html`
+              <multiselect-combo-box
+                Label="Exclude collections:"
+                id="filter-collection"
+                item-label-path="categoryname"
+                style="display: ${this.shouldShowFilterDropdown()
+                  ? 'inline-flex'
+                  : 'none'}"
+                @selected-items-changed="${this
+                  .handleCategoriesExcludeComboBoxChanged}"
+                .items="${this.filterCategoriesData}"
+                item-value-path="category"
+              >
+              </multiselect-combo-box>
+            `}
+        ${this.filterFilesDataLoading
+          ? html`
+              <span>Loading...</span>
+            `
+          : html`
+              <multiselect-combo-box
+                Label="Exclude files:"
+                id="filter-filename"
+                style="display: ${
+                  this.shouldShowFilterDropdown() ? 'inline-flex' : 'none'
+                }"
+                item-label-path="categoryname"
+                @selected-items-changed="${
+                  this.handleFilesExcludeComboBoxChanged
+                }"
+                .items="${this.filterFilesData}"
+                item-value-path="filename"
+              >
+              </multiselect-combo-box>
+            </div>`}
+      </div>
+    `;
+  }
+  createFilterParameters() {
+    return html`
+      <div id="filter-parameters">
+        <vaadin-vertical-layout>
+          <div class="vertical-layout">
+            <div
+              id="slider-container"
+              name="set 100% for highest similarity, 0% to see all"
+            >
+              <div id="slider-label">Similarity Score:</div>
+              <paper-slider
+                id="score-cutoff"
+                value="${this.score}"
+                @change="${this.updateScore}"
+                max="100"
+                pin
+              >
+              </paper-slider>
+            </div>
+          </div>
+          <div class="vertical-layout">
+            <div
+              id="slider-container"
+              name="set min. length of quoted segment in characters"
+            >
+              <div id="slider-label">Min. Match Length:</div>
+              <paper-slider
+                id="quote-length"
+                value="${this.quoteLength}"
+                @change="${this.updateQuoteLength}"
+                max="300"
+                min="5"
+                pin
+              >
+              </paper-slider>
+            </div>
+          </div>
+          <div class="vertical-layout">
+            <div
+              id="slider-container"
+              name="set the number of times a parallel is contained within other parallels"
+            >
+              <div id="slider-label">Nr. co-occurences:</div>
+              <paper-slider
+                id="co-occurences"
+                value="${this.cooccurance}"
+                @change="${this.updateCooccurance}"
+                max="30"
+                min="1"
+                dir="rtl"
+                pin
+              >
+              </paper-slider>
+            </div>
+          </div>
+        </vaadin-vertical-layout>
+      </div>
+    `;
+  }
 
+  createFilterBox() {
+    return html`
+      <div class="filter-group">
+        <div class="filter-options-accordion">
+          <!-- TODO: Change from  "details" component to dropdown -->
+          <vaadin-details id="filter-options-dropdown">
+            <div slot="summary" id="details-box">Filter options:</div>
+            <div id="filters-box">
+              ${this.createFilterParameters()}
+              ${this.createFilesCollectionFilters()}
+            </div>
+          </vaadin-details>
+        </div>
+      </div>
+    `;
+  }
   render() {
     return html`
       <vaadin-radio-group
@@ -153,147 +344,9 @@ export class DataViewFiltersContainer extends LitElement {
           }
         })}
       </vaadin-radio-group>
-
-      <div class="filter-group">
-        <div class="filter-options-accordion">
-          <!-- TODO: Change from  "details" component to dropdown -->
-          <vaadin-details id="filter-options-dropdown">
-            <div slot="summary" id="details-box">Filter options:</div>
-            <vaadin-vertical-layout>
-              <div class="vertical-layout">
-                <div
-                  id="slider-container"
-                  name="set 100% for highest similarity, 0% to see all"
-                >
-                  <div id="slider-label">Similarity Score:</div>
-                  <paper-slider
-                    id="score-cutoff"
-                    value="${this.score}"
-                    @change="${this.updateScore}"
-                    max="100"
-                    pin
-                  >
-                  </paper-slider>
-                </div>
-              </div>
-              <div class="vertical-layout">
-                <div
-                  id="slider-container"
-                  name="set min. length of quoted segment in characters"
-                >
-                  <div id="slider-label">Min. Match Length:</div>
-                  <paper-slider
-                    id="quote-length"
-                    value="${this.quoteLength}"
-                    @change="${this.updateQuoteLength}"
-                    max="300"
-                    min="5"
-                    pin
-                  >
-                  </paper-slider>
-                </div>
-              </div>
-              <div class="vertical-layout">
-                <div
-                  id="slider-container"
-                  name="set the number of times a parallel is contained within other parallels"
-                >
-                  <div id="slider-label">Nr. co-occurences:</div>
-                  <paper-slider
-                    id="co-occurences"
-                    value="${this.cooccurance}"
-                    @change="${this.updateCooccurance}"
-                    max="30"
-                    min="1"
-                    dir="rtl"
-                    pin
-                  >
-                  </paper-slider>
-                </div>
-              </div>
-            </vaadin-vertical-layout>
-          </vaadin-details>
-        </div>
-
-        ${this.filterFilesDataLoading
-          ? html`
-              <span>Loading...</span>
-            `
-          : html`
-              <multiselect-combo-box
-                Label="Filter by filenumber:"
-                id="filter-filename"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                item-label-path="categoryname"
-                @selected-items-changed="${this.handleFilesComboBoxChanged}"
-                .items="${this.filterFilesData}"
-                item-value-path="filename"
-              >
-              </multiselect-combo-box>
-            `}
-        ${this.filterCategoriesDataLoading
-          ? html`
-              <span>Loading...</span>
-            `
-          : html`
-              <multiselect-combo-box
-                Label="Filter by collection:"
-                id="filter-collection"
-                item-label-path="categoryname"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                @selected-items-changed="${this
-                  .handleCategoriesComboBoxChanged}"
-                .items="${this.filterCategoriesData}"
-                item-value-path="category"
-              >
-              </multiselect-combo-box>
-            `}
-
-        <multiselect-combo-box
-          Label="Filter by target collection:"
-          id="filter-target-collection"
-          item-label-path="collectionname"
-          style="display: ${this.shouldShowTargetDropdown()
-            ? 'inline-flex'
-            : 'none'}"
-          @selected-items-changed="${this.handleTargetComboBoxChanged}"
-          .items="${this.targetCollectionData}"
-          item-value-path="collectionkey"
-        >
-        </multiselect-combo-box>
-
-        <vaadin-select
-          @value-changed="${this.updateSortMethod}"
-          Label="Sorting method:"
-          id="sort-collection"
-          item-label-path="filename"
-          style="width: 300px; margin-left: 10px; display: ${this.shouldShowSortingDropdown()
-            ? 'inline-flex'
-            : 'none'}"
-        >
-          <template>
-            <vaadin-list-box @value-changed="${this.updateSortMethod}">
-              <vaadin-item value="position">Position in main text</vaadin-item>
-              <vaadin-item value="quoted-text"
-                >Grouped by quoted text</vaadin-item
-              >
-              <vaadin-item value="length"
-                >Length of match in Inquiry Text (beginning with
-                longest)</vaadin-item
-              >
-              <vaadin-item value="length2"
-                >Length of match in Hit Text (beginning with
-                longest)</vaadin-item
-              >
-            </vaadin-list-box>
-          </template>
-        </vaadin-select>
-
-        ${this.viewMode === DATA_VIEW_MODES.TEXT
+      ${this.createFilterBox()}
+      ${
+        this.viewMode === DATA_VIEW_MODES.TEXT
           ? html`
               <div class="search-group">
                 <vaadin-text-field
@@ -312,7 +365,48 @@ export class DataViewFiltersContainer extends LitElement {
                 </vaadin-text-field>
               </div>
             `
-          : null}
+          : null
+      }
+
+        <multiselect-combo-box
+          Label="Filter by target collection:"
+          id="filter-target-collection"
+          item-label-path="collectionname"
+          style="display: ${
+            this.shouldShowTargetDropdown() ? 'inline-flex' : 'none'
+          }"
+          @selected-items-changed="${this.handleTargetComboBoxChanged}"
+          .items="${this.targetCollectionData}"
+          item-value-path="collectionkey"
+        >
+        </multiselect-combo-box>
+
+        <vaadin-select
+          @value-changed="${this.updateSortMethod}"
+          Label="Sorting method:"
+          id="sort-collection"
+          item-label-path="filename"
+          style="width: 300px; margin-left: 10px; display: ${
+            this.shouldShowSortingDropdown() ? 'inline-flex' : 'none'
+          }"
+        >
+          <template>
+            <vaadin-list-box @value-changed="${this.updateSortMethod}">
+              <vaadin-item value="position">Position in main text</vaadin-item>
+              <vaadin-item value="quoted-text"
+                >Grouped by quoted text</vaadin-item
+              >
+              <vaadin-item value="length"
+                >Length of match in Inquiry Text (beginning with
+                longest)</vaadin-item
+              >
+              <vaadin-item value="length2"
+                >Length of match in Hit Text (beginning with
+                longest)</vaadin-item
+              >
+            </vaadin-list-box>
+          </template>
+        </vaadin-select>
       </div>
     `;
   }
