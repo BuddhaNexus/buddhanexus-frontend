@@ -19,55 +19,33 @@ const TextViewInfoModalContent = () => html`
       indicates how many approximate matches are to be encountered at a certain
       syllable according to the current filter settings.
     </p>
-    <table style="width:50%" align="left">
+    <p><b>Color codes per number of matches:</b></p>
+    <table style="width:100%; table-layout:fixed" align="center">
       <tr>
-        <th>Number of approximate matches</th>
-        <th>Color</th>
+        <td><b>0</b></td>
+        <td><b>1</b></td>
+        <td><b>2</b></td>
+        <td><b>3</b></td>
+        <td><b>4</b></td>
+        <td><b>5</b></td>
+        <td><b>6</b></td>
+        <td><b>7</b></td>
+        <td><b>8</b></td>
+        <td><b>9</b></td>
+        <td><b>10 or more</b></td>
       </tr>
       <tr>
-        <th>0</th>
-        <th bgcolor="#000000"></th>
-      </tr>
-
-      <tr>
-        <th>1</th>
-        <th bgcolor="#0CC0E8"></th>
-      </tr>
-      <tr>
-        <th>2</th>
-        <th bgcolor="#0039FF"></th>
-      </tr>
-      <tr>
-        <th>3</th>
-        <th bgcolor="#610CE8"></th>
-      </tr>
-      <tr>
-        <th>4</th>
-        <th bgcolor="#AA00FF"></th>
-      </tr>
-      <tr>
-        <th>5</th>
-        <th bgcolor="#DC0CE8"></th>
-      </tr>
-      <tr>
-        <th>6</th>
-        <th bgcolor="#FF0093"></th>
-      </tr>
-      <tr>
-        <th>7</th>
-        <th bgcolor="#E80C0C"></th>
-      </tr>
-      <tr>
-        <th>8</th>
-        <th bgcolor="#FF2A00"></th>
-      </tr>
-      <tr>
-        <th>9</th>
-        <th bgcolor="#E8550C"></th>
-      </tr>
-      <tr>
-        <th>10 or more</th>
-        <th bgcolor="#FF860D"></th>
+        <td bgcolor="#000000" style="height:30px"></td>
+        <td bgcolor="#0CC0E8"></td>
+        <td bgcolor="#0039FF"></td>
+        <td bgcolor="#610CE8"></td>
+        <td bgcolor="#AA00FF"></td>
+        <td bgcolor="#DC0CE8"></td>
+        <td bgcolor="#FF0093"></td>
+        <td bgcolor="#E80C0C"></td>
+        <td bgcolor="#FF2A00"></td>
+        <td bgcolor="#E8550C"></td>
+        <td bgcolor="#FF860D"></td>
       </tr>
       <tr>
         <th></th>

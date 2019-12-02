@@ -76,6 +76,8 @@ export class TextViewRight extends LitElement {
       if (['rightTextData'].includes(propName)) {
         this.noScrolling = false;
         this.activeSegment = this.rightTextData.selectedParallels[0];
+        // the following is really just a temporary hack; the update of the segmentnr does not yet work properly; currently, the right text is therefore fetched twice.
+        this.fetchDataText();
       }
     });
   }
@@ -119,6 +121,7 @@ export class TextViewRight extends LitElement {
       !this.noScrolling &&
       this.shadowRoot.querySelector('.selected-segment')
     ) {
+      console.log('NOW SCROLLING RIGHT SIDE');
       let parentWindow = document
         .querySelector('body > vaadin-app-layout')
         .shadowRoot.querySelector('div:nth-child(5)');
@@ -273,6 +276,7 @@ const rightSegmentContainer = (
   let colorValues = [];
   let rightSideHighlight = 0;
   if (rightTextData.selectedParallels.indexOf(segmentNr) > -1) {
+    console.log('HIGHLIGHTING RIGHT SIDE ELEMENT');
     rightSideHighlight = 1;
     colorValues = highlightActiveMainElement(
       segText,
