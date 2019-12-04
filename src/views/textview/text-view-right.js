@@ -300,8 +300,5 @@ const rightSegmentContainer = (
 };
 
 const rightSegment = (segmentNr, segText, number) =>
-  html`
-    <div class="right-segment" id=${segmentNr} number="${number}">
-      ${segText}
-    </div>
-  `;
+  // prettier-ignore
+  html`<div class="right-segment" id=${segmentNr} number="${number}">${segText}</div>`;
