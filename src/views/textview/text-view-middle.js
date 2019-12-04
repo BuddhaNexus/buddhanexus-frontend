@@ -125,12 +125,10 @@ export class TextView extends LitElement {
           selectedParallels[i].par_segnr[0]
         );
         parallelCounter += 1;
-        let startoffset = selectedParallels[i].par_offset_beg;
-        let endoffset = selectedParallels[i].par_offset_end;
         let rootOffsetBegin = selectedParallels[i].root_offset_beg;
         let rootOffsetEnd = selectedParallels[i].root_offset_end;
         let parOffsetBegin = selectedParallels[i].par_offset_beg;
-        let parOffsetEnd = selectedParallels[i].par_offset_end;
+        let parOffsetEnd = selectedParallels[i].par_offset_end; // todo: check how that -1 works with the chinese...
         let rootSegnr = selectedParallels[i].root_segnr;
         let rootSegnrText = '';
         for (let l = 0; l < rootSegnr.length; l++) {
@@ -143,8 +141,8 @@ export class TextView extends LitElement {
         );
         segnrText = highlightTextByOffset(
           segnrText,
-          startoffset,
-          endoffset,
+          parOffsetBegin,
+          parOffsetEnd,
           par_lang
         );
         selectedParallelsText = html`

@@ -98,7 +98,6 @@ export const getFileTextAndParallels = async ({
   ...queryParams
 }) => {
   try {
-    console.log('QUERY PARAMS', queryParams);
     fileName = fileName.replace(' ', '');
     const url = getFileTextAndParallelsUrl(
       fileName,
@@ -110,7 +109,6 @@ export const getFileTextAndParallels = async ({
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
-    console.log('RETURN JSON', json);
     return json;
   } catch (e) {
     console.error('Could not load text segments from server: ', e);
@@ -158,7 +156,6 @@ export const getFileTextParallelsMiddle = async ({
       limit_collection: limit_collection,
     };
     const url = `${API_URL}/parallels-for-middle/`;
-
     const request = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

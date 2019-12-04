@@ -20,9 +20,9 @@ import dataViewStyles from './data-view.styles';
 export class DataView extends LitElement {
   @property({ type: String }) fileName = '';
   @property({ type: String }) language;
-  @property({ type: Number }) score = 50;
-  @property({ type: Number }) quoteLength = 12;
-  @property({ type: Number }) cooccurance = 2000;
+  @property({ type: Number }) score = 60; // this default value is choosen due to the experience with the tibetan; possible a lower or higher value is needed for other languages
+  @property({ type: Number }) quoteLength = 12; // this also works well with the Tibetan, but might be very different in the case of other languages
+  @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
   @property({ type: Array }) limitCollection = [];
   @property({ type: String }) searchString;
@@ -106,17 +106,6 @@ export class DataView extends LitElement {
     // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
     if (this.limitCollection.toString() !== limitCollection.toString()) {
       this.limitCollection = limitCollection;
-      console.log('LIMIT COLLECTION', this.limitCollection);
-    }
-    if (this.fileName) {
-      this.applyFilter();
-    }
-  };
-
-  setLimitCollectionExclude = limitCollectionExclude => {
-    // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
-    if (this.limitCollection.toString() !== limitCollectionExclude.toString()) {
-      this.limitCollectionExclude = limitCollectionExclude;
     }
     if (this.fileName) {
       this.applyFilter();
@@ -162,7 +151,6 @@ export class DataView extends LitElement {
     if (newViewMode === this.viewMode) {
       return;
     }
-    console.log('NEW VIEW MODE', newViewMode);
     this.updateViewModeParamInUrl(newViewMode);
     this.viewMode = newViewMode;
     this.selectedView = newViewMode;

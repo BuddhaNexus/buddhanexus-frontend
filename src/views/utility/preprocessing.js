@@ -28,17 +28,19 @@ export const highlightTextByOffset = (
   lang
 ) => {
   let returnArray = [];
+  if (lang.match(/tib|skt|pli/)) {
+    // the next two lines are a hack because there is a slight mismatch in the behaviour
+    // of the Chinese and Tibetan offset values here; this should be ideally fixed already
+    // in the JSON files. TODO for the future.
+    startoffset += 1;
+    endoffset += 1;
+  }
   for (let i = 0; i < textArray.length; i++) {
     let WordList = [];
     let colourValues = [];
     let position = 0;
     let Words = textArray[i];
     if (lang.match(/tib|skt|pli/)) {
-      // the next two lines are a hack because there is a slight mismatch in the behaviour
-      // of the Chinese and Tibetan offset values here; this should be ideally fixed already
-      // in the JSON files. TODO for the future.
-      startoffset += 1;
-      endoffset += 1;
       Words = textArray[i].split(' ');
     }
     for (let j = 0; j < Words.length; ++j) {
