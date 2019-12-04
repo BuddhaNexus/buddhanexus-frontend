@@ -185,7 +185,7 @@ export class TextView extends LitElement {
             words[j].classList.add('highlighted-by-parallel');
           }
           if (rootSegments.slice(-1)[0] == currentSegment) {
-            if (position >= rootOffsetEnd) {
+            if (position > rootOffsetEnd) {
               words[j].classList.remove('highlighted-by-parallel');
             } else {
               words[j].classList.add('highlighted-by-parallel');

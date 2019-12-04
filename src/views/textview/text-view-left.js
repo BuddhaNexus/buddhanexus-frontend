@@ -324,10 +324,13 @@ const leftSegmentContainer = (
       false
     );
   }
-  if (current_parallels[0]) {
-    colorValues = findColorValues(segText, segmentNr, current_parallels);
-  }
   let lang = getLanguageFromFilename(segmentNr);
+  // this is in order to avoid matches getting displayed for the numbers at the beginning of the chinese files
+  if (!(lang == 'chn' && /\.[0-9]/.test(segText))) {
+    if (current_parallels[0]) {
+      colorValues = findColorValues(segText, segmentNr, current_parallels);
+    }
+  }
   segText = tokenizeWords(
     segText,
     lang,
@@ -339,9 +342,7 @@ const leftSegmentContainer = (
 };
 
 const leftSegment = (segmentNr, segText, number) => {
-  return html`
-    <span class="left-segment" id=${segmentNr} number="${number}"
-      >${segText}</span
-    >
-  `;
+  // prettier-ignore
+  return html`<span class="left-segment" id=${segmentNr} number="${number}"
+      >${segText}</span>`;
 };
