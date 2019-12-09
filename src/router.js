@@ -25,7 +25,7 @@ const ROUTES = [
     action: () => BNRouter.selectTab(TABS.HOME),
   },
   {
-    path: '/pli/:viewMode?/:fileName?',
+    path: '/pli/:viewMode?/:fileName?/:activeSegment?',
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');
@@ -41,7 +41,7 @@ const ROUTES = [
     },
   },
   {
-    path: '/chn/:viewMode?/:fileName?',
+    path: '/chn/:viewMode?/:fileName?/:activeSegment?',
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');

@@ -64,12 +64,13 @@ export class TextView extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: String }) searchString;
-
+  @property({ type: Function }) setFileName;
   @property({ type: String }) rightFileName = '';
   @property({ type: Object }) rightTextData;
   @property({ type: Object }) middleData = {};
   @property({ type: Object }) leftTextData;
   @property({ type: String }) lang;
+  @property({ type: String }) textSwitchedFlag = false;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -78,11 +79,11 @@ export class TextView extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (['fileName'].includes(propName)) {
+        this.textSwitchedFlag = false;
         this.newText();
       }
     });
   }
-
   newText() {
     this.rightFileName = '';
     this.middleData = {};
@@ -90,9 +91,21 @@ export class TextView extends LitElement {
   }
 
   switchTexts() {
+    this.textSwitchedFlag = true;
     this.leftTextData = this.rightTextData;
+    this.setFileName(this.rightFileName);
     this.fileName = this.rightFileName;
     this.rightFileName = '';
+  }
+  resetLeftText() {
+    this.leftTextData = {
+      selectedParallels: ['none'],
+      startoffset: 0,
+      endoffset: 0,
+    };
+  }
+  toggleTextSwitchedFlag() {
+    this.textSwitchedFlag = false;
   }
 
   toggleMiddleData(e) {
@@ -259,6 +272,7 @@ export class TextView extends LitElement {
             .quoteLength="${this.quoteLength}"
             .cooccurance="${this.cooccurance}"
             @switch-texts="${this.switchTexts}"
+            @reset-left-text="${this.resetLeftText}"
           ></text-view-header>
         </table>
 
@@ -275,6 +289,8 @@ export class TextView extends LitElement {
                 .quoteLength="${this.quoteLength}"
                 .cooccurance="${this.cooccurance}"
                 .leftActiveSegment="${this.leftActiveSegment}"
+                .textSwitchedFlag="${this.textSwitchedFlag}"
+                .toggleTextSwitchedFlag="${this.toggleTextSwitchedFlag}"
                 @active-segment-changed="${this.toggleMiddleData}"
                 @highlight-left-after-scrolling="${this
                   .highlightLeftafterScrolling}"

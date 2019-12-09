@@ -33,6 +33,20 @@ export class TextViewHeader extends LitElement {
     );
   }
 
+  clickedUpButton() {
+    this.dispatchEvent(
+      new CustomEvent('reset-left-text', {
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
+  clickedNewTabLeftButton() {
+    let win = window.open(`./${this.fileName}`, '_blank');
+    win.focus();
+  }
+
   clickedNewTabButton() {
     let win = window.open(`./${this.rightFileName}`, '_blank');
     win.focus();
@@ -41,7 +55,32 @@ export class TextViewHeader extends LitElement {
   openDialogRight = () => (this.isDialogRightOpen = true);
 
   setisDialogRightOpen = e => (this.isDialogRightOpen = e.detail.value);
-
+  beginningButton() {
+    return html`
+      <vaadin-button
+        class="up-button"
+        title="Go back to the beginning of the Inquiry Text"
+        @click="${this.clickedUpButton}"
+      >
+        <iron-icon
+          class="swap-icon"
+          icon="vaadin:arrow-circle-up-o"
+          slot="prefix"
+        ></iron-icon>
+      </vaadin-button>
+      <vaadin-button
+        class="up-button"
+        title="Display this text in a new tab"
+        @click="${this.clickedNewTabLeftButton}"
+      >
+        <iron-icon
+          class="swap-icon"
+          icon="vaadin:plus-circle-o"
+          slot="prefix"
+        ></iron-icon>
+      </vaadin-button>
+    `;
+  }
   // TODO move this to separate component
   switchButton() {
     return html`
@@ -98,7 +137,8 @@ export class TextViewHeader extends LitElement {
     return html`
       <div id="text-view-header">
         <div id="text-view-header-left">
-          Inquiry Text ${replaceFileNameForDisplay(this.fileName)}
+          Inquiry Text
+          ${replaceFileNameForDisplay(this.fileName)}${this.beginningButton()}
         </div>
         <div id="text-view-header-middle">Approximate matches</div>
         <div id="text-view-header-right">

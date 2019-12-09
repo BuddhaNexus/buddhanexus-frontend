@@ -91,6 +91,18 @@ export class DataViewFiltersContainer extends LitElement {
       categoriesList.push({ category: 'T', categoryname: 'TENGYUR (ALL)' });
       categoriesList.push({ category: 'K', categoryname: 'KANGYUR (ALL)' });
     }
+    if (this.language == 'chn') {
+      categoriesList = categoriesList.map(item => {
+        return {
+          category: item.category,
+          categoryname:
+            '• ' + item.categoryname.replace(/([XT][0-9]+)(.*)/g, '$2 ($1)'),
+        };
+      });
+      categoriesList.push({ category: 'T', categoryname: 'TAISHO ALL (T)' });
+      categoriesList.push({ category: 'X', categoryname: 'SHINSAN ALL  (X)' });
+    }
+
     return sortByKey(categoriesList, 'category');
   }
 

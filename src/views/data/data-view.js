@@ -24,12 +24,11 @@ export class DataView extends LitElement {
   @property({ type: Number }) quoteLength = 12; // this also works well with the Tibetan, but might be very different in the case of other languages
   @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
-  @property({ type: Array }) limitCollection = [];
+  @property({ type: Array }) limitCollection = []; // for the time being, to disable shinsan results for the chinese.
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
   @property({ type: String }) activeSegment;
-
   @property({ type: String }) selectedView;
 
   static get styles() {
@@ -48,6 +47,7 @@ export class DataView extends LitElement {
     this.handleViewModeParamChanged();
     this.cooccurance = this.language === 'pli' ? 15 : 2000;
     this.quoteLength = this.language === 'chn' ? 7 : 12;
+    this.score = this.language === 'chn' ? 30 : 60;
   }
 
   updated(_changedProperties) {
@@ -70,7 +70,9 @@ export class DataView extends LitElement {
   setFileParamFromPath() {
     const { fileName, activeSegment } = this.location.params;
     if (fileName) {
-      this.fileName = fileName;
+      if (fileName != this.fileName) {
+        this.fileName = fileName;
+      }
       this.activeSegment = activeSegment;
     }
   }
@@ -79,22 +81,31 @@ export class DataView extends LitElement {
     this.language = this.location.pathname.split('/')[1];
   }
 
-  setFileName = fileName => (this.fileName = fileName);
-
+  setFileName = fileName => {
+    if (this.fileName != fileName) {
+      this.fileName = fileName;
+    }
+  };
   setScore = e => {
-    this.score = e.target.value;
+    if (e.target.value != this.score) {
+      this.score = e.target.value;
+    }
   };
 
   setSearch = e => {
     this.searchString = e.target.value;
   };
   setQuoteLength = e => {
-    this.quoteLength = e.target.value;
+    if (e.target.value != this.quoteLength) {
+      this.quoteLength = e.target.value;
+    }
   };
 
   setCooccurance = e => {
-    this.cooccurance = e.target.value;
-    // if the user sets the value to 30, this means all co-ocs are displayed.
+    if (e.target.value != this.cooccurance) {
+      this.cooccurance = e.target.value;
+    }
+    // if the user sets the value to 30, we force it very high so all co-ocs are displayed.
     if (this.cooccurance > 29) {
       this.cooccurance = 10000;
     }
@@ -194,6 +205,7 @@ export class DataView extends LitElement {
         </div>
         <data-view-router
           .selectedView="${this.selectedView}"
+          .setFileName="${this.setFileName}"
           .fileName="${this.fileName}"
           .activeSegment="${this.activeSegment}"
           .limitCollection="${this.limitCollection}"

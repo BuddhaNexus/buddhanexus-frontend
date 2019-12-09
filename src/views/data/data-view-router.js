@@ -11,6 +11,7 @@ import { DATA_VIEW_MODES } from './data-view-filters-container';
 export class DataViewRouter extends LightDOMElement {
   @property({ type: String }) selectedView;
   @property({ type: String }) fileName;
+  @property({ type: Function }) setFileName;
   @property({ type: String }) activeSegment;
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod;
@@ -27,6 +28,7 @@ export class DataViewRouter extends LightDOMElement {
           id="text-view"
           .fileName="${this.fileName}"
           .leftActiveSegment="${this.activeSegment}"
+          .setFileName="${this.setFileName}"
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"

@@ -119,6 +119,33 @@ export class VisualViewGraph extends LitElement {
       </div>
     `;
   }
+  // the following could also be done on the backend, but I am not entirely sure. it is a complex question...
+  preprocessGraphData(graphData) {
+    if (this.language != 'chn') {
+      return graphData;
+    } else {
+      console.log('GRAPHDATA 1', graphData);
+      let existingEntries = {};
+      graphData.forEach(entry => {
+        let leftCollectionName = entry[0].replace(' ', '_');
+        let rightCollectionName = entry[1].split('_')[0];
+        let mergedName = leftCollectionName + ' ' + rightCollectionName;
+        if (mergedName in existingEntries) {
+          existingEntries[mergedName] += entry[2];
+        } else {
+          existingEntries[mergedName] = entry[2];
+        }
+      });
+      let result = [];
+      for (let entry in existingEntries) {
+        let names = entry.split(' ');
+        console.log('NAMES', names);
+        result.push([names[0], names[1] + ' ', existingEntries[entry]]);
+      }
+      console.log('RESULT', result);
+      return result;
+    }
+  }
 
   async fetchData() {
     if (!this.searchItem) {
@@ -134,11 +161,12 @@ export class VisualViewGraph extends LitElement {
       ? searchTerm.split('_')[1]
       : searchTerm.replace('tib_', '');
     console.log('visual view: fetching data', this.searchItem);
-    const { graphdata, error } = await getDataForVisual({
+    let { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,
       language: this.language,
     });
+    graphdata = this.preprocessGraphData(graphdata);
     this.graphData = this.paginateGraphData(graphdata);
     this.totalPages = this.graphData.length;
     this.adjustChartHeight();
@@ -156,10 +184,17 @@ export class VisualViewGraph extends LitElement {
       leftPageSize = this.lastPageSize;
     }
     let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
-
-    if (this.graphData[this.currentPage].length > 400) {
-      this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
+    if (this.language === 'tib') {
+      if (this.graphData[this.currentPage].length > 400) {
+        this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
+      }
     }
+    if (this.language === 'chn') {
+      if (this.graphData[this.currentPage].length > 10) {
+        this.chartHeight = this.graphData[this.currentPage].length * 4 + 'px';
+      }
+    }
+
     if (this.language === 'pli' && rightPageSize / leftPageSize < 0.2) {
       this.chartHeight = this.graphData[this.currentPage].length * 4 + 'px';
     }

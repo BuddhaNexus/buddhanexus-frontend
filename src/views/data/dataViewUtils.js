@@ -9,18 +9,11 @@ export const updateFileParamInBrowserLocation = (
     history.replaceState({}, null, `${location.href}/${fileName}`);
   } else {
     const pathParams = location.href.split('/');
+    const shortenFactor = activeSegment ? 2 : 1;
     const urlWithoutLastParam = pathParams
-      .splice(0, pathParams.length - 1)
+      .splice(0, pathParams.length - shortenFactor)
       .join('/');
-    if (activeSegment) {
-      history.replaceState(
-        {},
-        null,
-        `${urlWithoutLastParam}/${fileName}/${activeSegment}`
-      );
-    } else {
-      history.replaceState({}, null, `${urlWithoutLastParam}/${fileName}`);
-    }
+    history.replaceState({}, null, `${urlWithoutLastParam}/${fileName}`);
   }
 };
 
