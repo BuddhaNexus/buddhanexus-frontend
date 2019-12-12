@@ -167,6 +167,7 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowTargetDropdown() {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
   }
+
   createFilesCollectionFilters() {
     return html`
       <div class="file-categories-filters">
@@ -250,6 +251,7 @@ export class DataViewFiltersContainer extends LitElement {
       </div>
     `;
   }
+
   createFilterParameters() {
     return html`
       <div id="filter-parameters">
@@ -310,6 +312,23 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
+  createTargetFilterForGraph() {
+    return html`
+      <multiselect-combo-box
+        Label="Filter by target collection:"
+        id="filter-target-collection"
+        item-label-path="collectionname"
+        style="display: ${this.shouldShowTargetDropdown()
+          ? 'inline-flex'
+          : 'none'}"
+        @selected-items-changed="${this.handleTargetComboBoxChanged}"
+        .items="${this.targetCollectionData}"
+        item-value-path="collectionkey"
+      >
+      </multiselect-combo-box>
+    `;
+  }
+
   createFilterBox() {
     return html`
       <div class="filter-group">
@@ -320,12 +339,14 @@ export class DataViewFiltersContainer extends LitElement {
             <div id="filters-box">
               ${this.createFilterParameters()}
               ${this.createFilesCollectionFilters()}
+              ${this.createTargetFilterForGraph()}
             </div>
           </vaadin-details>
         </div>
       </div>
     `;
   }
+
   render() {
     return html`
       <vaadin-radio-group
@@ -367,20 +388,6 @@ export class DataViewFiltersContainer extends LitElement {
             `
           : null
       }
-
-        <multiselect-combo-box
-          Label="Filter by target collection:"
-          id="filter-target-collection"
-          item-label-path="collectionname"
-          style="display: ${
-            this.shouldShowTargetDropdown() ? 'inline-flex' : 'none'
-          }"
-          @selected-items-changed="${this.handleTargetComboBoxChanged}"
-          .items="${this.targetCollectionData}"
-          item-value-path="collectionkey"
-        >
-        </multiselect-combo-box>
-
         <vaadin-select
           @value-changed="${this.updateSortMethod}"
           Label="Sorting method:"
