@@ -8,7 +8,6 @@ import '@polymer/paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
-import { sortByKey } from '../utility/views-common';
 
 import '../utility/LoadingSpinner';
 import {
@@ -79,27 +78,12 @@ export class DataViewFiltersContainer extends LitElement {
     this.filterFilesDataLoading = false;
   }
 
-  preprocessCategoriesList(categoriesList) {
-    if (this.language == 'tib') {
-      categoriesList = categoriesList.map(item => {
-        return {
-          category: item.category,
-          categoryname:
-            '• ' + item.categoryname.replace(/([KT])[0-9]+(.*)/g, '$2 ($1)'),
-        };
-      });
-      categoriesList.push({ category: 'T', categoryname: 'TENGYUR (ALL)' });
-      categoriesList.push({ category: 'K', categoryname: 'KANGYUR (ALL)' });
-    }
-    return sortByKey(categoriesList, 'category');
-  }
-
   async fetchFilterCategories() {
     this.filterCategoriesDataLoading = true;
-    let { categoryitems, error } = await getCategoriesForFilterMenu({
+    const { categoryitems, error } = await getCategoriesForFilterMenu({
       language: this.language,
     });
-    this.filterCategoriesData = this.preprocessCategoriesList(categoryitems);
+    this.filterCategoriesData = categoryitems[0];
     this.filterCategoriesDataError = error;
     this.filterCategoriesDataLoading = false;
   }
@@ -128,13 +112,13 @@ export class DataViewFiltersContainer extends LitElement {
 
   handleFilesExcludeComboBoxChanged = e => {
     let filenamesExclude = e.detail.value.map(item => item.filename);
-    this.selectedFilenamesExclude = filenamesExclude.map(item => '!' + item);
+    this.selectedFilenamesExclude = filenamesExclude.map(item => `!${item}`);
     this.updateFilters();
   };
 
   handleCategoriesExcludeComboBoxChanged(e) {
     let CategoriesExclude = e.detail.value.map(item => item.category);
-    this.selectedCategoriesExclude = CategoriesExclude.map(item => '!' + item);
+    this.selectedCategoriesExclude = CategoriesExclude.map(item => `!${item}`);
     this.updateFilters();
   }
 
