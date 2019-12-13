@@ -125,8 +125,6 @@ export class TextView extends LitElement {
           selectedParallels[i].par_segnr[0]
         );
         parallelCounter += 1;
-        let startoffset = selectedParallels[i].par_offset_beg;
-        let endoffset = selectedParallels[i].par_offset_end;
         let rootOffsetBegin = selectedParallels[i].root_offset_beg;
         let rootOffsetEnd = selectedParallels[i].root_offset_end;
         let parOffsetBegin = selectedParallels[i].par_offset_beg;
@@ -139,12 +137,12 @@ export class TextView extends LitElement {
 
         let selParName = [];
         selectedParallels[i].par_segnr.forEach(item =>
-          selParName.push(item + ';')
+          selParName.push(`${item};`)
         );
         segnrText = highlightTextByOffset(
           segnrText,
-          startoffset,
-          endoffset,
+          parOffsetBegin,
+          parOffsetEnd,
           par_lang
         );
         selectedParallelsText = html`
@@ -189,9 +187,9 @@ export class TextView extends LitElement {
     if (!this.data.activeSegment) {
       return html`
         <span lang="en"
-          >Click on a segment in the text to display the parallels. Only colored
-          text has parallels. Black text has no parallels with the current
-          filters.</span
+          >Click on a syllable in the Inquiry Text to display the approximate
+          matches. Only colored syllables have parallels. Black text has no
+          parallels with the current filter settings.</span
         >
       `;
     }

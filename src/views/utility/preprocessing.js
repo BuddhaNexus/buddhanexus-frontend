@@ -28,17 +28,19 @@ export const highlightTextByOffset = (
   lang
 ) => {
   let returnArray = [];
+  if (lang.match(/tib|skt|pli/)) {
+    // the next two lines are a hack because there is a slight mismatch in the behaviour
+    // of the Chinese and Tibetan offset values here; this should be ideally fixed already
+    // in the JSON files. TODO for the future.
+    startoffset += 1;
+    endoffset += 1;
+  }
   for (let i = 0; i < textArray.length; i++) {
     let WordList = [];
     let colourValues = [];
     let position = 0;
     let Words = textArray[i];
     if (lang.match(/tib|skt|pli/)) {
-      // the next two lines are a hack because there is a slight mismatch in the behaviour
-      // of the Chinese and Tibetan offset values here; this should be ideally fixed already
-      // in the JSON files. TODO for the future.
-      startoffset += 1;
-      endoffset += 1;
       Words = textArray[i].split(' ');
     }
     for (let j = 0; j < Words.length; ++j) {
@@ -62,19 +64,20 @@ export const highlightTextByOffset = (
   return returnArray;
 };
 
+export const colorTable = {
+  1: '#0CC0E8',
+  2: '#0039FF',
+  3: '#610CE8',
+  4: '#AA00FF',
+  5: '#DC0CE8',
+  6: '#FF0093',
+  7: '#E80C0C',
+  8: '#FF2A00',
+  9: '#E8550C',
+  10: '#FF860D',
+};
+
 const getCooccuranceColor = cooc => {
-  const colorTable = {
-    1: '#0CC0E8',
-    2: '#610CE8',
-    3: '#610CE8',
-    4: '#AA00FF',
-    5: '#DC0CE8',
-    6: '#FF0093',
-    7: '#E80C0C',
-    8: '#FF2A00',
-    9: '#E8550C',
-    10: '#FF860D',
-  };
   return cooc < 10 ? colorTable[cooc] : colorTable[10];
 };
 

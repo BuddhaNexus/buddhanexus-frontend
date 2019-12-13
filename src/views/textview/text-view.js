@@ -8,21 +8,31 @@ import './text-view-left';
 import './text-view-middle';
 import './text-view-right';
 import { getLanguageFromFilename } from '../utility/views-common';
+import { colorTable } from '../utility/preprocessing';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view.styles';
 
-const TextViewInfoModalContent = () => html`
+const TextViewInfoModalContent = (numbers, colors) => html`
   <div>
     <p>
-      The color coding in the text in the left panel indicates how many
-      parallels are to be encountered at a certain position given the current
-      filters.
+      The color coding of the syllables in the Inquiry Text on the left side
+      indicates how many approximate matches are to be encountered at a certain
+      syllable according to the current filter settings.
     </p>
-    <p>
-      The colors range from light blue (1 parallel) to red (5 or more parallels)
-    </p>
-    <p>When no colors are displayed, please change the filter settings.</p>
+    <p><b>Color codes per number of matches:</b></p>
+    <table style="width:100%; table-layout:fixed" align="center">
+      <tr>
+        ${numbers}
+      </tr>
+      <tr>
+        ${colors}
+      </tr>
+      <tr>
+        <th></th>
+        <th></th>
+      </tr>
+    </table>
   </div>
 `;
 
@@ -197,6 +207,34 @@ export class TextView extends LitElement {
     this.searchString = false;
   }
 
+  addNumbers() {
+    let numbersForDialog = html``;
+    for (let i = 0; i < 10; i++) {
+      numbersForDialog = html`
+        ${numbersForDialog}
+        <td><b>${i}</b></td>
+      `;
+    }
+    return html`
+      ${numbersForDialog}
+      <td><b>10 or more</b></td>
+    `;
+  }
+
+  addColors() {
+    console.log(colorTable);
+    let colorsForDialog = html`
+      <td bgcolor="#000000" style="height:30px"></td>
+    `;
+    for (let i = 1; i <= 10; i++) {
+      colorsForDialog = html`
+        ${colorsForDialog}
+        <td bgcolor="${colorTable[i]}"></td>
+      `;
+    }
+    return colorsForDialog;
+  }
+
   render() {
     console.log('rendered text view.');
 
@@ -217,8 +255,11 @@ export class TextView extends LitElement {
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
           .fileName="${this.fileName}"
-          .language="${this.lang}"
-          .infoModalContent="${TextViewInfoModalContent()}"
+          .infoModalContent="${TextViewInfoModalContent(
+            this.addNumbers(),
+            this.addColors()
+          )}"
+
         ></data-view-header>
         <table class="text-view-table">
           <text-view-header
@@ -288,8 +329,8 @@ export class TextView extends LitElement {
                     `
                   : html`
                       <p style="margin-top:0">
-                        Click on a parallel to display the full text of the
-                        relevant sutta.
+                        Click on a match in the middle column in order to
+                        display the full Hit Text here.
                       </p>
                     `}
               </div>
