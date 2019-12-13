@@ -152,6 +152,23 @@ export class DataViewFiltersContainer extends LitElement {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
   }
 
+  MultiSelectBox(label, id, changefunction, itempath) {
+    return html`
+      <multiselect-combo-box
+        Label="${label}"
+        id="${id}"
+        item-label-path="categoryname"
+        style="display: ${this.shouldShowFilterDropdown()
+          ? 'inline-flex'
+          : 'none'}"
+        @selected-items-changed="${changefunction}"
+        .items="${itempath}"
+        item-value-path="category"
+      >
+      </multiselect-combo-box>
+    `;
+  }
+
   createFilesCollectionFilters() {
     return html`
       <div class="file-categories-filters">
@@ -160,37 +177,24 @@ export class DataViewFiltersContainer extends LitElement {
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Limit to collections:"
-                id="filter-collection"
-                item-label-path="categoryname"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                @selected-items-changed="${this
-                  .handleCategoriesComboBoxChanged}"
-                .items="${this.filterCategoriesData}"
-                item-value-path="category"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Limit to collections:',
+                'filter-collection',
+                this.handleCategoriesComboBoxChanged,
+                this.filterCategoriesData
+              )}
             `}
         ${this.filterFilesDataLoading
           ? html`
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Limit to files:"
-                id="filter-filename"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                item-label-path="categoryname"
-                @selected-items-changed="${this.handleFilesComboBoxChanged}"
-                .items="${this.filterFilesData}"
-                item-value-path="filename"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Limit to files:',
+                'filter-filename',
+                this.handleFilesComboBoxChanged,
+                this.filterFilesData
+              )}
             `}
         <br />
         ${this.filterCategoriesDataLoading
@@ -198,39 +202,24 @@ export class DataViewFiltersContainer extends LitElement {
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Exclude collections:"
-                id="filter-collection"
-                item-label-path="categoryname"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                @selected-items-changed="${this
-                  .handleCategoriesExcludeComboBoxChanged}"
-                .items="${this.filterCategoriesData}"
-                item-value-path="category"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Exclude collections:',
+                'exclude-collection',
+                this.handleCategoriesExcludeComboBoxChanged,
+                this.filterCategoriesData
+              )}
             `}
         ${this.filterFilesDataLoading
           ? html`
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Exclude files:"
-                id="filter-filename"
-                style="display: ${
-                  this.shouldShowFilterDropdown() ? 'inline-flex' : 'none'
-                }"
-                item-label-path="categoryname"
-                @selected-items-changed="${
-                  this.handleFilesExcludeComboBoxChanged
-                }"
-                .items="${this.filterFilesData}"
-                item-value-path="filename"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Exclude files:',
+                'exclude-filename',
+                this.handleFilesExcludeComboBoxChanged,
+                this.filterFilesData
+              )}
             </div>`}
       </div>
     `;

@@ -28,11 +28,13 @@ export default css`
     width: 30%;
   }
 
-  #filter-filename {
+  #filter-filename,
+  #exclude-filename {
     width: 210px;
   }
 
   #filter-collection,
+  #exclude-collection,
   #filter-target-collection {
     width: 300px;
   }
