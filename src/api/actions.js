@@ -156,7 +156,6 @@ export const getFileTextParallelsMiddle = async ({
       limit_collection: limit_collection,
     };
     const url = `${API_URL}/parallels-for-middle/`;
-
     const request = {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

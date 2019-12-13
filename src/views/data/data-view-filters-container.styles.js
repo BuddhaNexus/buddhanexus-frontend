@@ -6,7 +6,6 @@ export default css`
   }
 
   #filter-options-dropdown {
-    width: 300px;
     background-color: white;
   }
 
@@ -24,11 +23,18 @@ export default css`
     margin-right: 12px;
   }
 
-  #filter-filename {
+  #filter-parameters {
+    float: left;
+    width: 30%;
+  }
+
+  #filter-filename,
+  #exclude-filename {
     width: 210px;
   }
 
   #filter-collection,
+  #exclude-collection,
   #filter-target-collection {
     width: 300px;
   }
@@ -51,6 +57,10 @@ export default css`
     margin-right: 12px;
   }
 
+  .filter-group {
+    display: inline-block;
+  }
+
   #search-icon {
     margin-right: 24px;
   }
@@ -59,9 +69,14 @@ export default css`
     width: 100%;
   }
 
-  .filter-options-accordion {
-    width: 350px;
-    display: inline-flex;
+  .file-categories-filters {
+    float: left;
+    width: 70%;
+  }
+
+  #filters-box {
+    width: 900px;
+    height: 150px;
   }
 
   multiselect-combo-box[label],
@@ -82,7 +97,6 @@ export default css`
   }
 
   #slider-container {
-    display: inline-flex;
     flex-wrap: wrap;
     width: 250px;
     position: relative;
