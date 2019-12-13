@@ -8,11 +8,12 @@ import './text-view-left';
 import './text-view-middle';
 import './text-view-right';
 import { getLanguageFromFilename } from '../utility/views-common';
+import { colorTable } from '../utility/preprocessing';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view.styles';
 
-const TextViewInfoModalContent = () => html`
+const TextViewInfoModalContent = (numbers, colors) => html`
   <div>
     <p>
       The color coding of the syllables in the Inquiry Text on the left side
@@ -22,30 +23,10 @@ const TextViewInfoModalContent = () => html`
     <p><b>Color codes per number of matches:</b></p>
     <table style="width:100%; table-layout:fixed" align="center">
       <tr>
-        <td><b>0</b></td>
-        <td><b>1</b></td>
-        <td><b>2</b></td>
-        <td><b>3</b></td>
-        <td><b>4</b></td>
-        <td><b>5</b></td>
-        <td><b>6</b></td>
-        <td><b>7</b></td>
-        <td><b>8</b></td>
-        <td><b>9</b></td>
-        <td><b>10 or more</b></td>
+        ${numbers}
       </tr>
       <tr>
-        <td bgcolor="#000000" style="height:30px"></td>
-        <td bgcolor="#0CC0E8"></td>
-        <td bgcolor="#0039FF"></td>
-        <td bgcolor="#610CE8"></td>
-        <td bgcolor="#AA00FF"></td>
-        <td bgcolor="#DC0CE8"></td>
-        <td bgcolor="#FF0093"></td>
-        <td bgcolor="#E80C0C"></td>
-        <td bgcolor="#FF2A00"></td>
-        <td bgcolor="#E8550C"></td>
-        <td bgcolor="#FF860D"></td>
+        ${colors}
       </tr>
       <tr>
         <th></th>
@@ -239,6 +220,34 @@ export class TextView extends LitElement {
     this.searchString = false;
   }
 
+  addNumbers() {
+    let numbersForDialog = html``;
+    for (let i = 0; i < 10; i++) {
+      numbersForDialog = html`
+        ${numbersForDialog}
+        <td><b>${i}</b></td>
+      `;
+    }
+    return html`
+      ${numbersForDialog}
+      <td><b>10 or more</b></td>
+    `;
+  }
+
+  addColors() {
+    console.log(colorTable);
+    let colorsForDialog = html`
+      <td bgcolor="#000000" style="height:30px"></td>
+    `;
+    for (let i = 1; i <= 10; i++) {
+      colorsForDialog = html`
+        ${colorsForDialog}
+        <td bgcolor="${colorTable[i]}"></td>
+      `;
+    }
+    return colorsForDialog;
+  }
+
   render() {
     console.log('rendered text view.');
 
@@ -259,7 +268,10 @@ export class TextView extends LitElement {
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
           .fileName="${this.fileName}"
-          .infoModalContent="${TextViewInfoModalContent()}"
+          .infoModalContent="${TextViewInfoModalContent(
+            this.addNumbers(),
+            this.addColors()
+          )}"
         ></data-view-header>
         <table class="text-view-table">
           <text-view-header

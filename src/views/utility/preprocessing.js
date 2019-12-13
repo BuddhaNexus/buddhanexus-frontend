@@ -73,19 +73,20 @@ export const highlightTextByOffset = (
   return returnArray;
 };
 
+export const colorTable = {
+  1: '#0CC0E8',
+  2: '#0039FF',
+  3: '#610CE8',
+  4: '#AA00FF',
+  5: '#DC0CE8',
+  6: '#FF0093',
+  7: '#E80C0C',
+  8: '#FF2A00',
+  9: '#E8550C',
+  10: '#FF860D',
+};
+
 const getCooccuranceColor = cooc => {
-  const colorTable = {
-    1: '#0CC0E8',
-    2: '#0039FF',
-    3: '#610CE8',
-    4: '#AA00FF',
-    5: '#DC0CE8',
-    6: '#FF0093',
-    7: '#E80C0C',
-    8: '#FF2A00',
-    9: '#E8550C',
-    10: '#FF860D',
-  };
   return cooc < 10 ? colorTable[cooc] : colorTable[10];
 };
 

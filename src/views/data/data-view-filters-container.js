@@ -8,7 +8,6 @@ import '@polymer/paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
-import { sortByKey } from '../utility/views-common';
 
 import '../utility/LoadingSpinner';
 import {
@@ -79,39 +78,12 @@ export class DataViewFiltersContainer extends LitElement {
     this.filterFilesDataLoading = false;
   }
 
-  preprocessCategoriesList(categoriesList) {
-    if (this.language == 'tib') {
-      categoriesList = categoriesList.map(item => {
-        return {
-          category: item.category,
-          categoryname:
-            '• ' + item.categoryname.replace(/([KT])[0-9]+(.*)/g, '$2 ($1)'),
-        };
-      });
-      categoriesList.push({ category: 'T', categoryname: 'TENGYUR (ALL)' });
-      categoriesList.push({ category: 'K', categoryname: 'KANGYUR (ALL)' });
-    }
-    if (this.language == 'chn') {
-      categoriesList = categoriesList.map(item => {
-        return {
-          category: item.category,
-          categoryname:
-            '• ' + item.categoryname.replace(/([XT][0-9]+)(.*)/g, '$2 ($1)'),
-        };
-      });
-      categoriesList.push({ category: 'T', categoryname: 'TAISHO ALL (T)' });
-      categoriesList.push({ category: 'X', categoryname: 'SHINSAN ALL  (X)' });
-    }
-
-    return sortByKey(categoriesList, 'category');
-  }
-
   async fetchFilterCategories() {
     this.filterCategoriesDataLoading = true;
-    let { categoryitems, error } = await getCategoriesForFilterMenu({
+    const { categoryitems, error } = await getCategoriesForFilterMenu({
       language: this.language,
     });
-    this.filterCategoriesData = this.preprocessCategoriesList(categoryitems);
+    this.filterCategoriesData = categoryitems[0];
     this.filterCategoriesDataError = error;
     this.filterCategoriesDataLoading = false;
   }
@@ -140,13 +112,13 @@ export class DataViewFiltersContainer extends LitElement {
 
   handleFilesExcludeComboBoxChanged = e => {
     let filenamesExclude = e.detail.value.map(item => item.filename);
-    this.selectedFilenamesExclude = filenamesExclude.map(item => '!' + item);
+    this.selectedFilenamesExclude = filenamesExclude.map(item => `!${item}`);
     this.updateFilters();
   };
 
   handleCategoriesExcludeComboBoxChanged(e) {
     let CategoriesExclude = e.detail.value.map(item => item.category);
-    this.selectedCategoriesExclude = CategoriesExclude.map(item => '!' + item);
+    this.selectedCategoriesExclude = CategoriesExclude.map(item => `!${item}`);
     this.updateFilters();
   }
 
@@ -179,6 +151,24 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowTargetDropdown() {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
   }
+
+  MultiSelectBox(label, id, changefunction, itempath) {
+    return html`
+      <multiselect-combo-box
+        Label="${label}"
+        id="${id}"
+        item-label-path="categoryname"
+        style="display: ${this.shouldShowFilterDropdown()
+          ? 'inline-flex'
+          : 'none'}"
+        @selected-items-changed="${changefunction}"
+        .items="${itempath}"
+        item-value-path="category"
+      >
+      </multiselect-combo-box>
+    `;
+  }
+
   createFilesCollectionFilters() {
     return html`
       <div class="file-categories-filters">
@@ -187,37 +177,24 @@ export class DataViewFiltersContainer extends LitElement {
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Limit to collections:"
-                id="filter-collection"
-                item-label-path="categoryname"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                @selected-items-changed="${this
-                  .handleCategoriesComboBoxChanged}"
-                .items="${this.filterCategoriesData}"
-                item-value-path="category"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Limit to collections:',
+                'filter-collection',
+                this.handleCategoriesComboBoxChanged,
+                this.filterCategoriesData
+              )}
             `}
         ${this.filterFilesDataLoading
           ? html`
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Limit to files:"
-                id="filter-filename"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                item-label-path="categoryname"
-                @selected-items-changed="${this.handleFilesComboBoxChanged}"
-                .items="${this.filterFilesData}"
-                item-value-path="filename"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Limit to files:',
+                'filter-filename',
+                this.handleFilesComboBoxChanged,
+                this.filterFilesData
+              )}
             `}
         <br />
         ${this.filterCategoriesDataLoading
@@ -225,43 +202,30 @@ export class DataViewFiltersContainer extends LitElement {
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Exclude collections:"
-                id="filter-collection"
-                item-label-path="categoryname"
-                style="display: ${this.shouldShowFilterDropdown()
-                  ? 'inline-flex'
-                  : 'none'}"
-                @selected-items-changed="${this
-                  .handleCategoriesExcludeComboBoxChanged}"
-                .items="${this.filterCategoriesData}"
-                item-value-path="category"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Exclude collections:',
+                'exclude-collection',
+                this.handleCategoriesExcludeComboBoxChanged,
+                this.filterCategoriesData
+              )}
             `}
         ${this.filterFilesDataLoading
           ? html`
               <span>Loading...</span>
             `
           : html`
-              <multiselect-combo-box
-                Label="Exclude files:"
-                id="filter-filename"
-                style="display: ${
-                  this.shouldShowFilterDropdown() ? 'inline-flex' : 'none'
-                }"
-                item-label-path="categoryname"
-                @selected-items-changed="${
-                  this.handleFilesExcludeComboBoxChanged
-                }"
-                .items="${this.filterFilesData}"
-                item-value-path="filename"
-              >
-              </multiselect-combo-box>
+              ${this.MultiSelectBox(
+                'Exclude files:',
+                'exclude-filename',
+                this.handleFilesExcludeComboBoxChanged,
+                this.filterFilesData
+              )}
             </div>`}
       </div>
     `;
   }
+
+  // TODO: Refactor these HTML objects into separate file.
   createFilterParameters() {
     return html`
       <div id="filter-parameters">
@@ -322,6 +286,23 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
+  createTargetFilterForGraph() {
+    return html`
+      <multiselect-combo-box
+        Label="Filter by target collection:"
+        id="filter-target-collection"
+        item-label-path="collectionname"
+        style="display: ${this.shouldShowTargetDropdown()
+          ? 'inline-flex'
+          : 'none'}"
+        @selected-items-changed="${this.handleTargetComboBoxChanged}"
+        .items="${this.targetCollectionData}"
+        item-value-path="collectionkey"
+      >
+      </multiselect-combo-box>
+    `;
+  }
+
   createFilterBox() {
     return html`
       <div class="filter-group">
@@ -332,12 +313,14 @@ export class DataViewFiltersContainer extends LitElement {
             <div id="filters-box">
               ${this.createFilterParameters()}
               ${this.createFilesCollectionFilters()}
+              ${this.createTargetFilterForGraph()}
             </div>
           </vaadin-details>
         </div>
       </div>
     `;
   }
+
   render() {
     return html`
       <vaadin-radio-group
@@ -379,20 +362,6 @@ export class DataViewFiltersContainer extends LitElement {
             `
           : null
       }
-
-        <multiselect-combo-box
-          Label="Filter by target collection:"
-          id="filter-target-collection"
-          item-label-path="collectionname"
-          style="display: ${
-            this.shouldShowTargetDropdown() ? 'inline-flex' : 'none'
-          }"
-          @selected-items-changed="${this.handleTargetComboBoxChanged}"
-          .items="${this.targetCollectionData}"
-          item-value-path="collectionkey"
-        >
-        </multiselect-combo-box>
-
         <vaadin-select
           @value-changed="${this.updateSortMethod}"
           Label="Sorting method:"
