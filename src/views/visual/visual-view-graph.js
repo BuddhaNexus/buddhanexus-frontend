@@ -167,18 +167,13 @@ export class VisualViewGraph extends LitElement {
     } else {
       let factor;
       let windowHeight = window.innerHeight - 90;
-      console.log('windowHeight=', windowHeight);
-      console.log('leftPageSize=', leftPageSize);
-      console.log('rightPageSize=', rightPageSize);
       if (rightPageSize > this.pageSize) {
         factor = (windowHeight * rightPageSize) / this.pageSize;
       } else {
         factor = windowHeight;
       }
-      console.log('factor=', factor);
-      this.graphHeight = factor + 'px';
+      this.chartHeight = factor + 'px';
     }
-    console.log(this.graphHeight);
   }
 
   // When the chart is clicked, the value of it is checked. If is is on the left side, it opens when we are
