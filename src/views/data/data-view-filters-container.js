@@ -225,6 +225,7 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
+  // TODO: Refactor these HTML objects into separate file.
   createFilterParameters() {
     return html`
       <div id="filter-parameters">
