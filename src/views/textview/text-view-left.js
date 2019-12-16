@@ -370,12 +370,9 @@ const leftSegmentContainer = (
     );
   }
   let lang = getLanguageFromFilename(segmentNr);
-  // this is in order to avoid matches getting displayed for the numbers at the beginning of the chinese files
-  if (!(lang == 'chn' && /\.[0-9]/.test(segText))) {
     if (current_parallels[0]) {
       colorValues = findColorValues(segText, segmentNr, current_parallels);
     }
-  }
   segText = tokenizeWords(
     segText,
     lang,
