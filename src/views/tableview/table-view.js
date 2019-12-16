@@ -76,7 +76,6 @@ export class TableView extends LitElement {
       }
       if (propName === 'sortMethod') {
         // data fetched, add listener
-        console.log('CHANGED SORTING METHOD', this.sortMethod);
       }
     });
   }

@@ -37,7 +37,6 @@ export class DataViewRouter extends LightDOMElement {
         ></text-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
-      console.log('VIEW MODE', this.selectedView);
       return html`
         <numbers-view
           .fileName="${this.fileName}"

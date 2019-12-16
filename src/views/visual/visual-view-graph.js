@@ -124,7 +124,6 @@ export class VisualViewGraph extends LitElement {
     if (this.language != 'chn') {
       return graphData;
     } else {
-      console.log('GRAPHDATA 1', graphData);
       let existingEntries = {};
       graphData.forEach(entry => {
         let leftCollectionName = entry[0].replace(' ', '_');
@@ -139,10 +138,8 @@ export class VisualViewGraph extends LitElement {
       let result = [];
       for (let entry in existingEntries) {
         let names = entry.split(' ');
-        console.log('NAMES', names);
         result.push([names[0], names[1] + ' ', existingEntries[entry]]);
       }
-      console.log('RESULT', result);
       return result;
     }
   }
