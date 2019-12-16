@@ -155,7 +155,7 @@ export class VisualViewGraph extends LitElement {
     this.currentPage = 0;
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
-    this.pageSize = this.language === 'pli' ? 50 : 100;
+    this.pageSize = this.language === 'pli' ? 25 : 100;
     let searchTerm = this.searchItem;
     searchTerm = !searchTerm.includes('acip')
       ? searchTerm.split('_')[1]
@@ -179,24 +179,28 @@ export class VisualViewGraph extends LitElement {
     if (!this.graphData || !this.graphData[this.currentPage]) {
       return;
     }
+
+    // calculating the number of items on the right and the left of the chart
     let leftPageSize = this.pageSize;
     if (this.currentPage + 1 === this.graphData.length) {
       leftPageSize = this.lastPageSize;
     }
     let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
-    if (this.language === 'tib') {
+
+    // calculating graphheight based on language and pagesize.
+    if (this.language !== 'pli') {
       if (this.graphData[this.currentPage].length > 400) {
         this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
       }
-    }
-    if (this.language === 'chn') {
-      if (this.graphData[this.currentPage].length > 10) {
-        this.chartHeight = this.graphData[this.currentPage].length * 4 + 'px';
+    } else {
+      let factor;
+      let windowHeight = window.innerHeight - 90;
+      if (rightPageSize > this.pageSize) {
+        factor = (windowHeight * rightPageSize) / this.pageSize;
+      } else {
+        factor = windowHeight;
       }
-    }
-
-    if (this.language === 'pli' && rightPageSize / leftPageSize < 0.2) {
-      this.chartHeight = this.graphData[this.currentPage].length * 4 + 'px';
+      this.chartHeight = factor + 'px';
     }
   }
 
