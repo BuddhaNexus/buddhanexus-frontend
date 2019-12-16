@@ -85,10 +85,6 @@ export class TextView extends LitElement {
       endoffset: 0,
     };
   }
-  toggleTextSwitchedFlag() {
-    this.textSwitchedFlag = false;
-  }
-
   toggleMiddleData(e) {
     this.middleData = e.detail;
   }
@@ -302,7 +298,6 @@ export class TextView extends LitElement {
                 .cooccurance="${this.cooccurance}"
                 .leftActiveSegment="${this.leftActiveSegment}"
                 .textSwitchedFlag="${this.textSwitchedFlag}"
-                .toggleTextSwitchedFlag="${this.toggleTextSwitchedFlag}"
                 @active-segment-changed="${this.toggleMiddleData}"
                 @highlight-left-after-scrolling="${this
                   .highlightLeftafterScrolling}"

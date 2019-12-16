@@ -29,8 +29,6 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) textSwitchedFlag = false;
-  @property({ type: Function }) toggleTextSwitchedFlag;
-
   static get styles() {
     return [sharedDataViewStyles, styles];
   }
@@ -367,9 +365,9 @@ const leftSegmentContainer = (
     );
   }
   let lang = getLanguageFromFilename(segmentNr);
-    if (current_parallels[0]) {
-      colorValues = findColorValues(segText, segmentNr, current_parallels);
-    }
+  if (current_parallels[0]) {
+    colorValues = findColorValues(segText, segmentNr, current_parallels);
+  }
   segText = tokenizeWords(
     segText,
     lang,

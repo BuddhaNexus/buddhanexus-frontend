@@ -24,7 +24,7 @@ export class DataView extends LitElement {
   @property({ type: Number }) quoteLength = 12; // this also works well with the Tibetan, but might be very different in the case of other languages
   @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
-  @property({ type: Array }) limitCollection = []; 
+  @property({ type: Array }) limitCollection = [];
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
@@ -82,6 +82,7 @@ export class DataView extends LitElement {
   }
 
   setFileName = fileName => {
+    // Is it the case that we might trigger a re-rendering in case the variable value is the same but it get's updated anyway? I suspect this is happening, this is why I added the if-statements here.
     if (this.fileName != fileName) {
       this.fileName = fileName;
     }
