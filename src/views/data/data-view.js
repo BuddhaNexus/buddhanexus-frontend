@@ -24,7 +24,7 @@ export class DataView extends LitElement {
   @property({ type: Number }) quoteLength = 12; // this also works well with the Tibetan, but might be very different in the case of other languages
   @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
-  @property({ type: Array }) limitCollection = []; // for the time being, to disable shinsan results for the chinese.
+  @property({ type: Array }) limitCollection = []; 
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
