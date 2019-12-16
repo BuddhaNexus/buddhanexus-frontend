@@ -52,9 +52,6 @@ export class TextViewLeft extends LitElement {
   updated(_changedProperties) {
     console.log('DISABLE FLAG', this.textSwitchedFlag);
     this.scrollLeftText();
-    // if (this.leftActiveSegment == undefined) {
-    //   this.leftActiveSegment = 'none';
-    // }
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName' && !this.textSwitchedFlag) {
         console.log('NEW FILENAME', this.fileName);
