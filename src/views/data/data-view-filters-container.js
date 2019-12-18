@@ -367,7 +367,7 @@ export class DataViewFiltersContainer extends LitElement {
           Label="Sorting method:"
           id="sort-collection"
           item-label-path="filename"
-          style="width: 300px; margin-left: 10px; display: ${
+          style="display: ${
             this.shouldShowSortingDropdown() ? 'inline-flex' : 'none'
           }"
         >

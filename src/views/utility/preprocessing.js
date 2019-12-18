@@ -2,7 +2,10 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import { getLanguageFromFilename } from './views-common';
+import {
+  getLanguageFromFilename,
+  getLinkForSegmentNumbers,
+} from './views-common';
 
 export const preprocessTibetan = currentString => {
   currentString = currentString.replace(/\//g, '|') + ' ';
@@ -168,7 +171,7 @@ export function replaceSegmentForDisplay(segment, lang) {
       <span title="${segment}">${displayName}:${number}</span>
     `;
   } else {
-    return segment;
+    return getLinkForSegmentNumbers(lang, segment);
   }
 }
 

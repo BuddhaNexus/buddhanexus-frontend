@@ -17,6 +17,14 @@ export default css`
     --material-primary-text-color: rgba(33, 33, 33);
   }
 
+  vaadin-select {
+    width: 300px;
+  }
+
+  .filter-group {
+    margin-right: 12px;
+  }
+
   multiselect-combo-box,
   vaadin-combo-box {
     margin-left: 12px;

@@ -3,8 +3,9 @@ import { html } from 'lit-element';
 import { objectMap } from '../utility/utils';
 import { getParCollectionNumber, getParSutta } from './numbersViewUtils';
 import NumbersViewTableHeader from './numbers-view-table-header';
+import { getLinkForSegmentNumbers } from '../utility/views-common';
 
-const NumbersViewTable = ({ fileName, collections, segments }) => {
+const NumbersViewTable = ({ fileName, collections, segments, language }) => {
   if (!segments || segments.length === 0) {
     return null;
   }
@@ -16,12 +17,12 @@ const NumbersViewTable = ({ fileName, collections, segments }) => {
   return html`
     <table class="numbers-view-table">
       ${NumbersViewTableHeader(fileName, collectionslist)}
-      ${NumbersViewTableContent(segments, collectionslist)}
+      ${NumbersViewTableContent(segments, collectionslist, language)}
     </table>
   `;
 };
 
-const NumbersViewTableContent = (segments, collectionkeys) =>
+const NumbersViewTableContent = (segments, collectionkeys, language) =>
   segments.map(segment => {
     const collections = objectMap(collectionkeys, () => []);
     const { parallels: segmentParallels, segmentnr } = segment;
@@ -29,27 +30,33 @@ const NumbersViewTableContent = (segments, collectionkeys) =>
     return TableRowContainer(
       segmentParallels ? segmentParallels : [],
       collections,
-      segmentnr
+      segmentnr,
+      language
     );
   });
 
-const TableRowContainer = (segmentParallels, collections, segmentnr) =>
+const TableRowContainer = (
+  segmentParallels,
+  collections,
+  segmentnr,
+  language
+) =>
   segmentParallels.map((parallelArr, index) => {
     const parSutta = getParSutta(
       parallelArr[0],
       parallelArr[parallelArr.length - 1]
     );
     const parCollection = getParCollectionNumber(parSutta);
-
+    const segmentlink = getLinkForSegmentNumbers(language, segmentnr);
     if (collections[parCollection]) {
       collections[parCollection].push(parSutta);
       if (index === segmentParallels.length - 1) {
-        return TableRow(segmentnr, collections);
+        return TableRow(segmentlink, collections, language);
       }
     }
   });
 
-const TableRow = (segmentNr, collections) =>
+const TableRow = (segmentNr, collections, language) =>
   html`
     <tr>
       <th>
@@ -58,21 +65,22 @@ const TableRow = (segmentNr, collections) =>
       ${Object.keys(collections).map(
         key => html`
           <td>
-            ${getParallelsForCollection(collections[key])}
+            ${getParallelsForCollection(collections[key], language)}
           </td>
         `
       )}
     </tr>
   `;
 
-const getParallelsForCollection = collection =>
+const getParallelsForCollection = (collection, language) =>
   collection.map(item => {
     const segmentName =
       item.length >= 3
         ? `${item[0]}:${item[1]}:${item[item.length - 1]}`
         : `${item[0]}:${item[item.length - 1]}`;
+    const segmentlink = getLinkForSegmentNumbers(language, segmentName);
     return html`
-      <span class="segment-number">${segmentName}</span><br />
+      <span class="segment-number">${segmentlink}</span><br />
     `;
   });
 

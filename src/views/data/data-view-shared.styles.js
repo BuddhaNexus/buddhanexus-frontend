@@ -31,6 +31,11 @@ export default css`
     top: 100%;
   }
 
+  .segment-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
   .chn-gatha {
     margin: 0;
     text-align: end;

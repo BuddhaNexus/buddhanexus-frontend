@@ -1,4 +1,8 @@
 import { html } from 'lit-element';
+import {
+  getLinkForSegmentNumbers,
+  getLanguageFromFilename,
+} from '../utility/views-common';
 
 export const TableViewTableRow = ({
   rootSegmentId,
@@ -18,7 +22,10 @@ export const TableViewTableRow = ({
       >
         <header class="table-view-table__cell-header">
           <span class="table-view-table__segment-id">
-            ${rootSegmentId}
+            ${getLinkForSegmentNumbers(
+              getLanguageFromFilename(rootSegmentId),
+              rootSegmentId
+            )}
           </span>
           <div class="table-view-table__parallel-details">
             <span class="table-view-table__parallel-details-badge"
@@ -33,7 +40,10 @@ export const TableViewTableRow = ({
           ></iron-icon>
         </header>
         <div class="horizontal-divider"></div>
-        <div class="table-view-table__text">
+        <div
+          class="table-view-table__text"
+          lang="${getLanguageFromFilename(rootSegmentId)}"
+        >
           ${rootSegmentText}
         </div>
       </div>
@@ -42,7 +52,10 @@ export const TableViewTableRow = ({
       >
         <header class="table-view-table__cell-header">
           <span class="table-view-table__segment-id">
-            ${parallelSegmentId}
+            ${getLinkForSegmentNumbers(
+              getLanguageFromFilename(parallelSegmentId),
+              parallelSegmentId
+            )}
           </span>
           <div class="table-view-table__parallel-details">
             <span class="table-view-table__parallel-details-badge"
@@ -60,7 +73,10 @@ export const TableViewTableRow = ({
           ></iron-icon>
         </header>
         <div class="horizontal-divider"></div>
-        <div class="table-view-table__text">
+        <div
+          class="table-view-table__text"
+          lang="${getLanguageFromFilename(parallelSegmentId)}"
+        >
           ${parallelSegmentText}
         </div>
       </div>
