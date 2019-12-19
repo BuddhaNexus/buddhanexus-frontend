@@ -33,22 +33,29 @@ export function getLinkForSegmentNumbers(language, segmentnr) {
     ${segmentnr}
   `;
   if (language === 'pli') {
-    if (!segmentnr.match(/^tika|^anya|^atk/)) {
-      const cleanedSegment = segmentnr
-        .split(':')[1]
-        .replace(/_[0-9]+/g, '')
-        .replace('–', '--');
-      segmentlink = html`
-        <a
-          target="_blanc"
-          class="segment-link"
-          href="https://suttacentral.net/${segmentnr.split(
-            ':'
-          )[0]}/pli/ms#${cleanedSegment}"
-          >${segmentnr}</a
-        >
-      `;
-    }
+    const cleanedSegment = segmentnr
+      .split(':')[1]
+      .replace(/_[0-9]+/g, '')
+      .replace('–', '--');
+    const linkText = segmentnr.match(/^tika|^anya|^atk/)
+      ? `https://www.tipitaka.org/romn/`
+      : `https://suttacentral.net/${
+          segmentnr.split(':')[0]
+        }/pli/ms#${cleanedSegment}`;
+    segmentlink = html`
+      <a target="_blanc" class="segment-link" href="${linkText}"
+        >${segmentnr}</a
+      >
+    `;
+  }
+  if (language === 'chn') {
+    const cleanedSegment = segmentnr.split(':')[0].replace(/_T/, 'n');
+    const linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
+    segmentlink = html`
+      <a target="_blanc" class="segment-link" href="${linkText}"
+        >${segmentnr}</a
+      >
+    `;
   }
   return segmentlink;
 }
