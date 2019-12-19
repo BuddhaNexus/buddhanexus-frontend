@@ -82,11 +82,13 @@ export class DataView extends LitElement {
   }
 
   setFileName = fileName => {
-    // Is it the case that we might trigger a re-rendering in case the variable value is the same but it get's updated anyway? I suspect this is happening, this is why I added the if-statements here.
+    // Is it the case that we might trigger a re-rendering in case the variable value is the
+    // same but it get's updated anyway? I suspect this is happening, this is why I added the if-statements here.
     if (this.fileName != fileName) {
       this.fileName = fileName;
     }
   };
+
   setScore = e => {
     if (e.target.value != this.score) {
       this.score = e.target.value;
@@ -96,6 +98,7 @@ export class DataView extends LitElement {
   setSearch = e => {
     this.searchString = e.target.value;
   };
+
   setQuoteLength = e => {
     if (e.target.value != this.quoteLength) {
       this.quoteLength = e.target.value;

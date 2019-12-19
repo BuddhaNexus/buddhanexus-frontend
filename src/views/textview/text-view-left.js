@@ -21,6 +21,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: Object }) leftTextData;
   @property({ type: Number }) score;
   @property({ type: String }) leftActiveSegment;
+  // Local variables
   @property({ type: String }) endOfLeftTextFlag = false;
   @property({ type: Array }) textLeft = [];
   @property({ type: Object }) parallels = {};
@@ -29,6 +30,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) textSwitchedFlag = false;
+
   static get styles() {
     return [sharedDataViewStyles, styles];
   }
@@ -91,41 +93,44 @@ export class TextViewLeft extends LitElement {
   }
 
   scrollAfterEndlessReload() {
-    if (this.noScrolling && !this.noEndlessScrolling) {
-      if (this.leftActiveSegment) {
-        let activeElement = this.shadowRoot.getElementById(
-          this.leftActiveSegment
-        );
-        if (activeElement) {
-          let mainScrollPosition = document
-            .querySelector('body > vaadin-app-layout')
-            .shadowRoot.querySelector('div:nth-child(5)').scrollTop;
-          if (this.currentPosition > 100) {
-            activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
-            document
-              .querySelector('body > vaadin-app-layout > main > data-view')
-              .shadowRoot.querySelector('#text-view')
-              .shadowRoot.querySelector(
-                'vaadin-split-layout > div.left-text-column'
-              ).scrollTop += 18;
-          } else {
-            activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
-            document
-              .querySelector('body > vaadin-app-layout > main > data-view')
-              .shadowRoot.querySelector('#text-view')
-              .shadowRoot.querySelector(
-                'vaadin-split-layout > div.left-text-column'
-              ).scrollTop -= 18;
-          }
-          document
-            .querySelector('body > vaadin-app-layout')
-            .shadowRoot.querySelector(
-              'div:nth-child(5)'
-            ).scrollTop = mainScrollPosition;
-        }
-      }
+    if (
+      !this.noScrolling ||
+      this.noEndlessScrolling ||
+      !this.leftActiveSegment
+    ) {
+      return;
     }
+    let activeElement = this.shadowRoot.getElementById(this.leftActiveSegment);
+    if (!activeElement) {
+      return;
+    }
+    let mainScrollPosition = document
+      .querySelector('body > vaadin-app-layout')
+      .shadowRoot.querySelector('div:nth-child(5)').scrollTop;
+    if (this.currentPosition > 100) {
+      activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
+      document
+        .querySelector('body > vaadin-app-layout > main > data-view')
+        .shadowRoot.querySelector('#text-view')
+        .shadowRoot.querySelector(
+          'vaadin-split-layout > div.left-text-column'
+        ).scrollTop += 18;
+    } else {
+      activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
+      document
+        .querySelector('body > vaadin-app-layout > main > data-view')
+        .shadowRoot.querySelector('#text-view')
+        .shadowRoot.querySelector(
+          'vaadin-split-layout > div.left-text-column'
+        ).scrollTop -= 18;
+    }
+    document
+      .querySelector('body > vaadin-app-layout')
+      .shadowRoot.querySelector(
+        'div:nth-child(5)'
+      ).scrollTop = mainScrollPosition;
   }
+
   async fetchDataText() {
     if (!this.fileName) {
       this.fetchLoading = false;

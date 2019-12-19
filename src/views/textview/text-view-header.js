@@ -55,6 +55,7 @@ export class TextViewHeader extends LitElement {
   openDialogRight = () => (this.isDialogRightOpen = true);
 
   setisDialogRightOpen = e => (this.isDialogRightOpen = e.detail.value);
+
   beginningButton() {
     return html`
       <vaadin-button
@@ -81,7 +82,8 @@ export class TextViewHeader extends LitElement {
       </vaadin-button>
     `;
   }
-  // TODO move this to separate component
+
+  // TODO move this to separate component as a constant
   switchButton() {
     return html`
       <vaadin-button

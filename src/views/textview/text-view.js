@@ -231,7 +231,6 @@ export class TextView extends LitElement {
   }
 
   addColors() {
-    console.log(colorTable);
     let colorsForDialog = html`
       <td bgcolor="#000000" style="height:30px"></td>
     `;
