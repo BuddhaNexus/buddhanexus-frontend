@@ -86,31 +86,15 @@ export class TextViewRight extends LitElement {
     if (this.noScrolling && this.EndlessScrollFlag) {
       if (this.activeSegment) {
         let activeElement = this.shadowRoot.getElementById(this.activeSegment);
-        let mainScrollPosition = document
-          .querySelector('body > vaadin-app-layout')
-          .shadowRoot.querySelector('div:nth-child(5)').scrollTop;
+        let mainScrollPosition = this.scrollTop;
         if (this.currentPosition > 100) {
           activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
-          document
-            .querySelector('body > vaadin-app-layout > main > data-view')
-            .shadowRoot.querySelector('#text-view')
-            .shadowRoot.querySelector(
-              'vaadin-split-layout > div.right-text-column'
-            ).scrollTop += 0;
+          this.scrollTop += 0;
         } else {
           activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
-          document
-            .querySelector('body > vaadin-app-layout > main > data-view')
-            .shadowRoot.querySelector('#text-view')
-            .shadowRoot.querySelector(
-              'vaadin-split-layout > div.right-text-column'
-            ).scrollTop -= 0;
+          this.scrollTop -= 0;
         }
-        document
-          .querySelector('body > vaadin-app-layout')
-          .shadowRoot.querySelector(
-            'div:nth-child(5)'
-          ).scrollTop = mainScrollPosition;
+        this.scrollTop = mainScrollPosition;
       }
     }
   }
@@ -154,9 +138,7 @@ export class TextViewRight extends LitElement {
       !this.noScrolling &&
       this.shadowRoot.querySelector('.selected-segment')
     ) {
-      let parentWindow = document
-        .querySelector('body > vaadin-app-layout')
-        .shadowRoot.querySelector('div:nth-child(5)');
+      let parentWindow = this;
       let parentScroll = parentWindow.scrollTop;
       this.shadowRoot.querySelector('.selected-segment').scrollIntoView();
       parentWindow.scrollTop = parentScroll;

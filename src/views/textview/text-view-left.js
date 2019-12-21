@@ -104,31 +104,15 @@ export class TextViewLeft extends LitElement {
     if (!activeElement) {
       return;
     }
-    let mainScrollPosition = document
-      .querySelector('body > vaadin-app-layout')
-      .shadowRoot.querySelector('div:nth-child(5)').scrollTop;
+    let mainScrollPosition = this.scrollTop;
     if (this.currentPosition > 100) {
       activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
-      document
-        .querySelector('body > vaadin-app-layout > main > data-view')
-        .shadowRoot.querySelector('#text-view')
-        .shadowRoot.querySelector(
-          'vaadin-split-layout > div.left-text-column'
-        ).scrollTop += 18;
+      this.scrollTop += 18;
     } else {
       activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
-      document
-        .querySelector('body > vaadin-app-layout > main > data-view')
-        .shadowRoot.querySelector('#text-view')
-        .shadowRoot.querySelector(
-          'vaadin-split-layout > div.left-text-column'
-        ).scrollTop -= 18;
+      this.scrollTop -= 18;
     }
-    document
-      .querySelector('body > vaadin-app-layout')
-      .shadowRoot.querySelector(
-        'div:nth-child(5)'
-      ).scrollTop = mainScrollPosition;
+    this.scrollTop = mainScrollPosition;
   }
 
   async fetchDataText() {
@@ -173,9 +157,7 @@ export class TextViewLeft extends LitElement {
     if (!selectedSegment) {
       return;
     }
-    let parentWindow = document
-      .querySelector('body > vaadin-app-layout')
-      .shadowRoot.querySelector('div:nth-child(5)');
+    let parentWindow = this;
     let parentScroll = parentWindow.scrollTop;
     selectedSegment.scrollIntoView();
     parentWindow.scrollTop = parentScroll;
