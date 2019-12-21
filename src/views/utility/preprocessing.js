@@ -126,6 +126,7 @@ const wrapWordsInSpan = (
         position="${position}"
         @click="${clickFunction}">${cleanedWord}</span>`
 };
+
 export function tokenizeWords(
   inputData,
   lang,

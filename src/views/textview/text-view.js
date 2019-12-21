@@ -65,6 +65,7 @@ export class TextView extends LitElement {
       }
     });
   }
+
   newText() {
     this.rightFileName = '';
     this.middleData = {};
@@ -78,6 +79,7 @@ export class TextView extends LitElement {
     this.fileName = this.rightFileName;
     this.rightFileName = '';
   }
+
   resetLeftText() {
     this.leftTextData = {
       selectedParallels: ['none'],
@@ -85,6 +87,7 @@ export class TextView extends LitElement {
       endoffset: 0,
     };
   }
+
   toggleMiddleData(e) {
     this.middleData = e.detail;
   }

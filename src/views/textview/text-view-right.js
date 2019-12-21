@@ -82,6 +82,7 @@ export class TextViewRight extends LitElement {
       }
     });
   }
+
   scrollAfterEndlessReload() {
     if (this.noScrolling && this.EndlessScrollFlag) {
       if (this.activeSegment) {
@@ -228,6 +229,7 @@ export class TextViewRight extends LitElement {
       );
     }
   }
+
   render() {
     console.log('rendering text-view right');
     return html`
