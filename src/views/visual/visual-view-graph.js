@@ -119,30 +119,6 @@ export class VisualViewGraph extends LitElement {
       </div>
     `;
   }
-  // the following could also be done on the backend, but I am not entirely sure. it is a complex question...
-  preprocessGraphData(graphData) {
-    if (this.language != 'chn') {
-      return graphData;
-    } else {
-      let existingEntries = {};
-      graphData.forEach(entry => {
-        let leftCollectionName = entry[0].replace(' ', '_');
-        let rightCollectionName = entry[1].split('_')[0];
-        let mergedName = leftCollectionName + ' ' + rightCollectionName;
-        if (mergedName in existingEntries) {
-          existingEntries[mergedName] += entry[2];
-        } else {
-          existingEntries[mergedName] = entry[2];
-        }
-      });
-      let result = [];
-      for (let entry in existingEntries) {
-        let names = entry.split(' ');
-        result.push([names[0], names[1] + ' ', existingEntries[entry]]);
-      }
-      return result;
-    }
-  }
 
   async fetchData() {
     if (!this.searchItem) {
@@ -163,7 +139,6 @@ export class VisualViewGraph extends LitElement {
       selected: this.selectedCollections,
       language: this.language,
     });
-    graphdata = this.preprocessGraphData(graphdata);
     this.graphData = this.paginateGraphData(graphdata);
     this.totalPages = this.graphData.length;
     this.adjustChartHeight();
@@ -184,21 +159,17 @@ export class VisualViewGraph extends LitElement {
     }
     let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
 
-    // calculating graphheight based on language and pagesize.
-    if (this.language !== 'pli') {
-      if (this.graphData[this.currentPage].length > 400) {
-        this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
-      }
+    // calculating graphheight based on pagesize.
+    let factor;
+    let windowHeight = window.innerHeight - 90;
+    if (rightPageSize > 25) {
+      factor = (windowHeight * rightPageSize) / 25;
+    } else if (leftPageSize > 25) {
+      factor = (windowHeight * leftPageSize) / 25;
     } else {
-      let factor;
-      let windowHeight = window.innerHeight - 90;
-      if (rightPageSize > this.pageSize) {
-        factor = (windowHeight * rightPageSize) / this.pageSize;
-      } else {
-        factor = windowHeight;
-      }
-      this.chartHeight = factor + 'px';
+      factor = windowHeight;
     }
+    this.chartHeight = factor + 'px';
   }
 
   // When the chart is clicked, the value of it is checked. If is is on the left side, it opens when we are

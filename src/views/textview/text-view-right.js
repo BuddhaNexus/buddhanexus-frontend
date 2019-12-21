@@ -20,6 +20,7 @@ export class TextViewRight extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: Object }) rightTextData;
+  // local variables
   @property({ type: String }) activeSegment = 'none';
   @property({ type: String }) endOfRightTextFlag = false;
   @property({ type: Array }) textRight = [];
@@ -74,7 +75,7 @@ export class TextViewRight extends LitElement {
       }
     });
     _changedProperties.forEach((oldValue, propName) => {
-      if (['rightTextData'].includes(propName)) {
+      if (propName === 'rightTextData') {
         this.noScrolling = false;
         this.activeSegment = this.rightTextData.selectedParallels[0];
         // the following is really just a temporary hack; the update of the segmentnr does not yet work properly; currently, the right text is therefore fetched twice.
@@ -87,15 +88,11 @@ export class TextViewRight extends LitElement {
     if (this.noScrolling && this.EndlessScrollFlag) {
       if (this.activeSegment) {
         let activeElement = this.shadowRoot.getElementById(this.activeSegment);
-        let mainScrollPosition = this.scrollTop;
         if (this.currentPosition > 100) {
           activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
-          this.scrollTop += 0;
         } else {
           activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
-          this.scrollTop -= 0;
         }
-        this.scrollTop = mainScrollPosition;
       }
     }
   }
