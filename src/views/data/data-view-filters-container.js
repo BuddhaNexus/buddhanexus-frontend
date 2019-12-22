@@ -4,7 +4,7 @@ import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-button';
 import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-group';
 import '@vaadin/vaadin-details/theme/material/vaadin-details';
 import '@vaadin/vaadin-select/theme/material/vaadin-select';
-import '@polymer/paper-slider/paper-slider';
+import '../../paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
@@ -241,7 +241,7 @@ export class DataViewFiltersContainer extends LitElement {
                 value="${this.score}"
                 @change="${this.updateScore}"
                 max="100"
-                pin
+                editable
               >
               </paper-slider>
             </div>
@@ -258,7 +258,7 @@ export class DataViewFiltersContainer extends LitElement {
                 @change="${this.updateQuoteLength}"
                 max="300"
                 min="5"
-                pin
+                editable
               >
               </paper-slider>
             </div>
@@ -275,8 +275,7 @@ export class DataViewFiltersContainer extends LitElement {
                 @change="${this.updateCooccurance}"
                 max="30"
                 min="1"
-                dir="rtl"
-                pin
+                editable
               >
               </paper-slider>
             </div>
@@ -307,7 +306,6 @@ export class DataViewFiltersContainer extends LitElement {
     return html`
       <div class="filter-group">
         <div class="filter-options-accordion">
-          <!-- TODO: Change from  "details" component to dropdown -->
           <vaadin-details id="filter-options-dropdown">
             <div slot="summary" id="details-box">Filter options:</div>
             <div id="filters-box">

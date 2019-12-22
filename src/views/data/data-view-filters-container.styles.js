@@ -77,6 +77,8 @@ export default css`
   #filters-box {
     width: 900px;
     height: 150px;
+    margin-top: 12px;
+    margin-left: -18px;
   }
 
   multiselect-combo-box[label],
