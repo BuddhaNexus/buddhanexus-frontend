@@ -134,7 +134,7 @@ export class VisualViewGraph extends LitElement {
       ? searchTerm.split('_')[1]
       : searchTerm.replace('tib_', '');
     console.log('visual view: fetching data', this.searchItem);
-    const { graphdata, error } = await getDataForVisual({
+    let { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,
       language: this.language,
@@ -159,21 +159,17 @@ export class VisualViewGraph extends LitElement {
     }
     let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
 
-    // calculating graphheight based on language and pagesize.
-    if (this.language !== 'pli') {
-      if (this.graphData[this.currentPage].length > 400) {
-        this.chartHeight = this.graphData[this.currentPage].length * 2 + 'px';
-      }
+    // calculating graphheight based on pagesize.
+    let factor;
+    let windowHeight = window.innerHeight - 90;
+    if (rightPageSize > 25) {
+      factor = (windowHeight * rightPageSize) / 25;
+    } else if (leftPageSize > 25) {
+      factor = (windowHeight * leftPageSize) / 25;
     } else {
-      let factor;
-      let windowHeight = window.innerHeight - 90;
-      if (rightPageSize > this.pageSize) {
-        factor = (windowHeight * rightPageSize) / this.pageSize;
-      } else {
-        factor = windowHeight;
-      }
-      this.chartHeight = factor + 'px';
+      factor = windowHeight;
     }
+    this.chartHeight = factor + 'px';
   }
 
   // When the chart is clicked, the value of it is checked. If is is on the left side, it opens when we are

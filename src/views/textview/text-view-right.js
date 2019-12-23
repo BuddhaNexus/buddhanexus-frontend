@@ -15,18 +15,20 @@ import styles from './text-view.styles';
 export class TextViewRight extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) rightFileName;
+  @property({ type: Number }) currentPosition = 0;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: Object }) rightTextData;
-
+  // local variables
   @property({ type: String }) activeSegment = 'none';
+  @property({ type: String }) endOfRightTextFlag = false;
   @property({ type: Array }) textRight = [];
   @property({ type: Object }) parallels = {};
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) noScrolling = false;
-  @property({ type: String }) fetchLoadingParallels = true;
+  @property({ type: String }) EndlessScrollFlag = false;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -34,20 +36,18 @@ export class TextViewRight extends LitElement {
 
   firstUpdated() {
     this.activeSegment = this.rightTextData.selectedParallels[0];
-    this.fetchDataText();
-
+    //this.fetchDataText();
     this.noScrolling = false;
   }
 
   // TODO This will need some refactoring
   updated(_changedProperties) {
-    console.log('updated text-view-right properties', _changedProperties);
     this.scrollRightText();
     _changedProperties.forEach((oldValue, propName) => {
       if (['rightFileName'].includes(propName)) {
         this.parallels = {};
         this.textRight = [];
-        this.noScrolling = false;
+        this.noScroolling = false;
       }
     });
 
@@ -55,7 +55,6 @@ export class TextViewRight extends LitElement {
       if (
         [
           'score',
-          'rightFileName',
           'activeSegment',
           'cooccurance',
           'sortMethod',
@@ -64,22 +63,38 @@ export class TextViewRight extends LitElement {
         ].includes(propName) &&
         !this.fetchLoading
       ) {
-        this.fetchDataText();
+        if (!this.fetchLoading) {
+          this.fetchDataText();
+        }
       }
-    });
-    _changedProperties.forEach((oldValue, propName) => {
-      if (['parallels', 'textRight'].includes(propName)) {
+      if (propName === 'textRight') {
         this.addSegmentObservers();
+        if (this.noScrolling) {
+          this.scrollAfterEndlessReload();
+        }
       }
     });
     _changedProperties.forEach((oldValue, propName) => {
-      if (['rightTextData'].includes(propName)) {
+      if (propName === 'rightTextData') {
         this.noScrolling = false;
         this.activeSegment = this.rightTextData.selectedParallels[0];
         // the following is really just a temporary hack; the update of the segmentnr does not yet work properly; currently, the right text is therefore fetched twice.
         this.fetchDataText();
       }
     });
+  }
+
+  scrollAfterEndlessReload() {
+    if (this.noScrolling && this.EndlessScrollFlag) {
+      if (this.activeSegment) {
+        let activeElement = this.shadowRoot.getElementById(this.activeSegment);
+        if (this.currentPosition > 100) {
+          activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
+        } else {
+          activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
+        }
+      }
+    }
   }
 
   async fetchDataText() {
@@ -96,7 +111,8 @@ export class TextViewRight extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.activeSegment,
     });
-    this.textRight = this.textRight.concat(textleft);
+    this.endOfRightTextFlag = textleft.length != 200 ? true : false;
+    this.textRight = textleft;
     this.textRight = removeDuplicates(this.textRight, 'segnr');
     this.textRightBySegNr = {};
     this.textRight.forEach(
@@ -111,7 +127,6 @@ export class TextViewRight extends LitElement {
         }
       }
     }
-    this.fetchLoadingParallels = false;
     this.fetchError = error;
     this.fetchLoading = false;
   }
@@ -121,9 +136,7 @@ export class TextViewRight extends LitElement {
       !this.noScrolling &&
       this.shadowRoot.querySelector('.selected-segment')
     ) {
-      let parentWindow = document
-        .querySelector('body > vaadin-app-layout')
-        .shadowRoot.querySelector('div:nth-child(5)');
+      let parentWindow = this;
       let parentScroll = parentWindow.scrollTop;
       this.shadowRoot.querySelector('.selected-segment').scrollIntoView();
       parentWindow.scrollTop = parentScroll;
@@ -141,6 +154,10 @@ export class TextViewRight extends LitElement {
       for (let i = 0; i <= entries.length; i++) {
         if (entries[i] && entries[i].isIntersecting === true && !set_flag) {
           this.activeSegment = entries[i].target.id;
+          this.EndlessScrollFlag = true;
+          this.currentPosition = parseInt(
+            entries[i].target.getAttribute('number')
+          );
           set_flag = true;
         }
       }
@@ -148,7 +165,7 @@ export class TextViewRight extends LitElement {
 
     const config = {
       root: this.shadowRoot.querySelector('#right-text-column'),
-      threshold: 1,
+      threshold: 0,
     };
 
     let observer = new IntersectionObserver(callback, config);
@@ -156,12 +173,11 @@ export class TextViewRight extends LitElement {
       return;
     }
     let targets = this.shadowRoot.querySelectorAll('.right-segment');
-    for (let i = 0; i <= targets.length; i++) {
-      if (targets[i] && i > targets.length - 50) {
-        observer.observe(targets[i]);
-      } else if (targets[i]) {
-        observer.unobserve(targets[i]);
-      }
+    if (this.activeSegment != 'none' && this.activeSegment != targets[0].id) {
+      observer.observe(targets[0]);
+    }
+    if (!this.endOfRightTextFlag) {
+      observer.observe(targets[targets.length - 1]);
     }
   }
 
@@ -210,6 +226,7 @@ export class TextViewRight extends LitElement {
       );
     }
   }
+
   render() {
     console.log('rendering text-view right');
     return html`
@@ -222,7 +239,9 @@ export class TextViewRight extends LitElement {
         this.textRight,
         this.parallels,
         this.displayParallels,
-        this.rightTextData
+        this.rightTextData,
+        this.activeSegment,
+        this.currentPosition
       )}
     `;
   }
@@ -232,7 +251,9 @@ const TextViewLayoutRight = (
   textRight,
   parallels,
   clickFunction,
-  rightTextData
+  rightTextData,
+  currentSegment,
+  currentPosition
 ) => {
   if (!textRight || !parallels) {
     return null;
@@ -256,7 +277,9 @@ const TextViewLayoutRight = (
       current_parallels,
       number,
       clickFunction,
-      rightTextData
+      rightTextData,
+      currentSegment,
+      currentPosition
     );
   });
 };
@@ -267,7 +290,9 @@ const rightSegmentContainer = (
   current_parallels,
   number,
   clickFunction,
-  rightTextData
+  rightTextData,
+  currentSegment,
+  currentPosition
 ) => {
   if (!segmentNr) {
     return null;
@@ -296,12 +321,32 @@ const rightSegmentContainer = (
     rightSideHighlight,
     1
   );
-  return rightSegment(segmentNr, segText, number);
+  return rightSegment(
+    segmentNr,
+    segText,
+    number,
+    currentSegment,
+    currentPosition
+  );
 };
 
-const rightSegment = (segmentNr, segText, number) =>
-  html`
-    <div class="right-segment" id=${segmentNr} number="${number}">
-      ${segText}
-    </div>
-  `;
+const rightSegment = (
+  segmentNr,
+  segText,
+  number,
+  currentSegment,
+  currentPosition
+) => {
+  if (
+    segmentNr == currentSegment &&
+    number > 10 &&
+    number < 180 &&
+    currentPosition < 100
+  ) {
+    // prettier-ignore
+    return html`<br /><span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
+  } else {
+    // prettier-ignore
+    return html`<span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
+  }
+};

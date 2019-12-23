@@ -17,17 +17,19 @@ export class TextViewLeft extends LitElement {
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
+  @property({ type: Number }) currentPosition = 0;
   @property({ type: Object }) leftTextData;
   @property({ type: Number }) score;
   @property({ type: String }) leftActiveSegment;
-
+  // Local variables
   @property({ type: String }) endOfLeftTextFlag = false;
   @property({ type: Array }) textLeft = [];
   @property({ type: Object }) parallels = {};
   @property({ type: String }) noScrolling = true;
+  @property({ type: String }) noEndlessScrolling = true;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
-  @property({ type: String }) fetchLoadingParallels = true;
+  @property({ type: String }) textSwitchedFlag = false;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -40,37 +42,30 @@ export class TextViewLeft extends LitElement {
     }
     if (this.leftActiveSegment == undefined) {
       this.leftActiveSegment = 'none';
+      this.fetchDataText();
     } else {
       this.leftTextData = { selectedParallels: [this.leftActiveSegment] };
     }
-    this.fetchDataText();
   }
 
   // TODO - needs refactoring
   updated(_changedProperties) {
-    console.log('updated text-view-left properties.', _changedProperties);
     this.scrollLeftText();
-    if (this.leftActiveSegment == undefined) {
-      this.leftActiveSegment = 'none';
-    }
-
     _changedProperties.forEach((oldValue, propName) => {
-      if (propName === 'fileName') {
+      if (propName === 'fileName' && !this.textSwitchedFlag) {
         this.textLeft = [];
         this.parallels = {};
         this.leftActiveSegment = 'none';
-        // there is a very tricky race condition when moving from the right-side
-        // display to the left side, since both leftTextdata and fileName get updated;
-        // in order to avoid strange bugs in the display of the leftside text,
-        // we need to catch this:
-        if (!_changedProperties.has('leftTextData')) {
+        if (!this.fetchLoading) {
           this.fetchDataText();
         }
       }
     });
+
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'leftTextData') {
         this.noScrolling = false;
+        this.noEndlessScrolling = true;
         this.parallels = {};
         this.textLeft = [];
         this.leftActiveSegment = this.leftTextData.selectedParallels[0];
@@ -88,11 +83,36 @@ export class TextViewLeft extends LitElement {
       ) {
         this.fetchDataText();
       }
-
       if (propName === 'textLeft') {
         this.addSegmentObservers();
+        if (this.noScrolling && !this.noEndlessScrolling) {
+          this.scrollAfterEndlessReload();
+        }
       }
     });
+  }
+
+  scrollAfterEndlessReload() {
+    if (
+      !this.noScrolling ||
+      this.noEndlessScrolling ||
+      !this.leftActiveSegment
+    ) {
+      return;
+    }
+    let activeElement = this.shadowRoot.getElementById(this.leftActiveSegment);
+    if (!activeElement) {
+      return;
+    }
+    let mainScrollPosition = this.scrollTop;
+    if (this.currentPosition > 100) {
+      activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
+      this.scrollTop += 18;
+    } else {
+      activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
+      this.scrollTop -= 18;
+    }
+    this.scrollTop = mainScrollPosition;
   }
 
   async fetchDataText() {
@@ -110,7 +130,7 @@ export class TextViewLeft extends LitElement {
       active_segment: this.leftActiveSegment,
     });
     this.endOfLeftTextFlag = textleft.length != 200 ? true : false;
-    this.textLeft = this.textLeft.concat(textleft);
+    this.textLeft = textleft;
     this.textLeft = removeDuplicates(this.textLeft, 'segnr');
     this.textLeftBySegNr = {};
     this.textLeft.forEach(
@@ -125,7 +145,6 @@ export class TextViewLeft extends LitElement {
         }
       }
     }
-    this.fetchLoadingParallels = false;
     this.fetchError = error;
     this.fetchLoading = false;
   }
@@ -138,9 +157,7 @@ export class TextViewLeft extends LitElement {
     if (!selectedSegment) {
       return;
     }
-    let parentWindow = document
-      .querySelector('body > vaadin-app-layout')
-      .shadowRoot.querySelector('div:nth-child(5)');
+    let parentWindow = this;
     let parentScroll = parentWindow.scrollTop;
     selectedSegment.scrollIntoView();
     parentWindow.scrollTop = parentScroll;
@@ -170,6 +187,10 @@ export class TextViewLeft extends LitElement {
       for (let i = 0; i <= entries.length; i++) {
         if (entries[i] && entries[i].isIntersecting === true && !set_flag) {
           this.leftActiveSegment = entries[i].target.id;
+          this.noEndlessScrolling = false;
+          this.currentPosition = parseInt(
+            entries[i].target.getAttribute('number')
+          );
           set_flag = true;
         }
       }
@@ -181,17 +202,15 @@ export class TextViewLeft extends LitElement {
     };
 
     let observer = new IntersectionObserver(callback, config);
-
     let targets = this.shadowRoot.querySelectorAll('.left-segment');
-    for (let i = 0; i <= targets.length; i++) {
-      if (!this.endOfLeftTextFlag) {
-        if (targets[i] && i > targets.length - 50) {
-          // add observer to the last 10 left-segments
-          observer.observe(targets[i]);
-        } else if (targets[i]) {
-          observer.unobserve(targets[i]);
-        }
-      }
+    if (
+      this.leftActiveSegment != 'none' &&
+      this.leftActiveSegment != targets[0].id
+    ) {
+      observer.observe(targets[0]);
+    }
+    if (!this.endOfLeftTextFlag) {
+      observer.observe(targets[targets.length - 1]);
     }
   }
 
@@ -255,7 +274,7 @@ export class TextViewLeft extends LitElement {
     console.log('rendering text-view left');
 
     return html`
-      ${(this.fetchLoading || this.fetchLoadingParallels) && this.fileName
+      ${this.fetchLoading && this.fileName
         ? html`
             <bn-loading-spinner marginAdjust="-300px"></bn-loading-spinner>
           `
@@ -264,7 +283,9 @@ export class TextViewLeft extends LitElement {
         this.textLeft,
         this.parallels,
         this.displayParallelsEvent,
-        this.leftTextData
+        this.leftTextData,
+        this.leftActiveSegment,
+        this.currentPosition
       )}
     `;
   }
@@ -274,7 +295,9 @@ const TextViewLayoutLeft = (
   textLeft,
   parallels,
   clickFunction,
-  leftTextData
+  leftTextData,
+  currentSegment,
+  currentPosition
 ) => {
   if (!textLeft || !parallels) {
     return null;
@@ -298,7 +321,9 @@ const TextViewLayoutLeft = (
       current_parallels,
       number,
       clickFunction,
-      leftTextData
+      leftTextData,
+      currentSegment,
+      currentPosition
     );
   });
 };
@@ -309,7 +334,9 @@ const leftSegmentContainer = (
   current_parallels,
   number,
   clickFunction,
-  leftTextData
+  leftTextData,
+  currentSegment,
+  currentPosition
 ) => {
   let colorValues = [];
   let leftSideHighlight = 0;
@@ -324,10 +351,10 @@ const leftSegmentContainer = (
       false
     );
   }
+  let lang = getLanguageFromFilename(segmentNr);
   if (current_parallels[0]) {
     colorValues = findColorValues(segText, segmentNr, current_parallels);
   }
-  let lang = getLanguageFromFilename(segmentNr);
   segText = tokenizeWords(
     segText,
     lang,
@@ -335,13 +362,32 @@ const leftSegmentContainer = (
     clickFunction,
     leftSideHighlight
   );
-  return leftSegment(segmentNr, segText, number);
+  return leftSegment(
+    segmentNr,
+    segText,
+    number,
+    currentSegment,
+    currentPosition
+  );
 };
 
-const leftSegment = (segmentNr, segText, number) => {
-  return html`
-    <span class="left-segment" id=${segmentNr} number="${number}"
-      >${segText}</span
-    >
-  `;
+const leftSegment = (
+  segmentNr,
+  segText,
+  number,
+  currentSegment,
+  currentPosition
+) => {
+  if (
+    segmentNr == currentSegment &&
+    number > 10 &&
+    number < 180 &&
+    currentPosition < 100
+  ) {
+    // prettier-ignore
+    return html`<br /><span class="left-segment" id=${segmentNr} number="${number}">${segText}</span>`;
+  } else {
+    // prettier-ignore
+    return html`<span class="left-segment" id=${segmentNr} number="${number}">${segText}</span>`;
+  }
 };
