@@ -1,6 +1,7 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
-import '@vaadin/vaadin-accordion/theme/material/vaadin-accordion.js';
+// import '@vaadin/vaadin-accordion/theme/material/vaadin-accordion.js';
+import '@vaadin/vaadin-details/theme/material/vaadin-details.js';
 
 import { getDataForSidebarMenu } from '../../api/actions';
 
@@ -83,38 +84,18 @@ export class NavigationMenu extends LitElement {
     collection.categories.forEach(category => {
       categoryList = html`
         ${categoryList}
-        <vaadin-accordion-panel theme="reverse">
-          <div slot="summary">${category.categorydisplayname}</div>
+        <vaadin-details theme="reverse" class="file-list">
+          <div slot="summary" class="category-display">
+            ${category.categorydisplayname}<br />
+            <span class="category-name">(${category.categoryname})</span>
+          </div>
           <ul>
             ${this.addCatagoryFiles(category.files)}
           </ul>
-        </vaadin-accordion-panel>
+        </vaadin-details>
       `;
     });
     return categoryList;
-  }
-
-  openCategoryList(e) {
-    const targetCollection = e.target.id.split('-')[0];
-    if (!targetCollection) {
-      return;
-    }
-    const targetElement = this.shadowRoot.querySelector('#' + targetCollection);
-    if (!targetElement.querySelector('.categorylist')) {
-      return;
-    }
-    const targetElementIcon = targetElement.querySelector(
-      '#' + targetCollection + '-icon'
-    );
-    if (targetElement.getAttribute('opened') == 'true') {
-      targetElement.querySelector('.categorylist').classList.add('hidden');
-      targetElement.setAttribute('opened', false);
-      targetElementIcon.setAttribute('icon', 'vaadin:angle-down');
-    } else {
-      targetElement.setAttribute('opened', true);
-      targetElement.querySelector('.categorylist').classList.remove('hidden');
-      targetElementIcon.setAttribute('icon', 'vaadin:angle-up');
-    }
   }
 
   collectionMenu() {
@@ -122,22 +103,12 @@ export class NavigationMenu extends LitElement {
     this.navigationMenuData.forEach(collection => {
       collectionMenuData = html`
         ${collectionMenuData}
-        <li
-          class="collection-menu"
-          id="${collection.collection}"
-          @click="${this.openCategoryList}"
-          opened="false"
-        >
-          ${collection.collection}
-          <iron-icon
-            class="dropdown-icon"
-            id="${collection.collection}-icon"
-            icon="vaadin:angle-down"
-          ></iron-icon>
-          <vaadin-accordion class="categorylist hidden" opened="100">
-            ${this.addCategoryItems(collection)}
-          </vaadin-accordion>
-        </li>
+        <vaadin-details theme="reverse">
+          <div slot="summary" class="collection-list">
+            ${collection.collection}
+          </div>
+          ${this.addCategoryItems(collection)}
+        </vaadin-details>
       `;
     });
     return collectionMenuData;
@@ -154,9 +125,7 @@ export class NavigationMenu extends LitElement {
 
     return html`
       <div id="menu-container">
-        <ul class="collectionlist">
-          ${this.collectionMenu()}
-        </ul>
+        ${this.collectionMenu()}
       </div>
     `;
   }
