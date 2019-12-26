@@ -1,6 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
-// import '@vaadin/vaadin-accordion/theme/material/vaadin-accordion.js';
 import '@vaadin/vaadin-details/theme/material/vaadin-details.js';
 
 import { getDataForSidebarMenu } from '../../api/actions';

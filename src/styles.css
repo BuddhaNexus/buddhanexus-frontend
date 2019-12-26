@@ -119,3 +119,8 @@ a.menu-tab {
   height: 100%;
   overflow: scroll;
 }
+
+vaadin-drawer-toggle {
+  margin-right: 0;
+  color: #2a3443;
+}

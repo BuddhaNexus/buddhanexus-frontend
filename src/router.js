@@ -26,7 +26,7 @@ const ROUTES = [
       BNRouter.selectTab(TABS.HOME),
         document
           .querySelector('vaadin-drawer-toggle')
-          .setAttribute('style', 'display: none');
+          .setAttribute('style', 'visibility: hidden');
     },
   },
   {
@@ -67,7 +67,7 @@ const ROUTES = [
       BNRouter.selectTab(TABS.VISUAL);
       document
         .querySelector('vaadin-drawer-toggle')
-        .setAttribute('style', 'display: none');
+        .setAttribute('style', 'visibility: hidden');
     },
   },
   {
