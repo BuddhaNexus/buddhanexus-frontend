@@ -1,8 +1,6 @@
 import { html } from 'lit-element';
-import {
-  getLinkForSegmentNumbers,
-  getLanguageFromFilename,
-} from '../utility/views-common';
+import { getLanguageFromFilename } from '../utility/views-common';
+import { getLinkForSegmentNumbers } from '../utility/preprocessing';
 
 export const TableViewTableRow = ({
   rootSegmentId,

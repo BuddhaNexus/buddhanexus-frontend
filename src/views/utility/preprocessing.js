@@ -2,10 +2,7 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import {
-  getLanguageFromFilename,
-  getLinkForSegmentNumbers,
-} from './views-common';
+import { getLanguageFromFilename } from './views-common';
 
 export const preprocessTibetan = currentString => {
   currentString = currentString.replace(/\//g, '|') + ' ';
@@ -163,29 +160,64 @@ export function tokenizeWords(
 }
 
 export function replaceSegmentForDisplay(segment, lang) {
-  let filename = segment.split(':')[0];
-  let number = segment.split(':')[1];
-  if (window.menuData[lang] && window.menuData[lang][filename]) {
-    let displayName = window.menuData[lang][filename];
-    return html`
-      <span title="${segment}">${displayName}:${number}</span>
-    `;
-  } else {
-    return getLinkForSegmentNumbers(lang, segment);
+  const filename = segment.split(':')[0];
+  const number = segment.split(':')[1];
+  let displayName = filename;
+  if (
+    window.menuData &&
+    window.menuData[lang] &&
+    window.menuData[lang][filename]
+  ) {
+    displayName = window.menuData[lang][filename];
   }
+  return html`
+    <span title="${segment}">${displayName}:${number}</span>
+  `;
 }
 
 export function replaceFileNameForDisplay(fileName) {
   const lang = getLanguageFromFilename(fileName);
-  if (!window.menuData) {
-    return;
+  let displayName = fileName.toUpperCase();
+  if (
+    window.menuData &&
+    window.menuData[lang] &&
+    window.menuData[lang][fileName]
+  ) {
+    displayName = window.menuData[lang][fileName];
   }
-  if (window.menuData[lang] && window.menuData[lang][fileName]) {
-    let displayName = window.menuData[lang][fileName];
-    return html`
-      <span title="${fileName}">${displayName}</span>
+  return html`
+    <span title="${fileName}">${displayName}</span>
+  `;
+}
+
+export function getLinkForSegmentNumbers(language, segmentnr) {
+  let segmentlink = html`
+    ${segmentnr}
+  `;
+  if (language === 'pli') {
+    const cleanedSegment = segmentnr
+      .split(':')[1]
+      .replace(/_[0-9]+/g, '')
+      .replace('–', '--');
+    const linkText = segmentnr.match(/^tika|^anya|^atk/)
+      ? `https://www.tipitaka.org/romn/`
+      : `https://suttacentral.net/${
+          segmentnr.split(':')[0]
+        }/pli/ms#${cleanedSegment}`;
+    segmentlink = html`
+      <a target="_blanc" class="segment-link" href="${linkText}"
+        >${segmentnr}</a
+      >
     `;
-  } else {
-    return fileName.toUpperCase();
   }
+  if (language === 'chn') {
+    const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
+    const linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
+    segmentlink = html`
+      <a target="_blanc" class="segment-link" href="${linkText}"
+        >${segmentnr}</a
+      >
+    `;
+  }
+  return segmentlink;
 }

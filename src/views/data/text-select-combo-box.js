@@ -37,20 +37,9 @@ export class TextSelectComboBox extends LitElement {
 
   constructNameDic(results) {
     let nameDic = {};
-    if (this.language === 'tib') {
-      results.forEach(result => {
-        nameDic[result.filename] = result.textname;
-      });
-    } else if (this.language === 'chn') {
-      results.forEach(result => {
-        let displayName =
-          result.displayName.split(' ')[0] +
-          ' ' +
-          result.displayName.split(' ')[1];
-        nameDic[result.filename] = displayName;
-      });
-    }
-
+    results.forEach(result => {
+      nameDic[result.filename] = result.textname;
+    });
     return nameDic;
   }
 
@@ -67,7 +56,8 @@ export class TextSelectComboBox extends LitElement {
     if (!window.menuData) {
       window.menuData = {};
     }
-    // I am not sure if it is hacky to use global scope window here or not, but it works and we avoid having to fetch the data multiple times! b
+    // I am not sure if it is hacky to use global scope window here or not,
+    // but it works and we avoid having to fetch the data multiple times!
     if (!window.menuData[this.language]) {
       window.menuData[this.language] = this.constructNameDic(result);
     }

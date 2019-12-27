@@ -3,7 +3,7 @@ import { html } from 'lit-element';
 import { objectMap } from '../utility/utils';
 import { getParCollectionNumber, getParSutta } from './numbersViewUtils';
 import NumbersViewTableHeader from './numbers-view-table-header';
-import { getLinkForSegmentNumbers } from '../utility/views-common';
+import { getLinkForSegmentNumbers } from '../utility/preprocessing';
 
 const NumbersViewTable = ({ fileName, collections, segments, language }) => {
   if (!segments || segments.length === 0) {

@@ -222,7 +222,6 @@ export class TextView extends LitElement {
   }
 
   addColors() {
-    console.log(colorTable);
     let colorsForDialog = html`
       <td bgcolor="#000000" style="height:30px"></td>
     `;
@@ -259,7 +258,6 @@ export class TextView extends LitElement {
             this.addNumbers(),
             this.addColors()
           )}"
-
         ></data-view-header>
         <table class="text-view-table">
           <text-view-header
