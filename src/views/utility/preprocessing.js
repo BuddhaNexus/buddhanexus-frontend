@@ -191,33 +191,29 @@ export function replaceFileNameForDisplay(fileName) {
 }
 
 export function getLinkForSegmentNumbers(language, segmentnr) {
-  let segmentlink = html`
-    ${segmentnr}
-  `;
+  let linkText = '';
   if (language === 'pli') {
     const cleanedSegment = segmentnr
       .split(':')[1]
       .replace(/_[0-9]+/g, '')
       .replace('–', '--');
-    const linkText = segmentnr.match(/^tika|^anya|^atk/)
+    linkText = segmentnr.match(/^tika|^anya|^atk/)
       ? `https://www.tipitaka.org/romn/`
       : `https://suttacentral.net/${
           segmentnr.split(':')[0]
         }/pli/ms#${cleanedSegment}`;
-    segmentlink = html`
-      <a target="_blanc" class="segment-link" href="${linkText}"
-        >${segmentnr}</a
-      >
-    `;
-  }
-  if (language === 'chn') {
+  } else if (language === 'chn') {
     const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
-    const linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
-    segmentlink = html`
-      <a target="_blanc" class="segment-link" href="${linkText}"
-        >${segmentnr}</a
-      >
-    `;
+    linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
   }
-  return segmentlink;
+
+  return linkText
+    ? html`
+        <a target="_blanc" class="segment-link" href="${linkText}"
+          >${segmentnr}</a
+        >
+      `
+    : html`
+        ${segmentnr}
+      `;
 }
