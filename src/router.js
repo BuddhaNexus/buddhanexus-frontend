@@ -36,7 +36,6 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.PALI);
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
-      document.querySelector('navigation-menu').setAttribute('language', 'pli');
     },
   },
   {
@@ -46,7 +45,6 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
-      document.querySelector('navigation-menu').setAttribute('language', 'tib');
     },
   },
   {
@@ -56,7 +54,6 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.CHINESE);
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
-      document.querySelector('navigation-menu').setAttribute('language', 'chn');
     },
   },
   {

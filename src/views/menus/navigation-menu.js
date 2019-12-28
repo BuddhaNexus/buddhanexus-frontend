@@ -9,6 +9,7 @@ import styles from './navigation-menu.styles';
 @customElement('navigation-menu')
 export class NavigationMenu extends LitElement {
   @property({ type: String }) language;
+  @property({ type: String }) fileName;
 
   @property({ type: Object }) navigationMenuData;
   @property({ type: String }) fetchError;
@@ -27,6 +28,11 @@ export class NavigationMenu extends LitElement {
     _changedProperties.forEach(async (oldValue, propName) => {
       if (['language'].includes(propName) && !this.fetchLoading) {
         await this.fetchData();
+      }
+      if (propName == 'fileName') {
+        document
+          .querySelector('data-view')
+          .setAttribute('fileName', this.fileName);
       }
     });
   }
@@ -48,11 +54,7 @@ export class NavigationMenu extends LitElement {
   }
 
   openThisFile(e) {
-    if (window.location.href.split('/').length > 5) {
-      window.open(`./${e.target.id}`, '_self');
-    } else {
-      window.open(`./text/${e.target.id}`, '_self');
-    }
+    this.fileName = e.target.id;
   }
 
   addCatagoryFiles(files) {
@@ -98,6 +100,9 @@ export class NavigationMenu extends LitElement {
   }
 
   collectionMenu() {
+    if (!this.navigationMenuData) {
+      return;
+    }
     let collectionMenuData = html``;
     this.navigationMenuData.forEach(collection => {
       collectionMenuData = html`

@@ -59,6 +59,11 @@ export class DataView extends LitElement {
       ) {
         this.applyFilter();
       }
+      if (propName === 'language') {
+        document
+          .querySelector('navigation-menu')
+          .setAttribute('language', this.language);
+      }
     });
   }
 
