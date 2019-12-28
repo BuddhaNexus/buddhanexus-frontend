@@ -20,6 +20,7 @@ export default css`
     font-size: 14px;
     font-family: Roboto;
     color: #595959;
+    cursor: pointer;
   }
 
   vaadin-details {
