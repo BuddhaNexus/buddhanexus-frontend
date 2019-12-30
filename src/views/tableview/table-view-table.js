@@ -56,7 +56,7 @@ export class TableViewTable extends LitElement {
             rootSegmentText: highlightTextByOffset(
               parallel.root_seg_text,
               parallel.root_offset_beg,
-              parallel.root_offset_end,
+              parallel.root_offset_end + 1, // the +1 is necessary for the chinese display, but hard to tell why.
               getLanguageFromFilename(parallel.root_segnr[0])
             ),
             parallelSegmentText: highlightTextByOffset(

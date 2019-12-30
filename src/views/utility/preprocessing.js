@@ -20,6 +20,15 @@ export const preprocessTibetan = currentString => {
   return currentString;
 };
 
+export const preprocessChineseCharacter = currentString => {
+  if (currentString.includes('#')) {
+    currentString = html`
+      <br />
+    `;
+  }
+  return currentString;
+};
+
 // this function is not yet revised or tested to work with the new refactored code.
 export const highlightTextByOffset = (
   textArray,
@@ -126,35 +135,99 @@ export function tokenizeWords(
   highlightMode = 0,
   rightMode = 0
 ) {
+  // Todo: It might be the case that SKT needs a special treatment here.
+  if (lang.match(/tib|skt|pli/)) {
+    return tokenizeTibPali(
+      inputData,
+      colorValues,
+      clickFunction,
+      highlightMode,
+      rightMode
+    );
+  } else {
+    return tokenizeChinese(
+      inputData,
+      colorValues,
+      clickFunction,
+      highlightMode,
+      rightMode
+    );
+  }
+}
+
+export function tokenizeTibPali(
+  inputData,
+  colorValues,
+  clickFunction = 0,
+  highlightMode = 0,
+  rightMode = 0
+) {
   let words = [];
   let selectedSegment = '';
-  if (lang.match(/tib|skt|pli/)) {
-    if (colorValues.length > 0) {
-      // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
-      inputData = inputData.replace(/\* \//, '*_/');
-      let splitWords = inputData.split(' ');
-      let position = 0;
-      for (let i = 0; i < splitWords.length; ++i) {
-        let currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
-        if (currentColor != 0 && highlightMode == 1) {
-          selectedSegment = 'selected-segment';
-        }
-        let cleanedWord = preprocessTibetan(splitWords[i]);
-        words.push(
-          wrapWordsInSpan(
-            selectedSegment,
-            currentColor,
-            rightMode,
-            position,
-            clickFunction,
-            cleanedWord
-          )
-        );
-        position += splitWords[i].length + 1;
+  if (colorValues.length > 0) {
+    // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
+    inputData = inputData.replace(/\* \//, '*_/');
+    let splitWords = inputData.split(' ');
+    let position = 0;
+    for (let i = 0; i < splitWords.length; ++i) {
+      let currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
+      if (currentColor != 0 && highlightMode == 1) {
+        selectedSegment = 'selected-segment';
       }
-    } else {
-      words = preprocessTibetan(inputData);
+      let cleanedWord = preprocessTibetan(splitWords[i]);
+      words.push(
+        wrapWordsInSpan(
+          selectedSegment,
+          currentColor,
+          rightMode,
+          position,
+          clickFunction,
+          cleanedWord
+        )
+      );
+      position += splitWords[i].length + 1;
     }
+  } else {
+    words = preprocessTibetan(inputData);
+  }
+  return words;
+}
+
+export function tokenizeChinese(
+  inputData,
+  colorValues,
+  clickFunction = 0,
+  highlightMode = 0,
+  rightMode = 0
+) {
+  let words = [];
+  let selectedSegment = '';
+  if (colorValues.length > 0) {
+    let splitWords = inputData;
+    let position = 0;
+    for (let i = 0; i < splitWords.length; ++i) {
+      let currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
+      if (currentColor != 0 && highlightMode == 1) {
+        selectedSegment = 'selected-segment';
+      }
+      let cleanedWord = preprocessChineseCharacter(splitWords[i]);
+
+      words.push(
+        wrapWordsInSpan(
+          selectedSegment,
+          currentColor,
+          rightMode,
+          position,
+          clickFunction,
+          cleanedWord
+        )
+      );
+      position += splitWords[i].length;
+    }
+  } else {
+    words = inputData.split('').map(character => {
+      return preprocessChineseCharacter(character);
+    });
   }
   return words;
 }

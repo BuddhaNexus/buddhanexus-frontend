@@ -45,12 +45,13 @@ export class TextView extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: String }) searchString;
-
+  @property({ type: Function }) setFileName;
   @property({ type: String }) rightFileName = '';
   @property({ type: Object }) rightTextData;
   @property({ type: Object }) middleData = {};
   @property({ type: Object }) leftTextData;
   @property({ type: String }) lang;
+  @property({ type: String }) textSwitchedFlag = false;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -59,6 +60,7 @@ export class TextView extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (['fileName'].includes(propName)) {
+        this.textSwitchedFlag = false;
         this.newText();
       }
     });
@@ -71,9 +73,19 @@ export class TextView extends LitElement {
   }
 
   switchTexts() {
+    this.textSwitchedFlag = true;
     this.leftTextData = this.rightTextData;
+    this.setFileName(this.rightFileName);
     this.fileName = this.rightFileName;
     this.rightFileName = '';
+  }
+
+  resetLeftText() {
+    this.leftTextData = {
+      selectedParallels: ['none'],
+      startoffset: 0,
+      endoffset: 0,
+    };
   }
 
   toggleMiddleData(e) {
@@ -166,7 +178,7 @@ export class TextView extends LitElement {
             words[j].classList.add('highlighted-by-parallel');
           }
           if (rootSegments.slice(-1)[0] == currentSegment) {
-            if (position >= rootOffsetEnd) {
+            if (position > rootOffsetEnd) {
               words[j].classList.remove('highlighted-by-parallel');
             } else {
               words[j].classList.add('highlighted-by-parallel');
@@ -222,7 +234,6 @@ export class TextView extends LitElement {
   }
 
   addColors() {
-    console.log(colorTable);
     let colorsForDialog = html`
       <td bgcolor="#000000" style="height:30px"></td>
     `;
@@ -259,7 +270,6 @@ export class TextView extends LitElement {
             this.addNumbers(),
             this.addColors()
           )}"
-
         ></data-view-header>
         <table class="text-view-table">
           <text-view-header
@@ -272,6 +282,7 @@ export class TextView extends LitElement {
             .quoteLength="${this.quoteLength}"
             .cooccurance="${this.cooccurance}"
             @switch-texts="${this.switchTexts}"
+            @reset-left-text="${this.resetLeftText}"
           ></text-view-header>
         </table>
 
@@ -288,6 +299,7 @@ export class TextView extends LitElement {
                 .quoteLength="${this.quoteLength}"
                 .cooccurance="${this.cooccurance}"
                 .leftActiveSegment="${this.leftActiveSegment}"
+                .textSwitchedFlag="${this.textSwitchedFlag}"
                 @active-segment-changed="${this.toggleMiddleData}"
                 @highlight-left-after-scrolling="${this
                   .highlightLeftafterScrolling}"

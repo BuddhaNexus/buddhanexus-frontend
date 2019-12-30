@@ -60,6 +60,19 @@ export default css`
     cursor: pointer;
   }
 
+
+  .up-button {
+    padding: 0;
+    left: 10px;
+    display: inline-flex;
+    min-width: 24px;
+    height: 24px;
+    margin-left: 12px;
+    background-color: white;
+    cursor: pointer;
+  }
+
+
   .swap-icon {
     color: #0031ca;
     margin: 0px;
@@ -95,6 +108,7 @@ export default css`
   }
 
   .left-text-column {
+    overscroll-behavior: none;
     overflow-wrap: break-word;
     width: 50%;
   }

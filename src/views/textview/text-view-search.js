@@ -39,7 +39,6 @@ export class TextViewLeft extends LitElement {
       searchString: this.searchString,
     });
     this.resultSegments = result;
-    console.log('RESULTS', this.resultSegments);
     this.fetchLoading = false;
     this.fetchError = error;
   }
