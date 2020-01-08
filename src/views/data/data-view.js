@@ -10,7 +10,6 @@ import { customElement, html, LitElement, property } from 'lit-element';
 
 import '../menus/navigation-menu.js';
 import './text-select-combo-box';
-// import '../menus/navigation-menu.js'; Needs to go in when menu is rendered.
 import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 
@@ -59,6 +58,11 @@ export class DataView extends LitElement {
         ['score', 'cooccurance', 'sortMethod', 'quoteLength'].includes(propName)
       ) {
         this.applyFilter();
+      }
+      if (propName === 'language') {
+        document
+          .querySelector('navigation-menu')
+          .setAttribute('language', this.language);
       }
     });
   }

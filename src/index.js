@@ -12,7 +12,7 @@ const disableDrawer = () => {
   document.querySelector('vaadin-app-layout').drawerOpened = false;
   document
     .querySelector('vaadin-drawer-toggle')
-    .setAttribute('style', 'display: none');
+    .setAttribute('style', 'visibility: hidden');
 };
 
 window.addEventListener('load', () => {

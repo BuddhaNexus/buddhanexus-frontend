@@ -162,7 +162,7 @@ export class VisualViewGraph extends LitElement {
     // calculating graphheight based on pagesize.
     let factor;
     let windowHeight = window.innerHeight - 90;
-    if (rightPageSize > 25) {
+    if (rightPageSize > 25 && rightPageSize >= leftPageSize) {
       factor = (windowHeight * rightPageSize) / 25;
     } else if (leftPageSize > 25) {
       factor = (windowHeight * leftPageSize) / 25;

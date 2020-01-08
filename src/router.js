@@ -22,7 +22,12 @@ const ROUTES = [
   {
     path: '/',
     component: 'home-view',
-    action: () => BNRouter.selectTab(TABS.HOME),
+    action: () => {
+      BNRouter.selectTab(TABS.HOME),
+        document
+          .querySelector('vaadin-drawer-toggle')
+          .setAttribute('style', 'visibility: hidden');
+    },
   },
   {
     path: '/pli/:viewMode?/:fileName?/:activeSegment?',
@@ -30,6 +35,7 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.PALI);
+      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
     },
   },
   {
@@ -38,6 +44,7 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
+      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
     },
   },
   {
@@ -46,6 +53,7 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.CHINESE);
+      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
     },
   },
   {
@@ -54,6 +62,9 @@ const ROUTES = [
     action: () => {
       import('./views/visual/visual-view.js');
       BNRouter.selectTab(TABS.VISUAL);
+      document
+        .querySelector('vaadin-drawer-toggle')
+        .setAttribute('style', 'visibility: hidden');
     },
   },
   {

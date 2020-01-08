@@ -196,3 +196,20 @@ export const getParallelCount = async ({
     };
   }
 };
+
+export const getDataForSidebarMenu = async ({ language }) => {
+  try {
+    const url = `${API_URL}/menus/sidebar/${language}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load segments from server: ', e);
+    return {
+      error: 'Could not load segments. Please check the console for details.',
+    };
+  }
+};
