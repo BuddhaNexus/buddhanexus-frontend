@@ -47,6 +47,7 @@ export default css`
     font-size: 14px;
     white-space: nowrap;
   }
+
   vaadin-item[name]:hover:after {
     left: 150px;
   }

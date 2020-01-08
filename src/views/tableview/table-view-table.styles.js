@@ -15,7 +15,6 @@ export default css`
   }
 
   .table-view-table__cell {
-    cursor: pointer;
     padding: 12px;
     margin: 6px;
     background-color: var(--color-light-grey);

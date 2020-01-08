@@ -106,6 +106,7 @@ export class NumbersView extends LitElement {
           fileName: this.fileName,
           collections: this.collectionsData,
           segments: this.segmentsData,
+          language: this.lang,
         })}
       </div>
     `;

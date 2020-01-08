@@ -1,5 +1,7 @@
 import { customElement, LitElement, property, html, css } from 'lit-element';
 
+import { replaceFileNameForDisplay } from '../utility/preprocessing';
+
 import styles from '../data/data-view.styles';
 import sharedStyles from '../data/data-view-shared.styles';
 
@@ -36,7 +38,7 @@ class TableViewTableHeader extends LitElement {
     return html`
       <div class="table-header-container">
         <div class="start-segment segment-header material-card">
-          Segment in ${this.fileName}
+          Segment in ${replaceFileNameForDisplay(this.fileName)}
         </div>
         <div class="segment-header material-card">
           Parallel segments and probabilities

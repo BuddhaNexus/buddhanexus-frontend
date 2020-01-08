@@ -22,6 +22,11 @@ export default css`
     -webkit-font-smoothing: antialiased;
   }
 
+  .segment-link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.54);
+  }
+
   .segment-header {
     font-weight: bold;
   }

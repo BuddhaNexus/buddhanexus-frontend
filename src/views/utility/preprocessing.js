@@ -233,29 +233,60 @@ export function tokenizeChinese(
 }
 
 export function replaceSegmentForDisplay(segment, lang) {
-  let filename = segment.split(':')[0];
-  let number = segment.split(':')[1];
-  if (window.menuData[lang] && window.menuData[lang][filename]) {
-    let displayName = window.menuData[lang][filename];
-    return html`
-      <span title="${segment}">${displayName}:${number}</span>
-    `;
-  } else {
-    return segment;
+  const filename = segment.split(':')[0];
+  const number = segment.split(':')[1];
+  let displayName = filename;
+  if (
+    window.menuData &&
+    window.menuData[lang] &&
+    window.menuData[lang][filename]
+  ) {
+    displayName = window.menuData[lang][filename];
   }
+  return html`
+    <span title="${segment}">${displayName}:${number}</span>
+  `;
 }
 
 export function replaceFileNameForDisplay(fileName) {
   const lang = getLanguageFromFilename(fileName);
-  if (!window.menuData) {
-    return;
+  let displayName = fileName.toUpperCase();
+  if (
+    window.menuData &&
+    window.menuData[lang] &&
+    window.menuData[lang][fileName]
+  ) {
+    displayName = window.menuData[lang][fileName];
   }
-  if (window.menuData[lang] && window.menuData[lang][fileName]) {
-    let displayName = window.menuData[lang][fileName];
-    return html`
-      <span title="${fileName}">${displayName}</span>
-    `;
-  } else {
-    return fileName.toUpperCase();
+  return html`
+    <span title="${fileName}">${displayName}</span>
+  `;
+}
+
+export function getLinkForSegmentNumbers(language, segmentnr) {
+  let linkText = '';
+  if (language === 'pli') {
+    const cleanedSegment = segmentnr
+      .split(':')[1]
+      .replace(/_[0-9]+/g, '')
+      .replace('–', '--');
+    linkText = segmentnr.match(/^tika|^anya|^atk/)
+      ? `https://www.tipitaka.org/romn/`
+      : `https://suttacentral.net/${
+          segmentnr.split(':')[0]
+        }/pli/ms#${cleanedSegment}`;
+  } else if (language === 'chn') {
+    const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
+    linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
   }
+
+  return linkText
+    ? html`
+        <a target="_blanc" class="segment-link" href="${linkText}"
+          >${segmentnr}</a
+        >
+      `
+    : html`
+        ${segmentnr}
+      `;
 }
