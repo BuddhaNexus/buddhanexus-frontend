@@ -271,7 +271,10 @@ export function getLinkForSegmentNumbers(language, segmentnr) {
       .replace(/_[0-9]+/g, '')
       .replace('–', '--');
     let rootSegment = segmentnr.split(':')[0];
-    if (segmentnr.match(/^an[1-9]|^sn[1-9]/)) {
+    if (segmentnr.match(/^dhp/)) {
+      cleanedSegment = `${cleanedSegment.split('.', 1)}`;
+      rootSegment = 'dhp';
+    } else if (segmentnr.match(/^an[1-9]|^sn[1-9]/)) {
       rootSegment = `${rootSegment}.${cleanedSegment.split('.', 1)}`;
       const dotPosition = cleanedSegment.indexOf('.');
       cleanedSegment = cleanedSegment.substring(dotPosition + 1);
