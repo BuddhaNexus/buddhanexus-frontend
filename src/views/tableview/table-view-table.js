@@ -24,20 +24,11 @@ export class TableViewTable extends LitElement {
   }
 
   // Label in table cell, e.g T06TD4085E:154_0–161_0.
-  getSegmentId = (parallel, parOrRoot) => {
-    let segLabel =
-      parOrRoot === 'root' ? parallel.root_segnr[0] : parallel.par_segnr[0];
-
-    if (parOrRoot === 'parallel' && parallel.par_segnr.length > 1) {
-      const parallels = parallel.par_segnr[parallel.par_segnr.length - 1].split(
-        ':'
-      );
+  getSegmentId = segnr => {
+    let segLabel = segnr[0];
+    if (segnr.length > 1) {
+      const parallels = segnr[segnr.length - 1].split(':');
       return segLabel + `–${parallels[parallels.length - 1]}`;
-    } else if (parOrRoot === 'root' && parallel.root_segnr.length > 1) {
-      const rootids = parallel.root_segnr[parallel.root_segnr.length - 1].split(
-        ':'
-      );
-      return segLabel + `–${rootids[rootids.length - 1]}`;
     }
 
     return segLabel;
@@ -58,7 +49,7 @@ export class TableViewTable extends LitElement {
 
         ${this.parallels.map(parallel =>
           TableViewTableRow({
-            rootSegmentId: this.getSegmentId(parallel, 'root'),
+            rootSegmentId: this.getSegmentId(parallel.root_segnr),
             rootSegmentText: highlightTextByOffset(
               parallel.root_seg_text,
               parallel.root_offset_beg,
@@ -71,7 +62,7 @@ export class TableViewTable extends LitElement {
               parallel.par_offset_end,
               getLanguageFromFilename(parallel.file_name)
             ),
-            parallelSegmentId: this.getSegmentId(parallel, 'parallel'),
+            parallelSegmentId: this.getSegmentId(parallel.par_segnr),
             score: parallel.score,
             parLength: parallel.par_length,
             rootLength: parallel.root_length,
