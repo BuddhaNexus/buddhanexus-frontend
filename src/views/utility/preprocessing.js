@@ -266,15 +266,28 @@ export function replaceFileNameForDisplay(fileName) {
 export function getLinkForSegmentNumbers(language, segmentnr) {
   let linkText = '';
   if (language === 'pli') {
-    const cleanedSegment = segmentnr
+    let cleanedSegment = segmentnr
       .split(':')[1]
       .replace(/_[0-9]+/g, '')
       .replace('–', '--');
+    let rootSegment = segmentnr.split(':')[0];
+    if (segmentnr.match(/^dhp/)) {
+      cleanedSegment = `${cleanedSegment.split('.', 1)}`;
+      rootSegment = 'dhp';
+    } else if (segmentnr.match(/^an[1-9]|^sn[1-9]/)) {
+      rootSegment = `${rootSegment}.${cleanedSegment.split('.', 1)}`;
+      const dotPosition = cleanedSegment.indexOf('.');
+      cleanedSegment = cleanedSegment.substring(dotPosition + 1);
+      if (cleanedSegment.match(/--/)) {
+        let [firstpart, secondpart] = cleanedSegment.split('--');
+        const secondDot = secondpart.indexOf('.');
+        secondpart = secondpart.substring(secondDot + 1);
+        cleanedSegment = `${firstpart}--${secondpart}`;
+      }
+    }
     linkText = segmentnr.match(/^tika|^anya|^atk/)
       ? `https://www.tipitaka.org/romn/`
-      : `https://suttacentral.net/${
-          segmentnr.split(':')[0]
-        }/pli/ms#${cleanedSegment}`;
+      : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
   } else if (language === 'chn') {
     const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
     linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
