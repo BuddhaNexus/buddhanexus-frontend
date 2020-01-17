@@ -98,6 +98,7 @@ export const getFileTextAndParallels = async ({
   ...queryParams
 }) => {
   try {
+    console.log('QueryParams', queryParams);
     fileName = fileName.replace(' ', '');
     const url = getFileTextAndParallelsUrl(
       fileName,

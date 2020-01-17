@@ -13,6 +13,7 @@ export class DataViewRouter extends LightDOMElement {
   @property({ type: String }) fileName;
   @property({ type: Function }) setFileName;
   @property({ type: String }) activeSegment;
+  @property({ type: Number }) folio;
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod;
   @property({ type: Number }) cooccurance;
@@ -28,6 +29,7 @@ export class DataViewRouter extends LightDOMElement {
           id="text-view"
           .fileName="${this.fileName}"
           .leftActiveSegment="${this.activeSegment}"
+          .folio="${this.folio}"
           .setFileName="${this.setFileName}"
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"

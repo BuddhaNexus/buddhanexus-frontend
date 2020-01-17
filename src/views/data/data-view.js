@@ -28,6 +28,7 @@ export class DataView extends LitElement {
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
   @property({ type: String }) activeSegment;
+  @property({ type: Number }) folio;
   @property({ type: String }) selectedView;
 
   static get styles() {
@@ -90,6 +91,12 @@ export class DataView extends LitElement {
     // same but it get's updated anyway? I suspect this is happening, this is why I added the if-statements here.
     if (this.fileName != fileName) {
       this.fileName = fileName;
+    }
+  };
+
+  setFolio = folio => {
+    if (this.folio != folio) {
+      this.folio = parseInt(folio);
     }
   };
 
@@ -191,6 +198,7 @@ export class DataView extends LitElement {
             .language="${this.language}"
             .fileName="${this.fileName}"
             .setFileName="${this.setFileName}"
+            .setFolio="${this.setFolio}"
           ></text-select-combo-box>
 
           <data-view-filters-container
@@ -216,6 +224,7 @@ export class DataView extends LitElement {
           .setFileName="${this.setFileName}"
           .fileName="${this.fileName}"
           .activeSegment="${this.activeSegment}"
+          .folio="${this.folio}"
           .limitCollection="${this.limitCollection}"
           .targetCollection="${this.targetCollection}"
           .quoteLength="${this.quoteLength}"
