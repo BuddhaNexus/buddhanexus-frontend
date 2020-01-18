@@ -152,7 +152,6 @@ export class TextViewRight extends LitElement {
     let set_flag = false;
     let callback = entries => {
       for (let i = 0; i <= entries.length; i++) {
-        console.log('SOMETHING HAPPENING RIGHT', entries);
         if (entries[i] && entries[i].isIntersecting === true && !set_flag) {
           this.activeSegment = entries[i].target.id;
           this.EndlessScrollFlag = true;

@@ -94,7 +94,6 @@ export const getFoliosForFile = async ({ fileName }) => {
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
-    console.log('FOLIO JSON', json);
     return json;
   } catch (e) {
     console.error('Could not load folios from server: ', e);
