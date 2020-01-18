@@ -39,6 +39,7 @@ export class TextSelectComboBox extends LitElement {
 
   async firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
+    console.log('LANGUAGE', this.language);
     this.fetchData();
   }
 
