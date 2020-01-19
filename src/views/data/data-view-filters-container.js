@@ -197,7 +197,6 @@ export class DataViewFiltersContainer extends LitElement {
                 this.filterFilesData
               )}
             `}
-        <br />
         ${this.filterCategoriesDataLoading
           ? html`
               <span>Loading...</span>
@@ -242,7 +241,7 @@ export class DataViewFiltersContainer extends LitElement {
                 value="${this.score}"
                 @change="${this.updateScore}"
                 max="100"
-                pin
+                editable
               >
               </paper-slider>
             </div>
@@ -259,7 +258,7 @@ export class DataViewFiltersContainer extends LitElement {
                 @change="${this.updateQuoteLength}"
                 max="300"
                 min="5"
-                pin
+                editable
               >
               </paper-slider>
             </div>
@@ -276,8 +275,7 @@ export class DataViewFiltersContainer extends LitElement {
                 @change="${this.updateCooccurance}"
                 max="30"
                 min="1"
-                dir="rtl"
-                pin
+                editable
               >
               </paper-slider>
             </div>

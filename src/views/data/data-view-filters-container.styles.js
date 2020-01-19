@@ -41,6 +41,7 @@ export default css`
   #filter-parameters {
     display: flex;
     flex: 1;
+    margin-right: 32px;
   }
 
   #filter-filename,
@@ -52,6 +53,10 @@ export default css`
   #exclude-collection,
   #filter-target-collection {
     width: 300px;
+  }
+
+  #filter-collection {
+    margin-top: -20px;
   }
 
   vaadin-radio-group {
@@ -94,6 +99,7 @@ export default css`
     flex-wrap: wrap;
     flex-direction: column;
     flex: 2;
+    margin-right: 16px;
   }
 
   #filters-box {
@@ -109,8 +115,10 @@ export default css`
 
   paper-slider {
     --paper-slider-height: 4px;
+
     height: 26px;
-    width: 250px;
+    width: 100%;
+    flex: 1;
   }
 
   #slider-label {
@@ -121,9 +129,8 @@ export default css`
 
   #slider-container {
     flex-wrap: wrap;
-    width: 250px;
     position: relative;
-    bottom: 23px;
+    min-width: 400px;
   }
 
   #slider-container[name]:hover:after {
