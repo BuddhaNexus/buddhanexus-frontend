@@ -8,6 +8,7 @@ import { getFilesForMainMenu, getFoliosForFile } from '../menus/actions';
 @customElement('text-select-combo-box')
 export class TextSelectComboBox extends LitElement {
   @property({ type: String }) language;
+  @property({ type: String }) viewMode;
   @property({ type: String }) fileName;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
@@ -32,7 +33,7 @@ export class TextSelectComboBox extends LitElement {
   }
 
   updateFolio(e) {
-    if (e.target.selectedItem) {
+    if (e.target.selectedItem && e.target.selectedItem !== 'Not available') {
       this.setFolio(e.target.selectedItem);
     }
   }
@@ -115,7 +116,7 @@ export class TextSelectComboBox extends LitElement {
         @value-changed="${e => this.updateFileName(e)}"
       >
       </vaadin-combo-box>
-      ${this.language !== LANGUAGE_CODES.SANSKRIT
+      ${this.viewMode === 'text' && this.language !== LANGUAGE_CODES.SANSKRIT
         ? html`
             <vaadin-combo-box
               id="folio-select-combo-box"

@@ -95,13 +95,11 @@ export class TextView extends LitElement {
   newFolio() {
     let segment = '';
     if (this.lang == 'chn') {
-      let folio = parseInt(this.folio)
-        .toString()
-        .padStart(3, '0');
-      segment = this.fileName + ':' + folio + '-1';
-    }
-    if (this.lang == 'tib') {
-      segment = this.fileName + ':' + this.folio + '-0';
+      segment = `${this.fileName}:${this.folio}_1`;
+    } else if (this.lang == 'tib') {
+      segment = `${this.fileName}:${this.folio}_0`;
+    } else {
+      segment = `${this.folio}.%`;
     }
     this.leftTextData = {
       selectedParallels: [segment],

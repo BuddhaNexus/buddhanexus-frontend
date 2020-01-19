@@ -199,6 +199,7 @@ export class DataView extends LitElement {
             .fileName="${this.fileName}"
             .setFileName="${this.setFileName}"
             .setFolio="${this.setFolio}"
+            .viewMode="${this.viewMode}"
           ></text-select-combo-box>
 
           <data-view-filters-container
