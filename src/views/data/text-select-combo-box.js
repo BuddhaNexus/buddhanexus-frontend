@@ -51,12 +51,14 @@ export class TextSelectComboBox extends LitElement {
   }
 
   async fetchFolioData() {
-    if (this.fileName) {
-      const { folios, error } = await getFoliosForFile({
-        fileName: this.fileName,
-      });
-      this.folioData = folios;
+    if (!this.fileName) {
+      return;
     }
+    const { folios, error } = await getFoliosForFile({
+      fileName: this.fileName,
+    });
+    this.folioData = folios;
+    this.fetchError = error;
   }
 
   constructNameDic(results) {
@@ -96,6 +98,8 @@ export class TextSelectComboBox extends LitElement {
         return 'Load Pali texts';
       case LANGUAGE_CODES.CHINESE:
         return 'Load Chinese texts';
+      case LANGUAGE_CODES.SANSKRIT:
+        return 'Load Sanskrit texts';
     }
   };
 
@@ -111,15 +115,19 @@ export class TextSelectComboBox extends LitElement {
         @value-changed="${e => this.updateFileName(e)}"
       >
       </vaadin-combo-box>
-      <vaadin-combo-box
-        id="folio-select-combo-box"
-        label="Select folio"
-        item-value-path="folio"
-        item-label-path="folio"
-        .items="${this.folioData}"
-        @value-changed="${e => this.updateFolio(e)}"
-      >
-      </vaadin-combo-box>
+      ${this.language !== LANGUAGE_CODES.SANSKRIT
+        ? html`
+            <vaadin-combo-box
+              id="folio-select-combo-box"
+              label="Select folio"
+              item-value-path="folio"
+              item-label-path="folio"
+              .items="${this.folioData}"
+              @value-changed="${e => this.updateFolio(e)}"
+            >
+            </vaadin-combo-box>
+          `
+        : null}
     `;
   }
 }

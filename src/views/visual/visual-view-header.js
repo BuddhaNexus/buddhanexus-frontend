@@ -16,7 +16,7 @@ export class VisualViewHeader extends LitElement {
   @property({ type: Array }) languages = [
     { language: 'tib', label: 'Tibetan' },
     { language: 'pli', label: 'Pali' },
-    // { language: 'skt', label: 'Sanskrit' },
+    { language: 'skt', label: 'Sanskrit' },
     { language: 'chn', label: 'Chinese' },
   ];
   @property({ type: String }) activeLanguage;
