@@ -8,6 +8,7 @@ import '@polymer/paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
+import './data-view-view-selector';
 
 import '../utility/LoadingSpinner';
 import {
@@ -323,22 +324,10 @@ export class DataViewFiltersContainer extends LitElement {
 
   render() {
     return html`
-      <vaadin-radio-group
-        label="Choose view:"
-        class="visibility-filters"
-        value="${this.viewMode}"
-        @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
-      >
-        ${Object.values(DATA_VIEW_MODES).map(filter => {
-          if (filter != 'numbers' || this.language != 'tib') {
-            return html`
-              <vaadin-radio-button value="${filter}">
-                ${filter}
-              </vaadin-radio-button>
-            `;
-          }
-        })}
-      </vaadin-radio-group>
+      <data-view-view-selector 
+        .viewMode="${this.viewMode}" 
+        .handleViewModeChanged="${this.handleViewModeChanged}"
+      ></data-view-view-selector>
       ${this.createFilterBox()}
       ${
         this.viewMode === DATA_VIEW_MODES.TEXT

@@ -74,7 +74,7 @@ export class DataView extends LitElement {
   setFileParamFromPath() {
     const { fileName, activeSegment } = this.location.params;
     if (fileName) {
-      if (fileName != this.fileName) {
+      if (fileName !== this.fileName) {
         this.fileName = fileName;
       }
       this.activeSegment = activeSegment;
@@ -88,13 +88,13 @@ export class DataView extends LitElement {
   setFileName = fileName => {
     // Is it the case that we might trigger a re-rendering in case the variable value is the
     // same but it get's updated anyway? I suspect this is happening, this is why I added the if-statements here.
-    if (this.fileName != fileName) {
+    if (this.fileName !== fileName) {
       this.fileName = fileName;
     }
   };
 
   setScore = e => {
-    if (e.target.value != this.score) {
+    if (e.target.value !== this.score) {
       this.score = e.target.value;
     }
   };
@@ -104,13 +104,13 @@ export class DataView extends LitElement {
   };
 
   setQuoteLength = e => {
-    if (e.target.value != this.quoteLength) {
+    if (e.target.value !== this.quoteLength) {
       this.quoteLength = e.target.value;
     }
   };
 
   setCooccurance = e => {
-    if (e.target.value != this.cooccurance) {
+    if (e.target.value !== this.cooccurance) {
       this.cooccurance = e.target.value;
     }
     // if the user sets the value to 30, we force it very high so all co-ocs are displayed.
