@@ -28,7 +28,7 @@ export class DataView extends LitElement {
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
   @property({ type: String }) activeSegment;
-  @property({ type: Number }) folio;
+  @property({ type: String }) folio;
   @property({ type: String }) selectedView;
 
   static get styles() {
@@ -96,7 +96,7 @@ export class DataView extends LitElement {
 
   setFolio = folio => {
     if (this.folio != folio) {
-      this.folio = parseInt(folio);
+      this.folio = folio;
     }
   };
 
