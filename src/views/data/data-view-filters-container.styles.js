@@ -1,6 +1,17 @@
 import { css } from 'lit-element';
 
 export default css`
+  :host {
+    display: inline-flex;
+    align-items: baseline;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .visibility-filters {
+    margin-left: 0;
+  }
+
   .visibility-filters vaadin-radio-button {
     text-transform: capitalize;
   }
@@ -21,10 +32,6 @@ export default css`
     width: 300px;
   }
 
-  .filter-group {
-    margin-right: 12px;
-  }
-
   multiselect-combo-box,
   vaadin-combo-box {
     margin-left: 12px;
@@ -32,8 +39,8 @@ export default css`
   }
 
   #filter-parameters {
-    float: left;
-    width: 30%;
+    display: flex;
+    flex: 1;
   }
 
   #filter-filename,
@@ -51,11 +58,15 @@ export default css`
     margin-left: 24px;
   }
 
+  .filter-group {
+    margin-left: 32px;
+    margin-right: 32px;
+  }
+
   .filter-group,
   .search-group {
     display: flex;
     flex-wrap: wrap;
-    flex: 1;
     padding-top: 8px;
     align-items: baseline;
   }
@@ -63,10 +74,11 @@ export default css`
   .search-group {
     margin-top: 12px;
     margin-right: 12px;
+    flex: 1;
   }
 
   .filter-group {
-    display: inline-block;
+    display: flex;
   }
 
   #search-icon {
@@ -78,13 +90,16 @@ export default css`
   }
 
   .file-categories-filters {
-    float: left;
-    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 2;
   }
 
   #filters-box {
-    width: 900px;
-    height: 150px;
+    margin-top: 16px;
+    display: flex;
+    width: 100%;
   }
 
   multiselect-combo-box[label],

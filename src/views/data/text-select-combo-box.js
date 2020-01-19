@@ -17,6 +17,10 @@ export class TextSelectComboBox extends LitElement {
   static get styles() {
     return [
       css`
+        :host {
+          display: flex;
+        }
+
         #text-select-combo-box {
           width: 400px;
         }

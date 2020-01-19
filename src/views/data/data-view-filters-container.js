@@ -28,7 +28,7 @@ export const DATA_VIEW_MODES = {
 @customElement('data-view-filters-container')
 export class DataViewFiltersContainer extends LitElement {
   @property({ type: String }) viewMode;
-  @property({ type: Function }) viewModeChanged;
+  @property({ type: Function }) handleViewModeChanged;
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
   @property({ type: Function }) updateSearch;
