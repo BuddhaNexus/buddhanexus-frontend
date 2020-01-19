@@ -95,7 +95,7 @@ export class DataView extends LitElement {
   };
 
   setFolio = folio => {
-    if (this.folio != folio) {
+    if (this.folio !== folio) {
       this.folio = folio;
     }
   };
