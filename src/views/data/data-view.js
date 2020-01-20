@@ -28,6 +28,7 @@ export class DataView extends LitElement {
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
   @property({ type: String }) activeSegment;
+  @property({ type: String }) folio;
   @property({ type: String }) selectedView;
 
   static get styles() {
@@ -74,7 +75,7 @@ export class DataView extends LitElement {
   setFileParamFromPath() {
     const { fileName, activeSegment } = this.location.params;
     if (fileName) {
-      if (fileName != this.fileName) {
+      if (fileName !== this.fileName) {
         this.fileName = fileName;
       }
       this.activeSegment = activeSegment;
@@ -88,8 +89,14 @@ export class DataView extends LitElement {
   setFileName = fileName => {
     // Is it the case that we might trigger a re-rendering in case the variable value is the
     // same but it get's updated anyway? I suspect this is happening, this is why I added the if-statements here.
-    if (this.fileName != fileName) {
+    if (this.fileName !== fileName) {
       this.fileName = fileName;
+    }
+  };
+
+  setFolio = folio => {
+    if (this.folio !== folio) {
+      this.folio = folio;
     }
   };
 
@@ -191,6 +198,8 @@ export class DataView extends LitElement {
             .language="${this.language}"
             .fileName="${this.fileName}"
             .setFileName="${this.setFileName}"
+            .setFolio="${this.setFolio}"
+            .viewMode="${this.viewMode}"
           ></text-select-combo-box>
 
           <data-view-filters-container
@@ -216,6 +225,7 @@ export class DataView extends LitElement {
           .setFileName="${this.setFileName}"
           .fileName="${this.fileName}"
           .activeSegment="${this.activeSegment}"
+          .folio="${this.folio}"
           .limitCollection="${this.limitCollection}"
           .targetCollection="${this.targetCollection}"
           .quoteLength="${this.quoteLength}"

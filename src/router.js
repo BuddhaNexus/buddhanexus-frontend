@@ -5,6 +5,7 @@ import './views/home/home-view.js';
 const TABS = {
   HOME: '',
   PALI: 'pli',
+  SANSKRIT: 'skt',
   TIBETAN: 'tib',
   CHINESE: 'chn',
   VISUAL: 'visual',
@@ -13,6 +14,7 @@ const TABS = {
 const TABS_IN_ORDER = [
   TABS.HOME,
   TABS.PALI,
+  TABS.SANSKRIT,
   TABS.TIBETAN,
   TABS.CHINESE,
   TABS.VISUAL,
@@ -38,6 +40,16 @@ const ROUTES = [
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
     },
   },
+  {
+    path: '/skt/:viewMode?/:fileName?/:activeSegment?',
+    component: 'data-view',
+    action: () => {
+      import('./views/data/data-view.js');
+      BNRouter.selectTab(TABS.SANSKRIT);
+      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+    },
+  },
+
   {
     path: '/tib/:viewMode?/:fileName?/:activeSegment?',
     component: 'data-view',
