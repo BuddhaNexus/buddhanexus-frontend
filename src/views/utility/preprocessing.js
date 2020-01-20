@@ -37,7 +37,7 @@ export const highlightTextByOffset = (
   lang
 ) => {
   let returnArray = [];
-  if (lang.match(/tib|skt|pli/)) {
+  if (lang.match(/tib|pli/)) {
     // the next two lines are a hack because there is a slight mismatch in the behaviour
     // of the Chinese and Tibetan offset values here; this should be ideally fixed already
     // in the JSON files. TODO for the future.
@@ -49,14 +49,14 @@ export const highlightTextByOffset = (
     let colourValues = [];
     let position = 0;
     let Words = textArray[i];
-    if (lang.match(/tib|skt|pli/)) {
+    if (lang.match(/tib|pli/)) {
       Words = textArray[i].split(' ');
     }
     for (let j = 0; j < Words.length; ++j) {
       WordList.push(position);
       let colourValue = 1;
       position += Words[j].length;
-      if (lang.match(/tib|skt|pli/)) {
+      if (lang.match(/tib|pli/)) {
         position += 1;
       }
       if (i === 0 && position <= startoffset) {
@@ -135,8 +135,9 @@ export function tokenizeWords(
   highlightMode = 0,
   rightMode = 0
 ) {
+  console.log('LANG', lang);
   // Todo: It might be the case that SKT needs a special treatment here.
-  if (lang.match(/tib|skt|pli/)) {
+  if (lang.match(/tib|pli/)) {
     return tokenizeTibPali(
       inputData,
       colorValues,
@@ -145,7 +146,7 @@ export function tokenizeWords(
       rightMode
     );
   } else {
-    return tokenizeChinese(
+    return tokenizeChineseSanskrit(
       inputData,
       colorValues,
       clickFunction,
@@ -193,7 +194,7 @@ export function tokenizeTibPali(
   return words;
 }
 
-export function tokenizeChinese(
+export function tokenizeChineseSanskrit(
   inputData,
   colorValues,
   clickFunction = 0,
