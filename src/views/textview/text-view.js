@@ -102,7 +102,11 @@ export class TextView extends LitElement {
     } else if (this.lang == 'tib') {
       segment = `${this.fileName}:${this.folio}-0`;
     } else {
-      segment = `${this.folio}.%`;
+      if (this.fileName.startsWith('dhp')) {
+        segment = `${this.folio}.0_0`;
+      } else {
+        segment = `${this.folio}.1.1_0`;
+      }
     }
     this.leftTextData = {
       selectedParallels: [segment],

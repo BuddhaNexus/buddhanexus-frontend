@@ -22,6 +22,11 @@ export class TextSelectComboBox extends LitElement {
         #text-select-combo-box {
           width: 400px;
         }
+
+        #folio-select-combo-box {
+          margin-left: 12px;
+          width: 140px;
+        }
       `,
     ];
   }
@@ -47,6 +52,9 @@ export class TextSelectComboBox extends LitElement {
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.fetchFolioData();
+        if (this.shadowRoot.querySelector('#folio-select-combo-box')) {
+          this.shadowRoot.querySelector('#folio-select-combo-box')._clear();
+        }
       }
     });
   }
@@ -107,13 +115,27 @@ export class TextSelectComboBox extends LitElement {
   getFolioLabel = language => {
     switch (language) {
       case LANGUAGE_CODES.TIBETAN:
-        return 'Select folio';
+        return 'Folio';
       case LANGUAGE_CODES.PALI:
-        return 'Select Sutta/section';
+        return 'Sutta';
       case LANGUAGE_CODES.CHINESE:
-        return 'Select facsimile';
+        return 'Facsimile';
     }
   };
+
+  showFolioBox() {
+    if (this.language === LANGUAGE_CODES.SANSKRIT) {
+      return false;
+    }
+    if (
+      this.viewMode === 'text' &&
+      (this.language !== LANGUAGE_CODES.PALI ||
+        this.fileName.match('([as]n[0-9]|dhp)'))
+    ) {
+      return true;
+    }
+    return false;
+  }
 
   render() {
     return html`
@@ -127,7 +149,7 @@ export class TextSelectComboBox extends LitElement {
         @value-changed="${e => this.updateFileName(e)}"
       >
       </vaadin-combo-box>
-      ${this.viewMode === 'text' && this.language !== LANGUAGE_CODES.SANSKRIT
+      ${this.showFolioBox()
         ? html`
             <vaadin-combo-box
               id="folio-select-combo-box"

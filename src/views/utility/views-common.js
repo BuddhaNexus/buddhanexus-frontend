@@ -4,7 +4,7 @@ export const sortByKey = (array, key) =>
   array.sort((a, b) => (a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0));
 
 export function getLanguageFromFilename(filename) {
-  if (filename.match('(TD|acip|kl[0-9])|NY')) {
+  if (filename.match('(TD|acip|kl[0-9]|NY)')) {
     return LANGUAGE_CODES.TIBETAN;
   } else if (filename.match('(_[TX])')) {
     return LANGUAGE_CODES.CHINESE;
