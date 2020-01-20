@@ -75,7 +75,7 @@ export class DataView extends LitElement {
   setFileParamFromPath() {
     const { fileName, activeSegment } = this.location.params;
     if (fileName) {
-      if (fileName != this.fileName) {
+      if (fileName !== this.fileName) {
         this.fileName = fileName;
       }
       this.activeSegment = activeSegment;
@@ -89,7 +89,7 @@ export class DataView extends LitElement {
   setFileName = fileName => {
     // Is it the case that we might trigger a re-rendering in case the variable value is the
     // same but it get's updated anyway? I suspect this is happening, this is why I added the if-statements here.
-    if (this.fileName != fileName) {
+    if (this.fileName !== fileName) {
       this.fileName = fileName;
     }
   };
