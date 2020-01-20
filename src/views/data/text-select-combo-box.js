@@ -104,6 +104,17 @@ export class TextSelectComboBox extends LitElement {
     }
   };
 
+  getFolioLabel = language => {
+    switch (language) {
+      case LANGUAGE_CODES.TIBETAN:
+        return 'Select folio';
+      case LANGUAGE_CODES.PALI:
+        return 'Select Sutta/section';
+      case LANGUAGE_CODES.CHINESE:
+        return 'Select facsimile';
+    }
+  };
+
   render() {
     return html`
       <vaadin-combo-box
@@ -120,7 +131,7 @@ export class TextSelectComboBox extends LitElement {
         ? html`
             <vaadin-combo-box
               id="folio-select-combo-box"
-              label="Select folio"
+              label="${this.getFolioLabel(this.language)}"
               item-value-path="folio"
               item-label-path="folio"
               .items="${this.folioData}"
