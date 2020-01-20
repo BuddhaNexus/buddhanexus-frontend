@@ -95,9 +95,12 @@ export class TextView extends LitElement {
   newFolio() {
     let segment = '';
     if (this.lang == 'chn') {
-      segment = `${this.fileName}:${this.folio}_%`;
+      let folio = parseInt(this.folio)
+        .toString()
+        .padStart(3, '0');
+      segment = `${this.fileName}:${folio}-1`;
     } else if (this.lang == 'tib') {
-      segment = `${this.fileName}:${this.folio}_%`;
+      segment = `${this.fileName}:${this.folio}-0`;
     } else {
       segment = `${this.folio}.%`;
     }
