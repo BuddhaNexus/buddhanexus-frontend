@@ -139,7 +139,7 @@ export const searchFileTextSegments = async ({ fileName, searchString }) => {
 };
 
 export const getFileTextParallelsMiddle = async ({
-  parallelIDList,
+  segmentnr,
   file_name,
   score,
   par_length,
@@ -148,7 +148,7 @@ export const getFileTextParallelsMiddle = async ({
 }) => {
   try {
     let data = {
-      parallelIDList: parallelIDList,
+      segmentnr: segmentnr,
       file_name: file_name,
       score: score,
       par_length: par_length,
