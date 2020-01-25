@@ -40,6 +40,7 @@ const TextViewInfoModalContent = (numbers, colors) => html`
 export class TextView extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) leftActiveSegment = 'none';
+  @property({ type: String }) folio;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
@@ -63,6 +64,9 @@ export class TextView extends LitElement {
         this.textSwitchedFlag = false;
         this.newText();
       }
+      if (['folio'].includes(propName)) {
+        this.newFolio();
+      }
     });
   }
 
@@ -83,6 +87,29 @@ export class TextView extends LitElement {
   resetLeftText() {
     this.leftTextData = {
       selectedParallels: ['none'],
+      startoffset: 0,
+      endoffset: 0,
+    };
+  }
+
+  newFolio() {
+    let segment = '';
+    if (this.lang == 'chn') {
+      let folio = parseInt(this.folio)
+        .toString()
+        .padStart(3, '0');
+      segment = `${this.fileName}:${folio}-1`;
+    } else if (this.lang == 'tib') {
+      segment = `${this.fileName}:${this.folio}-0`;
+    } else {
+      if (this.fileName.startsWith('dhp')) {
+        segment = `${this.folio}.0_0`;
+      } else {
+        segment = `${this.folio}.1.1_0`;
+      }
+    }
+    this.leftTextData = {
+      selectedParallels: [segment],
       startoffset: 0,
       endoffset: 0,
     };

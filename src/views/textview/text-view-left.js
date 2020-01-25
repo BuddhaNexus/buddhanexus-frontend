@@ -181,7 +181,6 @@ export class TextViewLeft extends LitElement {
     if (!this.shadowRoot.querySelector('.left-segment')) {
       return;
     }
-
     let set_flag = false;
     let callback = entries => {
       for (let i = 0; i <= entries.length; i++) {
@@ -197,7 +196,7 @@ export class TextViewLeft extends LitElement {
     };
 
     const config = {
-      root: this.shadowRoot.querySelector('#text-view-left'),
+      root: this.shadowRoot.querySelector('#left-text-column'),
       threshold: 1,
     };
 
