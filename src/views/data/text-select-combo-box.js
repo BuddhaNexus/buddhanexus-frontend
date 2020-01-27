@@ -73,7 +73,7 @@ export class TextSelectComboBox extends LitElement {
   constructNameDic(results) {
     let nameDic = {};
     results.forEach(result => {
-      nameDic[result.filename] = result.textname;
+      nameDic[result.filename] = result.displayName;
     });
     return nameDic;
   }

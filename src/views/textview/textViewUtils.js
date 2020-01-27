@@ -74,7 +74,7 @@ export const highlightActiveMainElement = (
       position += Words[i].length + 1;
     }
   }
-  if (lang === 'chn') {
+  if (lang.match(/chn|skt/)) {
     for (let i = 0; i < Words.length; ++i) {
       Wordlist.push(i);
       colourValues.push(0);

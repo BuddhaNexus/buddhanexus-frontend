@@ -149,6 +149,7 @@ export function tokenizeWords(
     return tokenizeChineseSanskrit(
       inputData,
       colorValues,
+      lang,
       clickFunction,
       highlightMode,
       rightMode
@@ -197,6 +198,7 @@ export function tokenizeTibPali(
 export function tokenizeChineseSanskrit(
   inputData,
   colorValues,
+  lang,
   clickFunction = 0,
   highlightMode = 0,
   rightMode = 0
@@ -230,7 +232,13 @@ export function tokenizeChineseSanskrit(
       return preprocessChineseCharacter(character);
     });
   }
-  return words;
+  if (lang !== 'skt') {
+    return words;
+  } else {
+    return html`
+      ${words}<br />
+    `;
+  }
 }
 
 export function replaceSegmentForDisplay(segment, lang) {
