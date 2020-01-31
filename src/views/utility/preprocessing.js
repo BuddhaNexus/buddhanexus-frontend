@@ -135,86 +135,27 @@ export function tokenizeWords(
   highlightMode = 0,
   rightMode = 0
 ) {
-  console.log('LANG', lang);
-  // Todo: It might be the case that SKT needs a special treatment here.
-  if (lang.match(/tib|pli/)) {
-    return tokenizeTibPali(
-      inputData,
-      colorValues,
-      clickFunction,
-      highlightMode,
-      rightMode
-    );
-  } else {
-    return tokenizeChineseSanskrit(
-      inputData,
-      colorValues,
-      lang,
-      clickFunction,
-      highlightMode,
-      rightMode
-    );
-  }
-}
-
-export function tokenizeTibPali(
-  inputData,
-  colorValues,
-  clickFunction = 0,
-  highlightMode = 0,
-  rightMode = 0
-) {
-  let words = [];
-  let selectedSegment = '';
-  if (colorValues.length > 0) {
-    // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
-    inputData = inputData.replace(/\* \//, '*_/');
-    let splitWords = inputData.split(' ');
-    let position = 0;
-    for (let i = 0; i < splitWords.length; ++i) {
-      let currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
-      if (currentColor != 0 && highlightMode == 1) {
-        selectedSegment = 'selected-segment';
-      }
-      let cleanedWord = preprocessTibetan(splitWords[i]);
-      words.push(
-        wrapWordsInSpan(
-          selectedSegment,
-          currentColor,
-          rightMode,
-          position,
-          clickFunction,
-          cleanedWord
-        )
-      );
-      position += splitWords[i].length + 1;
-    }
-  } else {
-    words = preprocessTibetan(inputData);
-  }
-  return words;
-}
-
-export function tokenizeChineseSanskrit(
-  inputData,
-  colorValues,
-  lang,
-  clickFunction = 0,
-  highlightMode = 0,
-  rightMode = 0
-) {
   let words = [];
   let selectedSegment = '';
   if (colorValues.length > 0) {
     let splitWords = inputData;
+    if (lang.match(/tib|pli/)) {
+      // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
+      inputData = inputData.replace(/\* \//, '*_/');
+      splitWords = inputData.split(' ');
+    }
     let position = 0;
     for (let i = 0; i < splitWords.length; ++i) {
       let currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
       if (currentColor != 0 && highlightMode == 1) {
         selectedSegment = 'selected-segment';
       }
-      let cleanedWord = preprocessChineseCharacter(splitWords[i]);
-
+      let cleanedWord = '';
+      if (lang.match(/tib|pli/)) {
+        cleanedWord = preprocessTibetan(splitWords[i]);
+      } else {
+        cleanedWord = preprocessChineseCharacter(splitWords[i]);
+      }
       words.push(
         wrapWordsInSpan(
           selectedSegment,
@@ -225,20 +166,26 @@ export function tokenizeChineseSanskrit(
           cleanedWord
         )
       );
-      position += splitWords[i].length;
+      if (lang.match(/tib|pli/)) {
+        position += splitWords[i].length + 1;
+      } else {
+        position += splitWords[i].length;
+      }
     }
   } else {
-    words = inputData.split('').map(character => {
-      return preprocessChineseCharacter(character);
-    });
+    if (lang.match(/tib|pli/)) {
+      words = preprocessTibetan(inputData);
+    } else {
+      words = inputData.split('').map(character => {
+        return preprocessChineseCharacter(character);
+      });
+    }
   }
-  if (lang !== 'skt') {
-    return words;
-  } else {
-    return html`
-      ${words}<br />
-    `;
-  }
+  return lang !== 'skt'
+    ? words
+    : html`
+        ${words}<br />
+      `;
 }
 
 export function replaceSegmentForDisplay(segment, lang) {
