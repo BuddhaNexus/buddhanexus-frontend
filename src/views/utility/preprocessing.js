@@ -21,6 +21,7 @@ export const preprocessTibetan = currentString => {
 };
 
 export const preprocessChineseCharacter = currentString => {
+  currentString = currentString.replace(/\//g, '|');
   if (currentString.includes('#')) {
     currentString = html`
       <br />
