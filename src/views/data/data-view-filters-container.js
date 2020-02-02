@@ -360,9 +360,9 @@ export class DataViewFiltersContainer extends LitElement {
         >
           <template>
             <vaadin-list-box @value-changed="${this.updateSortMethod}">
-              <vaadin-item value="position">Position in main text</vaadin-item>
+              <vaadin-item value="position">By position in Inquiry Text</vaadin-item>
               <vaadin-item value="quoted-text"
-                >Grouped by quoted text</vaadin-item
+                >By position in Hit Text(s)</vaadin-item
               >
               <vaadin-item value="length"
                 >Length of match in Inquiry Text (beginning with

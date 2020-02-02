@@ -85,3 +85,20 @@ export const getCollectionsForVisual = async () => {
     };
   }
 };
+
+export const getFoliosForFile = async ({ fileName }) => {
+  try {
+    const url = `${API_URL}/files/${fileName}/folios`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load folios from server: ', e);
+    return {
+      error: 'Could not load folios. Please check the console for details.',
+    };
+  }
+};

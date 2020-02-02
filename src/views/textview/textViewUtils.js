@@ -10,14 +10,14 @@ export const findColorValues = (mainSegment, segmentName, parallels) => {
   parallels = parallels.filter(function(el) {
     return el != null;
   });
-  if (lang.match(/tib|skt|pli/)) {
+  if (lang.match(/tib|pli/)) {
     Words = mainSegment.split(' ');
   }
   for (let i = 0; i < Words.length; ++i) {
     WordList.push(position);
     colourValues.push(0);
     position += Words[i].length;
-    if (lang.match(/tib|skt|pli/)) {
+    if (lang.match(/tib|pli/)) {
       position += 1;
     }
   }
@@ -66,7 +66,7 @@ export const highlightActiveMainElement = (
   let Wordlist = [];
   let position = 0;
   let colourValues = [];
-  if (lang.match(/tib|skt|pli/)) {
+  if (lang.match(/tib|pli/)) {
     Words = rootSegtext.split(' ');
     for (let i = 0; i < Words.length; ++i) {
       Wordlist.push(position);
@@ -74,7 +74,7 @@ export const highlightActiveMainElement = (
       position += Words[i].length + 1;
     }
   }
-  if (lang === 'chn') {
+  if (lang.match(/chn|skt/)) {
     for (let i = 0; i < Words.length; ++i) {
       Wordlist.push(i);
       colourValues.push(0);
