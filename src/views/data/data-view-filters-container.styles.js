@@ -6,6 +6,7 @@ export default css`
     align-items: baseline;
     margin-top: 16px;
     flex-wrap: wrap;
+    flex-direction: column;
   }
 
   .visibility-filters {
@@ -28,6 +29,10 @@ export default css`
     --material-primary-text-color: rgba(33, 33, 33);
   }
 
+  multiselect-combo-box {
+    margin-top: 16px;
+  }
+
   vaadin-select {
     width: 300px;
   }
@@ -42,6 +47,7 @@ export default css`
     display: flex;
     flex: 1;
     margin-right: 32px;
+    margin-bottom: 32px;
   }
 
   #filter-filename,
@@ -63,22 +69,17 @@ export default css`
     margin-left: 24px;
   }
 
-  .filter-group {
-    margin-left: 32px;
-    margin-right: 32px;
-  }
-
   .filter-group,
   .search-group {
     display: flex;
     flex-wrap: wrap;
     padding-top: 8px;
     align-items: baseline;
+    margin-top: 12px;
   }
 
   .search-group {
-    margin-top: 12px;
-    margin-right: 12px;
+    min-width: 400px;
     flex: 1;
   }
 
@@ -105,6 +106,7 @@ export default css`
   #filters-box {
     margin-top: 16px;
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
   }
 
@@ -115,8 +117,11 @@ export default css`
 
   paper-slider {
     --paper-slider-height: 4px;
+    --paper-slider-input: {
+      min-width: 100px;
+      width: 100px !important;
+    }
 
-    height: 26px;
     width: 100%;
     flex: 1;
   }
@@ -131,11 +136,6 @@ export default css`
     flex-wrap: wrap;
     position: relative;
     min-width: 400px;
-  }
-
-  #slider-container[name]:hover:after {
-    left: 0;
-    top: -120%;
   }
 
   #slider-container[name]:hover:after,
