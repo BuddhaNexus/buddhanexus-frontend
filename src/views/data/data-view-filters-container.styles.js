@@ -117,10 +117,6 @@ export default css`
 
   paper-slider {
     --paper-slider-height: 4px;
-    --paper-slider-input: {
-      min-width: 100px;
-      width: 100px !important;
-    }
 
     width: 100%;
     flex: 1;
