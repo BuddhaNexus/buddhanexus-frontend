@@ -64,6 +64,7 @@ module.exports = ({ mode, presets }) => {
                   '@babel/preset-env',
                   {
                     useBuiltIns: 'usage',
+                    corejs: 3,
                     targets: '>1%, not dead, not ie 11',
                   },
                 ],
