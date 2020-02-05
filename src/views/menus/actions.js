@@ -8,6 +8,7 @@ export const getFilesForMainMenu = async ({ language }) => {
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
+    console.log('MENU JSON', json);
     return json;
   } catch (e) {
     console.error('Could not load main-menu-items from server: ', e);

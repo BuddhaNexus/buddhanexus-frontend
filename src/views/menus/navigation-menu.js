@@ -64,9 +64,8 @@ export class NavigationMenu extends LitElement {
         <li>No files loaded</li>
       `;
     } else {
-      files.forEach(file => {
-        filesList = html`
-          ${filesList}
+      let filesArray = files.map(file => {
+        return html`
           <li
             class="filename"
             id="${file.filename}"
@@ -76,6 +75,9 @@ export class NavigationMenu extends LitElement {
           </li>
         `;
       });
+      filesList = html`
+        ${filesArray}
+      `;
     }
     return filesList;
   }
