@@ -197,7 +197,6 @@ export class TextViewLeft extends LitElement {
 
     const config = {
       root: this.shadowRoot.querySelector('#left-text-column'),
-      threshold: 1,
     };
 
     let observer = new IntersectionObserver(callback, config);
