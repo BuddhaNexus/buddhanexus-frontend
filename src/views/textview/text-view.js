@@ -9,7 +9,7 @@ import './text-view-middle';
 import './text-view-right';
 import { getLanguageFromFilename } from '../utility/views-common';
 import { colorTable } from '../utility/preprocessing';
-
+import { testFileNameLimitCollection } from './textViewUtils';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view.styles';
 
@@ -67,6 +67,9 @@ export class TextView extends LitElement {
       if (['folio'].includes(propName)) {
         this.newFolio();
       }
+      if (['limitCollection'].includes(propName)) {
+        this.newLimitCollection();
+      }
     });
   }
 
@@ -82,6 +85,18 @@ export class TextView extends LitElement {
     this.setFileName(this.rightFileName);
     this.fileName = this.rightFileName;
     this.rightFileName = '';
+  }
+
+  newLimitCollection() {
+    if (
+      !testFileNameLimitCollection(
+        this.limitCollection,
+        this.rightFileName,
+        this.lang
+      )
+    ) {
+      this.rightFileName = '';
+    }
   }
 
   resetLeftText() {

@@ -101,3 +101,58 @@ export const highlightActiveMainElement = (
   }
   return colourValues;
 };
+
+// the purpose of this function is to test whether the fileName matches the limitCollection filter.
+export const testFileNameLimitCollection = (
+  limitCollection,
+  fileName,
+  lang
+) => {
+  let testStringPositive = '';
+  let testStringNegative = '';
+
+  if (lang == 'tib' || lang == 'chn') {
+    limitCollection.forEach(file => {
+      // TODO: It is not easy to do this on the frontend. I suspect its better to move it to the backend.
+      if (file == 'tib_Kangyur') {
+        file = 'K';
+      }
+      if (file == 'tib_Tengyur') {
+        file = 'T';
+      }
+      if (file == 'chn_Taisho_1') {
+        file = 'T';
+      }
+      if (file == 'chn_Taisho_2') {
+        file = 'T';
+      }
+      if (file == 'chn_Shinsan') {
+        file = 'X';
+      }
+
+      if (file.includes('!')) {
+        testStringNegative += '(^' + file.replace('!', '') + ')|';
+      } else {
+        testStringPositive += '(^' + file + ')|';
+      }
+    });
+    const positiveRegex = new RegExp(testStringPositive.slice(0, -1), 'i');
+    const negativeRegex = new RegExp(testStringNegative.slice(0, -1), 'i');
+    let displayFlag = 1;
+    if (testStringPositive.length > 1) {
+      if (!positiveRegex.test(fileName)) {
+        displayFlag = 0;
+      }
+    }
+    if (testStringNegative.length > 1) {
+      if (negativeRegex.test(fileName)) {
+        displayFlag = 0;
+      }
+    }
+    if (displayFlag == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+};

@@ -14,6 +14,7 @@ import styles from './text-view.styles';
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: Array }) limitCollection;
   @property({ type: String }) rightFileName;
   @property({ type: Number }) currentPosition = 0;
   @property({ type: Number }) quoteLength;
@@ -36,7 +37,6 @@ export class TextViewRight extends LitElement {
 
   firstUpdated() {
     this.activeSegment = this.rightTextData.selectedParallels[0];
-    //this.fetchDataText();
     this.noScrolling = false;
   }
 
