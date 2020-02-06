@@ -104,13 +104,11 @@ export const getFileTextAndParallels = async ({
       limit_collection,
       queryParams
     );
-    console.log('QUERY URL', url);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
-    console.log('RETURN JSON', json);
     return json;
   } catch (e) {
     console.error('Could not load text segments from server: ', e);
