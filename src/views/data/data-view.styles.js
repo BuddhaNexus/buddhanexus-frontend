@@ -5,7 +5,7 @@ export default css`
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin: 16px;
+    margin: 216px 51px;
   }
 
   .data-view-options-card {

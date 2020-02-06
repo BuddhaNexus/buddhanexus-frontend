@@ -84,18 +84,26 @@ nav {
 }
 
 main {
-  padding: 16px;
+  /*  padding: 16px; */
+  /*  padding: 116px 90px; */
 }
 
 header {
-  background: var(--color-background);
+  xxxbackground: var(--color-background);
   color: var(--color-text-primary);
-  box-shadow: 0 4px 8px #888888;
+  xxxbox-shadow: 0 4px 8px #888888;
+}
+
+footer {
+  background: #777;
 }
 
 @media screen and (max-width: 860px) {
   vaadin-tabs {
     display: none;
+  }
+  main {
+    /*    padding: 180px 24px; */
   }
 }
 
@@ -115,12 +123,44 @@ a.menu-tab {
   text-decoration: none;
 }
 
-#menu-drawer {
-  height: 100%;
-  overflow: scroll;
+/* WebDesign */
+body {
+  background-color: #e9ddc2;
 }
 
-vaadin-drawer-toggle {
-  margin-right: 0;
-  color: #2a3443;
+.buddhanexus {
+  position: absolute;
+  top: -65px;
+  left: 15px;
+  width: 150px;
+  height: 150px;
+}
+
+vaadin-app-layout {
+  /*    background: url("src/assets/img/background_wellcome.jpg"); */
+  background-color: #e9ddc2;
+}
+
+.menu-tab vaadin-tab {
+  color: #fff;
+}
+
+.head {
+  position: fixed;
+  width: 100%;
+  height: 116px;
+  z-index: 1;
+  text-align: center;
+  background: #a60;
+}
+
+#home {
+  padding-bottom: 0px;
+}
+
+.footerbar {
+}
+.footerbarcontent {
+}
+.footercolor {
 }

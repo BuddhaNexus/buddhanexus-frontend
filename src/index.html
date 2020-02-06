@@ -26,10 +26,14 @@
     <!-- ! DO NOT REMOVE THIS COMMENT, WE NEED ITS CLOSING MARKER -->
   </head>
 
-  <body>
+  <body style="background: url('./src/assets/img/buddhanexus.jpg') cover;">
+    <div class="head">
+        <img src="./src/assets/img/buddha-nexus.png" alt="Buddha Nexus">
+    </div>
+
     <vaadin-app-layout>
       <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
-      <h1 slot="navbar" class="header-title">Buddhanexus</h1>
+      <h1 slot="navbar" class="header-title"><img src="./src/assets/img/buddhanexus.jpg" class="buddhanexus" alt="Buddha Nexus"></h1>
       <vaadin-tabs
         slot="navbar"
         theme="minimal"
@@ -50,6 +54,13 @@
         <navigation-menu></navigation-menu>
       </div>
       <main></main>
+      <div style="clear: both;"></div>
     </vaadin-app-layout>
+    <footer>
+        <div class="footerbar">
+            <div class="footerbarcontent">x</div>
+        </div>
+        <div class="footercolor">x</div>
+    </footer>
   </body>
 </html>
