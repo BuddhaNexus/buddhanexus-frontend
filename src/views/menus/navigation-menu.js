@@ -58,15 +58,10 @@ export class NavigationMenu extends LitElement {
   }
 
   addCatagoryFiles(files) {
-    let filesList = html``;
-    if (files.length == 0) {
-      filesList = html`
-        <li>No files loaded</li>
-      `;
-    } else {
-      files.forEach(file => {
-        filesList = html`
-          ${filesList}
+    let totalFilesList = [];
+    if (files.length !== 0) {
+      totalFilesList = files.map(
+        file => html`
           <li
             class="filename"
             id="${file.filename}"
@@ -74,10 +69,16 @@ export class NavigationMenu extends LitElement {
           >
             ${file.displayname}
           </li>
-        `;
-      });
+        `
+      );
     }
-    return filesList;
+    return totalFilesList.length > 0
+      ? html`
+          ${totalFilesList}
+        `
+      : html`
+          <li>No files loaded</li>
+        `;
   }
 
   addCategoryItems(collection) {
