@@ -9,6 +9,7 @@ export default css`
   }
 
   .data-view-options-card {
+    flex-direction: column;
     padding: 24px;
     background-color: var(--color-light-grey);
     border-radius: 4px;
