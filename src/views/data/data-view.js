@@ -101,7 +101,7 @@ export class DataView extends LitElement {
   };
 
   setScore = e => {
-    if (e.target.value != this.score) {
+    if (e.target.value !== this.score) {
       this.score = e.target.value;
     }
   };
@@ -111,13 +111,13 @@ export class DataView extends LitElement {
   };
 
   setQuoteLength = e => {
-    if (e.target.value != this.quoteLength) {
+    if (e.target.value !== this.quoteLength) {
       this.quoteLength = e.target.value;
     }
   };
 
   setCooccurance = e => {
-    if (e.target.value != this.cooccurance) {
+    if (e.target.value !== this.cooccurance) {
       this.cooccurance = e.target.value;
     }
     // if the user sets the value to 30, we force it very high so all co-ocs are displayed.

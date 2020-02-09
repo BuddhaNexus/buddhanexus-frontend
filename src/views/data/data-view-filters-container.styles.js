@@ -1,6 +1,18 @@
 import { css } from 'lit-element';
 
 export default css`
+  :host {
+    display: inline-flex;
+    align-items: baseline;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .visibility-filters {
+    margin-left: 0;
+  }
+
   .visibility-filters vaadin-radio-button {
     text-transform: capitalize;
   }
@@ -17,12 +29,12 @@ export default css`
     --material-primary-text-color: rgba(33, 33, 33);
   }
 
-  vaadin-select {
-    width: 300px;
+  multiselect-combo-box {
+    margin-top: 16px;
   }
 
-  .filter-group {
-    margin-right: 12px;
+  vaadin-select {
+    width: 300px;
   }
 
   multiselect-combo-box,
@@ -32,8 +44,10 @@ export default css`
   }
 
   #filter-parameters {
-    float: left;
-    width: 30%;
+    display: flex;
+    flex: 1;
+    margin-right: 32px;
+    margin-bottom: 32px;
   }
 
   #filter-filename,
@@ -47,6 +61,10 @@ export default css`
     width: 300px;
   }
 
+  #filter-collection {
+    margin-top: -20px;
+  }
+
   vaadin-radio-group {
     margin-left: 24px;
   }
@@ -55,18 +73,18 @@ export default css`
   .search-group {
     display: flex;
     flex-wrap: wrap;
-    flex: 1;
     padding-top: 8px;
     align-items: baseline;
+    margin-top: 12px;
   }
 
   .search-group {
-    margin-top: 12px;
-    margin-right: 12px;
+    min-width: 400px;
+    flex: 1;
   }
 
   .filter-group {
-    display: inline-block;
+    display: flex;
   }
 
   #search-icon {
@@ -78,13 +96,18 @@ export default css`
   }
 
   .file-categories-filters {
-    float: left;
-    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 2;
+    margin-right: 16px;
   }
 
   #filters-box {
-    width: 900px;
-    height: 150px;
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
   }
 
   multiselect-combo-box[label],
@@ -94,8 +117,9 @@ export default css`
 
   paper-slider {
     --paper-slider-height: 4px;
-    height: 26px;
-    width: 250px;
+
+    width: 100%;
+    flex: 1;
   }
 
   #slider-label {
@@ -106,14 +130,8 @@ export default css`
 
   #slider-container {
     flex-wrap: wrap;
-    width: 250px;
     position: relative;
-    bottom: 23px;
-  }
-
-  #slider-container[name]:hover:after {
-    left: 0;
-    top: -120%;
+    min-width: 400px;
   }
 
   #slider-container[name]:hover:after,
