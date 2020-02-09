@@ -9,6 +9,7 @@ const loadPresets = require('./build-utils/loadPresets');
 
 const plugins = [
   new webpack.ProgressPlugin(),
+  new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
   new HtmlWebpackPlugin({
     filename: 'index.html',
     template: './src/index.html',
@@ -64,6 +65,7 @@ module.exports = ({ mode, presets }) => {
                   '@babel/preset-env',
                   {
                     useBuiltIns: 'usage',
+                    corejs: 3,
                     targets: '>1%, not dead, not ie 11',
                   },
                 ],
