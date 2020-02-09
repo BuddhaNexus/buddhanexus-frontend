@@ -11,8 +11,8 @@ export class HomeView extends LitElement {
   render() {
     return html`
       <div id="home">
-        <div class="mainborder">
-          <div class="maincontent">
+        <div class="main-border">
+          <div class="main-content">
             <p class="construction">THIS SITE IS UNDER CONSTRUCTION</p>
             <p class="construction-sub">Not all views are currently working.</p>
             <p class="construction-sub">

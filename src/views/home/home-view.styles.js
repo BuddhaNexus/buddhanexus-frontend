@@ -27,12 +27,12 @@ export default css`
     background-attachment: fixed;
   }
 
-  .mainborder {
+  .main-border {
     margin: 80px 90px;
     padding-top: 120px;
     padding-bottom: 50px;
   }
-  .maincontent {
+  .main-content {
     background-color: #fff;
     padding: 14px 40px;
   }
@@ -42,12 +42,12 @@ export default css`
       margin: 0; /* 48px 24px; */
     }
 
-    .mainborder {
+    .main-border {
       margin: 60px 6px;
       padding-top: 80px;
       padding-bottom: 50px;
     }
-    .maincontent {
+    .main-content {
       background-color: #fff;
       padding: 14px 30px;
     }
