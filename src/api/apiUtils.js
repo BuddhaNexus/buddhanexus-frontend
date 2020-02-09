@@ -33,7 +33,7 @@ export const getFileTextAndParallelsUrl = (
   let q = stringifyQueryParams(queryParams);
   if (limit_collection && limit_collection.length > 0) {
     q += limit_collection
-      .map(() => `&limit_collection=${limit_collection}`)
+      .map(collectionName => `&limit_collection=${collectionName}`)
       .join('');
   }
   return `${API_URL}/files/${fileName}/textandparallels${q}`;
