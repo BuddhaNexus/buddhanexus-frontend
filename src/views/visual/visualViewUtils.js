@@ -46,6 +46,7 @@ export const getGoogleGraphOptions = {
     link: {
       colorMode: 'gradient',
       fillOpacity: 0.4,
+      colors: graphColors,
     },
   },
 };
