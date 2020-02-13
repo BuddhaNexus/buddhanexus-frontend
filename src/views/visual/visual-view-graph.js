@@ -2,17 +2,22 @@ import { customElement, html, LitElement, property } from 'lit-element';
 
 import { getDataForVisual } from '../../api/actions';
 import '../utility/LoadingSpinner';
-import { getGoogleGraphOptions } from './visualViewUtils';
+import {
+  getGoogleGraphOptions,
+  getGoogleGraphOptionsSource,
+  getGoogleGraphOptionsTarget,
+} from './visualViewUtils';
 
 import styles from './visual-view-graph.styles';
 
 @customElement('visual-view-graph')
 export class VisualViewGraph extends LitElement {
   @property({ type: String }) searchItem;
+  @property({ type: String }) colorScheme = 'Gradient';
   @property({ type: String }) selectedCollections;
   @property({ type: Function }) setSelection;
-
   @property({ type: Array }) graphData;
+  @property({ type: Array }) setOptions;
   @property({ type: Number }) pageSize = 100;
   @property({ type: Number }) lastPageSize;
   @property({ type: String }) language;
@@ -38,6 +43,9 @@ export class VisualViewGraph extends LitElement {
       if (propName == 'currentPage' && !this.fetchLoading) {
         this.adjustChartHeight();
       }
+      if (propName == 'colorScheme') {
+        this.changeColorScheme();
+      }
     });
   }
 
@@ -48,6 +56,19 @@ export class VisualViewGraph extends LitElement {
     // is changed. The smaller the value is, the stronger the graph is 'compressed'.
     return value ** 0.33;
     // We can also add language specific values here.
+  }
+
+  changeColorScheme() {
+    switch (this.colorScheme) {
+      case 'Source':
+        this.setOptions = getGoogleGraphOptionsSource;
+        break;
+      case 'Target':
+        this.setOptions = getGoogleGraphOptionsTarget;
+        break;
+      default:
+        this.setOptions = getGoogleGraphOptions;
+    }
   }
 
   paginateGraphData(graphData) {
@@ -217,7 +238,7 @@ export class VisualViewGraph extends LitElement {
           ]}"
           style="height: ${this.chartHeight}"
           .rows="${this.graphData[this.currentPage]}"
-          .options="${getGoogleGraphOptions}"
+          .options="${this.setOptions}"
           @google-chart-select="${this.selectSubCollection}"
         >
         </google-chart>
