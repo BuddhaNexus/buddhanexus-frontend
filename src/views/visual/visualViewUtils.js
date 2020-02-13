@@ -46,7 +46,46 @@ export const getGoogleGraphOptions = {
     link: {
       colorMode: 'gradient',
       fillOpacity: 0.4,
+    },
+  },
+};
+
+export const getGoogleGraphOptionsSource = {
+  sankey: {
+    iterations: 0,
+    node: {
+      width: 40,
+      interactivity: true,
+      nodePadding: 20,
       colors: graphColors,
+      label: {
+        fontSize: 14,
+        bold: true,
+      },
+    },
+    link: {
+      colorMode: 'source',
+      fillOpacity: 0.1,
+    },
+  },
+};
+
+export const getGoogleGraphOptionsTarget = {
+  sankey: {
+    iterations: 0,
+    node: {
+      width: 40,
+      interactivity: true,
+      nodePadding: 20,
+      colors: graphColors,
+      label: {
+        fontSize: 14,
+        bold: true,
+      },
+    },
+    link: {
+      colorMode: 'target',
+      fillOpacity: 0.1,
     },
   },
 };
