@@ -75,12 +75,15 @@ export class TextSelectComboBox extends LitElement {
   }
 
   constructNameDic(results) {
-    let nameDic = {};
+    let textNameDic = {};
+    let displayNameDic = {};
+
     results.forEach(result => {
       // textname (the acronym of the text number) is used for headers parallels instead of the filename.
-      nameDic[result.filename] = result.textname;
+      textNameDic[result.filename] = result.textname;
+      displayNameDic[result.filename] = result.displayName;
     });
-    return nameDic;
+    return [textNameDic, displayNameDic];
   }
 
   async fetchData() {
@@ -96,10 +99,17 @@ export class TextSelectComboBox extends LitElement {
     if (!window.menuData) {
       window.menuData = {};
     }
+    if (!window.displayData) {
+      window.displayData = {};
+    }
     // I am not sure if it is hacky to use global scope window here or not,
     // but it works and we avoid having to fetch the data multiple times!
+    const nameDic = this.constructNameDic(result);
     if (!window.menuData[this.language]) {
-      window.menuData[this.language] = this.constructNameDic(result);
+      window.menuData[this.language] = nameDic[0];
+    }
+    if (!window.displayData[this.language]) {
+      window.displayData[this.language] = nameDic[1];
     }
     this.fetchError = error;
   }
