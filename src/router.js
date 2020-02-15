@@ -1,6 +1,7 @@
 import { Router } from '@vaadin/router';
 
 import './views/home/home-view.js';
+import { setNavigationDrawerVisibility } from './views/utility/utils';
 
 const TABS = {
   HOME: '',
@@ -9,6 +10,7 @@ const TABS = {
   TIBETAN: 'tib',
   CHINESE: 'chn',
   VISUAL: 'visual',
+  SEARCH: 'search',
 };
 
 const TABS_IN_ORDER = [
@@ -25,10 +27,8 @@ const ROUTES = [
     path: '/',
     component: 'home-view',
     action: () => {
-      BNRouter.selectTab(TABS.HOME),
-        document
-          .querySelector('vaadin-drawer-toggle')
-          .setAttribute('style', 'visibility: hidden');
+      BNRouter.selectTab(TABS.HOME);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -37,7 +37,7 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.PALI);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      setNavigationDrawerVisibility(true);
     },
   },
   {
@@ -46,7 +46,7 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.SANSKRIT);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      setNavigationDrawerVisibility(true);
     },
   },
 
@@ -56,7 +56,7 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      setNavigationDrawerVisibility(true);
     },
   },
   {
@@ -65,7 +65,7 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.CHINESE);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      setNavigationDrawerVisibility(true);
     },
   },
   {
@@ -74,9 +74,16 @@ const ROUTES = [
     action: () => {
       import('./views/visual/visual-view.js');
       BNRouter.selectTab(TABS.VISUAL);
-      document
-        .querySelector('vaadin-drawer-toggle')
-        .setAttribute('style', 'visibility: hidden');
+      setNavigationDrawerVisibility(false);
+    },
+  },
+  {
+    path: '/search',
+    component: 'search-view',
+    action: () => {
+      import('./views/searchview/search-view.js');
+      BNRouter.selectTab(TABS.VISUAL);
+      setNavigationDrawerVisibility(false);
     },
   },
   {

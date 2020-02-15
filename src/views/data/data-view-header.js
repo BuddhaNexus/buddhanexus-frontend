@@ -55,7 +55,9 @@ class DataViewHeader extends LitElement {
   render() {
     if (!this.fileName) {
       return html`
-        <div class="data-view-header">Please select a file to view.</div>
+        <div class="data-view-header">
+          Please select a file or input a search query to continue.
+        </div>
       `;
     }
     return html`

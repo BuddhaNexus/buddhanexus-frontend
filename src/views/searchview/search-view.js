@@ -1,34 +1,21 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
-import { getTableViewData } from '../../api/actions';
 import '../data/data-view-header';
-import './table-view-table.js';
-import { getLanguageFromFilename } from '../utility/views-common';
+// import './table-view-table.js';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 
-const TableViewInfoModalContent = () => html`
-  <div>
-    <p>
-      Displays only the parallel numbers. It is possible to sort the parallels
-      according to their position in the main text, grouped by the text in which
-      they appear and by their length.
-    </p>
-  </div>
-`;
-
-@customElement('table-view')
-export class TableView extends LitElement {
-  @property({ type: String }) fileName;
-  @property({ type: String }) score;
-  @property({ type: Number }) probability;
-  @property({ type: Number }) quoteLength;
-  @property({ type: Number }) cooccurance;
-  @property({ type: String }) sortMethod;
+@customElement('search-view')
+export class SearchView extends LitElement {
+  @property({ type: String }) searchQuery;
+  // @property({ type: String }) score;
+  // @property({ type: Number }) probability;
+  // @property({ type: Number }) quoteLength;
+  // @property({ type: Number }) cooccurance;
+  // @property({ type: String }) sortMethod;
   @property({ type: Array }) limitCollection;
 
-  @property({ type: String }) lang;
-  @property({ type: Array }) parallelsData = [];
+  @property({ type: Array }) searchResults = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
@@ -38,7 +25,7 @@ export class TableView extends LitElement {
     return [
       sharedDataViewStyles,
       css`
-        .table-view-table {
+        .search-view-list {
           overflow: scroll;
           width: 100%;
           height: 100%;
@@ -54,23 +41,24 @@ export class TableView extends LitElement {
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
-    this.lang = getLanguageFromFilename(this.fileName);
+
     _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [
-          'score',
-          'cooccurance',
-          'sortMethod',
-          'quoteLength',
-          'limitCollection',
-          'fileName',
+          // TODO: uncomment this after filters are added
+          // 'score',
+          // 'cooccurance',
+          // 'sortMethod',
+          // 'quoteLength',
+          // 'limitCollection',
+          'queryString',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
         this.resetView();
         await this.fetchData();
       }
-      if (propName === 'parallelsData') {
+      if (propName === 'searchResults') {
         // data fetched, add listener
         this.addInfiniteScrollListener();
       }
@@ -78,35 +66,35 @@ export class TableView extends LitElement {
   }
 
   resetView = () => {
-    this.parallelsData = [];
+    this.searchResults = [];
     this.endReached = false;
   };
 
-  async fetchData(pageNumber) {
-    if (!this.fileName) {
+  async fetchData() {
+    if (!this.searchQuery) {
       this.fetchLoading = false;
       return;
     }
     this.fetchLoading = true;
 
-    const { parallels, error } = await getTableViewData({
-      fileName: this.fileName,
-      score: this.score,
-      co_occ: this.cooccurance,
-      sort_method: this.sortMethod,
-      par_length: this.quoteLength,
-      limit_collection: this.limitCollection,
-      page: pageNumber,
-    });
+    // todo: delete after connecting backend
+    const searchResults = [];
+    const error = null;
+
+    // TODO: uncomment
+    // const { data } = getSearchDataFromBackend({
+    //   query: this.searchQuery,
+    //   page: this.pageNumber,
+    // });
 
     this.fetchLoading = false;
 
-    if (!parallels || parallels.length === 0) {
+    if (!searchResults || searchResults.length === 0) {
       this.endReached = true;
       return;
     }
 
-    this.parallelsData = [...this.parallelsData, ...parallels];
+    this.searchResults = [...this.searchResults, ...searchResults];
 
     // todo: display notification with error
     this.fetchError = error;
@@ -114,34 +102,39 @@ export class TableView extends LitElement {
 
   addInfiniteScrollListener = async () => {
     await this.updateComplete;
-    const tableRows = this.shadowRoot
-      .querySelector('table-view-table')
-      .shadowRoot.querySelectorAll('.table-view-table__row');
-    const observedRow = tableRows[tableRows.length - 1];
+
+    const listItems = this.shadowRoot
+      .querySelector('search-view-list')
+      .shadowRoot.querySelectorAll('.search-view-list__item');
+    const observedListItem = listItems[listItems.length - 1];
+
     const observer = new IntersectionObserver(async entries => {
       if (entries[0].isIntersecting) {
-        observer.unobserve(observedRow);
+        observer.unobserve(observedListItem);
         await this.fetchNextPage();
       }
     });
-    if (tableRows.length > 0) {
-      observer.observe(observedRow);
+    if (listItems.length > 0) {
+      observer.observe(observedListItem);
     }
   };
 
   async fetchNextPage() {
     if (!this.fetchLoading && !this.endReached) {
-      console.debug('fetching next page: ', this.pageNumber);
       this.fetchLoading = true;
       this.pageNumber = this.pageNumber + 1;
-      await this.fetchData(this.pageNumber);
+      await this.fetchData();
     }
   }
 
   setPageNumber = pageNumber => (this.pageNumber = pageNumber);
 
+  // TODO:
+  // - check if data view header works
   render() {
     return html`
+      <h1>Search view</h1>
+
       ${this.fetchLoading
         ? html`
             <bn-loading-spinner></bn-loading-spinner>
@@ -153,17 +146,17 @@ export class TableView extends LitElement {
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
         .limitCollection="${this.limitCollection}"
-        .fileName="${this.fileName}"
+        .fileName="${this.searchQuery}"
         .language="${this.lang}"
-        .infoModalContent="${TableViewInfoModalContent()}"
       ></data-view-header>
+
       <table-view-table
         .fileName="${this.fileName}"
         .probability="${this.probability}"
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
         .limitCollection="${this.limitCollection}"
-        .parallels="${this.parallelsData}"
+        .parallels="${this.searchResults}"
         .setPageNumber="${this.setPageNumber}"
       ></table-view-table>
     `;
