@@ -2,9 +2,8 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import '../data/data-view-header';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-// import { getUrlQueryParam } from '../utility/utils';
 
-// import './table-view-table.js';
+import './search-view-list.js';
 
 @customElement('search-view')
 export class SearchView extends LitElement {
@@ -37,7 +36,8 @@ export class SearchView extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    // this.searchQuery = getUrlQueryParam('query');
+    console.log(this.location.params);
+    this.searchQuery = this.location.params.query;
 
     await this.fetchData();
   }
@@ -90,6 +90,9 @@ export class SearchView extends LitElement {
     //   page: this.pageNumber,
     // });
 
+    // todo: comment out
+    const data = [{}, {}];
+
     this.fetchLoading = false;
 
     if (!searchResults || searchResults.length === 0) {
@@ -97,7 +100,7 @@ export class SearchView extends LitElement {
       return;
     }
 
-    this.searchResults = [...this.searchResults, ...searchResults];
+    this.searchResults = [...this.searchResults, ...data];
 
     // todo: display notification with error
     this.fetchError = error;
@@ -134,6 +137,7 @@ export class SearchView extends LitElement {
 
   // TODO:
   // - check if data view header works
+  // - pass search results
   render() {
     return html`
       <h1>Search view</h1>
@@ -153,15 +157,15 @@ export class SearchView extends LitElement {
         .language="${this.lang}"
       ></data-view-header>
 
-      <table-view-table
-        .fileName="${this.fileName}"
+      <search-view-list
+        .searchQuery="${this.searchQuery}"
         .probability="${this.probability}"
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
         .limitCollection="${this.limitCollection}"
-        .parallels="${this.searchResults}"
+        .searchResults="${this.searchResults}"
         .setPageNumber="${this.setPageNumber}"
-      ></table-view-table>
+      ></search-view-list>
     `;
   }
 }

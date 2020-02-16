@@ -89,8 +89,6 @@ export class NumbersView extends LitElement {
       `;
     }
 
-    console.log('rendering numbers view');
-
     return html`
       <data-view-header
         .score="${this.score}"

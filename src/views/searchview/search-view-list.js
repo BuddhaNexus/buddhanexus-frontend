@@ -3,7 +3,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { highlightTextByOffset } from '../utility/preprocessing';
 import { getLanguageFromFilename } from '../utility/views-common';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import { SearchViewListItem } from './search-view-list-item';
+import SearchViewListItem from './search-view-list-item';
 import './search-view-list-header';
 
 import styles from './search-view-list.styles';
@@ -15,7 +15,7 @@ export class SearchViewList extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Array }) limitCollection;
-  @property({ type: Array }) parallels;
+  @property({ type: Array }) searchResults;
 
   @property({ type: Function }) setPageNumber;
 
@@ -23,7 +23,6 @@ export class SearchViewList extends LitElement {
     return [styles, sharedDataViewStyles];
   }
 
-  // Label in table cell, e.g T06TD4085E:154_0–161_0.
   getSegmentId = segnr => {
     let segLabel = segnr[0];
     if (segnr.length > 1) {
@@ -42,10 +41,10 @@ export class SearchViewList extends LitElement {
 
   render() {
     return html`
-      <div class="table-container">
-        <table-view-table-header
-          .fileName="${this.fileName}"
-        ></table-view-table-header>
+      <div class="list-container">
+        <search-view-list-header
+          .searchQuery="${this.searchQuery}"
+        ></search-view-list-header>
 
         ${this.searchResults.map(result =>
           SearchViewListItem({
@@ -56,18 +55,8 @@ export class SearchViewList extends LitElement {
               result.root_offset_end + 1, // the +1 is necessary for the chinese display, but hard to tell why.
               getLanguageFromFilename(result.root_segnr[0])
             ),
-            parallelSegmentText: highlightTextByOffset(
-              result.par_segment,
-              result.par_offset_beg,
-              result.par_offset_end,
-              getLanguageFromFilename(result.file_name)
-            ),
-            parallelSegmentId: this.getSegmentId(result.par_segnr),
-            score: result.score,
-            parLength: result.par_length,
             rootLength: result.root_length,
             rootUrl: this.createUrl(result.root_segnr[0]),
-            parUrl: this.createUrl(result.par_segnr[0]),
           })
         )}
       </div>

@@ -1,10 +1,11 @@
 import 'normalize.css';
-import { LitElement, html, customElement } from 'lit-element';
+import 'default-passive-events';
 import '@vaadin/vaadin-tabs/theme/material/vaadin-tabs';
 import '@vaadin/vaadin-tabs/theme/material/vaadin-tab';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-app-layout';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-drawer-toggle';
 import '@polymer/paper-input/paper-input.js';
+import { LitElement, html, customElement } from 'lit-element';
 
 import styles from './index.styles';
 import BNRouter from './router';
@@ -27,7 +28,7 @@ export class AppLayout extends LitElement {
       <vaadin-app-layout>
         <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
         <h1 slot="navbar" class="header-title">Buddhanexus</h1>
-        <vaadin-tabs slot="navbar">
+        <vaadin-tabs slot="navbar" overflow="both">
           <a class="menu-tab" href="/">
             <vaadin-tab>Home</vaadin-tab>
           </a>
@@ -47,10 +48,12 @@ export class AppLayout extends LitElement {
             <vaadin-tab>Visual Charts</vaadin-tab>
           </a>
         </vaadin-tabs>
+
+        <main></main>
+
         <div id="menu-drawer" slot="drawer">
           <navigation-menu></navigation-menu>
         </div>
-        <main></main>
       </vaadin-app-layout>
     `;
   }

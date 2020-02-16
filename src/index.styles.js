@@ -7,6 +7,18 @@ export default css`
     font-family: Roboto, Source Sans Pro, sans-serif;
   }
 
+  @media screen and (max-width: 400px) {
+    .header-title {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 860px) {
+    .header-title {
+      font-size: 24px;
+    }
+  }
+
   [hidden] {
     display: none;
   }
@@ -32,18 +44,12 @@ export default css`
     box-shadow: 0 4px 8px #888888;
   }
 
-  @media screen and (max-width: 860px) {
-    vaadin-tabs {
-      flex-wrap: wrap;
-    }
-  }
-
   vaadin-tabs {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    flex: 1;
+    overflow: hidden;
   }
 
   vaadin-tabs paper-input {
@@ -59,6 +65,7 @@ export default css`
   }
 
   vaadin-app-layout {
+    width: 100%;
     --vaadin-app-layout-navbar-background: var(--color-background);
   }
 

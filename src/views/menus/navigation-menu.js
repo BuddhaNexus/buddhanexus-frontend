@@ -126,8 +126,6 @@ export class NavigationMenu extends LitElement {
       `;
     }
 
-    console.log('rendering navigation-menu');
-
     return html`
       <div id="menu-container">
         ${this.collectionMenu()}

@@ -224,7 +224,6 @@ export class VisualViewGraph extends LitElement {
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }
-    console.log('rendering visual graph view');
     if (this.graphData) {
       return html`
         ${this.createPageDisplay()}

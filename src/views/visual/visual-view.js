@@ -21,7 +21,6 @@ export class VisualView extends LitElement {
   };
 
   render() {
-    console.log('rendering visual view');
     return html`
       <visual-view-header
         .setSelection="${this.setSelection}"

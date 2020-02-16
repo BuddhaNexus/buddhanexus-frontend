@@ -14,7 +14,7 @@ export function setNavigationDrawerVisibility(isVisible) {
   if (isVisible) {
     drawerToggle.removeAttribute('style');
   } else {
-    drawerToggle.setAttribute('style', 'visibility: hidden');
+    drawerToggle.setAttribute('style', 'display: none');
   }
 }
 
@@ -22,5 +22,5 @@ export function disableDrawer() {
   getMainLayout().querySelector('vaadin-app-layout').drawerOpened = false;
   getMainLayout()
     .querySelector('vaadin-drawer-toggle')
-    .setAttribute('style', 'visibility: hidden');
+    .setAttribute('style', 'display: none');
 }
