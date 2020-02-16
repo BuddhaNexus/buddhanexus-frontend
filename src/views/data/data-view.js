@@ -168,6 +168,7 @@ export class DataView extends LitElement {
       const viewModeParamIndex = pathParams.indexOf(this.language) + 1;
       pathParams[viewModeParamIndex] = newViewMode;
       const newUrl = pathParams.join('/');
+      // TODO: check if history.replaceState can be replaced by Router.go
       history.replaceState({}, null, newUrl);
       this.location.pathname = newUrl;
     }

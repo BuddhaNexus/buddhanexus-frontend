@@ -3,7 +3,7 @@ import { customElement, LitElement, property, html, css } from 'lit-element';
 import styles from '../data/data-view.styles';
 import sharedStyles from '../data/data-view-shared.styles';
 
-@customElement('list-view-list-header')
+@customElement('search-view-list-header')
 class SearchViewListHeader extends LitElement {
   @property({ type: String }) searchQuery;
 

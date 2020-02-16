@@ -7,6 +7,8 @@ import '@vaadin/vaadin-app-layout/theme/material/vaadin-drawer-toggle';
 import '@polymer/paper-input/paper-input.js';
 import { LitElement, html, customElement } from 'lit-element';
 
+import { Router } from '@vaadin/router';
+
 import styles from './index.styles';
 import BNRouter from './router';
 
@@ -25,8 +27,11 @@ export class AppLayout extends LitElement {
     new BNRouter().init();
   }
 
-  navigateToSearch = event => {
-    console.log(event);
+  navigateToSearch = e => {
+    const searchQuery = e.target.value;
+    if (searchQuery) {
+      Router.go(`/search/${e.target.value}`);
+    }
   };
 
   render() {

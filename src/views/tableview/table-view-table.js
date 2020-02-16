@@ -3,6 +3,10 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { highlightTextByOffset } from '../utility/preprocessing';
 import { getLanguageFromFilename } from '../utility/views-common';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
+import {
+  createTextViewSegmentUrl,
+  getSegmentIdFromKey,
+} from '../data/dataViewUtils';
 import { TableViewTableRow } from './table-view-table-row';
 import './table-view-table-header';
 
@@ -23,23 +27,6 @@ export class TableViewTable extends LitElement {
     return [styles, sharedDataViewStyles];
   }
 
-  // Label in table cell, e.g T06TD4085E:154_0–161_0.
-  getSegmentId = segnr => {
-    let segLabel = segnr[0];
-    if (segnr.length > 1) {
-      const parallels = segnr[segnr.length - 1].split(':');
-      return segLabel + `–${parallels[parallels.length - 1]}`;
-    }
-
-    return segLabel;
-  };
-
-  createUrl = segmentNr => {
-    let lang = getLanguageFromFilename(segmentNr);
-    let textName = segmentNr.split(':')[0];
-    return `../../${lang}/text/${textName}/${segmentNr}`;
-  };
-
   render() {
     return html`
       <div class="table-container">
@@ -49,7 +36,7 @@ export class TableViewTable extends LitElement {
 
         ${this.parallels.map(parallel =>
           TableViewTableRow({
-            rootSegmentId: this.getSegmentId(parallel.root_segnr),
+            rootSegmentId: getSegmentIdFromKey(parallel.root_segnr),
             rootSegmentText: highlightTextByOffset(
               parallel.root_seg_text,
               parallel.root_offset_beg,
@@ -62,12 +49,12 @@ export class TableViewTable extends LitElement {
               parallel.par_offset_end,
               getLanguageFromFilename(parallel.file_name)
             ),
-            parallelSegmentId: this.getSegmentId(parallel.par_segnr),
+            parallelSegmentId: getSegmentIdFromKey(parallel.par_segnr),
             score: parallel.score,
             parLength: parallel.par_length,
             rootLength: parallel.root_length,
-            rootUrl: this.createUrl(parallel.root_segnr[0]),
-            parUrl: this.createUrl(parallel.par_segnr[0]),
+            rootUrl: createTextViewSegmentUrl(parallel.root_segnr[0]),
+            parUrl: createTextViewSegmentUrl(parallel.par_segnr[0]),
           })
         )}
       </div>

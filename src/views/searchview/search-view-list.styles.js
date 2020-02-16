@@ -10,46 +10,47 @@ export default css`
     margin-bottom: 36px;
   }
 
-  .list-view-list__item {
+  .search-view-list__item {
     display: flex;
   }
 
-  .list-view-list__item-content {
+  .search-view-list__item-content {
     padding: 12px;
     margin: 6px;
     background-color: var(--color-light-grey);
     overflow-wrap: break-word;
   }
 
-  .list-view-list__item-content--segment {
+  .search-view-list__item-content--segment {
     margin-left: 0;
     flex: 1;
   }
 
-  .list-view-list__item-header {
+  .search-view-list__item-header {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     color: var(--color-text-secondary);
   }
 
-  .list-view-list__segment-id {
+  .search-view-list__segment-id {
     color: var(--color-text-secondary);
     font-size: 14px;
     margin-right: 16px;
   }
 
-  .list-view-list__parallel-details {
+  .search-view-list__parallel-details {
     display: flex;
     font-size: 16px;
     flex-wrap: wrap;
   }
 
-  .list-view-list__parallel-details .list-view-list__parallel-details-badge {
+  .search-view-list__parallel-details
+    .search-view-list__parallel-details-badge {
     margin-right: 16px;
   }
 
-  .list-view-list__text {
+  .search-view-list__text {
     font-size: 18px;
     margin-top: 8px;
     margin-bottom: 8px;

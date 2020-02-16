@@ -4,6 +4,7 @@ import '../data/data-view-header';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 
 import './search-view-list.js';
+import parallels_response_mock from './parallels_response_mock';
 
 @customElement('search-view')
 export class SearchView extends LitElement {
@@ -80,17 +81,16 @@ export class SearchView extends LitElement {
     this.fetchLoading = true;
 
     // todo: delete after connecting backend
-    const searchResults = [];
+    const searchResults = parallels_response_mock.parallels;
     const error = null;
 
     // TODO: uncomment
-    // const { data } = getSearchDataFromBackend({
+    // const { searchResults } = getSearchDataFromBackend({
     //   query: this.searchQuery,
     //   page: this.pageNumber,
     // });
 
     // todo: comment out
-    const data = [{}, {}];
 
     this.fetchLoading = false;
 
@@ -99,7 +99,7 @@ export class SearchView extends LitElement {
       return;
     }
 
-    this.searchResults = [...this.searchResults, ...data];
+    this.searchResults = [...this.searchResults, ...searchResults];
 
     // todo: display notification with error
     this.fetchError = error;
@@ -136,7 +136,7 @@ export class SearchView extends LitElement {
 
   // TODO:
   // - check if data view header works
-  // - pass search results
+  // - pass search results from backend
   render() {
     return html`
       <h1>Search view</h1>
