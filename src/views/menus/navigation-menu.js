@@ -5,6 +5,7 @@ import '@vaadin/vaadin-details/theme/material/vaadin-details.js';
 import { getDataForSidebarMenu } from '../../api/actions';
 
 import styles from './navigation-menu.styles';
+import { getMainLayout } from '../utility/utils';
 
 @customElement('navigation-menu')
 export class NavigationMenu extends LitElement {
@@ -29,8 +30,8 @@ export class NavigationMenu extends LitElement {
       if (['language'].includes(propName) && !this.fetchLoading) {
         await this.fetchData();
       }
-      if (propName == 'fileName') {
-        document
+      if (propName === 'fileName') {
+        getMainLayout()
           .querySelector('data-view')
           .setAttribute('fileName', this.fileName);
       }

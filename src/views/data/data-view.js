@@ -14,6 +14,7 @@ import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 
 import dataViewStyles from './data-view.styles';
+import { getMainLayout } from '../utility/utils';
 
 @customElement('data-view')
 export class DataView extends LitElement {
@@ -61,7 +62,7 @@ export class DataView extends LitElement {
         this.applyFilter();
       }
       if (propName === 'language') {
-        document
+        getMainLayout()
           .querySelector('navigation-menu')
           .setAttribute('language', this.language);
       }
