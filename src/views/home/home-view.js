@@ -159,6 +159,8 @@ export class HomeView extends LitElement {
                 </ul>
             </div>
         </div>
+      
+
         
         <div class="backgroundpanel" @click="${this.closeElement}">xxxxx&nbsp;</div>
 

@@ -117,6 +117,25 @@ export default css`
     margin: 0 6px;
   }
 
+  body [part='navbar'] {
+    padding: 0.05em 0 0.05em 4.75em;
+    box-shadow: var(--material-shadow-elevation-4dp);
+    background: #221f19;
+    margin: 400px 0 0 0;
+  }
+
+  @media (min-width: 700px) {
+    [part='navbar'] {
+      padding: 0.05em 0 0.05em 4.75em;
+      box-shadow: var(--material-shadow-elevation-4dp);
+      background: #221f19;
+      margin: 400px 0 0 0;
+    }
+    a active {
+      background-color: rgba(204, 17, 0, 30%);
+    }
+  }
+
   @media screen and (max-width: 600px) {
     #home {
       margin: 0; /* 48px 24px; */
