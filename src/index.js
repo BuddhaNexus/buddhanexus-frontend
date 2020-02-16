@@ -25,6 +25,10 @@ export class AppLayout extends LitElement {
     new BNRouter().init();
   }
 
+  navigateToSearch = event => {
+    console.log(event);
+  };
+
   render() {
     return html`
       <vaadin-app-layout>
@@ -50,6 +54,14 @@ export class AppLayout extends LitElement {
             <vaadin-tab>Visual Charts</vaadin-tab>
           </a>
         </vaadin-tabs>
+
+        <paper-input
+          id="search-input"
+          slot="navbar"
+          placeholder="Search..."
+          type="search"
+          @change="${this.navigateToSearch}"
+        ></paper-input>
 
         <main></main>
 

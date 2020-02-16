@@ -59,6 +59,17 @@ export default css`
     color: white;
   }
 
+  #search-input {
+    margin-left: 16px;
+    margin-right: 16px;
+    // get rid of the top padding caused by label
+    margin-top: -20px;
+  }
+
+  #search-input .floated-label-placeholder {
+    display: none;
+  }
+
   vaadin-tab {
     color: var(--color-text-primary);
   }
