@@ -156,7 +156,6 @@ export class DataView extends LitElement {
 
   updateViewModeParamInUrl(newViewMode) {
     const { viewMode: viewModeParam } = this.location.params;
-    const pathParams = location.href.split('/');
     this.viewMode = viewModeParam;
 
     if (!viewModeParam) {
@@ -164,6 +163,7 @@ export class DataView extends LitElement {
     } else if (!newViewMode) {
       return;
     } else if (viewModeParam !== newViewMode) {
+      const pathParams = location.href.split('/');
       const viewModeParamIndex = pathParams.indexOf(this.language) + 1;
       pathParams[viewModeParamIndex] = newViewMode;
       const newUrl = pathParams.join('/');

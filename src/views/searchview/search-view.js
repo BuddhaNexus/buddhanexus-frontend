@@ -1,9 +1,10 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import '../data/data-view-header';
-// import './table-view-table.js';
-
 import sharedDataViewStyles from '../data/data-view-shared.styles';
+// import { getUrlQueryParam } from '../utility/utils';
+
+// import './table-view-table.js';
 
 @customElement('search-view')
 export class SearchView extends LitElement {
@@ -36,6 +37,8 @@ export class SearchView extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
+    // this.searchQuery = getUrlQueryParam('query');
+
     await this.fetchData();
   }
 

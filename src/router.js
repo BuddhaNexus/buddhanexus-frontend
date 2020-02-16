@@ -1,7 +1,10 @@
 import { Router } from '@vaadin/router';
 
 import './views/home/home-view.js';
-import { setNavigationDrawerVisibility } from './views/utility/utils';
+import {
+  getMainLayout,
+  setNavigationDrawerVisibility,
+} from './views/utility/utils';
 
 const TABS = {
   HOME: '',
@@ -25,6 +28,7 @@ const TABS_IN_ORDER = [
 const ROUTES = [
   {
     path: '/',
+    animate: true,
     component: 'home-view',
     action: () => {
       BNRouter.selectTab(TABS.HOME);
@@ -33,6 +37,7 @@ const ROUTES = [
   },
   {
     path: '/pli/:viewMode?/:fileName?/:activeSegment?',
+    animate: true,
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');
@@ -78,7 +83,7 @@ const ROUTES = [
     },
   },
   {
-    path: '/search',
+    path: '/search/:query',
     component: 'search-view',
     action: () => {
       import('./views/searchview/search-view.js');
@@ -95,15 +100,15 @@ const ROUTES = [
 
 class BNRouter {
   constructor() {
-    this.router = new Router(document.querySelector('main'), null);
+    this.router = new Router(getMainLayout().querySelector('main'), null);
   }
 
-  init() {
-    this.router.setRoutes(ROUTES);
+  async init() {
+    await this.router.setRoutes(ROUTES);
   }
 
   static selectTab(tabName) {
-    const vaadinTabs = document.querySelectorAll('vaadin-tab');
+    const vaadinTabs = getMainLayout().querySelectorAll('vaadin-tab');
     vaadinTabs.forEach(item => {
       item.removeAttribute('selected');
     });
