@@ -151,7 +151,7 @@ vaadin-app-layout {
   height: 116px;
   z-index: 1;
   text-align: center;
-  background: #a60;
+  background: #6d5f47;
 }
 
 #home {
@@ -159,8 +159,28 @@ vaadin-app-layout {
 }
 
 .footer-bar {
+  background: #221f19;
+  text-align: right;
+  font-family: var(--material-font-family);
+  font-size: var(--material-button-font-size);
 }
-.footer-barcontent {
+.footer-bar-content {
+  color: #fff;
+  background: #302f2c;
+  float: right;
+  padding: 0 3em 0 1em;
 }
+
+.footer-bar-content a,
+.footer-bar-content a:hover,
+.footer-bar-content a:active {
+  color: #fff;
+  font-family: var(--material-font-family);
+  font-size: var(--material-button-font-size);
+  text-decoration: none;
+}
+
 .footer-color {
+  background: #6d5f47;
+  min-height: 3em;
 }

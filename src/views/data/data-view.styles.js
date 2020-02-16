@@ -14,4 +14,8 @@ export default css`
     border-radius: 4px;
     box-shadow: var(--material-card-shadow);
   }
+
+  .head {
+    background: url('./src/assets/img/background_skt.jpg');
+  }
 `;
