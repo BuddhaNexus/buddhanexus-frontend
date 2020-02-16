@@ -36,7 +36,6 @@ export class SearchView extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    console.log(this.location.params);
     this.searchQuery = this.location.params.query;
 
     await this.fetchData();

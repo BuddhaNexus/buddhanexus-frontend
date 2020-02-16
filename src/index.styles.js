@@ -2,8 +2,7 @@ import { css } from 'lit-element';
 
 export default css`
   .header-title {
-    margin-left: 24px;
-    margin-right: 18px;
+    margin: 20px 16px;
     font-family: Roboto, Source Sans Pro, sans-serif;
   }
 

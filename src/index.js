@@ -9,6 +9,7 @@ import { LitElement, html, customElement } from 'lit-element';
 
 import styles from './index.styles';
 import BNRouter from './router';
+
 import { disableDrawer } from './views/utility/utils';
 
 @customElement('app-layout')
@@ -20,6 +21,7 @@ export class AppLayout extends LitElement {
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
     disableDrawer();
+    // insert router into `<main>` element
     new BNRouter().init();
   }
 
