@@ -1,5 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element';
-
+import { truncateSegnrText } from './textViewUtils';
 import { sortByKey, getLanguageFromFilename } from '../utility/views-common';
 import {
   highlightTextByOffset,
@@ -129,9 +129,8 @@ export class TextView extends LitElement {
         if (positionFlag === 1) {
           let parSegnr = segmentArrayToString(selectedParallels[i].par_segnr);
           let segnrText = selectedParallels[i].par_segtext;
-          if (segnrText.length > 2) {
-            segnrText.splice(1, segnrText.length - 2, '…');
-          }
+          segnrText = truncateSegnrText(segnrText);
+
           const par_lang = getLanguageFromFilename(
             selectedParallels[i].par_segnr[0]
           );
