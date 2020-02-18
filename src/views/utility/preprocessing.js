@@ -209,11 +209,11 @@ export function replaceFileNameForDisplay(fileName) {
   const lang = getLanguageFromFilename(fileName);
   let displayName = fileName.toUpperCase();
   if (
-    window.menuData &&
-    window.menuData[lang] &&
-    window.menuData[lang][fileName]
+    window.displayData &&
+    window.displayData[lang] &&
+    window.displayData[lang][fileName]
   ) {
-    displayName = window.menuData[lang][fileName];
+    displayName = window.displayData[lang][fileName];
   }
   return html`
     <span title="${fileName}">${displayName}</span>
