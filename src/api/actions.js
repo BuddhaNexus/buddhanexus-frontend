@@ -109,6 +109,7 @@ export const getFileTextAndParallels = async ({
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
+    console.log('TEXT PARALLEL JSON', json);
     return json;
   } catch (e) {
     console.error('Could not load text segments from server: ', e);
@@ -210,6 +211,25 @@ export const getDataForSidebarMenu = async ({ language }) => {
     console.error('Could not load segments from server: ', e);
     return {
       error: 'Could not load segments. Please check the console for details.',
+    };
+  }
+};
+
+export const getSearchDataFromBackend = async ({ query }) => {
+  try {
+    const url = `${API_URL}/search/${query}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    console.log('RETURN JSON', json);
+    return json;
+  } catch (e) {
+    console.error('Could not load search results from server: ', e);
+    return {
+      error:
+        'Could not load search results. Please check the console for details.',
     };
   }
 };

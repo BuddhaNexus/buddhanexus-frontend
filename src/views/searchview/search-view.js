@@ -2,9 +2,8 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import '../data/data-view-header';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-
+import { getSearchDataFromBackend } from '../../api/actions';
 import './search-view-list.js';
-import parallels_response_mock from './parallels_response_mock';
 
 @customElement('search-view')
 export class SearchView extends LitElement {
@@ -79,28 +78,17 @@ export class SearchView extends LitElement {
       return;
     }
     this.fetchLoading = true;
-
-    // todo: delete after connecting backend
-    const searchResults = parallels_response_mock.parallels;
-    const error = null;
-
-    // TODO: uncomment
-    // const { searchResults } = getSearchDataFromBackend({
-    //   query: this.searchQuery,
-    //   page: this.pageNumber,
-    // });
-
-    // todo: comment out
-
+    const { searchResults, error } = await getSearchDataFromBackend({
+      query: this.searchQuery,
+    });
     this.fetchLoading = false;
-
     if (!searchResults || searchResults.length === 0) {
       this.endReached = true;
       return;
     }
 
     this.searchResults = [...this.searchResults, ...searchResults];
-
+    console.log('SEARCH RESULTS', this.searchResults);
     // todo: display notification with error
     this.fetchError = error;
   }
@@ -139,22 +127,13 @@ export class SearchView extends LitElement {
   // - pass search results from backend
   render() {
     return html`
-      <h1>Search view</h1>
+      <h1>Search Results:</h1>
 
       ${this.fetchLoading
         ? html`
             <bn-loading-spinner></bn-loading-spinner>
           `
         : null}
-
-      <data-view-header
-        .score="${this.score}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
-        .limitCollection="${this.limitCollection}"
-        .fileName="${this.searchQuery}"
-        .language="${this.lang}"
-      ></data-view-header>
 
       <search-view-list
         .searchQuery="${this.searchQuery}"

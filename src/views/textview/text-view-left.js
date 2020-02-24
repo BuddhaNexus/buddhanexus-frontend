@@ -131,6 +131,7 @@ export class TextViewLeft extends LitElement {
     });
     this.endOfLeftTextFlag = textleft.length != 200 ? true : false;
     this.textLeft = textleft;
+    console.log('TEXT LEFT', this.textLeft);
     this.textLeft = removeDuplicates(this.textLeft, 'segnr');
     this.textLeftBySegNr = {};
     this.textLeft.forEach(

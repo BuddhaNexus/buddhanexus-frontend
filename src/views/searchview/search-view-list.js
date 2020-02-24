@@ -3,10 +3,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { highlightTextByOffset } from '../utility/preprocessing';
 import { getLanguageFromFilename } from '../utility/views-common';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import {
-  createTextViewSegmentUrl,
-  getSegmentIdFromKey,
-} from '../data/dataViewUtils';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 import SearchViewListItem from './search-view-list-item';
 import './search-view-list-header';
 
@@ -36,15 +33,14 @@ export class SearchViewList extends LitElement {
 
         ${this.searchResults.map(result =>
           SearchViewListItem({
-            rootSegmentId: getSegmentIdFromKey(result.root_segnr),
-            rootSegmentText: highlightTextByOffset(
-              result.root_seg_text,
-              result.root_offset_beg,
-              result.root_offset_end + 1, // the +1 is necessary for the chinese display, but hard to tell why.
-              getLanguageFromFilename(result.root_segnr[0])
+            SegmentId: result.segment_nr[1],
+            SegmentText: highlightTextByOffset(
+              [result.search_string_precise],
+              result.offset_beg,
+              result.offset_end,
+              getLanguageFromFilename(result.segment_nr[0])
             ),
-            rootLength: result.root_length,
-            rootUrl: createTextViewSegmentUrl(result.root_segnr[0]),
+            rootUrl: createTextViewSegmentUrl(result.segment_nr[1]),
           })
         )}
       </div>

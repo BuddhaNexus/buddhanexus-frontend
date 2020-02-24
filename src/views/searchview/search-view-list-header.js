@@ -31,7 +31,7 @@ class SearchViewListHeader extends LitElement {
     return html`
       <div class="list-header-container">
         <div class="search-result-header material-card">
-          ${this.searchQuery} - search results:
+          Showing results for ${this.searchQuery}:
         </div>
       </div>
     `;
