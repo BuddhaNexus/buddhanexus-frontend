@@ -136,6 +136,11 @@ export default css`
       margin: 400px 0 0 0;
     }
 
+    [part='navbar'].navbar-subsite {
+      position: fixed;
+      top: 80px;
+    }
+
     .navbar-fixed {
       position: fixed;
       top: 80px;

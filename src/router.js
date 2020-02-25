@@ -34,10 +34,15 @@ const ROUTES = [
         .setAttribute('style', 'visibility: hidden');
 
       document
-        .querySelector('.logo-position')
+        .querySelector('vaadin-app-layout')
+        .shadowRoot.querySelector('div')
+        .setAttribute('style', 'position: relative; top: 0px;');
+
+      document
+        .querySelector('.logo-container')
         .classList.add('logo-position-start');
       document
-        .querySelector('.logo-position')
+        .querySelector('.logo-container')
         .classList.remove('logo-position');
     },
   },
@@ -54,11 +59,16 @@ const ROUTES = [
       document
         .querySelector('.logo-buddhanexus')
         .setAttribute('style', 'visibility: visible');
-      document.querySelector('.logo-position').setAttribute('height', '116px');
 
-      document.querySelector('.logo-position').classList.add('logo-position');
+      //      document.querySelector('vaadin-app-layout').shadowRoot.querySelector('div').classList.add('navbar-fixed');
       document
-        .querySelector('.logo-position')
+        .querySelector('vaadin-app-layout')
+        .shadowRoot.querySelector('div')
+        .setAttribute('style', 'position: fixed; top: 80px;');
+
+      document.querySelector('.logo-container').classList.add('logo-position');
+      document
+        .querySelector('.logo-container')
         .classList.remove('logo-position-start');
     },
   },
@@ -75,18 +85,16 @@ const ROUTES = [
       document
         .querySelector('.logo-buddhanexus')
         .setAttribute('style', 'visibility: visible');
-      document.querySelector('.logo-position').setAttribute('height', '116px');
 
-      document.querySelector('.logo-position').classList.add('logo-position');
       document
-        .querySelector('div[part="navbar"]')
-        .classList.add('logo-position');
+        .querySelector('vaadin-app-layout')
+        .shadowRoot.querySelector('div')
+        .setAttribute('style', 'position: fixed; top: 80px;');
+
+      document.querySelector('.logo-container').classList.add('logo-position');
       document
-        .querySelector('.logo-position')
+        .querySelector('.logo-container')
         .classList.remove('logo-position-start');
-      document
-        .querySelector('div[part="navbar"]')
-        .setAttribute('style', 'top: 80px; position: fixed;');
     },
   },
 
@@ -103,11 +111,15 @@ const ROUTES = [
       document
         .querySelector('.logo-buddhanexus')
         .setAttribute('style', 'visibility: visible');
-      document.querySelector('.logo-position').setAttribute('height', '116px');
 
-      document.querySelector('.logo-position').classList.add('logo-position');
       document
-        .querySelector('.logo-position')
+        .querySelector('vaadin-app-layout')
+        .shadowRoot.querySelector('div')
+        .setAttribute('style', 'position: fixed; top: 80px;');
+
+      document.querySelector('.logo-container').classList.add('logo-position');
+      document
+        .querySelector('.logo-container')
         .classList.remove('logo-position-start');
     },
   },
@@ -124,11 +136,15 @@ const ROUTES = [
       document
         .querySelector('.logo-buddhanexus')
         .setAttribute('style', 'visibility: visible');
-      document.querySelector('.logo-position').setAttribute('height', '116px');
 
-      document.querySelector('.logo-position').classList.add('logo-position');
       document
-        .querySelector('.logo-position')
+        .querySelector('vaadin-app-layout')
+        .shadowRoot.querySelector('div')
+        .setAttribute('style', 'position: fixed; top: 80px;');
+
+      document.querySelector('.logo-container').classList.add('logo-position');
+      document
+        .querySelector('.logo-container')
         .classList.remove('logo-position-start');
     },
   },
