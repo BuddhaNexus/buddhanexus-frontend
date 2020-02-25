@@ -2,7 +2,7 @@ import { css } from 'lit-element';
 
 export default css`
   vaadin-split-layout {
-    --_material-split-layout-splitter-background-color: #0031ca;
+    --_material-split-layout-splitter-background-color: #6d5f47;
   }
 
   .top-level-split {

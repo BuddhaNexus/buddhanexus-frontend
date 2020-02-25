@@ -16,12 +16,17 @@ export default css`
     color: blue;
   }
 
-  html body .head {
-    background: #f00; /*#6d5f47; */
+  html body .logo-container {
     height: 400px;
+    background-image: url('src/assets/img/background_wellcome.jpg');
+    background-color: #6d5f47;
   }
 
-  .buddhanexus {
+  .logo-buddhanexus {
+    display: none;
+  }
+
+  h1.header-title {
     display: none;
   }
 
@@ -44,8 +49,8 @@ export default css`
   }
 
   .main-border {
-    margin: 80px 180px 20px 180px;
-    padding-top: 120px;
+    margin: 0px 180px 0px 180px;
+    padding-top: 70px;
     padding-bottom: 50px;
   }
   .main-content {
@@ -90,7 +95,6 @@ export default css`
 
   .box-languages {
     background-color: #221f19;
-    height: 150px;
     width: 100%;
     margin-top: 30px;
     margin-bottom: 100px;
@@ -98,7 +102,7 @@ export default css`
 
   .box-languages {
     text-align: center;
-    padding: 15px 0 0 0;
+    padding: 18px 0 15px 0;
   }
 
   .box-languages ul {
@@ -131,6 +135,11 @@ export default css`
       background: #221f19;
       margin: 400px 0 0 0;
     }
+
+    .navbar-fixed {
+      position: fixed;
+      top: 80px;
+    }
     a active {
       background-color: rgba(204, 17, 0, 30%);
     }
@@ -142,7 +151,7 @@ export default css`
     }
 
     .main-border {
-      margin: 60px 6px;
+      margin: 0 60px;
       padding-top: 80px;
       padding-bottom: 50px;
     }

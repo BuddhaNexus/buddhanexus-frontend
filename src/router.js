@@ -25,10 +25,20 @@ const ROUTES = [
     path: '/',
     component: 'home-view',
     action: () => {
-      BNRouter.selectTab(TABS.HOME),
-        document
-          .querySelector('vaadin-drawer-toggle')
-          .setAttribute('style', 'visibility: hidden');
+      BNRouter.selectTab(TABS.HOME);
+      document
+        .querySelector('vaadin-drawer-toggle')
+        .setAttribute('style', 'visibility: hidden');
+      document
+        .querySelector('.logo-buddhanexus')
+        .setAttribute('style', 'visibility: hidden');
+
+      document
+        .querySelector('.logo-position')
+        .classList.add('logo-position-start');
+      document
+        .querySelector('.logo-position')
+        .classList.remove('logo-position');
     },
   },
   {
@@ -38,6 +48,18 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.PALI);
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      document
+        .querySelector('img.logo-buddhanexus')
+        .setAttribute('src', '/src/assets/img/buddhanexus_pli.jpg');
+      document
+        .querySelector('.logo-buddhanexus')
+        .setAttribute('style', 'visibility: visible');
+      document.querySelector('.logo-position').setAttribute('height', '116px');
+
+      document.querySelector('.logo-position').classList.add('logo-position');
+      document
+        .querySelector('.logo-position')
+        .classList.remove('logo-position-start');
     },
   },
   {
@@ -47,6 +69,24 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.SANSKRIT);
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      document
+        .querySelector('img.logo-buddhanexus')
+        .setAttribute('src', '/src/assets/img/buddhanexus_skt.jpg');
+      document
+        .querySelector('.logo-buddhanexus')
+        .setAttribute('style', 'visibility: visible');
+      document.querySelector('.logo-position').setAttribute('height', '116px');
+
+      document.querySelector('.logo-position').classList.add('logo-position');
+      document
+        .querySelector('div[part="navbar"]')
+        .classList.add('logo-position');
+      document
+        .querySelector('.logo-position')
+        .classList.remove('logo-position-start');
+      document
+        .querySelector('div[part="navbar"]')
+        .setAttribute('style', 'top: 80px; position: fixed;');
     },
   },
 
@@ -57,6 +97,18 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      document
+        .querySelector('img.logo-buddhanexus')
+        .setAttribute('src', '/src/assets/img/buddhanexus_tib.jpg');
+      document
+        .querySelector('.logo-buddhanexus')
+        .setAttribute('style', 'visibility: visible');
+      document.querySelector('.logo-position').setAttribute('height', '116px');
+
+      document.querySelector('.logo-position').classList.add('logo-position');
+      document
+        .querySelector('.logo-position')
+        .classList.remove('logo-position-start');
     },
   },
   {
@@ -66,6 +118,18 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.CHINESE);
       document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
+      document
+        .querySelector('img.logo-buddhanexus')
+        .setAttribute('src', '/src/assets/img/buddhanexus_chn.jpg');
+      document
+        .querySelector('.logo-buddhanexus')
+        .setAttribute('style', 'visibility: visible');
+      document.querySelector('.logo-position').setAttribute('height', '116px');
+
+      document.querySelector('.logo-position').classList.add('logo-position');
+      document
+        .querySelector('.logo-position')
+        .classList.remove('logo-position-start');
     },
   },
   {

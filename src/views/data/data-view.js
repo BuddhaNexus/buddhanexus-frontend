@@ -61,9 +61,21 @@ export class DataView extends LitElement {
         this.applyFilter();
       }
       if (propName === 'language') {
+        //        alert(this.language + ' buddha');
         document
           .querySelector('navigation-menu')
           .setAttribute('language', this.language);
+        /*
+        if (this.language != "") {
+            documnt
+              .querySelector('img.logo-buddhanexus')
+              .setAttribute('src', 'src/assets/img/buddhanexus_' + this.language + '.jpg');
+        } else {
+            documnt
+              .querySelector('img.logo-buddhanexus')
+              .setAttribute('src', 'src/assets/img/buddhanexus.jpg');
+        }
+*/
       }
     });
   }

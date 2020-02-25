@@ -20,6 +20,11 @@ html {
     Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol';
 
+  --color-background-all: #6d5f47;
+  --color-background-light: #ffeed4;
+  --color-footer-bar: #221f19;
+  --color-footer-bar-content: #302f2c;
+
   margin: 0;
   padding: 0;
 }
@@ -37,7 +42,7 @@ html,
 body,
 main {
   width: 100%;
-  height: 100%;
+  height: auto;
 }
 
 @font-face {
@@ -89,9 +94,7 @@ main {
 }
 
 header {
-  xxxbackground: var(--color-background);
   color: var(--color-text-primary);
-  xxxbox-shadow: 0 4px 8px #888888;
 }
 
 footer {
@@ -103,7 +106,6 @@ footer {
     display: none;
   }
   main {
-    /*    padding: 180px 24px; */
   }
 }
 
@@ -125,10 +127,10 @@ a.menu-tab {
 
 /* WebDesign */
 body {
-  background-color: #e9ddc2;
+  background-color: var(--color-background-light);
 }
 
-.buddhanexus {
+.logo-buddhanexus {
   position: absolute;
   top: -65px;
   left: 15px;
@@ -137,36 +139,98 @@ body {
 }
 
 vaadin-app-layout {
-  /*    background: url("src/assets/img/background_wellcome.jpg"); */
-  background-color: #e9ddc2;
+  background-color: var(--color-background-light);
 }
 
 .menu-tab vaadin-tab {
   color: #fff;
 }
 
-.head {
+.logo-container {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  text-align: center;
+  background: var(--color-background-all);
+  display: flex;
+  justify-content: center;
+}
+
+.logo-position-start {
+  height: 420px;
+}
+
+.logo-position {
+  height: 80px;
+}
+
+.logo-position img {
+  position: fixed;
+  top: -200px;
+}
+
+.logo-position-start img {
+  position: relative;
+  top: 10px;
+}
+
+.logo-container-pli {
   position: fixed;
   width: 100%;
   height: 116px;
   z-index: 1;
   text-align: center;
-  background: #6d5f47;
+  background: url('/src/assets/img/background_pli.jpg');
+  background-color: var(--color-background-all);
+}
+
+.logo-container-skt {
+  position: fixed;
+  width: 100%;
+  height: 116px;
+  z-index: 1;
+  text-align: center;
+  background-image: url('/src/assets/img/background_skt.jpg');
+  background-color: var(--color-background-all);
+}
+
+.logo-container-tib {
+  position: fixed;
+  width: 100%;
+  height: 116px;
+  z-index: 1;
+  text-align: center;
+  background-image: url('/src/assets/img/background_tib.jpg');
+  background-color: var(--color-background-all);
+}
+
+.logo-container-chn {
+  position: fixed;
+  width: 100%;
+  height: 116px;
+  z-index: 1;
+  text-align: center;
+  background-image: url('/src/assets/img/background_chn.jpg');
+  background-color: var(--color-background-all);
 }
 
 #home {
   padding-bottom: 0px;
 }
 
+#splitter {
+  background: var(--color-background-all);
+}
+
 .footer-bar {
-  background: #221f19;
+  background: var(--color-footer-bar);
   text-align: right;
   font-family: var(--material-font-family);
   font-size: var(--material-button-font-size);
 }
 .footer-bar-content {
   color: #fff;
-  background: #302f2c;
+  background: var(--color-footer-bar-content);
   float: right;
   padding: 0 3em 0 1em;
 }
@@ -181,6 +245,15 @@ vaadin-app-layout {
 }
 
 .footer-color {
-  background: #6d5f47;
+  background: var(--color-background-all);
   min-height: 3em;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+.footer-logo {
+  width: 69px;
+  margin: 10px 20px 5px 20px;
 }

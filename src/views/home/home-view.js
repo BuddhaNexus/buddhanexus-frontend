@@ -13,8 +13,6 @@ export class HomeView extends LitElement {
     const bgpanel = this.shadowRoot.querySelector('.backgroundpanel');
     element.style.display = 'block';
     bgpanel.style.display = 'block';
-    //        alert('huhu');
-    //    console.log(element);
   }
 
   closeElement() {
@@ -142,7 +140,13 @@ export class HomeView extends LitElement {
                     </div>                
                 </p>
             </div>
-            <div class="box-languages">
+            <div class="box-languages" style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <a href=""><img src="./src/assets/img/buddhanexus_pli.jpg" class="lang-img" alt="Buddha Nexus"></a>
+                <a href=""><img src="./src/assets/img/buddhanexus_skt.jpg" class="lang-img" alt="Buddha Nexus"></a>
+                <a href=""><img src="./src/assets/img/buddhanexus_tib.jpg" class="lang-img" alt="Buddha Nexus"></a>
+                <a href=""><img src="./src/assets/img/buddhanexus_vio.jpg" class="lang-img" alt="Buddha Nexus"></a>
+            </div>
+            <!--div class="box-languages">
                 <ul>
                     <li class="langauge lang-skt">
                         <a href=""><img src="./src/assets/img/buddhanexus_pli.jpg" class="lang-img" alt="Buddha Nexus"></a>
@@ -157,12 +161,12 @@ export class HomeView extends LitElement {
                         <a href=""><img src="./src/assets/img/buddhanexus_vio.jpg" class="lang-img" alt="Buddha Nexus"></a>
                     </li>
                 </ul>
-            </div>
+            </div-->
         </div>
       
 
         
-        <div class="backgroundpanel" @click="${this.closeElement}">xxxxx&nbsp;</div>
+        <div class="backgroundpanel" @click="${this.closeElement}">&nbsp;</div>
 
     `;
   }
