@@ -157,6 +157,19 @@ const ROUTES = [
       document
         .querySelector('vaadin-drawer-toggle')
         .setAttribute('style', 'visibility: hidden');
+      document
+        .querySelector('img.logo-buddhanexus')
+        .setAttribute('src', '/src/assets/img/buddhanexus.jpg');
+
+      document
+        .querySelector('vaadin-app-layout')
+        .shadowRoot.querySelector('div')
+        .setAttribute('style', 'position: fixed; top: 80px;');
+
+      document.querySelector('.logo-container').classList.add('logo-position');
+      document
+        .querySelector('.logo-container')
+        .classList.remove('logo-position-start');
     },
   },
   {

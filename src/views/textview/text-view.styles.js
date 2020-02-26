@@ -68,14 +68,18 @@ export default css`
     min-width: 24px;
     height: 24px;
     margin-left: 12px;
-    background-color: white;
+    background-color: transparent;
     cursor: pointer;
   }
 
 
   .swap-icon {
-    color: #0031ca;
+    color: #bc2c1b;
     margin: 0px;
+  }
+
+  .swap-icon:hover {
+    color: #0f0;
   }
 
   .info-icon {
