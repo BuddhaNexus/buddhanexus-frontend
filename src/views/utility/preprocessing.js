@@ -50,26 +50,35 @@ export const highlightTextByOffset = (
     let colourValues = [];
     let position = 0;
     let Words = textArray[i];
-    if (lang.match(/tib|pli/)) {
-      Words = textArray[i].split(' ');
-    }
-    for (let j = 0; j < Words.length; ++j) {
-      WordList.push(position);
-      let colourValue = 1;
-      position += Words[j].length;
+
+    if (Words === '… this text has been truncated …') {
+      returnArray.push(
+        html`
+          <span style="color: #E80C0C; font-style: oblique;">${Words}</span>
+        `
+      );
+    } else {
       if (lang.match(/tib|pli/)) {
-        position += 1;
+        Words = textArray[i].split(' ');
       }
-      if (i === 0 && position <= startoffset) {
-        colourValue = 0;
+      for (let j = 0; j < Words.length; ++j) {
+        WordList.push(position);
+        let colourValue = 1;
+        position += Words[j].length;
+        if (lang.match(/tib|pli/)) {
+          position += 1;
+        }
+        if (i === 0 && position <= startoffset) {
+          colourValue = 0;
+        }
+        if (i === textArray.length - 1 && position > endoffset) {
+          colourValue = 0;
+        }
+        colourValues.push(colourValue);
       }
-      if (i === textArray.length - 1 && position > endoffset) {
-        colourValue = 0;
-      }
-      colourValues.push(colourValue);
+      let tokenizedResult = tokenizeWords(textArray[i], lang, colourValues);
+      returnArray.push(tokenizedResult);
     }
-    let tokenizedResult = tokenizeWords(textArray[i], lang, colourValues);
-    returnArray.push(tokenizedResult);
   }
   return returnArray;
 };
