@@ -48,4 +48,8 @@ export default css`
     font-weight: bold;
     background-color: #f4f3f2;
   }
+
+  #color-scheme-dropdown {
+    width: 150px;
+  }
 `;

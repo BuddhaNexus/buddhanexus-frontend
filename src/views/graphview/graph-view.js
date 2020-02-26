@@ -107,7 +107,7 @@ export class GraphView extends LitElement {
     return html`
       <data-view-header
         .score="${this.score}"
-        .limitCollection="${this.limitCollection}"
+        .limitCollection="${this.targetCollection}"
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
         .fileName="${this.fileName}"

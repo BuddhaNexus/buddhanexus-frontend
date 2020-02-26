@@ -13,17 +13,24 @@ import styles from './visual-view-header.styles';
 @customElement('visual-view-header')
 export class VisualViewHeader extends LitElement {
   @property({ type: String }) searchItem = '';
+  @property({ type: String }) colorScheme = 'Gradient';
   @property({ type: Array }) languages = [
     { language: 'tib', label: 'Tibetan' },
     { language: 'pli', label: 'Pali' },
     { language: 'skt', label: 'Sanskrit' },
     { language: 'chn', label: 'Chinese' },
   ];
+  @property({ type: Array }) colorSchemeValues = [
+    'Gradient',
+    'Source',
+    'Target',
+  ];
   @property({ type: String }) activeLanguage;
   @property({ type: Array }) collectionData;
   @property({ type: Array }) targetCollectionData;
   @property({ type: Array }) selectedCollections = [];
   @property({ type: Function }) setSelection;
+  @property({ type: Function }) setColorScheme;
   @property({ type: Boolean }) isDialogOpen;
   @property({ type: String }) fetchError;
 
@@ -98,6 +105,13 @@ export class VisualViewHeader extends LitElement {
     return resultCollection;
   }
 
+  handleColorSchemeChanged(e) {
+    this.colorScheme = e.target.value;
+    if (this.colorScheme) {
+      this.setColorScheme(this.colorScheme);
+    }
+  }
+
   // TODO: Move info the dialog to a separate element. Also in graph view.
   openDialog = () => (this.isDialogOpen = true);
 
@@ -142,9 +156,6 @@ export class VisualViewHeader extends LitElement {
               <strong style="display: inline; margin-bottom: 4px;"
                 >[[item.label]]</strong
               >
-              <small style="display: inline;"
-                >[[item.collectionlanguage]]</small
-              >
             </template>
           </vaadin-combo-box>
 
@@ -163,9 +174,6 @@ export class VisualViewHeader extends LitElement {
                     <strong style="display: inline; margin-bottom: 4px;"
                       >[[item.collectionname]]</strong
                     >
-                    <small style="display: inline;"
-                      >[[item.collectionlanguage]]</small
-                    >
                   </template>
                 </vaadin-combo-box>
 
@@ -181,6 +189,16 @@ export class VisualViewHeader extends LitElement {
                         item-value-path="collectionkey"
                       >
                       </multiselect-combo-box>
+
+                      <vaadin-combo-box
+                        id="color-scheme-dropdown"
+                        label="Color Scheme"
+                        selected-item="${this.colorScheme}"
+                        .items="${this.colorSchemeValues}"
+                        @value-changed="${this.handleColorSchemeChanged}"
+                      >
+                      </vaadin-combo-box>
+
                       <vaadin-button
                         id="visual-back-button"
                         theme="contrast primary small"

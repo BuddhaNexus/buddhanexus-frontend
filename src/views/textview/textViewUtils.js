@@ -101,3 +101,18 @@ export const highlightActiveMainElement = (
   }
   return colourValues;
 };
+
+export const truncateSegnrText = segnrText => {
+  var lengths = segnrText.map(function(segment) {
+    return segment.length;
+  });
+  const sumLength = lengths.reduce((partial_sum, a) => partial_sum + a, 0);
+  if (sumLength > 500) {
+    segnrText.splice(
+      1,
+      segnrText.length - 2,
+      '… this text has been truncated …'
+    );
+    return segnrText;
+  } else return segnrText;
+};

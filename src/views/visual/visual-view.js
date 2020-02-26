@@ -8,6 +8,7 @@ import './visual-view-graph';
 @customElement('visual-view')
 export class VisualView extends LitElement {
   @property({ type: String }) searchItem;
+  @property({ type: String }) colorScheme;
   @property({ type: Array }) selectedCollections;
 
   setSelection = (searchItem, selectedCollections) => {
@@ -15,15 +16,21 @@ export class VisualView extends LitElement {
     this.selectedCollections = selectedCollections;
   };
 
+  setColorScheme = colorScheme => {
+    this.colorScheme = colorScheme;
+  };
+
   render() {
     console.log('rendering visual view');
     return html`
       <visual-view-header
         .setSelection="${this.setSelection}"
+        .setColorScheme="${this.setColorScheme}"
       ></visual-view-header>
       <div class="graph-wrapper" style="margin-bottom: 12px">
         <visual-view-graph
           .searchItem="${this.searchItem}"
+          .colorScheme="${this.colorScheme}"
           .selectedCollections="${this.selectedCollections}"
           .setSelection="${this.setSelection}"
         >
