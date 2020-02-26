@@ -107,7 +107,7 @@ export const truncateSegnrText = segnrText => {
     return segment.length;
   });
   const sumLength = lengths.reduce((partial_sum, a) => partial_sum + a, 0);
-  if (sumLength > 500) {
+  if (sumLength > 500 && segnrText.length > 2) {
     segnrText.splice(
       1,
       segnrText.length - 2,
