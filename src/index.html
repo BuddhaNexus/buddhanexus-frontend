@@ -27,9 +27,14 @@
   </head>
 
   <body>
+    <div class="logo-container logo-position logo-position-start">
+        <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus">
+    </div>
+    
+
     <vaadin-app-layout>
       <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
-      <h1 slot="navbar" class="header-title">Buddhanexus</h1>
+      <h1 slot="navbar" class="header-title"><img src="/src/assets/img/buddhanexus.jpg" class="logo-buddhanexus" alt="Buddha Nexus"></h1>
       <vaadin-tabs
         slot="navbar"
         theme="minimal"
@@ -38,9 +43,7 @@
         <a class="menu-tab" href="/"><vaadin-tab>Home</vaadin-tab></a>
         <a class="menu-tab" href="/pli/text"><vaadin-tab>Pali</vaadin-tab></a>
         <a class="menu-tab" href="/skt/text"><vaadin-tab>Sanskrit</vaadin-tab></a>
-        <a class="menu-tab" href="/tib/text"
-          ><vaadin-tab>Tibetan</vaadin-tab></a
-        >
+        <a class="menu-tab" href="/tib/text"><vaadin-tab>Tibetan</vaadin-tab></a>
         <a class="menu-tab" href="/chn/text"><vaadin-tab>Chinese</vaadin-tab></a>
         <a class="menu-tab" href="/visual"
           ><vaadin-tab>Visual Charts</vaadin-tab></a
@@ -51,5 +54,18 @@
       </div>
       <main></main>
     </vaadin-app-layout>
+    <footer>
+        <div class="footer-bar">
+            &nbsp;
+            <div class="footer-bar-content">
+                <a href="/">HOME</a>
+            </div>
+        </div>
+        <div class="footer-color">
+            <div class="footer-right">
+                <img src="/src/assets/img/tree.png" alt="buddhanexus" class="footer-logo">
+            </div>
+        </div>
+    </footer>
   </body>
 </html>

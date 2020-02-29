@@ -5,7 +5,7 @@ export default css`
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin: 16px;
+    margin: 216px 51px;
   }
 
   .data-view-options-card {
@@ -14,5 +14,9 @@ export default css`
     background-color: var(--color-light-grey);
     border-radius: 4px;
     box-shadow: var(--material-card-shadow);
+  }
+
+  .head {
+    background: url('./src/assets/img/background_skt.jpg');
   }
 `;

@@ -25,8 +25,8 @@ export default css`
   vaadin-select,
   vaadin-combo-box,
   multiselect-combo-box {
-    --material-primary-color: #0031ca;
-    --material-primary-text-color: rgba(33, 33, 33);
+    --material-primary-color: #bc2c1b;
+    --material-primary-text-color: #bc2c1b;
   }
 
   multiselect-combo-box {
