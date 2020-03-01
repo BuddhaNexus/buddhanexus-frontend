@@ -35,3 +35,35 @@ export function setLogoPosition(isStart) {
     logoContainer.classList.add('logo-position');
   }
 }
+
+function setLogoVisibility(isVisible) {
+  const logo = getMainLayout().querySelector('.logo-buddhanexus');
+  if (!isVisible) {
+    logo.setAttribute('style', 'visibility: hidden');
+  } else {
+    logo.setAttribute('style', 'visibility: visible');
+  }
+}
+
+export function setLogoSource(source) {
+  const logo = getMainLayout().querySelector('img.logo-buddhanexus');
+  logo.setAttribute('src', source);
+}
+
+function setNavbarFixed(isFixed) {
+  const navbar = getMainLayout()
+    .querySelector('vaadin-app-layout')
+    .shadowRoot.querySelector('div');
+  if (isFixed) {
+    navbar.setAttribute('style', 'position: fixed; top: 80px;');
+  } else {
+    navbar.setAttribute('style', 'position: relative; top: 0px;');
+  }
+}
+
+export function switchNavbarLayout(isLargeNavbar) {
+  setNavigationDrawerVisibility(!isLargeNavbar);
+  setLogoVisibility(!isLargeNavbar);
+  setNavbarFixed(!isLargeNavbar);
+  setLogoPosition(isLargeNavbar);
+}

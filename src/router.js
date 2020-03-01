@@ -3,8 +3,9 @@ import { Router } from '@vaadin/router';
 import './views/home/home-view.js';
 import {
   getMainLayout,
-  setLogoPosition,
+  setLogoSource,
   setNavigationDrawerVisibility,
+  switchNavbarLayout,
 } from './views/utility/utils';
 
 const TABS = {
@@ -25,38 +26,6 @@ const TABS_IN_ORDER = [
   TABS.CHINESE,
   TABS.VISUAL,
 ];
-
-function setLogoVisibility(isVisible) {
-  const logo = getMainLayout().querySelector('.logo-buddhanexus');
-  if (!isVisible) {
-    logo.setAttribute('style', 'visibility: hidden');
-  } else {
-    logo.setAttribute('style', 'visibility: visible');
-  }
-}
-
-function setLogoSource(source) {
-  const logo = getMainLayout().querySelector('img.logo-buddhanexus');
-  logo.setAttribute('src', source);
-}
-
-function setNavbarFixed(isFixed) {
-  const navbar = getMainLayout()
-    .querySelector('vaadin-app-layout')
-    .shadowRoot.querySelector('div');
-  if (isFixed) {
-    navbar.setAttribute('style', 'position: fixed; top: 80px;');
-  } else {
-    navbar.setAttribute('style', 'position: relative; top: 0px;');
-  }
-}
-
-function switchNavbarLayout(isLargeNavbar) {
-  setNavigationDrawerVisibility(!isLargeNavbar);
-  setLogoVisibility(!isLargeNavbar);
-  setNavbarFixed(!isLargeNavbar);
-  setLogoPosition(isLargeNavbar);
-}
 
 const ROUTES = [
   {

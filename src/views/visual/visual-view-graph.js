@@ -40,10 +40,10 @@ export class VisualViewGraph extends LitElement {
       ) {
         this.fetchData();
       }
-      if (propName == 'currentPage' && !this.fetchLoading) {
+      if (propName === 'currentPage' && !this.fetchLoading) {
         this.adjustChartHeight();
       }
-      if (propName == 'colorScheme') {
+      if (propName === 'colorScheme') {
         this.changeColorScheme();
       }
     });
