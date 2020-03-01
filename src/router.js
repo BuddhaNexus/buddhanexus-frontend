@@ -3,6 +3,7 @@ import { Router } from '@vaadin/router';
 import './views/home/home-view.js';
 import {
   getMainLayout,
+  setLogoPosition,
   setNavigationDrawerVisibility,
 } from './views/utility/utils';
 
@@ -25,6 +26,38 @@ const TABS_IN_ORDER = [
   TABS.VISUAL,
 ];
 
+function setLogoVisibility(isVisible) {
+  const logo = getMainLayout().querySelector('.logo-buddhanexus');
+  if (!isVisible) {
+    logo.setAttribute('style', 'visibility: hidden');
+  } else {
+    logo.setAttribute('style', 'visibility: visible');
+  }
+}
+
+function setLogoSource(source) {
+  const logo = getMainLayout().querySelector('img.logo-buddhanexus');
+  logo.setAttribute('src', source);
+}
+
+function setNavbarFixed(isFixed) {
+  const navbar = getMainLayout()
+    .querySelector('vaadin-app-layout')
+    .shadowRoot.querySelector('div');
+  if (isFixed) {
+    navbar.setAttribute('style', 'position: fixed; top: 80px;');
+  } else {
+    navbar.setAttribute('style', 'position: relative; top: 0px;');
+  }
+}
+
+function switchNavbarLayout(isLargeNavbar) {
+  setNavigationDrawerVisibility(!isLargeNavbar);
+  setLogoVisibility(!isLargeNavbar);
+  setNavbarFixed(!isLargeNavbar);
+  setLogoPosition(isLargeNavbar);
+}
+
 const ROUTES = [
   {
     path: '/',
@@ -32,17 +65,17 @@ const ROUTES = [
     component: 'home-view',
     action: () => {
       BNRouter.selectTab(TABS.HOME);
-      setNavigationDrawerVisibility(false);
+      switchNavbarLayout(true);
     },
   },
   {
     path: '/pli/:viewMode?/:fileName?/:activeSegment?',
-    animate: true,
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.PALI);
-      setNavigationDrawerVisibility(true);
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_pli.jpg');
     },
   },
   {
@@ -51,7 +84,8 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.SANSKRIT);
-      setNavigationDrawerVisibility(true);
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_skt.jpg');
     },
   },
 
@@ -61,7 +95,8 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
-      setNavigationDrawerVisibility(true);
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_tib.jpg');
     },
   },
   {
@@ -70,7 +105,8 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.CHINESE);
-      setNavigationDrawerVisibility(true);
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_chn.jpg');
     },
   },
   {
@@ -79,7 +115,8 @@ const ROUTES = [
     action: () => {
       import('./views/visual/visual-view.js');
       BNRouter.selectTab(TABS.VISUAL);
-      setNavigationDrawerVisibility(false);
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
   },
   {
@@ -87,14 +124,20 @@ const ROUTES = [
     component: 'search-view',
     action: () => {
       import('./views/searchview/search-view.js');
-      BNRouter.selectTab(TABS.VISUAL);
+      BNRouter.selectTab(-1);
+      switchNavbarLayout(false);
       setNavigationDrawerVisibility(false);
+      setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
   },
   {
     path: '(.*)',
     component: 'not-found-view',
-    action: () => import('./views/not-found-view'),
+    action: () => {
+      import('./views/not-found-view');
+      switchNavbarLayout(true);
+      setLogoSource('/src/assets/img/buddhanexus.jpg');
+    },
   },
 ];
 

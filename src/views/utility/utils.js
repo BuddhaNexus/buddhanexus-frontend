@@ -24,3 +24,14 @@ export function disableDrawer() {
     .querySelector('vaadin-drawer-toggle')
     .setAttribute('style', 'visibility: hidden');
 }
+
+export function setLogoPosition(isStart) {
+  const logoContainer = document.querySelector('.logo-container');
+  if (isStart) {
+    logoContainer.classList.add('logo-position-start');
+    logoContainer.classList.remove('logo-position');
+  } else {
+    logoContainer.classList.remove('logo-position-start');
+    logoContainer.classList.add('logo-position');
+  }
+}

@@ -38,7 +38,15 @@ export class AppLayout extends LitElement {
     return html`
       <vaadin-app-layout>
         <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
-        <h1 slot="navbar" class="header-title">Buddhanexus</h1>
+
+        <h1 slot="navbar" class="header-title">
+          <img
+            src="/src/assets/img/buddhanexus.jpg"
+            class="logo-buddhanexus"
+            alt="Buddha Nexus"
+          />
+        </h1>
+
         <vaadin-tabs slot="navbar" overflow="both">
           <a class="menu-tab" href="/">
             <vaadin-tab>Home</vaadin-tab>
@@ -49,9 +57,9 @@ export class AppLayout extends LitElement {
           <a class="menu-tab" href="/skt/text">
             <vaadin-tab>Sanskrit</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/tib/text">
-            <vaadin-tab>Tibetan</vaadin-tab>
-          </a>
+          <a class="menu-tab" href="/tib/text"
+            ><vaadin-tab>Tibetan</vaadin-tab></a
+          >
           <a class="menu-tab" href="/chn/text">
             <vaadin-tab>Chinese</vaadin-tab>
           </a>

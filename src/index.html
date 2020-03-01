@@ -11,6 +11,12 @@
         --color-text-secondary: #5e6673;
         --color-background: #db960a;
         --color-light-grey: #f4f3f2;
+
+        --color-background-all: #6d5f47;
+        --color-background-light: #ffeed4;
+        --color-footer-bar: #221f19;
+        --color-footer-bar-content: #302f2c;
+
         --color-divider: rgba(0, 0, 0, 0.12);
 
         /* https://material.io/components/cards/cards.html#usage */
@@ -36,13 +42,14 @@
         color: var(--color-text-primary);
         font-size: 18px;
         line-height: 1.5rem;
+        background-color: var(--color-background-light);
       }
 
       html,
       body,
       main {
         width: 100%;
-        height: 100%;
+        height: auto;
       }
 
       @font-face {
@@ -65,6 +72,72 @@
         font-weight: bold;
         font-style: normal;
         font-display: swap;
+      }
+
+      footer {
+        background: #777;
+      }
+
+      .footer-bar {
+        background: var(--color-footer-bar);
+        text-align: right;
+        font-family: var(--material-font-family);
+        font-size: var(--material-button-font-size);
+      }
+
+      .footer-bar-content {
+        color: #fff;
+        background: var(--color-footer-bar-content);
+        float: right;
+        padding: 0 3em 0 1em;
+      }
+
+      .footer-bar-content a,
+      .footer-bar-content a:hover,
+      .footer-bar-content a:active {
+        color: #fff;
+        font-family: var(--material-font-family);
+        font-size: var(--material-button-font-size);
+        text-decoration: none;
+      }
+
+      .footer-color {
+        background: var(--color-background-all);
+        min-height: 3em;
+      }
+
+      .footer-right {
+        text-align: right;
+      }
+
+      .logo-container {
+        position: relative;
+        width: 100%;
+        z-index: 1;
+        text-align: center;
+        background: var(--color-background-all);
+        display: flex;
+        justify-content: center;
+      }
+
+      .logo-position-start {
+        height: 420px;
+        position: relative;
+      }
+
+      .logo-position {
+        height: 80px;
+        position: fixed;
+      }
+
+      .logo-position img {
+        position: fixed;
+        top: -200px;
+      }
+
+      .logo-position-start img {
+        position: relative;
+        top: 10px;
       }
     </style>
 
@@ -94,6 +167,28 @@
   </head>
 
   <body>
+    <div class="logo-container logo-position logo-position-start">
+      <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus" />
+    </div>
+
     <app-layout id="app_layout"></app-layout>
+
+    <footer>
+      <div class="footer-bar">
+        &nbsp;
+        <div class="footer-bar-content">
+          <a href="/">HOME</a>
+        </div>
+      </div>
+      <div class="footer-color">
+        <div class="footer-right">
+          <img
+            src="/src/assets/img/tree.png"
+            alt="buddhanexus"
+            class="footer-logo"
+          />
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

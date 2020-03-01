@@ -374,6 +374,7 @@ const leftSegment = (
   currentSegment,
   currentPosition
 ) => {
+  const displayNumber = `${segmentNr.split(':')[1].split('_')[0]}`;
   if (
     segmentNr == currentSegment &&
     number > 10 &&
@@ -381,9 +382,9 @@ const leftSegment = (
     currentPosition < 100
   ) {
     // prettier-ignore
-    return html`<br /><span class="left-segment" id=${segmentNr} number="${number}">${segText}</span>`;
+    return html`<br /><span class="left-segment" title=${displayNumber} id=${segmentNr} number="${number}">${segText}</span>`;
   } else {
     // prettier-ignore
-    return html`<span class="left-segment" id=${segmentNr} number="${number}">${segText}</span>`;
+    return html`<span class="left-segment" title=${displayNumber} id=${segmentNr} number="${number}">${segText}</span>`;
   }
 };

@@ -33,10 +33,6 @@ export default css`
     padding-bottom: 8px;
   }
 
-  main {
-    padding: 16px;
-  }
-
   header {
     background: var(--color-background);
     color: var(--color-text-primary);
@@ -77,6 +73,7 @@ export default css`
   vaadin-app-layout {
     width: 100%;
     --vaadin-app-layout-navbar-background: var(--color-background);
+    background-color: var(--color-background-light);
   }
 
   .content {
@@ -87,13 +84,27 @@ export default css`
     text-decoration: none;
   }
 
-  #menu-drawer {
-    height: 100%;
-    overflow: scroll;
-  }
-
   vaadin-drawer-toggle {
     margin-right: 0;
     color: #2a3443;
+    z-index: 99;
+    margin-left: 150px;
+  }
+
+  .logo-buddhanexus {
+    position: absolute;
+    top: -65px;
+    left: 15px;
+    width: 150px;
+    height: 150px;
+  }
+
+  .menu-tab vaadin-tab {
+    color: #fff;
+  }
+
+  #menu-drawer {
+    height: 100%;
+    overflow: scroll;
   }
 `;
