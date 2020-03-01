@@ -88,7 +88,6 @@ export class SearchView extends LitElement {
     }
 
     this.searchResults = [...this.searchResults, ...searchResults];
-    console.log('SEARCH RESULTS', this.searchResults);
     // todo: display notification with error
     this.fetchError = error;
   }
