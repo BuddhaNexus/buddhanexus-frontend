@@ -128,6 +128,8 @@ export class GraphView extends LitElement {
             width: window.innerWidth < 1000 ? window.innerWidth : 1000,
             height: window.innerHeight < 700 ? window.innerHeight * 0.7 : 500,
             chartArea: { left: 0, top: 0, width: '100%', height: '100%' },
+            is3D: true,
+            backgroundColor: '#ffeed4',
           }}"
         >
         </google-chart>
@@ -170,6 +172,7 @@ export class GraphView extends LitElement {
                 ? window.innerHeight * 0.7
                 : window.innerHeight * 0.85,
             chartArea: { left: 0, top: 0, width: '100%', height: '90%' },
+            backgroundColor: '#ffeed4',
           }}"
         >
         </google-chart>
