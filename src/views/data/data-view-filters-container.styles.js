@@ -9,14 +9,6 @@ export default css`
     flex-direction: column;
   }
 
-  .visibility-filters {
-    margin-left: 0;
-  }
-
-  .visibility-filters vaadin-radio-button {
-    text-transform: capitalize;
-  }
-
   #filter-options-dropdown {
     background-color: white;
   }
@@ -25,8 +17,8 @@ export default css`
   vaadin-select,
   vaadin-combo-box,
   multiselect-combo-box {
-    --material-primary-color: #0031ca;
-    --material-primary-text-color: rgba(33, 33, 33);
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--bn-dark-red);
   }
 
   multiselect-combo-box {
@@ -113,10 +105,15 @@ export default css`
   multiselect-combo-box[label],
   vaadin-combo-box[label] {
     font-size: 16px;
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--bn-dark-red);
   }
 
   paper-slider {
     --paper-slider-height: 4px;
+    --paper-slider-container-color: var(--bn-dark-red);
+    --paper-slider-active-color: var(--bn-dark-red);
+    --paper-slider-knob-color: var(--bn-dark-red);
 
     width: 100%;
     flex: 1;

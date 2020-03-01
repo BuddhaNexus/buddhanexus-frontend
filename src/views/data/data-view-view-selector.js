@@ -2,12 +2,27 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view-view-selector')
-export class HomeView extends LitElement {
+export class DataViewViewSelector extends LitElement {
   @property({ type: String }) viewMode;
   @property({ type: Function }) handleViewModeChanged;
 
   static get styles() {
-    return [css``];
+    return [
+      css`
+        .visibility-filters {
+          margin-left: 0;
+        }
+
+        .visibility-filters vaadin-radio-button {
+          text-transform: capitalize;
+        }
+
+        vaadin-radio-button {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+        }
+      `,
+    ];
   }
 
   render() {
