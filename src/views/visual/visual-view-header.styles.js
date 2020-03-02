@@ -14,22 +14,28 @@ export default css`
     box-shadow: var(--material-card-shadow);
   }
 
+  vaadin-button {
+    --material-primary-color: #bc2c1b;
+    --material-primary-text-color: #bc2c1b;
+  }
+
   vaadin-combo-box {
     display: flex-start;
     margin: 0 12px;
   }
 
   #visual-back-button {
+    color: #bc2c1b;
     display: inline-flex;
     height: 32px;
     cursor: pointer;
-    color: #0031ca;
     font-weight: bold;
     margin-left: 12px;
+    background-color: transparent;
   }
 
   #visual-back-icon {
-    color: #0031ca;
+    color: #bc2c1b;
     margin-left: 0px;
   }
 
@@ -46,7 +52,7 @@ export default css`
     cursor: pointer;
     color: rgba(0, 0, 0, 0.54);
     font-weight: bold;
-    background-color: #f4f3f2;
+    background-color: transparent;
   }
 
   #color-scheme-dropdown {

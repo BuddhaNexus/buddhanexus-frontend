@@ -85,6 +85,7 @@ const ROUTES = [
       import('./views/visual/visual-view.js');
       BNRouter.selectTab(TABS.VISUAL);
       switchNavbarLayout(false);
+      setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
   },
@@ -105,6 +106,7 @@ const ROUTES = [
     action: () => {
       import('./views/not-found-view');
       switchNavbarLayout(true);
+      setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
   },

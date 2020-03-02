@@ -106,5 +106,7 @@ export default css`
   #menu-drawer {
     height: 100%;
     overflow: scroll;
+    padding-top: 100px;
+    background: var(--color-background-light);
   }
 `;

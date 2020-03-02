@@ -56,7 +56,7 @@ export default css`
     min-width: 24px;
     height: 24px;
     margin-left: 12px;
-    background-color: white;
+    background-color: transparent;
     cursor: pointer;
   }
 
@@ -87,7 +87,7 @@ export default css`
   }
 
   vaadin-button {
-    background-color: #0031ca;
+    background-color: transparent;
     color: white;
     font-weight: bold;
     height: 32px;
