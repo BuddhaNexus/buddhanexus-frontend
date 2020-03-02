@@ -39,7 +39,7 @@ class DataViewHeader extends LitElement {
         }
 
         vaadin-button {
-          background-color: #bc2c1b;
+          background-color: var(--bn-dark-red);
           color: rgba(0, 0, 0, 0.54);
           font-weight: bold;
           height: 32px;

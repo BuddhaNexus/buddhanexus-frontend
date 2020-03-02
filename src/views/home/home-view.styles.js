@@ -1,10 +1,6 @@
 import { css } from 'lit-element';
 
 export default css`
-  body {
-    background: #e9ddc2;
-  }
-
   .construction {
     text-align: center;
     color: blue;

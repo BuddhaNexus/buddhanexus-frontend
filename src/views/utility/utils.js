@@ -61,9 +61,19 @@ function setNavbarFixed(isFixed) {
   }
 }
 
+function toggleLargeNavbarLayoutClass(isLargeNavbar) {
+  const layout = getMainLayout().querySelector('vaadin-app-layout');
+  if (isLargeNavbar) {
+    layout.classList.add('layout--large-navbar');
+  } else {
+    layout.classList.remove('layout--large-navbar');
+  }
+}
+
 export function switchNavbarLayout(isLargeNavbar) {
   setNavigationDrawerVisibility(!isLargeNavbar);
   setLogoVisibility(!isLargeNavbar);
   setNavbarFixed(!isLargeNavbar);
   setLogoPosition(isLargeNavbar);
+  toggleLargeNavbarLayoutClass(isLargeNavbar);
 }

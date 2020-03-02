@@ -19,10 +19,10 @@ export class VisualView extends LitElement {
           flex-direction: column;
           min-height: 200px;
           align-items: end;
+          padding: 32px;
         }
 
         visual-view-header {
-          margin-top: 100px;
           margin-bottom: 32px;
         }
 

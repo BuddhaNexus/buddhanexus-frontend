@@ -1,14 +1,13 @@
-import { property, html, customElement } from 'lit-element';
+import { property, html, customElement, LitElement } from 'lit-element';
 
 import '../numbersview/numbers-view';
 import '../graphview/graph-view';
 import '../textview/text-view';
 import '../tableview/table-view';
-import { LightDOMElement } from '../light-dom-element';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view-router')
-export class DataViewRouter extends LightDOMElement {
+export class DataViewRouter extends LitElement {
   @property({ type: String }) selectedView;
   @property({ type: String }) fileName;
   @property({ type: Function }) setFileName;

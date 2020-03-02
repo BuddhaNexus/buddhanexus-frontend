@@ -15,8 +15,8 @@ export default css`
   }
 
   vaadin-button {
-    --material-primary-color: #bc2c1b;
-    --material-primary-text-color: #bc2c1b;
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--bn-dark-red);
   }
 
   vaadin-combo-box {
@@ -25,7 +25,7 @@ export default css`
   }
 
   #visual-back-button {
-    color: #bc2c1b;
+    color: var(--bn-dark-red);
     display: inline-flex;
     height: 32px;
     cursor: pointer;
@@ -35,7 +35,7 @@ export default css`
   }
 
   #visual-back-icon {
-    color: #bc2c1b;
+    color: var(--bn-dark-red);
     margin-left: 0px;
   }
 

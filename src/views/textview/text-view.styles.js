@@ -74,8 +74,8 @@ export default css`
 
 
   .swap-icon {
-    color: #bc2c1b;
-    margin: 0px;
+    color: var(--bn-dark-red);
+    margin: 0;
   }
 
   .swap-icon:hover {

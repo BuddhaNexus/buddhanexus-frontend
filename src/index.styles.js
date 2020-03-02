@@ -1,6 +1,14 @@
 import { css } from 'lit-element';
 
 export default css`
+  main {
+    margin-top: 164px;
+  }
+
+  .layout--large-navbar main {
+    margin-top: 0;
+  }
+
   .header-title {
     margin: 20px 16px;
     font-family: Roboto, Source Sans Pro, sans-serif;
@@ -71,7 +79,10 @@ export default css`
   }
 
   vaadin-app-layout {
+    padding-top: 0;
     width: 100%;
+    flex: 1;
+    height: 100%;
     --vaadin-app-layout-navbar-background: var(--color-background);
     background-color: var(--color-background-light);
   }

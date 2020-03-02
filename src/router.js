@@ -94,7 +94,6 @@ const ROUTES = [
     component: 'search-view',
     action: () => {
       import('./views/searchview/search-view.js');
-      BNRouter.selectTab(-1);
       switchNavbarLayout(false);
       setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');

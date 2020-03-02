@@ -25,6 +25,10 @@ export class SearchView extends LitElement {
     return [
       sharedDataViewStyles,
       css`
+        .search-view-container {
+          padding: 48px;
+        }
+
         .search-view-list {
           overflow: scroll;
           width: 100%;
@@ -126,23 +130,25 @@ export class SearchView extends LitElement {
   // - pass search results from backend
   render() {
     return html`
-      <h1>Search Results:</h1>
+      <div class="search-view-container">
+        <h1>Search Results:</h1>
 
-      ${this.fetchLoading
-        ? html`
-            <bn-loading-spinner></bn-loading-spinner>
-          `
-        : null}
+        ${this.fetchLoading
+          ? html`
+              <bn-loading-spinner></bn-loading-spinner>
+            `
+          : null}
 
-      <search-view-list
-        .searchQuery="${this.searchQuery}"
-        .probability="${this.probability}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
-        .limitCollection="${this.limitCollection}"
-        .searchResults="${this.searchResults}"
-        .setPageNumber="${this.setPageNumber}"
-      ></search-view-list>
+        <search-view-list
+          .searchQuery="${this.searchQuery}"
+          .probability="${this.probability}"
+          .quoteLength="${this.quoteLength}"
+          .cooccurance="${this.cooccurance}"
+          .limitCollection="${this.limitCollection}"
+          .searchResults="${this.searchResults}"
+          .setPageNumber="${this.setPageNumber}"
+        ></search-view-list>
+      </div>
     `;
   }
 }
