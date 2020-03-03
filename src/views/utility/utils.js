@@ -70,7 +70,12 @@ function toggleLargeNavbarLayoutClass(isLargeNavbar) {
   }
 }
 
+export function closeDrawer() {
+  getMainLayout().querySelector('vaadin-app-layout').drawerOpened = false;
+}
+
 export function switchNavbarLayout(isLargeNavbar) {
+  closeDrawer();
   setNavigationDrawerVisibility(!isLargeNavbar);
   setLogoVisibility(!isLargeNavbar);
   setNavbarFixed(!isLargeNavbar);

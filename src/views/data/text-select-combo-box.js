@@ -31,6 +31,11 @@ export class TextSelectComboBox extends LitElement {
           margin-left: 12px;
           width: 140px;
         }
+
+        vaadin-combo-box {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+        }
       `,
     ];
   }

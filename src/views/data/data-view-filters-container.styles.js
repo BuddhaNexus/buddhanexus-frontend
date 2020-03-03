@@ -16,7 +16,8 @@ export default css`
   vaadin-radio-button,
   vaadin-select,
   vaadin-combo-box,
-  multiselect-combo-box {
+  multiselect-combo-box,
+  vaadin-text-field {
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);
   }
