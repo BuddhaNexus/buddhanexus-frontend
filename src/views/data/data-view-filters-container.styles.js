@@ -112,7 +112,7 @@ export default css`
 
   paper-slider {
     --paper-slider-height: 4px;
-    --paper-slider-container-color: var(--bn-dark-red);
+    --paper-slider-container-color: var(--color-background);
     --paper-slider-active-color: var(--bn-dark-red);
     --paper-slider-knob-color: var(--bn-dark-red);
 
@@ -135,7 +135,7 @@ export default css`
   #slider-container[name]:hover:after,
   .segment-header:hover:after {
     content: attr(name);
-    background-color: #002080;
+    background-color: var(--bn-dark-red);
     border-radius: 4px;
     box-shadow: 0 4px 8px #888888;
     color: white;
