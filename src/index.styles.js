@@ -84,6 +84,10 @@ export default css`
     background-color: var(--color-background-light);
   }
 
+  vaadin-app-layout::part(navbar) {
+    z-index: 2;
+  }
+
   .content {
     margin-left: 24px;
   }
