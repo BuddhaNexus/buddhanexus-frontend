@@ -138,7 +138,7 @@ export default css`
     background-color: var(--bn-dark-red);
     border-radius: 4px;
     box-shadow: 0 4px 8px #888888;
-    color: white;
+    color: var(--color-menu-items);
     opacity: 0.9;
     font-size: 14px;
     padding: 4px 8px;

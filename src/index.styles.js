@@ -61,7 +61,7 @@ export default css`
     display: flex;
     right: 32px;
     top: 10%;
-    color: white;
+    color: var(--color-menu-items);
   }
 
   #search-input {
@@ -112,13 +112,13 @@ export default css`
   }
 
   .menu-tab vaadin-tab {
-    color: #fff;
+    color: var(--color-menu-items);
   }
 
   #menu-drawer {
     height: 100%;
     overflow: scroll;
     padding-top: 100px;
-    background: #a79570;
+    background: var(--color-sidebar-menu);
   }
 `;

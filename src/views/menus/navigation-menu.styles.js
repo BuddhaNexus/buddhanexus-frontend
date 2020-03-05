@@ -19,7 +19,6 @@ export default css`
   .filename {
     font-size: 14px;
     font-family: Roboto;
-    // color: #595959;
     cursor: pointer;
   }
 
@@ -30,7 +29,6 @@ export default css`
 
   .category-name {
     font-size: 12px;
-    // color: #737373;
   }
 
   .category-display {
@@ -40,7 +38,6 @@ export default css`
   .collection-list {
     font-size: 18px;
     font-family: Roboto;
-    // color: #737373;
   }
 
   .file-list {
@@ -50,7 +47,7 @@ export default css`
   vaadin-details::part(summary),
   vaadin-details::part(content),
   vaadin-details::part(toggle) {
-    background: #a79570;
-    color: white;
+    background: var(--color-sidebar-menu);
+    color: var(--color-menu-items);
   }
 `;

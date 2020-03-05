@@ -88,7 +88,7 @@ export default css`
 
   vaadin-button {
     background-color: transparent;
-    color: white;
+    color: var(--color-menu-items);
     font-weight: bold;
     height: 32px;
   }
