@@ -228,7 +228,6 @@ export class TextViewRight extends LitElement {
   }
 
   render() {
-    console.log('rendering text-view right');
     return html`
       ${this.fetchLoading && this.rightFileName
         ? html`

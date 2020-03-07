@@ -9,14 +9,6 @@ export default css`
     flex-direction: column;
   }
 
-  .visibility-filters {
-    margin-left: 0;
-  }
-
-  .visibility-filters vaadin-radio-button {
-    text-transform: capitalize;
-  }
-
   #filter-options-dropdown {
     background-color: white;
   }
@@ -24,9 +16,10 @@ export default css`
   vaadin-radio-button,
   vaadin-select,
   vaadin-combo-box,
-  multiselect-combo-box {
-    --material-primary-color: #bc2c1b;
-    --material-primary-text-color: #bc2c1b;
+  multiselect-combo-box,
+  vaadin-text-field {
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--bn-dark-red);
   }
 
   multiselect-combo-box {
@@ -113,10 +106,15 @@ export default css`
   multiselect-combo-box[label],
   vaadin-combo-box[label] {
     font-size: 16px;
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--bn-dark-red);
   }
 
   paper-slider {
     --paper-slider-height: 4px;
+    --paper-slider-container-color: var(--color-background);
+    --paper-slider-active-color: var(--bn-dark-red);
+    --paper-slider-knob-color: var(--bn-dark-red);
 
     width: 100%;
     flex: 1;
@@ -137,10 +135,10 @@ export default css`
   #slider-container[name]:hover:after,
   .segment-header:hover:after {
     content: attr(name);
-    background-color: #002080;
+    background-color: var(--bn-dark-red);
     border-radius: 4px;
     box-shadow: 0 4px 8px #888888;
-    color: white;
+    color: var(--color-menu-items);
     opacity: 0.9;
     font-size: 14px;
     padding: 4px 8px;

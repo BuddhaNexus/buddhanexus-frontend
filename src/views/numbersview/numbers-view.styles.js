@@ -10,7 +10,7 @@ export default css`
     display: block;
     overflow: scroll;
     position: relative;
-    height: calc(100vh - 100px);
+    height: calc(100vh - 200px);
     font-size: 14px;
     margin-top: 8px;
     min-height: 300px;
@@ -55,10 +55,10 @@ export default css`
   vaadin-item[name]:hover:after,
   .segment-header:hover:after {
     content: attr(name);
-    background-color: #002080;
+    background-color: var(--bn-dark-red);
     border-radius: 4px;
     box-shadow: 0 4px 8px #888888;
-    color: white;
+    color: var(--color-menu-items);
     opacity: 0.9;
     font-size: 14px;
     padding: 4px 8px;

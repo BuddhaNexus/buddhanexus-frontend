@@ -40,10 +40,10 @@ export class VisualViewGraph extends LitElement {
       ) {
         this.fetchData();
       }
-      if (propName == 'currentPage' && !this.fetchLoading) {
+      if (propName === 'currentPage' && !this.fetchLoading) {
         this.adjustChartHeight();
       }
-      if (propName == 'colorScheme') {
+      if (propName === 'colorScheme') {
         this.changeColorScheme();
       }
     });
@@ -224,7 +224,6 @@ export class VisualViewGraph extends LitElement {
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }
-    console.log('rendering visual graph view');
     if (this.graphData) {
       return html`
         ${this.createPageDisplay()}

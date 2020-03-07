@@ -22,8 +22,7 @@
   },
   "homepage": "https://github.com/ayya-vimala/pali-networks",
   "dependencies": {
-    "@polymer/iron-pages": "^3.0.1",
-    "@polymer/paper-icon-button": "^3.0.2",
+    "@polymer/paper-input": "^3.2.0",
     "@polymer/paper-slider": "https://github.com/BuddhaNexus/paper-slider.git",
     "@vaadin/router": "^1.6.0",
     "@vaadin/vaadin-app-layout": "^2.0.4",
@@ -40,6 +39,7 @@
     "@vaadin/vaadin-tabs": "^3.0.5",
     "@webcomponents/webcomponentsjs": "^2.4.1",
     "core-js": "^3.6.4",
+    "default-passive-events": "^1.0.10",
     "lit-element": "^2.2.1",
     "multiselect-combo-box": "^2.2.0",
     "normalize.css": "^8.0.1",

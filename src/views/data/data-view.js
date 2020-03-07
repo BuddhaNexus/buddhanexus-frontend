@@ -14,6 +14,7 @@ import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 
 import dataViewStyles from './data-view.styles';
+import { getMainLayout } from '../utility/utils';
 
 @customElement('data-view')
 export class DataView extends LitElement {
@@ -61,21 +62,9 @@ export class DataView extends LitElement {
         this.applyFilter();
       }
       if (propName === 'language') {
-        //        alert(this.language + ' buddha');
-        document
+        getMainLayout()
           .querySelector('navigation-menu')
           .setAttribute('language', this.language);
-        /*
-        if (this.language != "") {
-            documnt
-              .querySelector('img.logo-buddhanexus')
-              .setAttribute('src', 'src/assets/img/buddhanexus_' + this.language + '.jpg');
-        } else {
-            documnt
-              .querySelector('img.logo-buddhanexus')
-              .setAttribute('src', 'src/assets/img/buddhanexus.jpg');
-        }
-*/
       }
     });
   }
@@ -168,7 +157,6 @@ export class DataView extends LitElement {
 
   updateViewModeParamInUrl(newViewMode) {
     const { viewMode: viewModeParam } = this.location.params;
-    const pathParams = location.href.split('/');
     this.viewMode = viewModeParam;
 
     if (!viewModeParam) {
@@ -176,9 +164,11 @@ export class DataView extends LitElement {
     } else if (!newViewMode) {
       return;
     } else if (viewModeParam !== newViewMode) {
+      const pathParams = location.href.split('/');
       const viewModeParamIndex = pathParams.indexOf(this.language) + 1;
       pathParams[viewModeParamIndex] = newViewMode;
       const newUrl = pathParams.join('/');
+      // TODO: check if history.replaceState can be replaced by Router.go
       history.replaceState({}, null, newUrl);
       this.location.pathname = newUrl;
     }

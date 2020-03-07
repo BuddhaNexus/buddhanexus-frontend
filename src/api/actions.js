@@ -213,3 +213,21 @@ export const getDataForSidebarMenu = async ({ language }) => {
     };
   }
 };
+
+export const getSearchDataFromBackend = async ({ query }) => {
+  try {
+    const url = `${API_URL}/search/${query}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load search results from server: ', e);
+    return {
+      error:
+        'Could not load search results. Please check the console for details.',
+    };
+  }
+};

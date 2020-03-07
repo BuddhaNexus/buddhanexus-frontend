@@ -1,10 +1,6 @@
 import { css } from 'lit-element';
 
 export default css`
-  body {
-    background: #e9ddc2;
-  }
-
   .construction {
     text-align: center;
     color: blue;
@@ -14,20 +10,6 @@ export default css`
   .construction-sub {
     text-align: center;
     color: blue;
-  }
-
-  html body .logo-container {
-    height: 400px;
-    background-image: url('src/assets/img/background_wellcome.jpg');
-    background-color: #6d5f47;
-  }
-
-  .logo-buddhanexus {
-    display: none;
-  }
-
-  h1.header-title {
-    display: none;
   }
 
   #home {
@@ -141,10 +123,6 @@ export default css`
       top: 80px;
     }
 
-    .navbar-fixed {
-      position: fixed;
-      top: 80px;
-    }
     a active {
       background-color: rgba(204, 17, 0, 30%);
     }

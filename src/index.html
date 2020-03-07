@@ -1,6 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        --color-text-primary: #2a3443;
+        --color-text-secondary: #5e6673;
+        --color-background: #db960a;
+        --color-light-grey: #f4f3f2;
+
+        --color-background-all: #6d5f47;
+        --color-background-light: #ffeed4;
+        --color-footer-bar: #221f19;
+        --color-footer-bar-content: #302f2c;
+
+        --color-sidebar-menu: #a79570;
+        --color-menu-items: #f8f8ff;
+        --bn-dark-red: #7C3A00;
+
+        --color-divider: rgba(0, 0, 0, 0.12);
+
+        /* https://material.io/components/cards/cards.html#usage */
+        --material-card-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+          0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+          0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+        --material-card-shadow-inset: 0 0 0 0 rgba(0, 0, 0, 0.2),
+          0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+
+        /* https://css-tricks.com/snippets/css/system-font-stack/ */
+        --system-font-stack: Roboto, -apple-system, BlinkMacSystemFont,
+          'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+          'Segoe UI Emoji', 'Segoe UI Symbol';
+
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+        font-family: var(--system-font-stack);
+        color: var(--color-text-primary);
+        font-size: 18px;
+        line-height: 1.5rem;
+        background-color: var(--color-background-light);
+      }
+
+      html,
+      body {
+        min-height: 100vh;
+        width: 100%;
+      }
+
+      @font-face {
+        font-family: 'Noto Sans CJK TC';
+        src: url('./assets/fonts/noto-sans-tc_regular_zh_lzh_785da7cebd0b.woff2')
+            format('woff2'),
+          url('./assets/fonts/noto-sans-tc_regular_zh_lzh_785da7cebd0b.ttf')
+            format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Noto Sans CJK TC';
+        src: url('./assets/fonts/noto-sans-tc_bold_zh_lzh_bbcfc9a4d4b2.woff2')
+            format('woff2'),
+          url('./assets/fonts/noto-sans-tc_bold_zh_lzh_bbcfc9a4d4b2.ttf')
+            format('truetype');
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      footer {
+        background: #777;
+      }
+
+      .footer-bar {
+        background: var(--color-footer-bar);
+        text-align: right;
+        font-family: var(--material-font-family);
+        font-size: var(--material-button-font-size);
+      }
+
+      .footer-bar-content {
+        color: #fff;
+        background: var(--color-footer-bar-content);
+        float: right;
+        padding: 0 3em 0 1em;
+      }
+
+      .footer-bar-content a,
+      .footer-bar-content a:hover,
+      .footer-bar-content a:active {
+        color: #fff;
+        font-family: var(--material-font-family);
+        font-size: var(--material-button-font-size);
+        text-decoration: none;
+      }
+
+      .footer-color {
+        background: var(--color-background-all);
+        min-height: 3em;
+      }
+
+      .footer-right {
+        text-align: right;
+      }
+
+      .logo-container {
+        position: relative;
+        width: 100%;
+        z-index: 2;
+        text-align: center;
+        background: var(--color-background-all);
+        display: flex;
+        justify-content: center;
+      }
+
+      .logo-position-start {
+        height: 420px;
+        position: relative;
+      }
+
+      .logo-position {
+        height: 80px;
+        position: fixed;
+      }
+
+      .logo-position img {
+        position: fixed;
+        top: -200px;
+      }
+
+      .logo-position-start img {
+        position: relative;
+        top: 10px;
+      }
+
+      .footer-logo {
+        width: 69px;
+        margin: 10px 20px 5px 20px;
+      }
+    </style>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -28,44 +180,27 @@
 
   <body>
     <div class="logo-container logo-position logo-position-start">
-        <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus">
+      <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus" />
     </div>
-    
 
-    <vaadin-app-layout>
-      <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
-      <h1 slot="navbar" class="header-title"><img src="/src/assets/img/buddhanexus.jpg" class="logo-buddhanexus" alt="Buddha Nexus"></h1>
-      <vaadin-tabs
-        slot="navbar"
-        theme="minimal"
-        style="margin: 0 auto; flex: 1;"
-      >
-        <a class="menu-tab" href="/"><vaadin-tab>Home</vaadin-tab></a>
-        <a class="menu-tab" href="/pli/text"><vaadin-tab>Pali</vaadin-tab></a>
-        <a class="menu-tab" href="/skt/text"><vaadin-tab>Sanskrit</vaadin-tab></a>
-        <a class="menu-tab" href="/tib/text"><vaadin-tab>Tibetan</vaadin-tab></a>
-        <a class="menu-tab" href="/chn/text"><vaadin-tab>Chinese</vaadin-tab></a>
-        <a class="menu-tab" href="/visual"
-          ><vaadin-tab>Visual Charts</vaadin-tab></a
-        >
-      </vaadin-tabs>
-      <div id="menu-drawer" slot="drawer">
-        <navigation-menu></navigation-menu>
-      </div>
-      <main></main>
-    </vaadin-app-layout>
+    <app-layout id="app_layout"></app-layout>
+
     <footer>
-        <div class="footer-bar">
-            &nbsp;
-            <div class="footer-bar-content">
-                <a href="/">HOME</a>
-            </div>
+      <div class="footer-bar">
+        &nbsp;
+        <div class="footer-bar-content">
+          <a href="/">HOME</a>
         </div>
-        <div class="footer-color">
-            <div class="footer-right">
-                <img src="/src/assets/img/tree.png" alt="buddhanexus" class="footer-logo">
-            </div>
+      </div>
+      <div class="footer-color">
+        <div class="footer-right">
+          <img
+            src="/src/assets/img/tree.png"
+            alt="buddhanexus"
+            class="footer-logo"
+          />
         </div>
+      </div>
     </footer>
   </body>
 </html>

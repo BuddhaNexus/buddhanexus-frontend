@@ -73,7 +73,6 @@ export class TextViewLeft extends LitElement {
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }
-    console.log('rendering text-view search');
     return html`
       <div id="text-view-search-header">
         <strong

@@ -274,8 +274,6 @@ export class TextView extends LitElement {
   }
 
   render() {
-    console.log('rendered text view.');
-
     if (this.searchString) {
       return html`
         <text-view-search

@@ -34,12 +34,12 @@ class DataViewHeader extends LitElement {
           min-width: 24px;
           height: 24px;
           margin-left: 12px;
-          background-color: white;
+          background-color: transparent;
           cursor: pointer;
         }
 
         vaadin-button {
-          background-color: #0031ca;
+          background-color: var(--bn-dark-red);
           color: rgba(0, 0, 0, 0.54);
           font-weight: bold;
           height: 32px;
@@ -55,7 +55,9 @@ class DataViewHeader extends LitElement {
   render() {
     if (!this.fileName) {
       return html`
-        <div class="data-view-header">Please select a file to view.</div>
+        <div class="data-view-header">
+          Please select a file or input a search query to continue.
+        </div>
       `;
     }
     return html`

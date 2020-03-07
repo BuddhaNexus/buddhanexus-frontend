@@ -146,28 +146,9 @@ export class HomeView extends LitElement {
                 <a href=""><img src="./src/assets/img/buddhanexus_tib.jpg" class="lang-img" alt="Buddha Nexus"></a>
                 <a href=""><img src="./src/assets/img/buddhanexus_vio.jpg" class="lang-img" alt="Buddha Nexus"></a>
             </div>
-            <!--div class="box-languages">
-                <ul>
-                    <li class="langauge lang-skt">
-                        <a href=""><img src="./src/assets/img/buddhanexus_pli.jpg" class="lang-img" alt="Buddha Nexus"></a>
-                    </li>
-                    <li class="langauge lang-skt">
-                        <a href=""><img src="./src/assets/img/buddhanexus_skt.jpg" class="lang-img" alt="Buddha Nexus"></a>
-                    </li>
-                    <li class="langauge lang-skt">
-                        <a href=""><img src="./src/assets/img/buddhanexus_tib.jpg" class="lang-img" alt="Buddha Nexus"></a>
-                    </li>
-                    <li class="langauge lang-skt">
-                        <a href=""><img src="./src/assets/img/buddhanexus_vio.jpg" class="lang-img" alt="Buddha Nexus"></a>
-                    </li>
-                </ul>
-            </div-->
         </div>
       
-
-        
         <div class="backgroundpanel" @click="${this.closeElement}">&nbsp;</div>
-
     `;
   }
 }

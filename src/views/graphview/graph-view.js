@@ -102,8 +102,6 @@ export class GraphView extends LitElement {
       `;
     }
 
-    console.log('rendering graph view');
-
     return html`
       <data-view-header
         .score="${this.score}"

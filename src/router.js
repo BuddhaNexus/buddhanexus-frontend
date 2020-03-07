@@ -1,6 +1,12 @@
 import { Router } from '@vaadin/router';
 
 import './views/home/home-view.js';
+import {
+  getMainLayout,
+  setLogoSource,
+  setNavigationDrawerVisibility,
+  switchNavbarLayout,
+} from './views/utility/utils';
 
 const TABS = {
   HOME: '',
@@ -9,6 +15,7 @@ const TABS = {
   TIBETAN: 'tib',
   CHINESE: 'chn',
   VISUAL: 'visual',
+  SEARCH: 'search',
 };
 
 const TABS_IN_ORDER = [
@@ -23,27 +30,11 @@ const TABS_IN_ORDER = [
 const ROUTES = [
   {
     path: '/',
+    animate: true,
     component: 'home-view',
     action: () => {
       BNRouter.selectTab(TABS.HOME);
-      document
-        .querySelector('vaadin-drawer-toggle')
-        .setAttribute('style', 'visibility: hidden');
-      document
-        .querySelector('.logo-buddhanexus')
-        .setAttribute('style', 'visibility: hidden');
-
-      document
-        .querySelector('vaadin-app-layout')
-        .shadowRoot.querySelector('div')
-        .setAttribute('style', 'position: relative; top: 0px;');
-
-      document
-        .querySelector('.logo-container')
-        .classList.add('logo-position-start');
-      document
-        .querySelector('.logo-container')
-        .classList.remove('logo-position');
+      switchNavbarLayout(true);
     },
   },
   {
@@ -52,24 +43,8 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.PALI);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
-      document
-        .querySelector('img.logo-buddhanexus')
-        .setAttribute('src', '/src/assets/img/buddhanexus_pli.jpg');
-      document
-        .querySelector('.logo-buddhanexus')
-        .setAttribute('style', 'visibility: visible');
-
-      //      document.querySelector('vaadin-app-layout').shadowRoot.querySelector('div').classList.add('navbar-fixed');
-      document
-        .querySelector('vaadin-app-layout')
-        .shadowRoot.querySelector('div')
-        .setAttribute('style', 'position: fixed; top: 80px;');
-
-      document.querySelector('.logo-container').classList.add('logo-position');
-      document
-        .querySelector('.logo-container')
-        .classList.remove('logo-position-start');
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_pli.jpg');
     },
   },
   {
@@ -78,23 +53,8 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.SANSKRIT);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
-      document
-        .querySelector('img.logo-buddhanexus')
-        .setAttribute('src', '/src/assets/img/buddhanexus_skt.jpg');
-      document
-        .querySelector('.logo-buddhanexus')
-        .setAttribute('style', 'visibility: visible');
-
-      document
-        .querySelector('vaadin-app-layout')
-        .shadowRoot.querySelector('div')
-        .setAttribute('style', 'position: fixed; top: 80px;');
-
-      document.querySelector('.logo-container').classList.add('logo-position');
-      document
-        .querySelector('.logo-container')
-        .classList.remove('logo-position-start');
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_skt.jpg');
     },
   },
 
@@ -104,23 +64,8 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
-      document
-        .querySelector('img.logo-buddhanexus')
-        .setAttribute('src', '/src/assets/img/buddhanexus_tib.jpg');
-      document
-        .querySelector('.logo-buddhanexus')
-        .setAttribute('style', 'visibility: visible');
-
-      document
-        .querySelector('vaadin-app-layout')
-        .shadowRoot.querySelector('div')
-        .setAttribute('style', 'position: fixed; top: 80px;');
-
-      document.querySelector('.logo-container').classList.add('logo-position');
-      document
-        .querySelector('.logo-container')
-        .classList.remove('logo-position-start');
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_tib.jpg');
     },
   },
   {
@@ -129,23 +74,8 @@ const ROUTES = [
     action: () => {
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.CHINESE);
-      document.querySelector('vaadin-drawer-toggle').removeAttribute('style');
-      document
-        .querySelector('img.logo-buddhanexus')
-        .setAttribute('src', '/src/assets/img/buddhanexus_chn.jpg');
-      document
-        .querySelector('.logo-buddhanexus')
-        .setAttribute('style', 'visibility: visible');
-
-      document
-        .querySelector('vaadin-app-layout')
-        .shadowRoot.querySelector('div')
-        .setAttribute('style', 'position: fixed; top: 80px;');
-
-      document.querySelector('.logo-container').classList.add('logo-position');
-      document
-        .querySelector('.logo-container')
-        .classList.remove('logo-position-start');
+      switchNavbarLayout(false);
+      setLogoSource('/src/assets/img/buddhanexus_chn.jpg');
     },
   },
   {
@@ -154,42 +84,44 @@ const ROUTES = [
     action: () => {
       import('./views/visual/visual-view.js');
       BNRouter.selectTab(TABS.VISUAL);
-      document
-        .querySelector('vaadin-drawer-toggle')
-        .setAttribute('style', 'visibility: hidden');
-      document
-        .querySelector('img.logo-buddhanexus')
-        .setAttribute('src', '/src/assets/img/buddhanexus.jpg');
-
-      document
-        .querySelector('vaadin-app-layout')
-        .shadowRoot.querySelector('div')
-        .setAttribute('style', 'position: fixed; top: 80px;');
-
-      document.querySelector('.logo-container').classList.add('logo-position');
-      document
-        .querySelector('.logo-container')
-        .classList.remove('logo-position-start');
+      switchNavbarLayout(false);
+      setNavigationDrawerVisibility(false);
+      setLogoSource('/src/assets/img/buddhanexus.jpg');
+    },
+  },
+  {
+    path: '/search/:query',
+    component: 'search-view',
+    action: () => {
+      import('./views/searchview/search-view.js');
+      switchNavbarLayout(false);
+      setNavigationDrawerVisibility(false);
+      setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
   },
   {
     path: '(.*)',
     component: 'not-found-view',
-    action: () => import('./views/not-found-view'),
+    action: () => {
+      import('./views/not-found-view');
+      switchNavbarLayout(true);
+      setNavigationDrawerVisibility(false);
+      setLogoSource('/src/assets/img/buddhanexus.jpg');
+    },
   },
 ];
 
 class BNRouter {
   constructor() {
-    this.router = new Router(document.querySelector('main'), null);
+    this.router = new Router(getMainLayout().querySelector('main'), null);
   }
 
-  init() {
-    this.router.setRoutes(ROUTES);
+  async init() {
+    await this.router.setRoutes(ROUTES);
   }
 
   static selectTab(tabName) {
-    const vaadinTabs = document.querySelectorAll('vaadin-tab');
+    const vaadinTabs = getMainLayout().querySelectorAll('vaadin-tab');
     vaadinTabs.forEach(item => {
       item.removeAttribute('selected');
     });

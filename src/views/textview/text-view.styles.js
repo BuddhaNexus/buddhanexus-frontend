@@ -56,7 +56,7 @@ export default css`
     min-width: 24px;
     height: 24px;
     margin-left: 12px;
-    background-color: white;
+    background-color: transparent;
     cursor: pointer;
   }
 
@@ -74,8 +74,8 @@ export default css`
 
 
   .swap-icon {
-    color: #bc2c1b;
-    margin: 0px;
+    color: var(--bn-dark-red);
+    margin: 0;
   }
 
   .swap-icon:hover {
@@ -87,8 +87,8 @@ export default css`
   }
 
   vaadin-button {
-    background-color: #0031ca;
-    color: white;
+    background-color: transparent;
+    color: var(--color-menu-items);
     font-weight: bold;
     height: 32px;
   }

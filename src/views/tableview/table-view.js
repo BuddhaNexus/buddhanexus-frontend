@@ -74,9 +74,6 @@ export class TableView extends LitElement {
         // data fetched, add listener
         this.addInfiniteScrollListener();
       }
-      if (propName === 'sortMethod') {
-        // data fetched, add listener
-      }
     });
   }
 
