@@ -121,4 +121,13 @@ export default css`
     padding-top: 100px;
     background: var(--color-sidebar-menu);
   }
+
+  .search-icon-container {
+  }
+
+  .search-icon {
+    max-width: 12px;
+    margin-right: 8px;
+    margin-bottom: 2px;
+  }
 `;

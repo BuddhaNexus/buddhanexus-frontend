@@ -9,6 +9,8 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
 import '../menus/navigation-menu.js';
+import '../components/side-sheet';
+import '../components/card';
 import './text-select-combo-box';
 import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
@@ -194,49 +196,55 @@ export class DataView extends LitElement {
 
   render() {
     return html`
-      <div class="data-view-container" lang="${this.language}">
-        <div class="data-view-options-card">
-          <text-select-combo-box
-            .language="${this.language}"
-            .fileName="${this.fileName}"
+      <div class="data-view" lang="${this.language}">
+        <div class="data-view__main-container">
+          <bn-card>
+            <text-select-combo-box
+              .language="${this.language}"
+              .fileName="${this.fileName}"
+              .setFileName="${this.setFileName}"
+              .setFolio="${this.setFolio}"
+              .viewMode="${this.viewMode}"
+            ></text-select-combo-box>
+          </bn-card>
+          <data-view-router
+            .selectedView="${this.selectedView}"
             .setFileName="${this.setFileName}"
-            .setFolio="${this.setFolio}"
-            .viewMode="${this.viewMode}"
-          ></text-select-combo-box>
-
-          <data-view-filters-container
-            .viewMode="${this.viewMode}"
-            .handleViewModeChanged="${viewMode =>
-              this.handleViewModeChanged(viewMode)}"
-            .score="${this.score}"
-            .updateScore="${this.setScore}"
-            .updateSearch="${this.setSearch}"
-            .updateSortMethod="${this.setSortMethod}"
+            .fileName="${this.fileName}"
+            .activeSegment="${this.activeSegment}"
+            .folio="${this.folio}"
+            .limitCollection="${this.limitCollection}"
+            .targetCollection="${this.targetCollection}"
             .quoteLength="${this.quoteLength}"
-            .updateQuoteLength="${this.setQuoteLength}"
-            .updateLimitCollection="${this.setLimitCollection}"
-            .updateTargetCollection="${this.setTargetCollection}"
             .cooccurance="${this.cooccurance}"
-            .updateCooccurance="${this.setCooccurance}"
-            .updateSorting="${this.setSortMethod}"
-            .language="${this.language}"
-          ></data-view-filters-container>
+            .score="${this.score}"
+            .sortMethod="${this.sortMethod}"
+            .searchString="${this.searchString}"
+          ></data-view-router>
         </div>
-        <data-view-router
-          .selectedView="${this.selectedView}"
-          .setFileName="${this.setFileName}"
-          .fileName="${this.fileName}"
-          .activeSegment="${this.activeSegment}"
-          .folio="${this.folio}"
-          .limitCollection="${this.limitCollection}"
-          .targetCollection="${this.targetCollection}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
-          .score="${this.score}"
-          .sortMethod="${this.sortMethod}"
-          .searchString="${this.searchString}"
-        ></data-view-router>
+
+        <side-sheet>
+          <span>WAS</span>
+        </side-sheet>
       </div>
     `;
   }
 }
+
+// <data-view-filters-container
+//   .viewMode="${this.viewMode}"
+//   .handleViewModeChanged="${viewMode =>
+//     this.handleViewModeChanged(viewMode)}"
+//   .score="${this.score}"
+//   .updateScore="${this.setScore}"
+//   .updateSearch="${this.setSearch}"
+//   .updateSortMethod="${this.setSortMethod}"
+//   .quoteLength="${this.quoteLength}"
+//   .updateQuoteLength="${this.setQuoteLength}"
+//   .updateLimitCollection="${this.setLimitCollection}"
+//   .updateTargetCollection="${this.setTargetCollection}"
+//   .cooccurance="${this.cooccurance}"
+//   .updateCooccurance="${this.setCooccurance}"
+//   .updateSorting="${this.setSortMethod}"
+//   .language="${this.language}"
+// ></data-view-filters-container>
