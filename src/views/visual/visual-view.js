@@ -18,7 +18,7 @@ export class VisualView extends LitElement {
           display: flex;
           flex-direction: column;
           min-height: 200px;
-          align-items: end;
+          align-items: flex-start;
           padding: 32px;
         }
 
