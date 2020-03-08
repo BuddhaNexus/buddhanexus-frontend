@@ -30,6 +30,8 @@ export class VisualView extends LitElement {
           margin-bottom: 12px;
           flex: 1;
           display: flex;
+          flex-direction: column;
+          align-items: center;
           width: 100%;
         }
       `,

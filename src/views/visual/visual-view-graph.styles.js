@@ -12,7 +12,7 @@ export default css`
   }
 
   #inner-pages {
-    display: inline-block;
+    // display: inline-block;
     padding-top: 12px;
   }
 
