@@ -10,9 +10,21 @@ export default css`
     width: 360px;
     //background-color: var(--color-background-light);
     background-color: white;
-    position: absolute;
-    overflow: scroll;
+    position: fixed;
+    overflow-y: scroll;
+    overflow-x: hidden;
     transform: translate3d(0, 0, 0);
     box-shadow: var(--material-shadow-elevation-2dp);
+  }
+
+  .side-sheet__content {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 20px;
+  }
+
+  .side-sheet__title {
+    height: 24px;
+    font-weight: 500;
   }
 `;

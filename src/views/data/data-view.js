@@ -223,7 +223,7 @@ export class DataView extends LitElement {
           ></data-view-router>
         </div>
 
-        <side-sheet>
+        <side-sheet title="Filters">
           <data-view-filters-container
             .viewMode="${this.viewMode}"
             .handleViewModeChanged="${viewMode =>
