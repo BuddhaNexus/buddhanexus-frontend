@@ -235,7 +235,7 @@ export class VisualViewGraph extends LitElement {
             { label: 'To', type: 'string' },
             { label: 'Weight', type: 'number' },
           ]}"
-          style="height: ${this.chartHeight}"
+          style="height: ${this.chartHeight}; width: 100%"
           .rows="${this.graphData[this.currentPage]}"
           .options="${this.setOptions}"
           @google-chart-select="${this.selectSubCollection}"
