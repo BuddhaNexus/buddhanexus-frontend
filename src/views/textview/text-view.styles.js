@@ -6,7 +6,7 @@ export default css`
   }
 
   .top-level-split {
-    height: calc(100vh - 140px);
+    height: calc(100vh - 200px);
     margin-bottom: 24px;
   }
 

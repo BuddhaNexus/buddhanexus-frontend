@@ -182,7 +182,7 @@ export class VisualViewGraph extends LitElement {
 
     // calculating graphheight based on pagesize.
     let factor;
-    let windowHeight = window.innerHeight - 90;
+    let windowHeight = window.innerHeight - 200;
     if (rightPageSize > 25 && rightPageSize >= leftPageSize) {
       factor = (windowHeight * rightPageSize) / 25;
     } else if (leftPageSize > 25) {
@@ -235,7 +235,7 @@ export class VisualViewGraph extends LitElement {
             { label: 'To', type: 'string' },
             { label: 'Weight', type: 'number' },
           ]}"
-          style="height: ${this.chartHeight}"
+          style="height: ${this.chartHeight}; width: 100%"
           .rows="${this.graphData[this.currentPage]}"
           .options="${this.setOptions}"
           @google-chart-select="${this.selectSubCollection}"

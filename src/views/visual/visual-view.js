@@ -18,7 +18,7 @@ export class VisualView extends LitElement {
           display: flex;
           flex-direction: column;
           min-height: 200px;
-          align-items: end;
+          align-items: flex-start;
           padding: 32px;
         }
 
@@ -30,6 +30,8 @@ export class VisualView extends LitElement {
           margin-bottom: 12px;
           flex: 1;
           display: flex;
+          flex-direction: column;
+          align-items: center;
           width: 100%;
         }
       `,
