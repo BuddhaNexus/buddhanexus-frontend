@@ -45,6 +45,20 @@ export default css`
     cursor: pointer;
   }
 
+  #home a.link {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  #home a.link:hover {
+    color: #ccc;
+    text-decoration: underline;
+  }
+
+  #home a.link span.link-description {
+    padding-top: 0.4em;
+  }
+
   .popup {
     display: none;
     width: 80%;
@@ -120,7 +134,7 @@ export default css`
 
     [part='navbar'].navbar-subsite {
       position: fixed;
-      top: 80px;
+      top: 70px;
     }
 
     a active {

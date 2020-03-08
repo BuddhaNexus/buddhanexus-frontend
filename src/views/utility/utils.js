@@ -55,7 +55,7 @@ function setNavbarFixed(isFixed) {
     .querySelector('vaadin-app-layout')
     .shadowRoot.querySelector('div');
   if (isFixed) {
-    navbar.setAttribute('style', 'position: fixed; top: 80px;');
+    navbar.setAttribute('style', 'position: fixed; top: 70px;');
   } else {
     navbar.setAttribute('style', 'position: relative; top: 0px;');
   }

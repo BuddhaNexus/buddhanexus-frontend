@@ -99,13 +99,13 @@ export default css`
   vaadin-drawer-toggle {
     margin-right: 0;
     z-index: 99;
-    margin-left: 150px;
+    margin-left: 165px;
     --material-primary-text-color: var(--color-footer-bar);
   }
 
   .logo-buddhanexus {
     position: absolute;
-    top: -65px;
+    top: -55px;
     left: 15px;
     width: 150px;
     height: 150px;
@@ -120,5 +120,6 @@ export default css`
     overflow: scroll;
     padding-top: 100px;
     background: var(--color-sidebar-menu);
+    border-top: #0f0;
   }
 `;

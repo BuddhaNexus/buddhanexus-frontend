@@ -32,12 +32,12 @@ export default css`
   }
 
   .category-display {
-    margin-left: -12px;
+    margin-left: 0px;
   }
 
   .collection-list {
-    font-size: 18px;
-    font-family: Roboto;
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
   }
 
   .file-list {
@@ -49,5 +49,21 @@ export default css`
   vaadin-details::part(toggle) {
     background: var(--color-sidebar-menu);
     color: var(--color-menu-items);
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
+  }
+
+  vaadin-details::part(summary) {
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .file-list ul {
+    padding: 0 0 0 36px;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+    background: var(--color-sidebar-submenu);
+    min-height: 40px;
   }
 `;

@@ -141,10 +141,10 @@ export class HomeView extends LitElement {
                 </p>
             </div>
             <div class="box-languages" style="display: flex; justify-content: center; flex-wrap: wrap;">
-                <a href=""><img src="./src/assets/img/buddhanexus_pli.jpg" class="lang-img" alt="Buddha Nexus"></a>
-                <a href=""><img src="./src/assets/img/buddhanexus_skt.jpg" class="lang-img" alt="Buddha Nexus"></a>
-                <a href=""><img src="./src/assets/img/buddhanexus_tib.jpg" class="lang-img" alt="Buddha Nexus"></a>
-                <a href=""><img src="./src/assets/img/buddhanexus_vio.jpg" class="lang-img" alt="Buddha Nexus"></a>
+                <a href="" class="link"><img src="./src/assets/img/buddhanexus_pli.jpg" class="lang-img" alt="Buddha Nexus"><br><span class="link-description">Pāli</span></a>
+                <a href="" class="link"><img src="./src/assets/img/buddhanexus_skt.jpg" class="lang-img" alt="Buddha Nexus"><br><span class="link-description">Sanskrit</span></a>
+                <a href="" class="link"><img src="./src/assets/img/buddhanexus_tib.jpg" class="lang-img" alt="Buddha Nexus"><br><span class="link-description">Tibetisch</span></a>
+                <a href="" class="link"><img src="./src/assets/img/buddhanexus_vio.jpg" class="lang-img" alt="Buddha Nexus"><br><span class="link-description">Chinesisch</span></a>
             </div>
         </div>
       
