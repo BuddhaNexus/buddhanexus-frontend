@@ -224,27 +224,25 @@ export class DataView extends LitElement {
         </div>
 
         <side-sheet>
-          <span>WAS</span>
+          <data-view-filters-container
+            .viewMode="${this.viewMode}"
+            .handleViewModeChanged="${viewMode =>
+              this.handleViewModeChanged(viewMode)}"
+            .score="${this.score}"
+            .updateScore="${this.setScore}"
+            .updateSearch="${this.setSearch}"
+            .updateSortMethod="${this.setSortMethod}"
+            .quoteLength="${this.quoteLength}"
+            .updateQuoteLength="${this.setQuoteLength}"
+            .updateLimitCollection="${this.setLimitCollection}"
+            .updateTargetCollection="${this.setTargetCollection}"
+            .cooccurance="${this.cooccurance}"
+            .updateCooccurance="${this.setCooccurance}"
+            .updateSorting="${this.setSortMethod}"
+            .language="${this.language}"
+          ></data-view-filters-container>
         </side-sheet>
       </div>
     `;
   }
 }
-
-// <data-view-filters-container
-//   .viewMode="${this.viewMode}"
-//   .handleViewModeChanged="${viewMode =>
-//     this.handleViewModeChanged(viewMode)}"
-//   .score="${this.score}"
-//   .updateScore="${this.setScore}"
-//   .updateSearch="${this.setSearch}"
-//   .updateSortMethod="${this.setSortMethod}"
-//   .quoteLength="${this.quoteLength}"
-//   .updateQuoteLength="${this.setQuoteLength}"
-//   .updateLimitCollection="${this.setLimitCollection}"
-//   .updateTargetCollection="${this.setTargetCollection}"
-//   .cooccurance="${this.cooccurance}"
-//   .updateCooccurance="${this.setCooccurance}"
-//   .updateSorting="${this.setSortMethod}"
-//   .language="${this.language}"
-// ></data-view-filters-container>

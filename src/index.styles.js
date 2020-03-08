@@ -2,7 +2,7 @@ import { css } from 'lit-element';
 
 export default css`
   main {
-    margin-top: 164px;
+    margin-top: 148px;
   }
 
   .layout--large-navbar main {
