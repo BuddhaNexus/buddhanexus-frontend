@@ -264,3 +264,24 @@ vaadin-app-layout {
   width: 69px;
   margin: 10px 20px 5px 20px;
 }
+
+footer {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  font-weight: 500;
+  outline: none;
+}
+
+footer .footer-bar-content a.link {
+  font-family: var(--material-font-family);
+  font-size: var(--material-footer-link-font-size);
+  line-height: var(--material-footer-link-line-height);
+  padding: 0 0 0 1.1em;
+  color: #fff;
+}
+
+footer .footer-bar-content a.link:hover {
+  color: #ccc;
+  text-decoration: underline;
+}
