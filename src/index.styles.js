@@ -100,7 +100,7 @@ export default css`
     margin-right: 0;
     z-index: 99;
     margin-left: 165px;
-    --material-primary-text-color: var(--color-footer-bar);
+    --material-primary-text-color: var(--bn-dark-red);
   }
 
   .logo-buddhanexus {
