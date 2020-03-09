@@ -15,6 +15,7 @@ export default css`
     overflow-x: hidden;
     transform: translate3d(0, 0, 0);
     box-shadow: var(--material-shadow-elevation-2dp);
+    padding-bottom: 160px;
   }
 
   .side-sheet__content {

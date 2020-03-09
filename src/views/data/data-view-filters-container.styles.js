@@ -9,10 +9,6 @@ export default css`
     flex-direction: column;
   }
 
-  #filter-options-dropdown {
-    background-color: white;
-  }
-
   vaadin-radio-button,
   vaadin-select,
   vaadin-combo-box,
@@ -62,7 +58,6 @@ export default css`
     margin-left: 24px;
   }
 
-  .filter-group,
   .search-group {
     display: flex;
     flex-wrap: wrap;
@@ -74,10 +69,6 @@ export default css`
   .search-group {
     min-width: 400px;
     flex: 1;
-  }
-
-  .filter-group {
-    display: flex;
   }
 
   #search-icon {
@@ -94,13 +85,6 @@ export default css`
     flex-direction: column;
     flex: 2;
     margin-right: 16px;
-  }
-
-  #filters-box {
-    margin-top: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
   }
 
   multiselect-combo-box[label],

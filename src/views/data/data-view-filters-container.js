@@ -8,7 +8,6 @@ import '@polymer/paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
-import './data-view-view-selector';
 
 import '../utility/LoadingSpinner';
 import {
@@ -28,8 +27,6 @@ export const DATA_VIEW_MODES = {
 
 @customElement('data-view-filters-container')
 export class DataViewFiltersContainer extends LitElement {
-  @property({ type: String }) viewMode;
-  @property({ type: Function }) handleViewModeChanged;
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
   @property({ type: Function }) updateSearch;
@@ -302,31 +299,12 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
-  createFilterBox() {
-    return html`
-      <div class="filter-group">
-        <div class="filter-options-accordion">
-          <!-- TODO: Change from  "details" component to dropdown -->
-          <vaadin-details id="filter-options-dropdown">
-            <div slot="summary" id="details-box">Filter options:</div>
-            <div id="filters-box">
-              ${this.createFilterParameters()}
-              ${this.createFilesCollectionFilters()}
-              ${this.createTargetFilterForGraph()}
-            </div>
-          </vaadin-details>
-        </div>
-      </div>
-    `;
-  }
-
   render() {
     return html`
-      <data-view-view-selector 
-        .viewMode="${this.viewMode}" 
-        .handleViewModeChanged="${this.handleViewModeChanged}"
-      ></data-view-view-selector>
-      ${this.createFilterBox()}
+                ${this.createFilterParameters()}
+              ${this.createFilesCollectionFilters()}
+              ${this.createTargetFilterForGraph()}
+
       ${
         this.viewMode === DATA_VIEW_MODES.TEXT
           ? html`

@@ -7,14 +7,13 @@ export default css`
     position: relative;
     display: flex;
     height: 100%;
-
-    padding-right: ${SIDE_SHEET_WIDTH}px;
   }
 
   .data-view__main-container {
     display: flex;
     flex-direction: column;
     padding: 48px;
+    margin-right: ${SIDE_SHEET_WIDTH}px;
   }
 
   .data-view__main-container bn-card {

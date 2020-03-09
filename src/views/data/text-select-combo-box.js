@@ -122,13 +122,13 @@ export class TextSelectComboBox extends LitElement {
   getMenuLabel = language => {
     switch (language) {
       case LANGUAGE_CODES.TIBETAN:
-        return 'Load Tibetan texts';
+        return 'Find Tibetan texts...';
       case LANGUAGE_CODES.PALI:
-        return 'Load Pali texts';
+        return 'Find Pali texts...';
       case LANGUAGE_CODES.CHINESE:
-        return 'Load Chinese texts';
+        return 'Find Chinese texts...';
       case LANGUAGE_CODES.SANSKRIT:
-        return 'Load Sanskrit texts';
+        return 'Find Sanskrit texts...';
     }
   };
 
