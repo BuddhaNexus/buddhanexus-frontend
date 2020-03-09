@@ -15,6 +15,7 @@ import {
   getFilesForFilterMenu,
   getCollectionsForVisual,
 } from '../menus/actions';
+import './data-view-filter-sliders';
 
 import styles from './data-view-filters-container.styles';
 
@@ -27,16 +28,18 @@ export const DATA_VIEW_MODES = {
 
 @customElement('data-view-filters-container')
 export class DataViewFiltersContainer extends LitElement {
+  // Filter sliders:
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
-  @property({ type: Function }) updateSearch;
-  @property({ type: Function }) updateSortMethod;
-  @property({ type: Number }) cooccurance;
-  @property({ type: Function }) updateCooccurance;
-  @property({ type: Function }) updateLimitCollection;
-  @property({ type: Function }) updateTargetCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Function }) updateQuoteLength;
+  @property({ type: Number }) cooccurance;
+  @property({ type: Function }) updateCooccurance;
+
+  @property({ type: Function }) updateSearch;
+  @property({ type: Function }) updateSortMethod;
+  @property({ type: Function }) updateLimitCollection;
+  @property({ type: Function }) updateTargetCollection;
   @property({ type: String }) language;
 
   // local properties
@@ -222,66 +225,6 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
-  // TODO: Refactor these HTML objects into separate file.
-  createFilterParameters() {
-    return html`
-      <div id="filter-parameters">
-        <vaadin-vertical-layout>
-          <div class="vertical-layout">
-            <div
-              id="slider-container"
-              name="set 100% for highest similarity, 0% to see all"
-            >
-              <div id="slider-label">Similarity Score:</div>
-              <paper-slider
-                id="score-cutoff"
-                value="${this.score}"
-                @change="${this.updateScore}"
-                max="100"
-                editable
-              >
-              </paper-slider>
-            </div>
-          </div>
-          <div class="vertical-layout">
-            <div
-              id="slider-container"
-              name="set min. length of quoted segment in characters"
-            >
-              <div id="slider-label">Min. Match Length:</div>
-              <paper-slider
-                id="quote-length"
-                value="${this.quoteLength}"
-                @change="${this.updateQuoteLength}"
-                max="300"
-                min="5"
-                editable
-              >
-              </paper-slider>
-            </div>
-          </div>
-          <div class="vertical-layout">
-            <div
-              id="slider-container"
-              name="set the number of times a parallel is contained within other parallels"
-            >
-              <div id="slider-label">Nr. co-occurences:</div>
-              <paper-slider
-                id="co-occurences"
-                value="${this.cooccurance}"
-                @change="${this.updateCooccurance}"
-                max="30"
-                min="1"
-                editable
-              >
-              </paper-slider>
-            </div>
-          </div>
-        </vaadin-vertical-layout>
-      </div>
-    `;
-  }
-
   createTargetFilterForGraph() {
     return html`
       <multiselect-combo-box
@@ -301,7 +244,13 @@ export class DataViewFiltersContainer extends LitElement {
 
   render() {
     return html`
-                ${this.createFilterParameters()}
+      <data-view-filter-sliders .score="${this.score}" .updateScore="${
+      this.updateScore
+    }" .quoteLength="${this.quoteLength}" .updateQuoteLength="${
+      this.updateQuoteLength
+    }" .cooccurance="${this.cooccurance}" .updateCooccurance="${
+      this.updateCooccurance
+    }" ></data-view-filter-sliders>
               ${this.createFilesCollectionFilters()}
               ${this.createTargetFilterForGraph()}
 

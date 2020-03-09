@@ -72,7 +72,6 @@ export default css`
   }
 
   vaadin-item[name]:hover:after,
-  #slider-container[name]:hover:after,
   .segment-header:hover:after {
     content: attr(name);
     background-color: #002080;

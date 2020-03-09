@@ -32,13 +32,6 @@ export default css`
     margin-right: 12px;
   }
 
-  #filter-parameters {
-    display: flex;
-    flex: 1;
-    margin-right: 32px;
-    margin-bottom: 32px;
-  }
-
   #filter-filename,
   #exclude-filename {
     width: 210px;
@@ -92,42 +85,5 @@ export default css`
     font-size: 16px;
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);
-  }
-
-  paper-slider {
-    --paper-slider-height: 4px;
-    --paper-slider-container-color: var(--color-background);
-    --paper-slider-active-color: var(--bn-dark-red);
-    --paper-slider-knob-color: var(--bn-dark-red);
-
-    width: 100%;
-    flex: 1;
-  }
-
-  #slider-label {
-    color: rgb(115, 115, 115);
-    font-size: 12px;
-    padding-left: 18px;
-  }
-
-  #slider-container {
-    flex-wrap: wrap;
-    position: relative;
-    min-width: 400px;
-  }
-
-  #slider-container[name]:hover:after,
-  .segment-header:hover:after {
-    content: attr(name);
-    background-color: var(--bn-dark-red);
-    border-radius: 4px;
-    box-shadow: 0 4px 8px #888888;
-    color: var(--color-menu-items);
-    opacity: 0.9;
-    font-size: 14px;
-    padding: 4px 8px;
-    position: absolute;
-    z-index: 99;
-    font-weight: bold;
   }
 `;
