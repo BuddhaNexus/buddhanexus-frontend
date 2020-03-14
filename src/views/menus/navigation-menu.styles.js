@@ -3,6 +3,7 @@ import { css } from 'lit-element';
 export default css`
   #menu-container {
     margin-top: 24px;
+    border-bottom: var(--material-nav-left-lines);
   }
 
   ul {
@@ -33,11 +34,19 @@ export default css`
 
   .category-display {
     margin-left: 0px;
+    color: var(--material-nav-left-color);
+  }
+
+  .file-list ul li {
+    color: var(--material-nav-left-color);
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
   }
 
   .collection-list {
     font-family: var(--material-font-family);
     font-size: var(--material-button-font-size);
+    color: var(--material-nav-left-color);
   }
 
   .file-list {

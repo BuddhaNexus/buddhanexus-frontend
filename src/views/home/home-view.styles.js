@@ -31,7 +31,7 @@ export default css`
   }
 
   .main-border {
-    margin: 0px 180px 0px 180px;
+    margin: 0px 25%;
     padding-top: 70px;
     padding-bottom: 50px;
   }
@@ -61,32 +61,42 @@ export default css`
 
   .popup {
     display: none;
+    position: fixed;
+    top: 0px;
     width: 80%;
     min-height: 20%;
-    position: absolute;
     margin: 10%;
-    background: #efefef;
+    background: var(--material-popup-back);
     box-shadow: 0.3em 0.3em 0.9em rgba(0, 0, 0, 0.4);
     border-top: 8px solid #221f19;
     z-index: 100;
+    overflow: hidden;
   }
 
   .popup-close {
-    font-size: 1.4em;
+    font-size: 2em;
     float: right;
     cursor: pointer;
+    color: var(--material-popup-close-x);
+    line-height: 0.2em;
   }
 
   .popup-head {
-    padding: 1.3em;
-    height: 2em;
+    padding: 0.8em;
+    height: 0.8em;
+    position: absolute;
+    right: 0;
+    background: var(--material-popup-close);
   }
 
   .popup-content {
-    padding: 1.3em;
+    padding: 1.3em 2.5em 1em 1.5em;
+    overflow-y: scroll;
+    height: 300px;
   }
 
   .popup-footer {
+    height: 10px;
   }
 
   .box-languages {
@@ -142,13 +152,19 @@ export default css`
     }
   }
 
+  @media screen and (max-width: 1100px) {
+    .main-border {
+      margin: 0px 15%;
+    }
+  }
+
   @media screen and (max-width: 600px) {
     #home {
       margin: 0; /* 48px 24px; */
     }
 
     .main-border {
-      margin: 0 60px;
+      margin: 0px 3%;
       padding-top: 80px;
       padding-bottom: 50px;
     }
