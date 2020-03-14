@@ -1,6 +1,12 @@
 import { Router } from '@vaadin/router';
 
-import './views/home/home-view.js';
+import './views/static/home/home-view.js';
+import './views/static/history/history-view.js';
+import './views/static/people/people-view.js';
+import './views/static/institutions/institutions-view.js';
+import './views/static/activities/activities-view.js';
+import './views/static/publications/publications-view.js';
+import './views/static/contact/contact-view.js';
 import {
   getMainLayout,
   setLogoSource,
@@ -34,6 +40,54 @@ const ROUTES = [
     component: 'home-view',
     action: () => {
       BNRouter.selectTab(TABS.HOME);
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/history',
+    animate: true,
+    component: 'history-view',
+    action: () => {
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/people',
+    animate: true,
+    component: 'people-view',
+    action: () => {
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/institutions',
+    animate: true,
+    component: 'institutions-view',
+    action: () => {
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/activities',
+    animate: true,
+    component: 'activities-view',
+    action: () => {
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/publications',
+    animate: true,
+    component: 'publications-view',
+    action: () => {
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/contact',
+    animate: true,
+    component: 'contact-view',
+    action: () => {
       switchNavbarLayout(true);
     },
   },
