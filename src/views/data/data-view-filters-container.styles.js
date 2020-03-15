@@ -18,16 +18,13 @@ export default css`
     --material-primary-text-color: var(--bn-dark-red);
   }
 
-  multiselect-combo-box {
-    margin-top: 16px;
-  }
-
   vaadin-select {
     width: 300px;
   }
 
   multiselect-combo-box,
   vaadin-combo-box {
+    margin-top: 8px;
     margin-left: 12px;
     margin-right: 12px;
   }
@@ -43,7 +40,8 @@ export default css`
     width: 300px;
   }
 
-  #filter-collection {
+  #filter-collection,
+  #exclude-collection {
     margin-top: -20px;
   }
 
@@ -85,5 +83,10 @@ export default css`
     font-size: 16px;
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);
+  }
+
+  .filter-group {
+    margin-top: 16px;
+    margin-bottom: 16px;
   }
 `;

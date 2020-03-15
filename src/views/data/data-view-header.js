@@ -62,14 +62,14 @@ class DataViewHeader extends LitElement {
     }
     return html`
       <div class="data-view-header">
-        <show-total-numbers
+        <data-view-total-numbers
           id="total-numbers"
           .fileName="${this.fileName}"
           .score="${this.score}"
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
-        ></show-total-numbers>
+        ></data-view-total-numbers>
         <vaadin-dialog
           id="info-number-view"
           aria-label="simple"

@@ -1,9 +1,9 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, css, LitElement, property } from 'lit-element';
 import { getParallelCount } from '../../api/actions';
 import { replaceFileNameForDisplay } from '../utility/preprocessing';
 
-@customElement('show-total-numbers')
-export class totalNumbers extends LitElement {
+@customElement('data-view-total-numbers')
+export class TotalNumbers extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
@@ -13,6 +13,16 @@ export class totalNumbers extends LitElement {
   @property({ type: Number }) parallelCount;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
+
+  static get styles() {
+    return [
+      css`
+        :host {
+          max-width: 400px;
+        }
+      `,
+    ];
+  }
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
@@ -53,7 +63,7 @@ export class totalNumbers extends LitElement {
       this.parallelCount > 10000 ? `More than 10.000` : this.parallelCount;
     this.totalNumbersText = html`
       ${numbersCount} approximate matches have been found for
-      ${fileNameForDisplay} with the current filters
+      ${fileNameForDisplay} with the current filters.
     `;
   }
 

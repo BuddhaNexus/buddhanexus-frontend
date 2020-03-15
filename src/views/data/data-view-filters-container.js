@@ -171,37 +171,21 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   createFilesCollectionFilters() {
-    return html`
-      <div class="file-categories-filters">
-        ${this.filterCategoriesDataLoading
-          ? html`
-              <span>Loading...</span>
-            `
-          : html`
-              ${this.MultiSelectBox(
-                'Limit to collections:',
-                'filter-collection',
-                this.handleCategoriesComboBoxChanged,
-                this.filterCategoriesData
-              )}
-            `}
-        ${this.filterFilesDataLoading
-          ? html`
-              <span>Loading...</span>
-            `
-          : html`
-              ${this.MultiSelectBox(
-                'Limit to files:',
-                'filter-filename',
-                this.handleFilesComboBoxChanged,
-                this.filterFilesData
-              )}
-            `}
-        ${this.filterCategoriesDataLoading
-          ? html`
-              <span>Loading...</span>
-            `
-          : html`
+    if (
+      this.filterCategoriesDataLoading ||
+      this.filterFilesDataLoading ||
+      this.filterCategoriesDataLoading ||
+      this.filterCategoriesDataLoading
+    ) {
+      return html`
+        <span>...</span>
+      `;
+    } else {
+      return html`
+        <div class="file-categories-filters">
+          <label>Exclude</label>
+          <div class="filter-group">
+            ${html`
               ${this.MultiSelectBox(
                 'Exclude collections:',
                 'exclude-collection',
@@ -209,11 +193,7 @@ export class DataViewFiltersContainer extends LitElement {
                 this.filterCategoriesData
               )}
             `}
-        ${this.filterFilesDataLoading
-          ? html`
-              <span>Loading...</span>
-            `
-          : html`
+            ${html`
               ${this.MultiSelectBox(
                 'Exclude files:',
                 'exclude-filename',
@@ -221,8 +201,29 @@ export class DataViewFiltersContainer extends LitElement {
                 this.filterFilesData
               )}
             </div>`}
-      </div>
-    `;
+          </div>
+          <label>Limit</label>
+          <div class="filter-group">
+            ${html`
+              ${this.MultiSelectBox(
+                'Limit to collections:',
+                'filter-collection',
+                this.handleCategoriesComboBoxChanged,
+                this.filterCategoriesData
+              )}
+            `}
+            ${html`
+              ${this.MultiSelectBox(
+                'Limit to files:',
+                'filter-filename',
+                this.handleFilesComboBoxChanged,
+                this.filterFilesData
+              )}
+            `}
+          </div>
+        </div>
+      `;
+    }
   }
 
   createTargetFilterForGraph() {
@@ -243,16 +244,19 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   render() {
+    console.log(this.viewMode);
     return html`
-      <data-view-filter-sliders .score="${this.score}" .updateScore="${
-      this.updateScore
-    }" .quoteLength="${this.quoteLength}" .updateQuoteLength="${
-      this.updateQuoteLength
-    }" .cooccurance="${this.cooccurance}" .updateCooccurance="${
-      this.updateCooccurance
-    }" ></data-view-filter-sliders>
-              ${this.createFilesCollectionFilters()}
-              ${this.createTargetFilterForGraph()}
+      <data-view-filter-sliders .score="${this.score}" 
+      .updateScore="${this.updateScore}" 
+      .quoteLength="${this.quoteLength}" 
+      .updateQuoteLength="${this.updateQuoteLength}" 
+      .cooccurance="${this.cooccurance}" 
+      .updateCooccurance="${this.updateCooccurance}">
+      </data-view-filter-sliders>
+
+      ${this.createFilesCollectionFilters()}
+
+      ${this.createTargetFilterForGraph()}
 
       ${
         this.viewMode === DATA_VIEW_MODES.TEXT

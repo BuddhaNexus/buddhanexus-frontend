@@ -18,7 +18,8 @@ export default class DataViewFilterSliders extends LitElement {
           display: flex;
           flex-direction: column;
           flex: 1;
-          margin-right: 32px;
+          width: 100%;
+          margin-right: 0;
         }
 
         paper-slider {
@@ -26,8 +27,8 @@ export default class DataViewFilterSliders extends LitElement {
           --paper-slider-container-color: var(--color-background);
           --paper-slider-active-color: var(--bn-dark-red);
           --paper-slider-knob-color: var(--bn-dark-red);
+          width: calc(var(--side-sheet-width) - 48px);
 
-          width: 100%;
           flex: 1;
         }
 

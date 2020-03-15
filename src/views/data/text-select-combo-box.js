@@ -25,10 +25,10 @@ export class TextSelectComboBox extends LitElement {
 
         #text-select-combo-box {
           width: 400px;
+          margin-right: 16px;
         }
 
         #folio-select-combo-box {
-          margin-left: 12px;
           width: 140px;
         }
 

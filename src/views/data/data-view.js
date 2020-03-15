@@ -223,7 +223,11 @@ export class DataView extends LitElement {
               ></data-view-view-selector>
             </bn-card>
 
-            <button @click="${this.toggleFilterBarOpen}">
+            <button
+              @click="${this.toggleFilterBarOpen}"
+              class="filter-bar-toggle-button ${!this.filterBarOpen &&
+                'filter-bar-toggle-button--filter-bar-closed'}"
+            >
               filters
             </button>
           </div>
@@ -249,7 +253,8 @@ export class DataView extends LitElement {
           class="${this.filterBarOpen
             ? 'side-sheet--open'
             : 'side-sheet--closed'}"
-          ><data-view-filters-container
+        >
+          <data-view-filters-container
             .viewMode="${this.viewMode}"
             .score="${this.score}"
             .updateScore="${this.setScore}"

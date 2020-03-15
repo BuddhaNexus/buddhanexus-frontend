@@ -1,13 +1,12 @@
 import { css } from 'lit-element';
 
-const SIDE_SHEET_WIDTH = 360;
-
 export default css`
   .data-view {
     position: relative;
     display: flex;
     justify-content: space-between;
     height: 100%;
+    max-width: 100vw;
     flex: 1;
   }
 
@@ -38,12 +37,31 @@ export default css`
   }
 
   side-sheet.side-sheet--open {
-    min-width: ${SIDE_SHEET_WIDTH}px;
-    width: ${SIDE_SHEET_WIDTH}px;
+    min-width: var(--side-sheet-width);
+    width: var(--side-sheet-width);
   }
 
   side-sheet.side-sheet--closed {
     min-width: 0;
     width: 0;
+  }
+
+  .filter-bar-toggle-button {
+    position: fixed;
+    right: var(--side-sheet-width);
+    margin-right: 48px;
+    min-height: 48px;
+    min-width: 48px;
+    transition: right var(--vaadin-app-layout-transition);
+    z-index: 100;
+  }
+
+  .filter-bar-toggle-button--filter-bar-closed {
+    right: 0;
+  }
+
+  text-select-combo-box {
+    flex-wrap: wrap;
+    margin-bottom: 16px;
   }
 `;
