@@ -23,6 +23,9 @@
 
         --color-divider: rgba(0, 0, 0, 0.12);
 
+        --header-height: 148px;
+        --footer-height: 90px;
+
         /* https://material.io/components/cards/cards.html#usage */
         --material-card-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
           0px 1px 1px 0px rgba(0, 0, 0, 0.14),
@@ -81,45 +84,7 @@
         font-display: swap;
       }
 
-      footer {
-        z-index: 100;
-        background: #777;
-        margin-top: 400px;
-      }
-
-      .footer-bar {
-        background: var(--color-footer-bar);
-        text-align: right;
-        font-family: var(--material-font-family);
-        font-size: var(--material-button-font-size);
-      }
-
-      .footer-bar-content {
-        color: #fff;
-        background: var(--color-footer-bar-content);
-        float: right;
-        padding: 0 3em 0 1em;
-      }
-
-      .footer-bar-content a,
-      .footer-bar-content a:hover,
-      .footer-bar-content a:active {
-        color: #fff;
-        font-family: var(--material-font-family);
-        font-size: var(--material-button-font-size);
-        text-decoration: none;
-      }
-
-      .footer-color {
-        background: var(--color-background-all);
-        min-height: 3em;
-      }
-
-      .footer-right {
-        text-align: right;
-      }
-
-      .logo-container {
+      .header-logo-container {
         position: relative;
         width: 100%;
         z-index: 2;
@@ -147,11 +112,6 @@
       .logo-position-start img {
         position: relative;
         top: 10px;
-      }
-
-      .footer-logo {
-        width: 69px;
-        margin: 10px 20px 5px 20px;
       }
     </style>
 
@@ -181,28 +141,10 @@
   </head>
 
   <body>
-    <div class="logo-container logo-position logo-position-start">
+    <div class="header-logo-container logo-position logo-position-start">
       <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus" />
     </div>
 
     <app-layout id="app_layout"></app-layout>
-
-    <footer>
-      <div class="footer-bar">
-        &nbsp;
-        <div class="footer-bar-content">
-          <a href="/">HOME</a>
-        </div>
-      </div>
-      <div class="footer-color">
-        <div class="footer-right">
-          <img
-            src="/src/assets/img/tree.png"
-            alt="buddhanexus"
-            class="footer-logo"
-          />
-        </div>
-      </div>
-    </footer>
   </body>
 </html>

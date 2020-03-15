@@ -89,6 +89,23 @@ export class AppLayout extends LitElement {
 
         <main></main>
 
+        <footer>
+          <div class="footer-bar">
+            <div class="footer-bar-content">
+              <a href="/">HOME</a>
+            </div>
+          </div>
+          <div class="footer-color">
+            <div class="footer-right">
+              <img
+                src="/src/assets/img/tree.png"
+                alt="buddhanexus"
+                class="footer-logo"
+              />
+            </div>
+          </div>
+        </footer>
+
         <div id="menu-drawer" slot="drawer">
           <navigation-menu></navigation-menu>
         </div>

@@ -231,24 +231,24 @@ export class DataView extends LitElement {
           ></data-view-router>
         </div>
 
-        <side-sheet title="Filters">
-          <data-view-filters-container
-            .viewMode="${this.viewMode}"
-            .score="${this.score}"
-            .updateScore="${this.setScore}"
-            .updateSearch="${this.setSearch}"
-            .updateSortMethod="${this.setSortMethod}"
-            .quoteLength="${this.quoteLength}"
-            .updateQuoteLength="${this.setQuoteLength}"
-            .updateLimitCollection="${this.setLimitCollection}"
-            .updateTargetCollection="${this.setTargetCollection}"
-            .cooccurance="${this.cooccurance}"
-            .updateCooccurance="${this.setCooccurance}"
-            .updateSorting="${this.setSortMethod}"
-            .language="${this.language}"
-          ></data-view-filters-container>
-        </side-sheet>
+        <side-sheet title="Filters">asd </side-sheet>
       </div>
     `;
   }
 }
+
+// <data-view-filters-container
+//   .viewMode="${this.viewMode}"
+//   .score="${this.score}"
+//   .updateScore="${this.setScore}"
+//   .updateSearch="${this.setSearch}"
+//   .updateSortMethod="${this.setSortMethod}"
+//   .quoteLength="${this.quoteLength}"
+//   .updateQuoteLength="${this.setQuoteLength}"
+//   .updateLimitCollection="${this.setLimitCollection}"
+//   .updateTargetCollection="${this.setTargetCollection}"
+//   .cooccurance="${this.cooccurance}"
+//   .updateCooccurance="${this.setCooccurance}"
+//   .updateSorting="${this.setSortMethod}"
+//   .language="${this.language}"
+// ></data-view-filters-container>

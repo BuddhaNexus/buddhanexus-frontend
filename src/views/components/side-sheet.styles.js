@@ -4,24 +4,22 @@ export default css`
   .side-sheet {
     display: flex;
     flex-direction: column;
-    //position: fixed;
-    right: 0;
-    height: 100%;
-    width: 360px;
-    //background-color: var(--color-background-light);
-    background-color: white;
-    position: fixed;
     overflow-y: scroll;
-    overflow-x: hidden;
-    transform: translate3d(0, 0, 0);
-    box-shadow: var(--material-shadow-elevation-2dp);
-    padding-bottom: 160px;
+    background-color: white;
+    z-index: 15;
+    flex: 1;
+    height: inherit;
+    border-left: 2px var(--color-light-grey) solid;
   }
 
   .side-sheet__content {
+    position: fixed;
+    height: 100%;
+    overflow-y: scroll;
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 20px;
+    margin-bottom: var(--footer-height);
   }
 
   .side-sheet__title {
