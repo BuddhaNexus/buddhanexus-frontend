@@ -15,19 +15,35 @@ export default css`
     display: flex;
     flex-direction: column;
     padding: 48px;
+    max-height: 100vh;
+    overflow: auto;
+    flex: 1;
   }
 
   .data-view__main-container bn-card {
     margin-right: auto;
   }
 
+  .data-view__header-container {
+    display: flex;
+    justify-content: space-between;
+  }
+
   side-sheet {
-    //flex-basis: 0;
-    //flex-grow: 1;
-    min-width: ${SIDE_SHEET_WIDTH}px;
     height: 100%;
     overflow-y: auto;
-    //position: relative;
-    //flex: 1;
+    overflow-x: hidden;
+    transition: width var(--vaadin-app-layout-transition),
+      min-width var(--vaadin-app-layout-transition);
+  }
+
+  side-sheet.side-sheet--open {
+    min-width: ${SIDE_SHEET_WIDTH}px;
+    width: ${SIDE_SHEET_WIDTH}px;
+  }
+
+  side-sheet.side-sheet--closed {
+    min-width: 0;
+    width: 0;
   }
 `;

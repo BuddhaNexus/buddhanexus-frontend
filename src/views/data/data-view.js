@@ -35,6 +35,7 @@ export class DataView extends LitElement {
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
+  @property({ type: Boolean }) filterBarOpen = true;
 
   static get styles() {
     return [dataViewStyles];
@@ -56,6 +57,7 @@ export class DataView extends LitElement {
   }
 
   updated(_changedProperties) {
+    console.log(_changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
@@ -196,25 +198,36 @@ export class DataView extends LitElement {
     this.selectedView = this.viewMode;
   }
 
+  toggleFilterBarOpen() {
+    this.filterBarOpen = !this.filterBarOpen;
+  }
+
   render() {
     return html`
       <div class="data-view" lang="${this.language}">
         <div class="data-view__main-container">
-          <bn-card>
-            <text-select-combo-box
-              .language="${this.language}"
-              .fileName="${this.fileName}"
-              .setFileName="${this.setFileName}"
-              .setFolio="${this.setFolio}"
-              .viewMode="${this.viewMode}"
-            ></text-select-combo-box>
+          <div class="data-view__header-container">
+            <bn-card>
+              <text-select-combo-box
+                .language="${this.language}"
+                .fileName="${this.fileName}"
+                .setFileName="${this.setFileName}"
+                .setFolio="${this.setFolio}"
+                .viewMode="${this.viewMode}"
+              ></text-select-combo-box>
 
-            <data-view-view-selector
-              .viewMode="${this.viewMode}"
-              .handleViewModeChanged="${viewMode =>
-                this.handleViewModeChanged(viewMode)}"
-            ></data-view-view-selector>
-          </bn-card>
+              <data-view-view-selector
+                .viewMode="${this.viewMode}"
+                .handleViewModeChanged="${viewMode =>
+                  this.handleViewModeChanged(viewMode)}"
+              ></data-view-view-selector>
+            </bn-card>
+
+            <button @click="${this.toggleFilterBarOpen}">
+              filters
+            </button>
+          </div>
+
           <data-view-router
             .selectedView="${this.selectedView}"
             .setFileName="${this.setFileName}"
@@ -231,24 +244,28 @@ export class DataView extends LitElement {
           ></data-view-router>
         </div>
 
-        <side-sheet title="Filters">asd </side-sheet>
+        <side-sheet
+          title="Filters"
+          class="${this.filterBarOpen
+            ? 'side-sheet--open'
+            : 'side-sheet--closed'}"
+          ><data-view-filters-container
+            .viewMode="${this.viewMode}"
+            .score="${this.score}"
+            .updateScore="${this.setScore}"
+            .updateSearch="${this.setSearch}"
+            .updateSortMethod="${this.setSortMethod}"
+            .quoteLength="${this.quoteLength}"
+            .updateQuoteLength="${this.setQuoteLength}"
+            .updateLimitCollection="${this.setLimitCollection}"
+            .updateTargetCollection="${this.setTargetCollection}"
+            .cooccurance="${this.cooccurance}"
+            .updateCooccurance="${this.setCooccurance}"
+            .updateSorting="${this.setSortMethod}"
+            .language="${this.language}"
+          ></data-view-filters-container>
+        </side-sheet>
       </div>
     `;
   }
 }
-
-// <data-view-filters-container
-//   .viewMode="${this.viewMode}"
-//   .score="${this.score}"
-//   .updateScore="${this.setScore}"
-//   .updateSearch="${this.setSearch}"
-//   .updateSortMethod="${this.setSortMethod}"
-//   .quoteLength="${this.quoteLength}"
-//   .updateQuoteLength="${this.setQuoteLength}"
-//   .updateLimitCollection="${this.setLimitCollection}"
-//   .updateTargetCollection="${this.setTargetCollection}"
-//   .cooccurance="${this.cooccurance}"
-//   .updateCooccurance="${this.setCooccurance}"
-//   .updateSorting="${this.setSortMethod}"
-//   .language="${this.language}"
-// ></data-view-filters-container>

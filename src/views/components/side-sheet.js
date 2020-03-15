@@ -5,6 +5,7 @@ import styles from './side-sheet.styles';
 @customElement('side-sheet')
 export class SideSheet extends LitElement {
   @property({ type: String }) title = null;
+  @property({ type: Boolean }) isOpen = false;
 
   static get styles() {
     return [styles];
