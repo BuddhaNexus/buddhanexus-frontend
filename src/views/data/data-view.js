@@ -57,7 +57,6 @@ export class DataView extends LitElement {
   }
 
   updated(_changedProperties) {
-    console.log(_changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);

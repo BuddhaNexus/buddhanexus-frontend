@@ -29,6 +29,7 @@ export const DATA_VIEW_MODES = {
 @customElement('data-view-filters-container')
 export class DataViewFiltersContainer extends LitElement {
   // Filter sliders:
+  @property({ type: String }) viewMode;
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
   @property({ type: Number }) quoteLength;
@@ -243,9 +244,65 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
-  render() {
-    console.log(this.viewMode);
+  createSortMethodSelector() {
+    if (!this.shouldShowSortingDropdown) {
+      return null;
+    }
     return html`
+      <label>Sorting:</label>
+      <vaadin-select
+        @value-changed="${this.updateSortMethod}"
+        Label="Sorting method:"
+        id="sorting-method-select"
+        item-label-path="filename"
+      >
+        <template>
+          <vaadin-list-box @value-changed="${this.updateSortMethod}">
+            <vaadin-item value="position"
+              >By position in Inquiry Text</vaadin-item
+            >
+            <vaadin-item value="quoted-text"
+              >By position in Hit Text(s)</vaadin-item
+            >
+            <vaadin-item value="length"
+              >Length of match in Inquiry Text (beginning with
+              longest)</vaadin-item
+            >
+            <vaadin-item value="length2"
+              >Length of match in Hit Text (beginning with longest)</vaadin-item
+            >
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+    `;
+  }
+
+  createTextViewSearchBox() {
+    if (this.viewMode !== DATA_VIEW_MODES.TEXT) {
+      return null;
+    }
+    return html`
+      <div class="search-group">
+        <vaadin-text-field
+          id="search-box"
+          .disabled="${this.viewMode !== DATA_VIEW_MODES.TEXT}"
+          @change="${this.updateSearch}"
+          @submit="${this.updateSearch}"
+          clear-button-visible
+          placeholder="Search in Inquiry Text"
+        >
+          <iron-icon
+            id="search-icon"
+            icon="vaadin:search"
+            slot="prefix"
+          ></iron-icon>
+        </vaadin-text-field>
+      </div>
+    `;
+  }
+
+  render() {
+    return html`    
       <data-view-filter-sliders .score="${this.score}" 
       .updateScore="${this.updateScore}" 
       .quoteLength="${this.quoteLength}" 
@@ -253,59 +310,15 @@ export class DataViewFiltersContainer extends LitElement {
       .cooccurance="${this.cooccurance}" 
       .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
+      
+      ${this.createSortMethodSelector()}
+      
+      ${this.createTextViewSearchBox()}
 
       ${this.createFilesCollectionFilters()}
 
       ${this.createTargetFilterForGraph()}
-
-      ${
-        this.viewMode === DATA_VIEW_MODES.TEXT
-          ? html`
-              <div class="search-group">
-                <vaadin-text-field
-                  id="search-box"
-                  .disabled="${this.viewMode !== DATA_VIEW_MODES.TEXT}"
-                  @change="${this.updateSearch}"
-                  @submit="${this.updateSearch}"
-                  clear-button-visible
-                  placeholder="Search in Inquiry Text"
-                >
-                  <iron-icon
-                    id="search-icon"
-                    icon="vaadin:search"
-                    slot="prefix"
-                  ></iron-icon>
-                </vaadin-text-field>
-              </div>
-            `
-          : null
-      }
-        <vaadin-select
-          @value-changed="${this.updateSortMethod}"
-          Label="Sorting method:"
-          id="sort-collection"
-          item-label-path="filename"
-          style="display: ${
-            this.shouldShowSortingDropdown() ? 'inline-flex' : 'none'
-          }"
-        >
-          <template>
-            <vaadin-list-box @value-changed="${this.updateSortMethod}">
-              <vaadin-item value="position">By position in Inquiry Text</vaadin-item>
-              <vaadin-item value="quoted-text"
-                >By position in Hit Text(s)</vaadin-item
-              >
-              <vaadin-item value="length"
-                >Length of match in Inquiry Text (beginning with
-                longest)</vaadin-item
-              >
-              <vaadin-item value="length2"
-                >Length of match in Hit Text (beginning with
-                longest)</vaadin-item
-              >
-            </vaadin-list-box>
-          </template>
-        </vaadin-select>
+      
       </div>
     `;
   }

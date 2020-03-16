@@ -45,6 +45,10 @@ export default css`
     margin-top: -20px;
   }
 
+  #sorting-method-select {
+    margin: -8px 16px 16px 16px;
+  }
+
   vaadin-radio-group {
     margin-left: 24px;
   }
