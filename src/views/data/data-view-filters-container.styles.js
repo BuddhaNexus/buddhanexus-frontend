@@ -7,6 +7,7 @@ export default css`
     margin-top: 16px;
     flex-wrap: wrap;
     flex-direction: column;
+    padding-bottom: 48px;
   }
 
   vaadin-radio-button,
@@ -18,68 +19,18 @@ export default css`
     --material-primary-text-color: var(--bn-dark-red);
   }
 
-  vaadin-select {
-    width: 300px;
+  .input-field {
+    padding-left: 16px;
+    padding-right: 16px;
+    width: calc(100% - 32px);
   }
 
-  multiselect-combo-box,
-  vaadin-combo-box {
-    margin-top: 8px;
-    margin-left: 12px;
-    margin-right: 12px;
-  }
-
-  #filter-filename,
-  #exclude-filename {
-    width: 210px;
-  }
-
-  #filter-collection,
-  #exclude-collection,
-  #filter-target-collection {
-    width: 300px;
-  }
-
-  #filter-collection,
-  #exclude-collection {
-    margin-top: -20px;
-  }
-
-  #sorting-method-select {
-    margin: -8px 16px 16px 16px;
-  }
-
-  vaadin-radio-group {
-    margin-left: 24px;
-  }
-
-  .search-group {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 8px;
-    align-items: baseline;
-    margin-top: 12px;
-  }
-
-  .search-group {
-    min-width: 400px;
-    flex: 1;
+  .search-box {
+    padding-top: 24px;
   }
 
   #search-icon {
     margin-right: 24px;
-  }
-
-  #search-box {
-    width: 100%;
-  }
-
-  .file-categories-filters {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    flex: 2;
-    margin-right: 16px;
   }
 
   multiselect-combo-box[label],

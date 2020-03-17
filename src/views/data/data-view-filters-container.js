@@ -165,6 +165,7 @@ export class DataViewFiltersContainer extends LitElement {
           : 'none'}"
         @selected-items-changed="${changefunction}"
         .items="${itempath}"
+        class="input-field"
         item-value-path="category"
       >
       </multiselect-combo-box>
@@ -179,22 +180,20 @@ export class DataViewFiltersContainer extends LitElement {
       this.filterCategoriesDataLoading
     ) {
       return html`
-        <span>...</span>
+        <bn-loading-spinner></bn-loading-spinner>
       `;
     } else {
       return html`
-        <div class="file-categories-filters">
-          <label>Exclude</label>
-          <div class="filter-group">
-            ${html`
-              ${this.MultiSelectBox(
-                'Exclude collections:',
-                'exclude-collection',
-                this.handleCategoriesExcludeComboBoxChanged,
-                this.filterCategoriesData
-              )}
-            `}
-            ${html`
+        <div class="filter-group">
+          ${html`
+            ${this.MultiSelectBox(
+              'Exclude collections:',
+              'exclude-collection',
+              this.handleCategoriesExcludeComboBoxChanged,
+              this.filterCategoriesData
+            )}
+          `}
+          ${html`
               ${this.MultiSelectBox(
                 'Exclude files:',
                 'exclude-filename',
@@ -202,26 +201,25 @@ export class DataViewFiltersContainer extends LitElement {
                 this.filterFilesData
               )}
             </div>`}
-          </div>
-          <label>Limit</label>
-          <div class="filter-group">
-            ${html`
-              ${this.MultiSelectBox(
-                'Limit to collections:',
-                'filter-collection',
-                this.handleCategoriesComboBoxChanged,
-                this.filterCategoriesData
-              )}
-            `}
-            ${html`
-              ${this.MultiSelectBox(
-                'Limit to files:',
-                'filter-filename',
-                this.handleFilesComboBoxChanged,
-                this.filterFilesData
-              )}
-            `}
-          </div>
+        </div>
+
+        <div class="filter-group">
+          ${html`
+            ${this.MultiSelectBox(
+              'Limit to collections:',
+              'filter-collection',
+              this.handleCategoriesComboBoxChanged,
+              this.filterCategoriesData
+            )}
+          `}
+          ${html`
+            ${this.MultiSelectBox(
+              'Limit to files:',
+              'filter-filename',
+              this.handleFilesComboBoxChanged,
+              this.filterFilesData
+            )}
+          `}
         </div>
       `;
     }
@@ -231,11 +229,11 @@ export class DataViewFiltersContainer extends LitElement {
     return html`
       <multiselect-combo-box
         Label="Filter by target collection:"
-        id="filter-target-collection"
         item-label-path="collectionname"
         style="display: ${this.shouldShowTargetDropdown()
           ? 'inline-flex'
           : 'none'}"
+        class="input-field"
         @selected-items-changed="${this.handleTargetComboBoxChanged}"
         .items="${this.targetCollectionData}"
         item-value-path="collectionkey"
@@ -245,15 +243,14 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   createSortMethodSelector() {
-    if (!this.shouldShowSortingDropdown) {
+    if (!this.shouldShowSortingDropdown()) {
       return null;
     }
     return html`
-      <label>Sorting:</label>
       <vaadin-select
         @value-changed="${this.updateSortMethod}"
         Label="Sorting method:"
-        id="sorting-method-select"
+        class="input-field"
         item-label-path="filename"
       >
         <template>
@@ -282,22 +279,20 @@ export class DataViewFiltersContainer extends LitElement {
       return null;
     }
     return html`
-      <div class="search-group">
-        <vaadin-text-field
-          id="search-box"
-          .disabled="${this.viewMode !== DATA_VIEW_MODES.TEXT}"
-          @change="${this.updateSearch}"
-          @submit="${this.updateSearch}"
-          clear-button-visible
-          placeholder="Search in Inquiry Text"
-        >
-          <iron-icon
-            id="search-icon"
-            icon="vaadin:search"
-            slot="prefix"
-          ></iron-icon>
-        </vaadin-text-field>
-      </div>
+      <vaadin-text-field
+        .disabled="${this.viewMode !== DATA_VIEW_MODES.TEXT}"
+        @change="${this.updateSearch}"
+        @submit="${this.updateSearch}"
+        clear-button-visible
+        class="input-field search-box"
+        placeholder="Search in Inquiry Text"
+      >
+        <iron-icon
+          id="search-icon"
+          icon="vaadin:search"
+          slot="prefix"
+        ></iron-icon>
+      </vaadin-text-field>
     `;
   }
 
@@ -311,14 +306,14 @@ export class DataViewFiltersContainer extends LitElement {
       .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
       
+      ${this.createTargetFilterForGraph()}
+
       ${this.createSortMethodSelector()}
       
       ${this.createTextViewSearchBox()}
 
       ${this.createFilesCollectionFilters()}
 
-      ${this.createTargetFilterForGraph()}
-      
       </div>
     `;
   }
