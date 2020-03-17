@@ -1,4 +1,4 @@
-import { customElement, html, css, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement, property } from 'lit-element';
 import { getParallelCount } from '../../api/actions';
 import { replaceFileNameForDisplay } from '../utility/preprocessing';
 
@@ -13,16 +13,6 @@ export class TotalNumbers extends LitElement {
   @property({ type: Number }) parallelCount;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
-
-  static get styles() {
-    return [
-      css`
-        :host {
-          max-width: 400px;
-        }
-      `,
-    ];
-  }
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
