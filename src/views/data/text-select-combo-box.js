@@ -21,6 +21,7 @@ export class TextSelectComboBox extends LitElement {
       css`
         :host {
           display: flex;
+          flex-wrap: wrap;
         }
 
         #text-select-combo-box {
@@ -159,16 +160,18 @@ export class TextSelectComboBox extends LitElement {
 
   render() {
     return html`
-      <vaadin-combo-box
-        clear-button-visible
-        id="text-select-combo-box"
-        label="${this.getMenuLabel(this.language)}"
-        item-value-path="textname"
-        item-label-path="displayName"
-        .items="${this.menuData}"
-        @value-changed="${e => this.updateFileName(e)}"
-      >
-      </vaadin-combo-box>
+      <div>
+        <vaadin-combo-box
+          clear-button-visible
+          id="text-select-combo-box"
+          label="${this.getMenuLabel(this.language)}"
+          item-value-path="textname"
+          item-label-path="displayName"
+          .items="${this.menuData}"
+          @value-changed="${e => this.updateFileName(e)}"
+        >
+        </vaadin-combo-box>
+      </div>
       ${this.showFolioBox()
         ? html`
             <vaadin-combo-box

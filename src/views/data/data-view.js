@@ -16,6 +16,7 @@ import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 import './data-view-filters-container';
 import './data-view-view-selector';
+import './data-view-header';
 
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
@@ -35,7 +36,7 @@ export class DataView extends LitElement {
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
-  @property({ type: Boolean }) filterBarOpen = true;
+  @property({ type: Boolean }) filterBarOpen;
 
   static get styles() {
     return [dataViewStyles];
@@ -74,9 +75,9 @@ export class DataView extends LitElement {
     });
   }
 
-  handleViewModeParamChanged() {
+  handleViewModeParamChanged = () => {
     this.handleViewModeChanged(this.location.params.viewMode.toLowerCase());
-  }
+  };
 
   setFileParamFromPath() {
     const { fileName, activeSegment } = this.location.params;
@@ -160,7 +161,7 @@ export class DataView extends LitElement {
     updateFileParamInBrowserLocation(!oldFileParam, fileName, activeSegment);
   }
 
-  updateViewModeParamInUrl(newViewMode) {
+  updateViewModeParamInUrl = newViewMode => {
     const { viewMode: viewModeParam } = this.location.params;
     this.viewMode = viewModeParam;
 
@@ -178,9 +179,9 @@ export class DataView extends LitElement {
       this.location.pathname = newUrl;
     }
     this.location.params.viewMode = newViewMode;
-  }
+  };
 
-  handleViewModeChanged(newViewMode) {
+  handleViewModeChanged = newViewMode => {
     if (newViewMode === this.viewMode) {
       return;
     }
@@ -191,45 +192,31 @@ export class DataView extends LitElement {
     if (this.fileName) {
       this.applyFilter();
     }
-  }
+  };
 
   applyFilter() {
     this.selectedView = this.viewMode;
   }
 
-  toggleFilterBarOpen() {
+  toggleFilterBarOpen = () => {
     this.filterBarOpen = !this.filterBarOpen;
-  }
+  };
 
   render() {
     return html`
       <div class="data-view" lang="${this.language}">
         <div class="data-view__main-container">
-          <div class="data-view__header-container">
-            <bn-card>
-              <text-select-combo-box
-                .language="${this.language}"
-                .fileName="${this.fileName}"
-                .setFileName="${this.setFileName}"
-                .setFolio="${this.setFolio}"
-                .viewMode="${this.viewMode}"
-              ></text-select-combo-box>
-
-              <data-view-view-selector
-                .viewMode="${this.viewMode}"
-                .handleViewModeChanged="${viewMode =>
-                  this.handleViewModeChanged(viewMode)}"
-              ></data-view-view-selector>
-            </bn-card>
-
-            <button
-              @click="${this.toggleFilterBarOpen}"
-              class="filter-bar-toggle-button ${!this.filterBarOpen &&
-                'filter-bar-toggle-button--filter-bar-closed'}"
-            >
-              filters
-            </button>
-          </div>
+          <data-view-header
+            .language="${this.language}"
+            .fileName="${this.fileName}"
+            .setFileName="${this.setFileName}"
+            .viewMode="${this.viewMode}"
+            .handleViewModeChanged="${this.handleViewModeChanged}"
+            .folio="${this.folio}"
+            .setFolio="${this.setFolio}"
+            .filterBarOpen="${this.filterBarOpen}"
+            .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
+          ></data-view-header>
 
           <data-view-router
             .selectedView="${this.selectedView}"
@@ -252,6 +239,9 @@ export class DataView extends LitElement {
           class="${this.filterBarOpen
             ? 'side-sheet--open'
             : 'side-sheet--closed'}"
+          .handleClose="${() => {
+            this.filterBarOpen = false;
+          }}"
         >
           <data-view-filters-container
             .viewMode="${this.viewMode}"

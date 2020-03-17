@@ -42,7 +42,6 @@ export class NumbersView extends LitElement {
   updated(_changedProperties) {
     super.updated(_changedProperties);
     this.lang = getLanguageFromFilename(this.fileName);
-    console.log('numbers view updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (
         [
@@ -90,7 +89,7 @@ export class NumbersView extends LitElement {
     }
 
     return html`
-      <data-view-header
+      <data-view-subheader
         .score="${this.score}"
         .limitCollection="${this.limitCollection}"
         .quoteLength="${this.quoteLength}"
@@ -98,7 +97,7 @@ export class NumbersView extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${NumbersViewInfoModalContent()}"
-      ></data-view-header>
+      ></data-view-subheader>
       <div class="table-wrapper">
         ${NumbersViewTable({
           fileName: this.fileName,

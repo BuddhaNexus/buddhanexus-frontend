@@ -48,7 +48,7 @@ export class AppLayout extends LitElement {
           />
         </h1>
 
-        <vaadin-tabs slot="navbar" overflow="both">
+        <vaadin-tabs slot="navbar">
           <a class="menu-tab" href="/">
             <vaadin-tab>Home</vaadin-tab>
           </a>

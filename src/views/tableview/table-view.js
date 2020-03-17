@@ -1,7 +1,7 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import { getTableViewData } from '../../api/actions';
-import '../data/data-view-header';
+import '../data/data-view-subheader';
 import './table-view-table.js';
 import { getLanguageFromFilename } from '../utility/views-common';
 
@@ -148,7 +148,7 @@ export class TableView extends LitElement {
           `
         : null}
 
-      <data-view-header
+      <data-view-subheader
         .score="${this.score}"
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
@@ -156,7 +156,7 @@ export class TableView extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
-      ></data-view-header>
+      ></data-view-subheader>
       <table-view-table
         .fileName="${this.fileName}"
         .probability="${this.probability}"

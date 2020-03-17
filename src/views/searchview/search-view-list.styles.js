@@ -70,5 +70,6 @@ export default css`
   .open-link-icon {
     float: right;
     width: 18px;
+    cursor: pointer;
   }
 `;

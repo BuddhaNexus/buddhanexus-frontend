@@ -3,6 +3,7 @@ import { customElement, html, css, LitElement, property } from 'lit-element';
 @customElement('bn-card')
 export class Card extends LitElement {
   @property({ type: Boolean }) small;
+  @property({ type: Boolean }) header;
 
   static get styles() {
     return [
@@ -17,13 +18,26 @@ export class Card extends LitElement {
         .card--small {
           padding: 2px;
         }
+
+        .card--header {
+          padding: 16px 48px;
+          border-radius: 0;
+          display: flex;
+          flex-wrap: wrap;
+        }
       `,
     ];
   }
 
   render() {
     return html`
-      <div class="card ${this.small ? 'card--small' : ''}"><slot></slot></div>
+      <div
+        class="card ${this.small ? 'card--small' : ''} ${this.header
+          ? 'card--header'
+          : ''}"
+      >
+        <slot></slot>
+      </div>
     `;
   }
 }

@@ -13,19 +13,28 @@ export default css`
   .data-view__main-container {
     display: flex;
     flex-direction: column;
-    padding: 48px;
     max-height: 100vh;
     overflow: auto;
     flex: 1;
+  }
+
+  data-view-router {
+    padding: 12px 48px 48px;
   }
 
   .data-view__main-container bn-card {
     margin-right: auto;
   }
 
-  .data-view__header-container {
+  data-view-header {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    transition: width var(--vaadin-app-layout-transition);
   }
 
   side-sheet {
@@ -44,24 +53,5 @@ export default css`
   side-sheet.side-sheet--closed {
     min-width: 0;
     width: 0;
-  }
-
-  .filter-bar-toggle-button {
-    position: fixed;
-    right: var(--side-sheet-width);
-    margin-right: 48px;
-    min-height: 48px;
-    min-width: 48px;
-    transition: right var(--vaadin-app-layout-transition);
-    z-index: 100;
-  }
-
-  .filter-bar-toggle-button--filter-bar-closed {
-    right: 0;
-  }
-
-  text-select-combo-box {
-    flex-wrap: wrap;
-    margin-bottom: 16px;
   }
 `;

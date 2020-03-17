@@ -5,92 +5,89 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
-import '../utility/total-numbers';
-
 @customElement('data-view-header')
 class DataViewHeader extends LitElement {
-  @property({ type: String }) fileName;
-  @property({ type: Array }) limitCollection;
-  @property({ type: Number }) quoteLength;
-  @property({ type: Number }) cooccurance;
-  @property({ type: Number }) score;
-  @property({ type: String }) infoModalContent;
+  @property({ type: Boolean }) filterBarOpen = true;
+  @property({ type: String }) fileName = '';
   @property({ type: String }) language;
+  @property({ type: String }) viewMode;
+  @property({ type: String }) folio;
 
-  @property({ type: Boolean }) isDialogOpen = false;
+  @property({ type: Function }) setFileName;
+  @property({ type: Function }) setFolio;
+  @property({ type: Function }) handleViewModeChanged;
+  @property({ type: Function }) toggleFilterBarOpen;
+
+  // TODO: add search and sort here
+  @property({ type: String }) searchString;
+  @property({ type: String }) sortMethod = 'position';
 
   static get styles() {
     return [
       css`
+        :host {
+          position: relative;
+        }
+
         .data-view-header {
-          margin-top: 16px;
-          margin-bottom: 16px;
-          display: flex;
-          align-items: baseline;
+          width: 100%;
         }
 
-        .info-button {
-          padding: 0;
-          min-width: 24px;
-          height: 24px;
-          margin-left: 12px;
-          background-color: transparent;
+        .filter-bar-toggle-icon {
+          margin-right: 48px;
+          min-height: 22px;
+          min-width: 22px;
+          position: absolute;
+          top: 24px;
+          padding: 12px;
+          right: 0;
           cursor: pointer;
+          pointer-events: auto;
+          opacity: 1;
+          transition: opacity var(--vaadin-app-layout-transition);
         }
 
-        vaadin-button {
-          background-color: var(--bn-dark-red);
-          color: rgba(0, 0, 0, 0.54);
-          font-weight: bold;
-          height: 32px;
+        .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open {
+          opacity: 0;
+          pointer-events: none;
         }
       `,
     ];
   }
 
-  openDialog = () => (this.isDialogOpen = true);
-
-  setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
-
   render() {
-    if (!this.fileName) {
-      return html`
-        <div class="data-view-header">
-          Please select a file or input a search query to continue.
-        </div>
-      `;
-    }
     return html`
       <div class="data-view-header">
-        <data-view-total-numbers
-          id="total-numbers"
-          .fileName="${this.fileName}"
-          .score="${this.score}"
-          .limitCollection="${this.limitCollection}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
-        ></data-view-total-numbers>
-        <vaadin-dialog
-          id="info-number-view"
-          aria-label="simple"
-          .opened="${this.isDialogOpen}"
-          @opened-changed="${this.setIsDialogOpen}"
+        <div
+          class="data-view__header-container ${this.filterBarOpen &&
+            'data-view__header-container--filter-bar-open'}"
         >
-          <template>
-            ${this.infoModalContent}
-            ${this.language === 'pli'
-              ? html`
-                  <p>
-                    <strong>NOTE</strong>: For technical reasons, the
-                    co-occurances for Pāḷi texts are limited to maximum 50.
-                  </p>
-                `
-              : ``}
-          </template>
-        </vaadin-dialog>
-        <vaadin-button class="info-button" @click="${this.openDialog}">
-          <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
-        </vaadin-button>
+          <bn-card header="true">
+            <data-view-view-selector
+              .viewMode="${this.viewMode}"
+              .handleViewModeChanged="${viewMode =>
+                this.handleViewModeChanged(viewMode)}"
+            >
+            </data-view-view-selector>
+
+            <text-select-combo-box
+              .language="${this.language}"
+              .fileName="${this.fileName}"
+              .setFileName="${this.setFileName}"
+              .setFolio="${this.setFolio}"
+              .viewMode="${this.viewMode}"
+            ></text-select-combo-box>
+
+            <iron-icon
+              icon="vaadin:filter"
+              @click="${this.toggleFilterBarOpen}"
+              class="filter-bar-toggle-icon ${this.filterBarOpen &&
+                'filter-bar-toggle-icon--filter-bar-open'}"
+            >
+              filters
+            </iron-icon>
+          </bn-card>
+        </div>
       </div>
     `;
   }
