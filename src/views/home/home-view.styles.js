@@ -72,9 +72,6 @@ export default css`
     padding: 1.3em;
   }
 
-  .popup-footer {
-  }
-
   .box-languages {
     background-color: #221f19;
     width: 100%;

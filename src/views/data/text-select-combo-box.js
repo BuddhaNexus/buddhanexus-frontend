@@ -21,14 +21,15 @@ export class TextSelectComboBox extends LitElement {
       css`
         :host {
           display: flex;
+          flex-wrap: wrap;
         }
 
         #text-select-combo-box {
           width: 400px;
+          margin-right: 16px;
         }
 
         #folio-select-combo-box {
-          margin-left: 12px;
           width: 140px;
         }
 
@@ -122,13 +123,13 @@ export class TextSelectComboBox extends LitElement {
   getMenuLabel = language => {
     switch (language) {
       case LANGUAGE_CODES.TIBETAN:
-        return 'Load Tibetan texts';
+        return 'Find Tibetan texts...';
       case LANGUAGE_CODES.PALI:
-        return 'Load Pali texts';
+        return 'Find Pali texts...';
       case LANGUAGE_CODES.CHINESE:
-        return 'Load Chinese texts';
+        return 'Find Chinese texts...';
       case LANGUAGE_CODES.SANSKRIT:
-        return 'Load Sanskrit texts';
+        return 'Find Sanskrit texts...';
     }
   };
 
@@ -159,16 +160,18 @@ export class TextSelectComboBox extends LitElement {
 
   render() {
     return html`
-      <vaadin-combo-box
-        clear-button-visible
-        id="text-select-combo-box"
-        label="${this.getMenuLabel(this.language)}"
-        item-value-path="textname"
-        item-label-path="displayName"
-        .items="${this.menuData}"
-        @value-changed="${e => this.updateFileName(e)}"
-      >
-      </vaadin-combo-box>
+      <div>
+        <vaadin-combo-box
+          clear-button-visible
+          id="text-select-combo-box"
+          label="${this.getMenuLabel(this.language)}"
+          item-value-path="textname"
+          item-label-path="displayName"
+          .items="${this.menuData}"
+          @value-changed="${e => this.updateFileName(e)}"
+        >
+        </vaadin-combo-box>
+      </div>
       ${this.showFolioBox()
         ? html`
             <vaadin-combo-box

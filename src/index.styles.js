@@ -2,7 +2,14 @@ import { css } from 'lit-element';
 
 export default css`
   main {
-    margin-top: 164px;
+    margin-top: var(--header-height);
+    min-height: 500px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  main > * {
+    flex: 1;
   }
 
   .layout--large-navbar main {
@@ -120,5 +127,57 @@ export default css`
     overflow: scroll;
     padding-top: 100px;
     background: var(--color-sidebar-menu);
+  }
+
+  .search-icon-container {
+  }
+
+  .search-icon {
+    max-width: 12px;
+    margin-right: 8px;
+    margin-bottom: 2px;
+  }
+
+  .footer-logo {
+    width: 69px;
+    margin: 10px 20px 5px 20px;
+  }
+
+  .footer-bar-content {
+    color: #fff;
+    background: var(--color-footer-bar-content);
+    float: right;
+    padding: 0 3em 0 1em;
+  }
+
+  .footer-bar-content a,
+  .footer-bar-content a:hover,
+  .footer-bar-content a:active {
+    color: #fff;
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
+    text-decoration: none;
+  }
+
+  .footer-color {
+    background: var(--color-background-all);
+    min-height: 3em;
+  }
+
+  .footer-right {
+    text-align: right;
+  }
+
+  footer {
+    width: 100%;
+    z-index: 100;
+    background: #777;
+  }
+
+  .footer-bar {
+    background: var(--color-footer-bar);
+    text-align: right;
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
   }
 `;

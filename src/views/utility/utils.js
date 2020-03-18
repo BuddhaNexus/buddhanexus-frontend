@@ -26,7 +26,7 @@ export function disableDrawer() {
 }
 
 export function setLogoPosition(isStart) {
-  const logoContainer = document.querySelector('.logo-container');
+  const logoContainer = document.querySelector('.header-logo-container');
   if (isStart) {
     logoContainer.classList.add('logo-position-start');
     logoContainer.classList.remove('logo-position');

@@ -4,15 +4,16 @@ import '@vaadin/vaadin-tabs/theme/material/vaadin-tabs';
 import '@vaadin/vaadin-tabs/theme/material/vaadin-tab';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-app-layout';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-drawer-toggle';
+import '@vaadin/vaadin-icons/vaadin-icons.js';
 import '@polymer/paper-input/paper-input.js';
 import { LitElement, html, customElement } from 'lit-element';
-
 import { Router } from '@vaadin/router';
+
+import './views/components/card';
+import { disableDrawer } from './views/utility/utils';
 
 import styles from './index.styles';
 import BNRouter from './router';
-
-import { disableDrawer } from './views/utility/utils';
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
@@ -47,7 +48,7 @@ export class AppLayout extends LitElement {
           />
         </h1>
 
-        <vaadin-tabs slot="navbar" overflow="both">
+        <vaadin-tabs slot="navbar">
           <a class="menu-tab" href="/">
             <vaadin-tab>Home</vaadin-tab>
           </a>
@@ -68,15 +69,42 @@ export class AppLayout extends LitElement {
           </a>
         </vaadin-tabs>
 
-        <paper-input
-          id="search-input"
-          slot="navbar"
-          placeholder="Search..."
-          type="search"
-          @change="${this.navigateToSearch}"
-        ></paper-input>
+        <bn-card slot="navbar" small>
+          <paper-input
+            id="search-input"
+            placeholder="Search..."
+            type="search"
+            @change="${this.navigateToSearch}"
+            no-label-float
+            autosave="test"
+            results="5"
+          >
+            <div slot="prefix">
+              <div class="search-icon-container">
+                <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
+              </div>
+            </div>
+          </paper-input>
+        </bn-card>
 
         <main></main>
+
+        <footer>
+          <div class="footer-bar">
+            <div class="footer-bar-content">
+              <a href="/">HOME</a>
+            </div>
+          </div>
+          <div class="footer-color">
+            <div class="footer-right">
+              <img
+                src="/src/assets/img/tree.png"
+                alt="buddhanexus"
+                class="footer-logo"
+              />
+            </div>
+          </div>
+        </footer>
 
         <div id="menu-drawer" slot="drawer">
           <navigation-menu></navigation-menu>

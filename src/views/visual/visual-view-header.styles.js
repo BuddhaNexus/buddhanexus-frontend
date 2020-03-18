@@ -7,13 +7,6 @@ export default css`
     margin: 16px 16px 0 16px;
   }
 
-  .visual-view-options-card {
-    padding: 12px 24px 24px 24px;
-    background-color: var(--color-light-grey);
-    border-radius: 4px;
-    box-shadow: var(--material-card-shadow);
-  }
-
   vaadin-button {
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);

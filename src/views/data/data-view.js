@@ -9,9 +9,14 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
 import '../menus/navigation-menu.js';
+import '../components/side-sheet';
+import '../components/card';
 import './text-select-combo-box';
 import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
+import './data-view-filters-container';
+import './data-view-view-selector';
+import './data-view-header';
 
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
@@ -20,7 +25,7 @@ import { getMainLayout } from '../utility/utils';
 export class DataView extends LitElement {
   @property({ type: String }) fileName = '';
   @property({ type: String }) language;
-  @property({ type: Number }) score = 60; // this default value is choosen due to the experience with the tibetan; possible a lower or higher value is needed for other languages
+  @property({ type: Number }) score = 60; // this default value is chosen due to the experience with the tibetan; possible a lower or higher value is needed for other languages
   @property({ type: Number }) quoteLength = 12; // this also works well with the Tibetan, but might be very different in the case of other languages
   @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
@@ -31,6 +36,7 @@ export class DataView extends LitElement {
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
+  @property({ type: Boolean }) filterBarOpen;
 
   static get styles() {
     return [dataViewStyles];
@@ -69,9 +75,9 @@ export class DataView extends LitElement {
     });
   }
 
-  handleViewModeParamChanged() {
+  handleViewModeParamChanged = () => {
     this.handleViewModeChanged(this.location.params.viewMode.toLowerCase());
-  }
+  };
 
   setFileParamFromPath() {
     const { fileName, activeSegment } = this.location.params;
@@ -155,7 +161,7 @@ export class DataView extends LitElement {
     updateFileParamInBrowserLocation(!oldFileParam, fileName, activeSegment);
   }
 
-  updateViewModeParamInUrl(newViewMode) {
+  updateViewModeParamInUrl = newViewMode => {
     const { viewMode: viewModeParam } = this.location.params;
     this.viewMode = viewModeParam;
 
@@ -173,9 +179,9 @@ export class DataView extends LitElement {
       this.location.pathname = newUrl;
     }
     this.location.params.viewMode = newViewMode;
-  }
+  };
 
-  handleViewModeChanged(newViewMode) {
+  handleViewModeChanged = newViewMode => {
     if (newViewMode === this.viewMode) {
       return;
     }
@@ -186,28 +192,59 @@ export class DataView extends LitElement {
     if (this.fileName) {
       this.applyFilter();
     }
-  }
+  };
 
   applyFilter() {
     this.selectedView = this.viewMode;
   }
 
+  toggleFilterBarOpen = () => {
+    this.filterBarOpen = !this.filterBarOpen;
+  };
+
   render() {
     return html`
-      <div class="data-view-container" lang="${this.language}">
-        <div class="data-view-options-card">
-          <text-select-combo-box
+      <div class="data-view" lang="${this.language}">
+        <div class="data-view__main-container">
+          <data-view-header
             .language="${this.language}"
             .fileName="${this.fileName}"
             .setFileName="${this.setFileName}"
-            .setFolio="${this.setFolio}"
             .viewMode="${this.viewMode}"
-          ></text-select-combo-box>
+            .handleViewModeChanged="${this.handleViewModeChanged}"
+            .folio="${this.folio}"
+            .setFolio="${this.setFolio}"
+            .filterBarOpen="${this.filterBarOpen}"
+            .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
+          ></data-view-header>
 
+          <data-view-router
+            .selectedView="${this.selectedView}"
+            .setFileName="${this.setFileName}"
+            .fileName="${this.fileName}"
+            .activeSegment="${this.activeSegment}"
+            .folio="${this.folio}"
+            .limitCollection="${this.limitCollection}"
+            .targetCollection="${this.targetCollection}"
+            .quoteLength="${this.quoteLength}"
+            .cooccurance="${this.cooccurance}"
+            .score="${this.score}"
+            .sortMethod="${this.sortMethod}"
+            .searchString="${this.searchString}"
+          ></data-view-router>
+        </div>
+
+        <side-sheet
+          title="Filters"
+          class="${this.filterBarOpen
+            ? 'side-sheet--open'
+            : 'side-sheet--closed'}"
+          .handleClose="${() => {
+            this.filterBarOpen = false;
+          }}"
+        >
           <data-view-filters-container
             .viewMode="${this.viewMode}"
-            .handleViewModeChanged="${viewMode =>
-              this.handleViewModeChanged(viewMode)}"
             .score="${this.score}"
             .updateScore="${this.setScore}"
             .updateSearch="${this.setSearch}"
@@ -221,21 +258,7 @@ export class DataView extends LitElement {
             .updateSorting="${this.setSortMethod}"
             .language="${this.language}"
           ></data-view-filters-container>
-        </div>
-        <data-view-router
-          .selectedView="${this.selectedView}"
-          .setFileName="${this.setFileName}"
-          .fileName="${this.fileName}"
-          .activeSegment="${this.activeSegment}"
-          .folio="${this.folio}"
-          .limitCollection="${this.limitCollection}"
-          .targetCollection="${this.targetCollection}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
-          .score="${this.score}"
-          .sortMethod="${this.sortMethod}"
-          .searchString="${this.searchString}"
-        ></data-view-router>
+        </side-sheet>
       </div>
     `;
   }

@@ -57,7 +57,7 @@ export const smallView = ({ param1, param2 }) => html`
 @customElement('large-view')
 class LargeView extends LitElement {
   // define properties
-  @property({ type: String }) fetchLoading = true;
+  @property({ type: Boolean }) fetchLoading = true;
   @property({ type: String }) fetchedAPIData = null;
 
   firstUpdated(_changedProperties) {

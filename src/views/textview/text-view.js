@@ -285,7 +285,7 @@ export class TextView extends LitElement {
       `;
     } else {
       return html`
-        <data-view-header
+        <data-view-subheader
           .score="${this.score}"
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"
@@ -295,7 +295,7 @@ export class TextView extends LitElement {
             this.addNumbers(),
             this.addColors()
           )}"
-        ></data-view-header>
+        ></data-view-subheader>
         <table class="text-view-table">
           <text-view-header
             .fileName="${this.fileName}"
