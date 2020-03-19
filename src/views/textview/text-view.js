@@ -313,24 +313,22 @@ export class TextView extends LitElement {
 
         <vaadin-split-layout class="top-level-split">
           <div class="left-text-column">
-            <p>
-              <text-view-left
-                lang="${this.lang}"
-                id="text-view-left"
-                .fileName="${this.fileName}"
-                .leftTextData="${this.leftTextData}"
-                .score="${this.score}"
-                .limitCollection="${this.limitCollection}"
-                .quoteLength="${this.quoteLength}"
-                .cooccurance="${this.cooccurance}"
-                .leftActiveSegment="${this.leftActiveSegment}"
-                .textSwitchedFlag="${this.textSwitchedFlag}"
-                @active-segment-changed="${this.toggleMiddleData}"
-                @highlight-left-after-scrolling="${this
-                  .highlightLeftafterScrolling}"
-                @update-parallel-count="${this.updateParallelCount}"
-              ></text-view-left>
-            </p>
+            <text-view-left
+              lang="${this.lang}"
+              id="text-view-left"
+              .fileName="${this.fileName}"
+              .leftTextData="${this.leftTextData}"
+              .score="${this.score}"
+              .limitCollection="${this.limitCollection}"
+              .quoteLength="${this.quoteLength}"
+              .cooccurance="${this.cooccurance}"
+              .leftActiveSegment="${this.leftActiveSegment}"
+              .textSwitchedFlag="${this.textSwitchedFlag}"
+              @active-segment-changed="${this.toggleMiddleData}"
+              @highlight-left-after-scrolling="${this
+                .highlightLeftafterScrolling}"
+              @update-parallel-count="${this.updateParallelCount}"
+            ></text-view-left>
           </div>
           <div style="width: 100%">
             <vaadin-split-layout>

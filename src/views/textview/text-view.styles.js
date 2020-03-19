@@ -6,7 +6,7 @@ export default css`
   }
 
   .top-level-split {
-    height: calc(100vh - 200px);
+    height: calc(100vh - 400px);
     margin-bottom: 24px;
   }
 
@@ -108,13 +108,14 @@ export default css`
   }
 
   .left-text-column {
+    height: calc(100vh - 400px);
     overscroll-behavior: none;
     overflow-wrap: break-word;
     width: 50%;
   }
 
   .middle-text-column {
-    height: calc(100vh - 140px);
+    height: calc(100vh - 400px);
     padding: 0 12px;
     width: 30%;
   }
@@ -123,5 +124,5 @@ export default css`
     overflow-wrap: break-word;
     padding-left: 12px;
     width: 30%;
-    height: calc(100vh - 140px);
+    height: calc(100vh - 400px);
 `;

@@ -105,14 +105,19 @@ export class TextViewLeft extends LitElement {
       return;
     }
     let mainScrollPosition = this.scrollTop;
+    let mainElement = document.querySelector('html');
+    let mainElementScroll = mainElement.scrollTop;
     if (this.currentPosition > 100) {
+      // this condition is met when we are endless scrolling upwards
       activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
       this.scrollTop += 18;
     } else {
-      activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
+      // this is the case when we are scrolling downwards
+      activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
       this.scrollTop -= 18;
     }
     this.scrollTop = mainScrollPosition;
+    mainElement.scrollTop = mainElementScroll;
   }
 
   async fetchDataText() {
@@ -159,8 +164,13 @@ export class TextViewLeft extends LitElement {
     }
     let parentWindow = this;
     let parentScroll = parentWindow.scrollTop;
+    let mainElement = document.querySelector('html');
+    let mainElementScroll = mainElement.scrollTop;
+    console.log('SCROLL RIGHT TEXT');
+    console.log('RIGHT ELEMENT', this);
     selectedSegment.scrollIntoView();
     parentWindow.scrollTop = parentScroll;
+    mainElement.scrollTop = mainElementScroll;
     this.noScrolling = true;
     let allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
 
