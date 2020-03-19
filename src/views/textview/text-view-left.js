@@ -166,8 +166,6 @@ export class TextViewLeft extends LitElement {
     let parentScroll = parentWindow.scrollTop;
     let mainElement = document.querySelector('html');
     let mainElementScroll = mainElement.scrollTop;
-    console.log('SCROLL RIGHT TEXT');
-    console.log('RIGHT ELEMENT', this);
     selectedSegment.scrollIntoView();
     parentWindow.scrollTop = parentScroll;
     mainElement.scrollTop = mainElementScroll;

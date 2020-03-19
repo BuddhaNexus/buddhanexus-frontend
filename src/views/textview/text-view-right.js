@@ -141,8 +141,6 @@ export class TextViewRight extends LitElement {
       !this.noScrolling &&
       this.shadowRoot.querySelector('.selected-segment')
     ) {
-      console.log('SCROLLING RIGHT TEXT');
-      console.log('THIS ELEMENT', this);
       let parentWindow = this;
       let parentScroll = parentWindow.scrollTop;
       let mainElement = document.querySelector('html');
