@@ -17,16 +17,11 @@
         --color-footer-bar: #221f19;
         --color-footer-bar-content: #302f2c;
 
+        --color-sidebar-menu-old: #a79570; 
         --color-sidebar-menu: #988868; 
         --color-sidebar-submenu: #8b7955;
         --color-menu-items: #f8f8ff;
         --bn-dark-red: #7C3A00;
-
-        --material-popup-close-x: #fff;
-        --material-popup-close: #ccc;
-        --material-popup-back: #efefef;
-        --material-nav-left-color: #fff;
-        --material-nav-left-lines: rgba(255, 255, 255, 0.4);
 
         --color-divider: rgba(0, 0, 0, 0.12);
 
@@ -41,6 +36,20 @@
         --system-font-stack: Roboto, -apple-system, BlinkMacSystemFont,
           'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
           'Segoe UI Emoji', 'Segoe UI Symbol';
+
+        /* Styles */
+        --material-popup-close-x: #fff;
+        --material-popup-close: #ccc;
+        --material-popup-back: #efefef;
+
+        /* Font color */
+        --material-nav-left-color: #fff;
+
+        /* Line color */
+        --material-nav-left-lines: rgba(255,255,255,0.4);
+
+        /* Icon size */
+        --material-icon-font-size: 20px;
 
         margin: 0;
         padding: 0;
@@ -156,6 +165,14 @@
         position: relative;
         top: 10px;
       }
+      
+      .menu-tab.start {
+        display: block;
+      }
+
+      .menu-tab.subsite {
+        display: none;
+      }
 
       .footer-logo {
         width: 69px;
@@ -199,12 +216,12 @@
       <div class="footer-bar">
         &nbsp;
         <div class="footer-bar-content">
-            <a href="/history" class="link">HISTORY</a> 
-            <a href="/people" class="link">PEOPLE</a> 
-            <a href="/institutions" class="link">INSTITUTIONS</a> 
-            <a href="/activities" class="link">ACTIVITIES</a> 
-            <a href="/publications" class="link">PUBLICATIONS</a> 
-            <a href="/contact" class="link">CONTACT / IMPRINT</a>
+            <a href="/" class="link">HISTORY</a> 
+            <a href="/" class="link">PEOPLE</a> 
+            <a href="/" class="link">INSTITUTIONS</a> 
+            <a href="/" class="link">ACTIVITIES</a> 
+            <a href="/" class="link">PUBLICATIONS</a> 
+            <a href="/" class="link">CONTACT / IMPRINT</a>
         </div>
       </div>
       <div class="footer-color">

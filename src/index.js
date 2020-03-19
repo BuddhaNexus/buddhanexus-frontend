@@ -48,23 +48,42 @@ export class AppLayout extends LitElement {
         </h1>
 
         <vaadin-tabs slot="navbar" overflow="both">
-          <a class="menu-tab" href="/">
+          <a class="menu-tab subsite" href="/">
             <vaadin-tab>Home</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/pli/text">
+          <a class="menu-tab subsite" href="/pli/text">
             <vaadin-tab>Pali</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/skt/text">
+          <a class="menu-tab subsite" href="/skt/text">
             <vaadin-tab>Sanskrit</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/tib/text"
+          <a class="menu-tab subsite" href="/tib/text"
             ><vaadin-tab>Tibetan</vaadin-tab></a
           >
-          <a class="menu-tab" href="/chn/text">
+          <a class="menu-tab subsite" href="/chn/text">
             <vaadin-tab>Chinese</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/visual">
+          <a class="menu-tab subsite" href="/visual">
             <vaadin-tab>Visual Charts</vaadin-tab>
+          </a>
+
+          <a class="menu-tab start" href="/">
+            <vaadin-tab>About</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/">
+            <vaadin-tab>History</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/">
+            <vaadin-tab>Guideslines</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/"
+            ><vaadin-tab>Institutions</vaadin-tab></a
+          >
+          <a class="menu-tab start" href="/">
+            <vaadin-tab>Events</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/">
+            <vaadin-tab>Publications</vaadin-tab>
           </a>
         </vaadin-tabs>
 

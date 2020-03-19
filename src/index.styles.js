@@ -100,7 +100,7 @@ export default css`
     margin-right: 0;
     z-index: 99;
     margin-left: 165px;
-    --material-primary-text-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--color-footer-bar);
   }
 
   .logo-buddhanexus {
@@ -113,6 +113,10 @@ export default css`
 
   .menu-tab vaadin-tab {
     color: var(--color-menu-items);
+  }
+
+  .menu-tab.start {
+    display: none;
   }
 
   #menu-drawer {
