@@ -37,11 +37,8 @@ export function setLogoPosition(isStart) {
 }
 
 export function setNavbarLinks(isStart) {
-  //  const navbarStart = getMainLayout().querySelector('vaadin-tabs').shadowRoot.querySelector('.start');
-  //  const navbarStart = document.querySelector('.start');
   const navbarStart = getMainLayout().querySelectorAll('a.menu-tab.start');
   const navbarSubsite = getMainLayout().querySelectorAll('a.menu-tab.subsite');
-  console.log(navbarStart);
   if (isStart) {
     navbarStart.forEach(item => {
       item.setAttribute('style', 'display: block');
@@ -49,8 +46,6 @@ export function setNavbarLinks(isStart) {
     navbarSubsite.forEach(item => {
       item.setAttribute('style', 'display: none');
     });
-    //    navbarStart.setAttribute('style', 'display: block;');
-    //    navbarSubsite.setAttribute('style', 'display: none;');
   } else {
     navbarStart.forEach(item => {
       item.setAttribute('style', 'display: none');
@@ -58,8 +53,6 @@ export function setNavbarLinks(isStart) {
     navbarSubsite.forEach(item => {
       item.setAttribute('style', 'display: block');
     });
-    //    navbarStart.setAttribute('style', 'display: none;');
-    //    navbarSubsite.setAttribute('style', 'display: block;');
   }
 }
 
