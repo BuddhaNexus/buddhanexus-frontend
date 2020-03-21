@@ -167,8 +167,8 @@ export class GraphView extends LitElement {
             width: window.innerWidth < 1000 ? window.innerWidth : 1000,
             height:
               window.innerHeight < 700
-                ? window.innerHeight * 0.7
-                : window.innerHeight * 0.85,
+                ? window.innerHeight * 0.65
+                : window.innerHeight * 0.8,
             chartArea: { left: 0, top: 0, width: '100%', height: '90%' },
             backgroundColor: '#ffeed4',
           }}"
