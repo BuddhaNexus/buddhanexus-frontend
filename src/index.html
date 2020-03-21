@@ -17,13 +17,17 @@
         --color-footer-bar: #221f19;
         --color-footer-bar-content: #302f2c;
 
-        --color-sidebar-menu-old: #a79570;
         --color-sidebar-menu: #988868;
         --color-sidebar-submenu: #8b7955;
+        --color-sidebar-subsubmenu: #6d5f47;
         --color-menu-items: #f8f8ff;
-        --bn-dark-red: #7C3A00;
+        --bn-dark-red: #7c3a00;
 
         --color-divider: rgba(0, 0, 0, 0.12);
+
+        --header-height: 148px;
+        --footer-height: 90px;
+        --side-sheet-width: 360px;
 
         /* https://material.io/components/cards/cards.html#usage */
         --material-card-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -46,7 +50,7 @@
         --material-nav-left-color: #fff;
 
         /* Line color */
-        --material-nav-left-lines: rgba(255,255,255,0.3);
+        --material-nav-left-lines: rgba(255,255,255,0.5);
 
         /* Icon size */
         --material-icon-font-size: 20px;
@@ -97,45 +101,22 @@
         font-display: swap;
       }
 
-      footer {
-        background: #777;
+
+      .file-list vaadin-details [part="content"] {
+        padding: 0;
       }
 
-      .footer-bar {
-        background: var(--color-footer-bar);
-        text-align: right;
-        font-family: var(--material-font-family);
-        font-size: var(--material-button-font-size);
+      :host([opened]) [part="content"] {
+        padding: 0;
+      }
+      vaadin-details [part="content"] {
+        padding: 0;
+      }
+      vaadin-details::part(content) {
+        padding: 0;
       }
 
-      .footer-bar-content {
-        color: #fff;
-        background: var(--color-footer-bar-content);
-        float: right;
-        padding: 0 3em 0 1em;
-        height: 1.7em;
-      }
-
-      .footer-bar-content a,
-      .footer-bar-content a:hover,
-      .footer-bar-content a:active {
-        color: #fff;
-        font-family: var(--material-font-family);
-        font-size: var(--material-button-font-size-small);
-        text-decoration: none;
-        padding: 0 10px;
-      }
-
-      .footer-color {
-        background: var(--color-background-all);
-        min-height: 3em;
-      }
-
-      .footer-right {
-        text-align: right;
-      }
-
-      .logo-container {
+      .header-logo-container {
         position: relative;
         width: 100%;
         z-index: 2;
@@ -152,7 +133,7 @@
 
       .logo-position {
         height: 80px;
-        position: fixed;
+        position: relative;
         z-index: 1;
       }
 
@@ -164,11 +145,6 @@
       .logo-position-start img {
         position: relative;
         top: 10px;
-      }
-
-      .footer-logo {
-        width: 69px;
-        margin: 10px 20px 5px 20px;
       }
     </style>
 
@@ -198,33 +174,10 @@
   </head>
 
   <body>
-    <div class="logo-container logo-position">
+    <div class="header-logo-container logo-position logo-position-start">
       <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus" />
     </div>
 
     <app-layout id="app_layout"></app-layout>
-
-    <footer>
-      <div class="footer-bar">
-        &nbsp;
-        <div class="footer-bar-content">
-            <a href="/" class="link">HISTORY</a>
-            <a href="/" class="link">PEOPLE</a>
-            <a href="/" class="link">INSTITUTIONS</a>
-            <a href="/" class="link">ACTIVITIES</a>
-            <a href="/" class="link">PUBLICATIONS</a>
-            <a href="/" class="link">CONTACT / IMPRINT</a>
-        </div>
-      </div>
-      <div class="footer-color">
-        <div class="footer-right">
-          <img
-            src="/src/assets/img/tree.png"
-            alt="buddhanexus"
-            class="footer-logo"
-          />
-        </div>
-      </div>
-    </footer>
   </body>
 </html>
