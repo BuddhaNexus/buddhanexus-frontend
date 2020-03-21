@@ -180,6 +180,7 @@ export default css`
     font-family: var(--material-font-family);
     font-size: var(--material-button-font-size);
     text-decoration: none;
+    padding: 0 0.6em;
   }
 
   .footer-color {

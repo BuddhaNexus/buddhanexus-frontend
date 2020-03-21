@@ -12,7 +12,7 @@ export default css`
     color: blue;
   }
 
-  #history {
+  #home {
     display: block;
     background-image: url('src/assets/img/background_wellcome.jpg');
     background-size: cover;
@@ -45,17 +45,17 @@ export default css`
     cursor: pointer;
   }
 
-  #history a.link {
+  #home a.link {
     color: #fff;
     text-decoration: none;
   }
 
-  #history a.link:hover {
+  #home a.link:hover {
     color: #ccc;
     text-decoration: underline;
   }
 
-  #history a.link span.link-description {
+  #home a.link span.link-description {
     padding-top: 0.4em;
   }
 
@@ -159,7 +159,7 @@ export default css`
   }
 
   @media screen and (max-width: 600px) {
-    #history {
+    #home {
       margin: 0; /* 48px 24px; */
     }
 
