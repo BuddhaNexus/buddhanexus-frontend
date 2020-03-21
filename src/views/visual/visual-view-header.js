@@ -7,6 +7,7 @@ import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 
 import { getCollectionsForVisual } from '../menus/actions';
+import '../components/card';
 
 import styles from './visual-view-header.styles';
 
@@ -120,7 +121,7 @@ export class VisualViewHeader extends LitElement {
   render() {
     return html`
       <div class="selection-box">
-        <div class="visual-view-options-card">
+        <bn-card>
           <vaadin-dialog
             id="info-visual"
             aria-label="simple"
@@ -216,7 +217,7 @@ export class VisualViewHeader extends LitElement {
                   : null}
               `
             : null}
-        </div>
+        </bn-card>
       </div>
     `;
   }

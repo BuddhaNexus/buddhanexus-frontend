@@ -103,7 +103,7 @@ export class GraphView extends LitElement {
     }
 
     return html`
-      <data-view-header
+      <data-view-subheader
         .score="${this.score}"
         .limitCollection="${this.targetCollection}"
         .quoteLength="${this.quoteLength}"
@@ -111,7 +111,7 @@ export class GraphView extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${GraphViewInfoModalContent()}"
-      ></data-view-header>
+      ></data-view-subheader>
 
       <div id="pie-wrapper" style="height: ${this.graphHeight}">
         <google-chart

@@ -24,10 +24,6 @@ export default css`
     text-transform: none;
   }
 
-  .total-numbers {
-    background-color: #d3d3d3;
-  }
-
   .result-segment-nr {
     color: rgba(0, 0, 0, 0.54);
     font-size: 14px;

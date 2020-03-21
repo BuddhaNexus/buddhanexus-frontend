@@ -11,6 +11,7 @@ export class DataViewViewSelector extends LitElement {
       css`
         .visibility-filters {
           margin-left: 0;
+          margin-right: 32px;
         }
 
         .visibility-filters vaadin-radio-button {
