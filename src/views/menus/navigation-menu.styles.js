@@ -26,6 +26,7 @@ export default css`
   vaadin-details {
     box-shadow: none;
     margin: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
   }
 
   .category-name {
@@ -51,6 +52,7 @@ export default css`
 
   .file-list {
     line-height: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   vaadin-details::part(summary),
