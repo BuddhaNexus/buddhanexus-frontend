@@ -116,6 +116,10 @@ export default css`
   }
 
   .menu-tab.start {
+    display: block;
+  }
+
+  .menu-tab.subsite {
     display: none;
   }
 

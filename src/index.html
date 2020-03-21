@@ -152,7 +152,7 @@
 
       .logo-position {
         height: 80px;
-        position: fixed;
+        position: relative;
         z-index: 1;
       }
 
@@ -166,12 +166,12 @@
         top: 10px;
       }
       
-      .menu-tab.start {
-        display: block;
-      }
-
-      .menu-tab.subsite {
+      .display-none {
         display: none;
+      }
+      
+      .display-block {
+        display: block;
       }
 
       .footer-logo {
@@ -206,7 +206,7 @@
   </head>
 
   <body>
-    <div class="logo-container logo-position logo-position-start">
+    <div class="logo-container logo-position">
       <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus" />
     </div>
 
