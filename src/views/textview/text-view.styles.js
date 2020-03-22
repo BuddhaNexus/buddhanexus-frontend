@@ -3,11 +3,7 @@ import { css } from 'lit-element';
 export default css`
   vaadin-split-layout {
     --_material-split-layout-splitter-background-color: #6d5f47;
-  }
-
-  .top-level-split {
-    height: calc(100vh - 200px);
-    margin-bottom: 24px;
+    height: calc(100vh - 220px);
   }
 
   .selected-segment {
@@ -114,7 +110,6 @@ export default css`
   }
 
   .middle-text-column {
-    height: calc(100vh - 140px);
     padding: 0 12px;
     width: 30%;
   }
@@ -123,5 +118,4 @@ export default css`
     overflow-wrap: break-word;
     padding-left: 12px;
     width: 30%;
-    height: calc(100vh - 140px);
 `;

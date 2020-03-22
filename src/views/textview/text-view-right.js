@@ -87,12 +87,17 @@ export class TextViewRight extends LitElement {
   scrollAfterEndlessReload() {
     if (this.noScrolling && this.EndlessScrollFlag) {
       if (this.activeSegment) {
+        let mainScrollPosition = this.scrollTop;
+        let mainElement = document.querySelector('html');
+        let mainElementScroll = mainElement.scrollTop;
         let activeElement = this.shadowRoot.getElementById(this.activeSegment);
         if (this.currentPosition > 100) {
           activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
         } else {
-          activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
+          activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
         }
+        this.scrollTop = mainScrollPosition;
+        mainElement.scrollTop = mainElementScroll;
       }
     }
   }
@@ -138,8 +143,11 @@ export class TextViewRight extends LitElement {
     ) {
       let parentWindow = this;
       let parentScroll = parentWindow.scrollTop;
+      let mainElement = document.querySelector('html');
+      let mainElementScroll = mainElement.scrollTop;
       this.shadowRoot.querySelector('.selected-segment').scrollIntoView();
       parentWindow.scrollTop = parentScroll;
+      mainElement.scrollTop = mainElementScroll;
       this.noScrolling = true;
     }
   }

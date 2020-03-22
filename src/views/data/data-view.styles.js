@@ -13,7 +13,6 @@ export default css`
   .data-view__main-container {
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
     overflow: auto;
     flex: 1;
   }
