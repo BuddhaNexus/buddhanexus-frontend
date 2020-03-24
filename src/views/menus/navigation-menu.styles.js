@@ -32,6 +32,10 @@ export default css`
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: var(--material-nav-left-lines);
+    padding: 0px 0px 0px 0px;
+  }
+  vaadin-details::part(content) {
+    padding: 0px 0px 0px 0px;
   }
 
   .category-name {
@@ -53,7 +57,7 @@ export default css`
 
   .file-list ul {
     margin: 0;
-    padding: 0 0 0 22px;
+    padding: 0 0 0 23px;
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: var(--material-nav-left-lines);
