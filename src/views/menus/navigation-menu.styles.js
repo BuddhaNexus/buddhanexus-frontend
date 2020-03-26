@@ -2,8 +2,11 @@ import { css } from 'lit-element';
 
 export default css`
   #menu-container {
-    margin-top: 24px;
-    border-bottom: var(--material-nav-left-lines);
+    margin-top: 34px;
+    margin-bottom: 180px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--material-nav-left-lines);
   }
 
   ul {
@@ -26,6 +29,13 @@ export default css`
   vaadin-details {
     box-shadow: none;
     margin: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: var(--material-nav-left-lines);
+    padding: 0px 0px 0px 0px;
+  }
+  vaadin-details::part(content) {
+    padding: 0px 0px 0px 0px;
   }
 
   .category-name {
@@ -35,6 +45,24 @@ export default css`
   .category-display {
     margin-left: 0px;
     color: var(--material-nav-left-color);
+  }
+
+  .file-list {
+    line-height: 1rem;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: var(--material-nav-left-lines);
+    background: var(--color-sidebar-submenu);
+  }
+
+  .file-list ul {
+    margin: 0;
+    padding: 0 0 0 23px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: var(--material-nav-left-lines);
+    background: var(--color-sidebar-subsubmenu);
+    min-height: 40px;
   }
 
   .file-list ul li {
@@ -47,10 +75,6 @@ export default css`
     font-family: var(--material-font-family);
     font-size: var(--material-button-font-size);
     color: var(--material-nav-left-color);
-  }
-
-  .file-list {
-    line-height: 1rem;
   }
 
   vaadin-details::part(summary),
@@ -67,12 +91,5 @@ export default css`
 
   vaadin-details::part(summary) {
     border-top: 1px solid rgba(255, 255, 255, 0.4);
-  }
-
-  .file-list ul {
-    padding: 0 0 0 36px;
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
-    background: var(--color-sidebar-submenu);
-    min-height: 40px;
   }
 `;
