@@ -330,7 +330,7 @@ export class TextView extends LitElement {
               @update-parallel-count="${this.updateParallelCount}"
             ></text-view-left>
           </div>
-          <div style="width: 100%">
+          <div style="width: 100%; height: 100vw">
             <vaadin-split-layout>
               <div class="middle-text-column">
                 <text-view-middle
