@@ -2,7 +2,7 @@ import { css } from 'lit-element';
 
 export default css`
   #menu-container {
-    margin-top: 34px;
+    margin-top: 44px;
     margin-bottom: 180px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
@@ -11,7 +11,7 @@ export default css`
 
   ul {
     list-style-type: none;
-    padding-left: 0px;
+    padding-left: 0;
     margin: 0 0 0 -12px;
   }
 
@@ -22,7 +22,7 @@ export default css`
 
   .filename {
     font-size: 14px;
-    font-family: Roboto;
+    font-family: var(--system-font-stack);
     cursor: pointer;
   }
 
@@ -32,10 +32,11 @@ export default css`
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: var(--material-nav-left-lines);
-    padding: 0px 0px 0px 0px;
+    padding: 0 0 0 0;
   }
+
   vaadin-details::part(content) {
-    padding: 0px 0px 0px 0px;
+    padding: 0 0 0 0;
   }
 
   .category-name {
@@ -43,7 +44,7 @@ export default css`
   }
 
   .category-display {
-    margin-left: 0px;
+    margin-left: 0;
     color: var(--material-nav-left-color);
   }
 

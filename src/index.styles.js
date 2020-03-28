@@ -112,7 +112,7 @@ export default css`
 
   .logo-buddhanexus {
     position: absolute;
-    top: -55px;
+    top: -65px;
     left: 15px;
     width: 150px;
     height: 150px;
