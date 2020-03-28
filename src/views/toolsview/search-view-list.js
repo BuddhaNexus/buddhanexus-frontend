@@ -40,7 +40,6 @@ export class SearchViewList extends LitElement {
               result.offset_end,
               getLanguageFromFilename(result.segment_nr[0])
             ),
-            distance: result.distance,
             rootUrl: createTextViewSegmentUrl(result.segment_nr[1]),
           })
         )}

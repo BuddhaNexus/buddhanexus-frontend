@@ -64,10 +64,6 @@ export class SearchView extends LitElement {
         this.resetView();
         await this.fetchData();
       }
-      if (propName === 'searchResults') {
-        // data fetched, add listener
-        this.addInfiniteScrollListener();
-      }
     });
   }
 
@@ -95,35 +91,6 @@ export class SearchView extends LitElement {
     // todo: display notification with error
     this.fetchError = error;
   }
-
-  addInfiniteScrollListener = async () => {
-    await this.updateComplete;
-
-    const listItems = this.shadowRoot
-      .querySelector('search-view-list')
-      .shadowRoot.querySelectorAll('.search-view-list__item');
-    const observedListItem = listItems[listItems.length - 1];
-
-    const observer = new IntersectionObserver(async entries => {
-      if (entries[0].isIntersecting) {
-        observer.unobserve(observedListItem);
-        await this.fetchNextPage();
-      }
-    });
-    if (listItems.length > 0) {
-      observer.observe(observedListItem);
-    }
-  };
-
-  async fetchNextPage() {
-    if (!this.fetchLoading && !this.endReached) {
-      this.fetchLoading = true;
-      this.pageNumber = this.pageNumber + 1;
-      await this.fetchData();
-    }
-  }
-
-  setPageNumber = pageNumber => (this.pageNumber = pageNumber);
 
   // TODO:
   // - check if data view header works

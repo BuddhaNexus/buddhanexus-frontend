@@ -338,7 +338,6 @@ export class TextView extends LitElement {
                   id="text-view-middle"
                   .score="${this.score}"
                   .fileName="${this.fileName}"
-                  .limitCollection="${this.limitCollection}"
                   .quoteLength="${this.quoteLength}"
                   .cooccurance="${this.cooccurance}"
                   .data="${this.middleData}"

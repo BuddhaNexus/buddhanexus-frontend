@@ -6,7 +6,6 @@ import { getLinkForSegmentNumbers } from '../utility/preprocessing';
 export default function SearchViewListItem({
   SegmentId,
   SegmentText,
-  distance,
   rootUrl,
 }) {
   return html`
@@ -23,7 +22,7 @@ export default function SearchViewListItem({
               getLanguageFromFilename(SegmentId),
               SegmentId
             )}
-          </span><span>Edit distance: ${distance}</span>
+          </span>
           <div class="search-view-list__parallel-details">
             <span class="search-view-list__parallel-details-badge"
               >

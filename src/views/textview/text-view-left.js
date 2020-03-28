@@ -108,13 +108,12 @@ export class TextViewLeft extends LitElement {
     let mainElement = document.querySelector('html');
     let mainElementScroll = mainElement.scrollTop;
     if (this.currentPosition > 100) {
-      // this condition is met when we are endless scrolling upwards
+      // this condition is met when we are endless scrolling downwards
       activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
-      this.scrollTop += 18;
     } else {
-      // this is the case when we are scrolling downwards
-      activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
-      this.scrollTop -= 18;
+      // this is the case when we are scrolling upwards
+      activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
+      //this.scrollTop -= 18;
     }
     this.scrollTop = mainScrollPosition;
     mainElement.scrollTop = mainElementScroll;
@@ -270,6 +269,7 @@ export class TextViewLeft extends LitElement {
           activeSegment: segnr,
           position: position,
           selectedParallels: parallels,
+          limitCollection: this.limitCollection,
           rightMode: 0,
         },
       })
