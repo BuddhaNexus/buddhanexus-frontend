@@ -1,4 +1,5 @@
 import { html } from 'lit-element';
+
 import { getLanguageFromFilename } from '../utility/views-common';
 import { getLinkForSegmentNumbers } from '../utility/preprocessing';
 

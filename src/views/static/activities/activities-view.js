@@ -10,23 +10,10 @@ export class ActivitiesView extends LitElement {
 
   render() {
     return html`
-      <div id="activities">
+      <div>
         <div class="main-border">
           <div class="main-content">
             <p class="construction">ACTIVITIES PAGE</p>
-            <p class="construction-sub">Not all views are currently working.</p>
-            <p class="construction-sub">
-              NOTE: this site is not available for screen sizes under 1000px.
-            </p>
-            <h1>About this site</h1>
-            <p>
-              The research into parallels between Buddhist texts of all schools
-              has given us a wealth of information about the history of these
-              texts and the teachings of the Buddha. It has played an important
-              role in changing our perspectives on various topics, like for
-              instance the legality of Theravada Bhikkhunī ordination and the
-              authenticity of Early Buddhist texts.
-            </p>
           </div>
         </div>
       </div>
