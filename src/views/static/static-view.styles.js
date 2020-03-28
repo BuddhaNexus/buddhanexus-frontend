@@ -105,6 +105,9 @@ export default css`
     width: 100%;
     margin-top: 30px;
     margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .box-languages {
@@ -172,6 +175,12 @@ export default css`
     .main-content {
       background-color: #fff;
       padding: 14px 30px;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .construction-message {
+      display: none;
     }
   }
 `;
