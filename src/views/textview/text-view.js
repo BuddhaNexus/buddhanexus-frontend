@@ -332,7 +332,7 @@ export class TextView extends LitElement {
               ></text-view-left>
             </p>
           </div>
-          <div style="width: 100%">
+          <div style="width: 100%; height: 100vw">
             <vaadin-split-layout>
               <div class="middle-text-column">
                 <text-view-middle
