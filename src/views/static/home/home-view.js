@@ -1,6 +1,6 @@
 import { customElement, html, LitElement } from 'lit-element';
 
-import styles from './home-view.styles';
+import styles from '../static-view.styles';
 
 @customElement('home-view')
 export class HomeView extends LitElement {
@@ -8,27 +8,27 @@ export class HomeView extends LitElement {
     return [styles];
   }
 
-  hiddenElement() {
-    const element = this.shadowRoot.querySelector('.popup');
-    const bgpanel = this.shadowRoot.querySelector('.backgroundpanel');
-    element.style.display = 'block';
-    bgpanel.style.display = 'block';
+  showPopup() {
+    const popup = this.shadowRoot.querySelector('.popup');
+    const backgroundPanel = this.shadowRoot.querySelector('.backgroundpanel');
+    popup.style.display = 'block';
+    backgroundPanel.style.display = 'block';
   }
 
-  closeElement() {
-    const element = this.shadowRoot.querySelector('.popup');
-    const bgpanel = this.shadowRoot.querySelector('.backgroundpanel');
-    bgpanel.style.display = 'none';
-    element.style.display = 'none';
+  closePopup() {
+    const popup = this.shadowRoot.querySelector('.popup');
+    const backgroundPanel = this.shadowRoot.querySelector('.backgroundpanel');
+    backgroundPanel.style.display = 'none';
+    popup.style.display = 'none';
   }
 
   render() {
     return html`
-      <div id="home">
+      <div class="static-page-container">
 
         <div class="popup">
             <div class="popup-head">
-                <div class="popup-close" @click="${this.closeElement}">x</div>
+                <div class="popup-close" @click="${this.closePopup}">x</div>
             </div>
             <div class="popup-content">
                 <p>
@@ -130,7 +130,7 @@ export class HomeView extends LitElement {
                 </p>
 
                 <p>
-                    <div class="more" @click="${this.hiddenElement}">
+                    <div class="more" @click="${this.showPopup}">
                         more &gt;
                     </div>
                 </p>
@@ -144,7 +144,7 @@ export class HomeView extends LitElement {
           
         </div>
 
-        <div class="backgroundpanel" @click="${this.closeElement}">&nbsp;</div>
+        <div class="backgroundpanel" @click="${this.closePopup}">&nbsp;</div>
       </div>
     `;
   }

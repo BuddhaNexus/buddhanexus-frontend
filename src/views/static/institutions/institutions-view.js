@@ -10,7 +10,7 @@ export class InstitutionsView extends LitElement {
 
   render() {
     return html`
-      <div>
+      <div class="static-page-container">
         <div class="main-border">
           <div class="main-content">
             <p class="construction">INSTITUTIONS PAGE</p>
