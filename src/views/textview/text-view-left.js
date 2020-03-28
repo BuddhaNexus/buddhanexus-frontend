@@ -113,7 +113,6 @@ export class TextViewLeft extends LitElement {
     } else {
       // this is the case when we are scrolling upwards
       activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
-      //this.scrollTop -= 18;
     }
     this.scrollTop = mainScrollPosition;
     mainElement.scrollTop = mainElementScroll;
