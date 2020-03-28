@@ -6,6 +6,8 @@ import './views/static/people/people-view.js';
 import './views/static/institutions/institutions-view.js';
 import './views/static/activities/activities-view.js';
 import './views/static/publications/publications-view.js';
+import './views/static/guidelines/guidelines-view.js';
+import './views/static/events/events-view.js';
 import './views/static/contact/contact-view.js';
 import {
   getMainLayout,
@@ -79,6 +81,22 @@ const ROUTES = [
     path: '/publications',
     animate: true,
     component: 'publications-view',
+    action: () => {
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/guidelines',
+    animate: true,
+    component: 'guidelines-view',
+    action: () => {
+      switchNavbarLayout(true);
+    },
+  },
+  {
+    path: '/events',
+    animate: true,
+    component: 'events-view',
     action: () => {
       switchNavbarLayout(true);
     },

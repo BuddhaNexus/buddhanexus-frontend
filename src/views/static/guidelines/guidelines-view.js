@@ -2,8 +2,8 @@ import { customElement, html, LitElement } from 'lit-element';
 
 import styles from './../static-view.styles';
 
-@customElement('history-view')
-export class HistoryView extends LitElement {
+@customElement('guidelines-view')
+export class GuidelinesView extends LitElement {
   static get styles() {
     return [styles];
   }
