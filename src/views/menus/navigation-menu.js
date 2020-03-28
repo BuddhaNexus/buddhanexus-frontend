@@ -83,10 +83,8 @@ export class NavigationMenu extends LitElement {
   }
 
   addCategoryItems(collection) {
-    let categoryList = html``;
-    collection.categories.forEach(category => {
-      categoryList = html`
-        ${categoryList}
+    return collection.categories.map(
+      category => html`
         <vaadin-details theme="reverse" class="file-list">
           <div slot="summary" class="category-display">
             ${category.categorydisplayname}<br />
@@ -96,9 +94,8 @@ export class NavigationMenu extends LitElement {
             ${this.addCatagoryFiles(category.files)}
           </ul>
         </vaadin-details>
-      `;
-    });
-    return categoryList;
+      `
+    );
   }
 
   collectionMenu() {

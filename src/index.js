@@ -71,19 +71,19 @@ export class AppLayout extends LitElement {
           <a class="menu-tab start" href="/">
             <vaadin-tab>About</vaadin-tab>
           </a>
-          <a class="menu-tab start" href="/">
+          <a class="menu-tab start" href="/history">
             <vaadin-tab>History</vaadin-tab>
           </a>
-          <a class="menu-tab start" href="/">
+          <a class="menu-tab start" href="/guidelines">
             <vaadin-tab>Guideslines</vaadin-tab>
           </a>
-          <a class="menu-tab start" href="/"
+          <a class="menu-tab start" href="/institutions"
             ><vaadin-tab>Institutions</vaadin-tab></a
           >
-          <a class="menu-tab start" href="/">
+          <a class="menu-tab start" href="/events">
             <vaadin-tab>Events</vaadin-tab>
           </a>
-          <a class="menu-tab start" href="/">
+          <a class="menu-tab start" href="/publications">
             <vaadin-tab>Publications</vaadin-tab>
           </a>
         </vaadin-tabs>
@@ -110,14 +110,13 @@ export class AppLayout extends LitElement {
 
         <footer>
           <div class="footer-bar">
-            &nbsp;
             <div class="footer-bar-content">
-              <a href="/" class="link">HISTORY</a>
-              <a href="/" class="link">PEOPLE</a>
-              <a href="/" class="link">INSTITUTIONS</a>
-              <a href="/" class="link">ACTIVITIES</a>
-              <a href="/" class="link">PUBLICATIONS</a>
-              <a href="/" class="link">CONTACT / IMPRINT</a>
+              <a href="/history" class="link">HISTORY</a>
+              <a href="/people" class="link">PEOPLE</a>
+              <a href="/institutions" class="link">INSTITUTIONS</a>
+              <a href="/activities" class="link">ACTIVITIES</a>
+              <a href="/publications" class="link">PUBLICATIONS</a>
+              <a href="/contact" class="link">CONTACT / IMPRINT</a>
             </div>
           </div>
           <div class="footer-color">

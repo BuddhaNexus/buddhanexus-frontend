@@ -12,13 +12,6 @@ export default css`
     color: blue;
   }
 
-  #people {
-    display: block;
-    background-image: url('src/assets/img/background_wellcome.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
   .backgroundpanel {
     display: none;
     position: fixed;
@@ -30,8 +23,16 @@ export default css`
     left: 0;
   }
 
+  .static-page-container {
+    display: block;
+    height: 100%;
+    background-image: url('src/assets/img/background_welcome.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
   .main-border {
-    margin: 0px 25%;
+    margin: 0 25%;
     padding-top: 70px;
     padding-bottom: 50px;
   }
@@ -45,17 +46,17 @@ export default css`
     cursor: pointer;
   }
 
-  #people a.link {
+  .static-page-container a.link {
     color: #fff;
     text-decoration: none;
   }
 
-  #people a.link:hover {
+  .static-page-container a.link:hover {
     color: #ccc;
     text-decoration: underline;
   }
 
-  #people a.link span.link-description {
+  .static-page-container a.link span.link-description {
     padding-top: 0.4em;
   }
 
@@ -104,6 +105,9 @@ export default css`
     width: 100%;
     margin-top: 30px;
     margin-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .box-languages {
@@ -159,7 +163,7 @@ export default css`
   }
 
   @media screen and (max-width: 600px) {
-    #people {
+    .static-page-container {
       margin: 0; /* 48px 24px; */
     }
 
@@ -171,6 +175,12 @@ export default css`
     .main-content {
       background-color: #fff;
       padding: 14px 30px;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .construction-message {
+      display: none;
     }
   }
 `;
