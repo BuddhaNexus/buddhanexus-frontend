@@ -36,6 +36,26 @@ export function setLogoPosition(isStart) {
   }
 }
 
+export function setNavbarLinks(isStart) {
+  const navbarStart = getMainLayout().querySelectorAll('a.menu-tab.start');
+  const navbarSubsite = getMainLayout().querySelectorAll('a.menu-tab.subsite');
+  if (isStart) {
+    navbarStart.forEach(item => {
+      item.setAttribute('style', 'display: block');
+    });
+    navbarSubsite.forEach(item => {
+      item.setAttribute('style', 'display: none');
+    });
+  } else {
+    navbarStart.forEach(item => {
+      item.setAttribute('style', 'display: none');
+    });
+    navbarSubsite.forEach(item => {
+      item.setAttribute('style', 'display: block');
+    });
+  }
+}
+
 function setLogoVisibility(isVisible) {
   const logo = getMainLayout().querySelector('.logo-buddhanexus');
   if (!isVisible) {
@@ -80,5 +100,6 @@ export function switchNavbarLayout(isLargeNavbar) {
   setLogoVisibility(!isLargeNavbar);
   setNavbarFixed(!isLargeNavbar);
   setLogoPosition(isLargeNavbar);
+  setNavbarLinks(isLargeNavbar);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }

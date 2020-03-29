@@ -48,24 +48,43 @@ export class AppLayout extends LitElement {
           />
         </h1>
 
-        <vaadin-tabs slot="navbar">
-          <a class="menu-tab" href="/">
+        <vaadin-tabs slot="navbar" overflow="both">
+          <a class="menu-tab subsite" href="/">
             <vaadin-tab>Home</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/pli/text">
+          <a class="menu-tab subsite" href="/pli/text">
             <vaadin-tab>Pali</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/skt/text">
+          <a class="menu-tab subsite" href="/skt/text">
             <vaadin-tab>Sanskrit</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/tib/text"
+          <a class="menu-tab subsite" href="/tib/text"
             ><vaadin-tab>Tibetan</vaadin-tab></a
           >
-          <a class="menu-tab" href="/chn/text">
+          <a class="menu-tab subsite" href="/chn/text">
             <vaadin-tab>Chinese</vaadin-tab>
           </a>
-          <a class="menu-tab" href="/visual">
+          <a class="menu-tab subsite" href="/visual">
             <vaadin-tab>Visual Charts</vaadin-tab>
+          </a>
+
+          <a class="menu-tab start" href="/">
+            <vaadin-tab>About</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/history">
+            <vaadin-tab>History</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/guidelines">
+            <vaadin-tab>Guideslines</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/institutions"
+            ><vaadin-tab>Institutions</vaadin-tab></a
+          >
+          <a class="menu-tab start" href="/events">
+            <vaadin-tab>Events</vaadin-tab>
+          </a>
+          <a class="menu-tab start" href="/publications">
+            <vaadin-tab>Publications</vaadin-tab>
           </a>
         </vaadin-tabs>
 
@@ -92,7 +111,12 @@ export class AppLayout extends LitElement {
         <footer>
           <div class="footer-bar">
             <div class="footer-bar-content">
-              <a href="/">HOME</a>
+              <a href="/history" class="link">HISTORY</a>
+              <a href="/people" class="link">PEOPLE</a>
+              <a href="/institutions" class="link">INSTITUTIONS</a>
+              <a href="/activities" class="link">ACTIVITIES</a>
+              <a href="/publications" class="link">PUBLICATIONS</a>
+              <a href="/contact" class="link">CONTACT / IMPRINT</a>
             </div>
           </div>
           <div class="footer-color">

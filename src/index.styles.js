@@ -106,8 +106,8 @@ export default css`
   vaadin-drawer-toggle {
     margin-right: 0;
     z-index: 99;
-    margin-left: 150px;
-    --material-primary-text-color: var(--color-footer-bar);
+    margin-left: 165px;
+    --material-primary-text-color: var(--color-menu-items);
   }
 
   .logo-buddhanexus {
@@ -122,11 +122,20 @@ export default css`
     color: var(--color-menu-items);
   }
 
+  .menu-tab.start {
+    display: block;
+  }
+
+  .menu-tab.subsite {
+    display: none;
+  }
+
   #menu-drawer {
     height: 100%;
     overflow: scroll;
     padding-top: 100px;
     background: var(--color-sidebar-menu);
+    border-top: #0f0;
   }
 
   .search-icon-container {
@@ -138,9 +147,22 @@ export default css`
     margin-bottom: 2px;
   }
 
+  footer {
+    width: 100%;
+    z-index: 100;
+    background: #777;
+  }
+
   .footer-logo {
     width: 69px;
     margin: 10px 20px 5px 20px;
+  }
+
+  .footer-bar {
+    background: var(--color-footer-bar);
+    text-align: right;
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
   }
 
   .footer-bar-content {
@@ -148,6 +170,7 @@ export default css`
     background: var(--color-footer-bar-content);
     float: right;
     padding: 0 3em 0 1em;
+    height: 1.7em;
   }
 
   .footer-bar-content a,
@@ -157,6 +180,7 @@ export default css`
     font-family: var(--material-font-family);
     font-size: var(--material-button-font-size);
     text-decoration: none;
+    padding: 0 0.6em;
   }
 
   .footer-color {
@@ -166,12 +190,6 @@ export default css`
 
   .footer-right {
     text-align: right;
-  }
-
-  footer {
-    width: 100%;
-    z-index: 100;
-    background: #777;
   }
 
   .footer-bar {
