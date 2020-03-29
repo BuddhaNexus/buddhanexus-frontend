@@ -1,11 +1,3 @@
-// TODO: add filters after function is added in the backend.
-// @property({ type: Number }) score;
-// @property({ type: Number }) quoteLength;
-// @property({ type: Number }) cooccurance;
-// @property({ type: Array }) limitCollection;
-// Add all these to the changedProperties to reload when these have changed
-// Add all these to the <search-view-list> element
-
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import '../data/data-view-subheader';
@@ -16,12 +8,9 @@ import './search-view-list.js';
 @customElement('search-view')
 export class SearchView extends LitElement {
   @property({ type: String }) searchQuery;
-  @property({ type: Array }) limitCollection;
-
   @property({ type: Array }) searchResults = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
-  @property({ type: Number }) endReached = false;
 
   static get styles() {
     return [
@@ -58,11 +47,6 @@ export class SearchView extends LitElement {
     });
   }
 
-  resetView = () => {
-    this.searchResults = [];
-    this.endReached = false;
-  };
-
   async fetchData() {
     if (!this.searchQuery) {
       this.fetchLoading = false;
@@ -86,7 +70,6 @@ export class SearchView extends LitElement {
     return html`
       <div class="search-view-container">
         <h1>Search Results:</h1>
-
         ${this.fetchLoading
           ? html`
               <bn-loading-spinner></bn-loading-spinner>
