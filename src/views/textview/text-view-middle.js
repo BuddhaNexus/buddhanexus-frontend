@@ -14,7 +14,6 @@ import styles from './text-view.styles';
 @customElement('text-view-middle')
 export class TextView extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
@@ -37,7 +36,6 @@ export class TextView extends LitElement {
           'score',
           'cooccurance',
           'quoteLength',
-          'limitCollection',
         ].includes(propName)
       ) {
         this.fetchMiddleParallels();
@@ -55,7 +53,7 @@ export class TextView extends LitElement {
       file_name: this.fileName,
       score: this.score,
       par_length: this.quoteLength,
-      limit_collection: this.limitCollection,
+      limit_collection: this.data.limitCollection,
       co_occ: this.cooccurance,
     });
     this.data.selectedParallels = parallels[0];

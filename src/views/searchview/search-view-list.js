@@ -1,3 +1,5 @@
+// TO DO: Add page numbers to this element.
+
 import { customElement, html, LitElement, property } from 'lit-element';
 
 import { highlightTextByOffset } from '../utility/preprocessing';
@@ -13,12 +15,6 @@ import styles from './search-view-list.styles';
 export class SearchViewList extends LitElement {
   @property({ type: String }) searchQuery;
   @property({ type: Array }) searchResults;
-  // @property({ type: Number }) probability;
-  // @property({ type: Number }) quoteLength;
-  // @property({ type: Number }) cooccurance;
-  // @property({ type: Array }) limitCollection;
-
-  @property({ type: Function }) setPageNumber;
 
   static get styles() {
     return [styles, sharedDataViewStyles];
@@ -29,6 +25,7 @@ export class SearchViewList extends LitElement {
       <div class="list-container">
         <search-view-list-header
           .searchQuery="${this.searchQuery}"
+          .resultNumber="${this.searchResults.length}"
         ></search-view-list-header>
 
         ${this.searchResults.map(result =>
@@ -40,6 +37,7 @@ export class SearchViewList extends LitElement {
               result.offset_end,
               getLanguageFromFilename(result.segment_nr[0])
             ),
+            distance: result.distance,
             rootUrl: createTextViewSegmentUrl(result.segment_nr[1]),
           })
         )}

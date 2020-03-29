@@ -6,6 +6,7 @@ import sharedStyles from '../data/data-view-shared.styles';
 @customElement('search-view-list-header')
 class SearchViewListHeader extends LitElement {
   @property({ type: String }) searchQuery;
+  @property({ type: String }) resultNumber;
 
   static get styles() {
     return [
@@ -31,7 +32,8 @@ class SearchViewListHeader extends LitElement {
     return html`
       <div class="list-header-container">
         <div class="search-result-header material-card">
-          Showing results for ${this.searchQuery}:
+          Showing <b>${this.resultNumber}</b> results for query
+          <b>${this.searchQuery}</b>:
         </div>
       </div>
     `;

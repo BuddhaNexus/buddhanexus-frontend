@@ -36,7 +36,6 @@ export class TextViewRight extends LitElement {
 
   firstUpdated() {
     this.activeSegment = this.rightTextData.selectedParallels[0];
-    //this.fetchDataText();
     this.noScrolling = false;
   }
 
@@ -59,7 +58,6 @@ export class TextViewRight extends LitElement {
           'cooccurance',
           'sortMethod',
           'quoteLength',
-          'limitCollection',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
@@ -94,7 +92,7 @@ export class TextViewRight extends LitElement {
         if (this.currentPosition > 100) {
           activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
         } else {
-          activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
+          activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
         }
         this.scrollTop = mainScrollPosition;
         mainElement.scrollTop = mainElementScroll;
@@ -228,6 +226,7 @@ export class TextViewRight extends LitElement {
             activeSegment: segnr,
             position: position,
             selectedParallels: parallels,
+            limitCollection: [this.fileName],
             rightMode: 1,
           },
         })

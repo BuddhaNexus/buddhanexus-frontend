@@ -6,23 +6,22 @@ import { getLinkForSegmentNumbers } from '../utility/preprocessing';
 export default function SearchViewListItem({
   SegmentId,
   SegmentText,
+  distance,
   rootUrl,
 }) {
   return html`
     <div class="search-view-list__item"
           title="Click to open the text at this position"
-          onclick="window.open('${rootUrl}','_self');"
->
+          onclick="window.open('${rootUrl}','_self');">
       <div
-        class="search-view-list__item-content search-view-list__item-content--segment material-card"
-      >
+        class="search-view-list__item-content search-view-list__item-content--segment material-card">
         <header class="search-view-list__item-header">
           <span class="search-view-list__segment-id">
             ${getLinkForSegmentNumbers(
               getLanguageFromFilename(SegmentId),
               SegmentId
             )}
-          </span>
+          </span><span>Edit distance: ${distance}</span>
           <div class="search-view-list__parallel-details">
             <span class="search-view-list__parallel-details-badge"
               >
@@ -31,8 +30,7 @@ export default function SearchViewListItem({
         <div class="horizontal-divider"></div>
         <div
           class="search-view-list__text"
-          lang="${getLanguageFromFilename(SegmentId)}"
-        >
+          lang="${getLanguageFromFilename(SegmentId)}">
           ${SegmentText}
         </div>
       </div>
