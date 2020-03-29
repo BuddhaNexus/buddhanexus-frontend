@@ -1,6 +1,10 @@
 import { css } from 'lit-element';
 
 export default css`
+  :host {
+    width: 100%;
+  }
+
   .data-view {
     position: relative;
     display: flex;
