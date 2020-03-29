@@ -7,6 +7,7 @@ import sharedStyles from '../data/data-view-shared.styles';
 class SearchViewListHeader extends LitElement {
   @property({ type: String }) searchQuery;
   @property({ type: String }) resultNumber;
+
   static get styles() {
     return [
       css`

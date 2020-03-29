@@ -36,7 +36,6 @@ export class TextViewRight extends LitElement {
 
   firstUpdated() {
     this.activeSegment = this.rightTextData.selectedParallels[0];
-    //this.fetchDataText();
     this.noScrolling = false;
   }
 

@@ -1,3 +1,11 @@
+// TODO: add filters after function is added in the backend.
+// @property({ type: Number }) score;
+// @property({ type: Number }) quoteLength;
+// @property({ type: Number }) cooccurance;
+// @property({ type: Array }) limitCollection;
+// Add all these to the changedProperties to reload when these have changed
+// Add all these to the <search-view-list> element
+
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import '../data/data-view-subheader';
@@ -8,17 +16,11 @@ import './search-view-list.js';
 @customElement('search-view')
 export class SearchView extends LitElement {
   @property({ type: String }) searchQuery;
-  // @property({ type: String }) score;
-  // @property({ type: Number }) probability;
-  // @property({ type: Number }) quoteLength;
-  // @property({ type: Number }) cooccurance;
-  // @property({ type: String }) sortMethod;
   @property({ type: Array }) limitCollection;
 
   @property({ type: Array }) searchResults = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
-  @property({ type: Number }) pageNumber = 0;
   @property({ type: Number }) endReached = false;
 
   static get styles() {
@@ -49,18 +51,7 @@ export class SearchView extends LitElement {
     super.updated(_changedProperties);
 
     _changedProperties.forEach(async (oldValue, propName) => {
-      if (
-        [
-          // TODO: uncomment this after filters are added
-          // 'score',
-          // 'cooccurance',
-          // 'sortMethod',
-          // 'quoteLength',
-          // 'limitCollection',
-          'queryString',
-        ].includes(propName) &&
-        !this.fetchLoading
-      ) {
+      if (['queryString'].includes(propName) && !this.fetchLoading) {
         this.resetView();
         await this.fetchData();
       }
@@ -88,13 +79,9 @@ export class SearchView extends LitElement {
     }
 
     this.searchResults = [...this.searchResults, ...searchResults];
-    // todo: display notification with error
     this.fetchError = error;
   }
 
-  // TODO:
-  // - check if data view header works
-  // - pass search results from backend
   render() {
     return html`
       <div class="search-view-container">
@@ -108,12 +95,7 @@ export class SearchView extends LitElement {
 
         <search-view-list
           .searchQuery="${this.searchQuery}"
-          .probability="${this.probability}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
-          .limitCollection="${this.limitCollection}"
           .searchResults="${this.searchResults}"
-          .setPageNumber="${this.setPageNumber}"
         ></search-view-list>
       </div>
     `;

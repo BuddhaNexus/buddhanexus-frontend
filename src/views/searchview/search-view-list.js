@@ -1,4 +1,7 @@
+// TO DO: Add page numbers to this element.
+
 import { customElement, html, LitElement, property } from 'lit-element';
+
 import { highlightTextByOffset } from '../utility/preprocessing';
 import { getLanguageFromFilename } from '../utility/views-common';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
@@ -12,12 +15,6 @@ import styles from './search-view-list.styles';
 export class SearchViewList extends LitElement {
   @property({ type: String }) searchQuery;
   @property({ type: Array }) searchResults;
-  // @property({ type: Number }) probability;
-  // @property({ type: Number }) quoteLength;
-  // @property({ type: Number }) cooccurance;
-  // @property({ type: Array }) limitCollection;
-
-  @property({ type: Function }) setPageNumber;
 
   static get styles() {
     return [styles, sharedDataViewStyles];

@@ -299,13 +299,8 @@ export class TextView extends LitElement {
         <table class="text-view-table">
           <text-view-header
             .fileName="${this.fileName}"
-            .lang="${this.lang}"
             .rightFileName="${this.rightFileName}"
             .renderSwitchButton="${this.renderSwitchButton}"
-            .score="${this.score}"
-            .limitCollection="${this.limitCollection}"
-            .quoteLength="${this.quoteLength}"
-            .cooccurance="${this.cooccurance}"
             @switch-texts="${this.switchTexts}"
             @reset-left-text="${this.resetLeftText}"
           ></text-view-header>

@@ -44,7 +44,6 @@ export class TextView extends LitElement {
   }
 
   async fetchMiddleParallels() {
-    console.log('FETCH MIDDLE PARALLELS DATA', this.data);
     if (!this.data.selectedParallels) {
       return;
     }

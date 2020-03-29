@@ -13,10 +13,6 @@ import styles from './text-view.styles';
 export class TextViewHeader extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) rightFileName;
-  @property({ type: Array }) limitCollection;
-  @property({ type: Number }) cooccurance;
-  @property({ type: Number }) quoteLength;
-  @property({ type: Number }) score;
   @property({ type: Number }) renderSwitchButton;
   @property({ type: Boolean }) isDialogRightOpen = false;
 
