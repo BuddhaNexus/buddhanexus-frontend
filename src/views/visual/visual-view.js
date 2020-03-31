@@ -14,6 +14,10 @@ export class VisualView extends LitElement {
   static get styles() {
     return [
       css`
+        :host {
+          width: 100%;
+        }
+
         .visual-view-container {
           display: flex;
           flex-direction: column;

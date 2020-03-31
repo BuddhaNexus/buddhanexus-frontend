@@ -65,6 +65,15 @@ function setLogoVisibility(isVisible) {
   }
 }
 
+function setFooterVisibility(isVisible) {
+  const footer = getMainLayout().querySelector('footer');
+  if (!isVisible) {
+    footer.setAttribute('style', 'display: none');
+  } else {
+    footer.setAttribute('style', 'display: block');
+  }
+}
+
 export function setLogoSource(source) {
   const logo = getMainLayout().querySelector('img.logo-buddhanexus');
   logo.setAttribute('src', source);
@@ -101,5 +110,6 @@ export function switchNavbarLayout(isLargeNavbar) {
   setNavbarFixed(!isLargeNavbar);
   setLogoPosition(isLargeNavbar);
   setNavbarLinks(isLargeNavbar);
+  setFooterVisibility(isLargeNavbar);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }
