@@ -9,32 +9,10 @@ import './text-view-middle';
 import './text-view-right';
 import { getLanguageFromFilename } from '../utility/views-common';
 import { colorTable } from '../utility/preprocessing';
+import TextViewInfoModalContent from './text-view-modal-content';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view.styles';
-
-const TextViewInfoModalContent = (numbers, colors) => html`
-  <div>
-    <p>
-      The color coding of the syllables in the Inquiry Text on the left side
-      indicates how many approximate matches are to be encountered at a certain
-      syllable according to the current filter settings.
-    </p>
-    <p><b>Color codes per number of matches:</b></p>
-    <table style="width:100%; table-layout:fixed" align="center">
-      <tr>
-        ${numbers}
-      </tr>
-      <tr>
-        ${colors}
-      </tr>
-      <tr>
-        <th></th>
-        <th></th>
-      </tr>
-    </table>
-  </div>
-`;
 
 @customElement('text-view')
 export class TextView extends LitElement {
@@ -94,12 +72,12 @@ export class TextView extends LitElement {
 
   newFolio() {
     let segment = '';
-    if (this.lang == 'chn') {
+    if (this.lang === 'chn') {
       let folio = parseInt(this.folio)
         .toString()
         .padStart(3, '0');
       segment = `${this.fileName}:${folio}-1`;
-    } else if (this.lang == 'tib') {
+    } else if (this.lang === 'tib') {
       segment = `${this.fileName}:${this.folio}-0`;
     } else {
       if (this.fileName.startsWith('dhp')) {
@@ -283,90 +261,90 @@ export class TextView extends LitElement {
           @click-result="${this.updateTextBySearch}"
         ></text-view-search>
       `;
-    } else {
-      return html`
-        <data-view-subheader
-          .score="${this.score}"
-          .limitCollection="${this.limitCollection}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
-          .fileName="${this.fileName}"
-          .infoModalContent="${TextViewInfoModalContent(
-            this.addNumbers(),
-            this.addColors()
-          )}"
-        ></data-view-subheader>
-        <table class="text-view-table">
-          <text-view-header
-            .fileName="${this.fileName}"
-            .rightFileName="${this.rightFileName}"
-            .renderSwitchButton="${this.renderSwitchButton}"
-            @switch-texts="${this.switchTexts}"
-            @reset-left-text="${this.resetLeftText}"
-          ></text-view-header>
-        </table>
-
-        <vaadin-split-layout class="top-level-split">
-          <div class="left-text-column">
-            <text-view-left
-              lang="${this.lang}"
-              id="text-view-left"
-              .fileName="${this.fileName}"
-              .leftTextData="${this.leftTextData}"
-              .score="${this.score}"
-              .limitCollection="${this.limitCollection}"
-              .quoteLength="${this.quoteLength}"
-              .cooccurance="${this.cooccurance}"
-              .leftActiveSegment="${this.leftActiveSegment}"
-              .textSwitchedFlag="${this.textSwitchedFlag}"
-              @active-segment-changed="${this.toggleMiddleData}"
-              @highlight-left-after-scrolling="${this
-                .highlightLeftafterScrolling}"
-              @update-parallel-count="${this.updateParallelCount}"
-            ></text-view-left>
-          </div>
-          <div style="width: 100%; height: 100vw">
-            <vaadin-split-layout>
-              <div class="middle-text-column">
-                <text-view-middle
-                  lang="${this.lang}"
-                  id="text-view-middle"
-                  .score="${this.score}"
-                  .fileName="${this.fileName}"
-                  .quoteLength="${this.quoteLength}"
-                  .cooccurance="${this.cooccurance}"
-                  .data="${this.middleData}"
-                  @mouseover-parallel="${this.handleMouseOver}"
-                  @click-parallel="${this.updateText}"
-                ></text-view-middle>
-              </div>
-              <div class="right-text-column">
-                ${this.rightFileName
-                  ? html`
-                      <text-view-right
-                        lang="${this.lang}"
-                        id="text-view-right"
-                        .fileName="${this.fileName}"
-                        .rightFileName="${this.rightFileName}"
-                        .rightTextData="${this.rightTextData}"
-                        .score="${this.score}"
-                        .limitCollection="${this.limitCollection}"
-                        .quoteLength="${this.quoteLength}"
-                        .cooccurance="${this.cooccurance}"
-                        @active-segment-changed="${this.toggleMiddleData}"
-                      ></text-view-right>
-                    `
-                  : html`
-                      <p style="margin-top:0">
-                        Click on a match in the middle column in order to
-                        display the full Hit Text here.
-                      </p>
-                    `}
-              </div>
-            </vaadin-split-layout>
-          </div>
-        </vaadin-split-layout>
-      `;
     }
+
+    return html`
+      <data-view-subheader
+        .score="${this.score}"
+        .limitCollection="${this.limitCollection}"
+        .quoteLength="${this.quoteLength}"
+        .cooccurance="${this.cooccurance}"
+        .fileName="${this.fileName}"
+        .infoModalContent="${TextViewInfoModalContent(
+          this.addNumbers(),
+          this.addColors()
+        )}"
+      ></data-view-subheader>
+      <table class="text-view-table">
+        <text-view-header
+          .fileName="${this.fileName}"
+          .rightFileName="${this.rightFileName}"
+          .renderSwitchButton="${this.renderSwitchButton}"
+          @switch-texts="${this.switchTexts}"
+          @reset-left-text="${this.resetLeftText}"
+        ></text-view-header>
+      </table>
+
+      <vaadin-split-layout class="top-level-split">
+        <div class="left-text-column">
+          <text-view-left
+            lang="${this.lang}"
+            id="text-view-left"
+            .fileName="${this.fileName}"
+            .leftTextData="${this.leftTextData}"
+            .score="${this.score}"
+            .limitCollection="${this.limitCollection}"
+            .quoteLength="${this.quoteLength}"
+            .cooccurance="${this.cooccurance}"
+            .leftActiveSegment="${this.leftActiveSegment}"
+            .textSwitchedFlag="${this.textSwitchedFlag}"
+            @active-segment-changed="${this.toggleMiddleData}"
+            @highlight-left-after-scrolling="${this
+              .highlightLeftafterScrolling}"
+            @update-parallel-count="${this.updateParallelCount}"
+          ></text-view-left>
+        </div>
+        <div style="width: 100%; height: 100vw">
+          <vaadin-split-layout>
+            <div class="middle-text-column">
+              <text-view-middle
+                lang="${this.lang}"
+                id="text-view-middle"
+                .score="${this.score}"
+                .fileName="${this.fileName}"
+                .quoteLength="${this.quoteLength}"
+                .cooccurance="${this.cooccurance}"
+                .data="${this.middleData}"
+                @mouseover-parallel="${this.handleMouseOver}"
+                @click-parallel="${this.updateText}"
+              ></text-view-middle>
+            </div>
+            <div class="right-text-column">
+              ${this.rightFileName
+                ? html`
+                    <text-view-right
+                      lang="${this.lang}"
+                      id="text-view-right"
+                      .fileName="${this.fileName}"
+                      .rightFileName="${this.rightFileName}"
+                      .rightTextData="${this.rightTextData}"
+                      .score="${this.score}"
+                      .limitCollection="${this.limitCollection}"
+                      .quoteLength="${this.quoteLength}"
+                      .cooccurance="${this.cooccurance}"
+                      @active-segment-changed="${this.toggleMiddleData}"
+                    ></text-view-right>
+                  `
+                : html`
+                    <p style="margin-top:0">
+                      Click on a match in the middle column in order to display
+                      the full Hit Text here.
+                    </p>
+                  `}
+            </div>
+          </vaadin-split-layout>
+        </div>
+      </vaadin-split-layout>
+    `;
   }
 }

@@ -8,7 +8,7 @@ import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view.styles';
 
 @customElement('text-view-search')
-export class TextViewLeft extends LitElement {
+export class TextViewSearch extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: String }) fileName;
 
@@ -73,6 +73,7 @@ export class TextViewLeft extends LitElement {
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }
+
     return html`
       <div id="text-view-search-header">
         <strong
@@ -91,23 +92,23 @@ export class TextViewLeft extends LitElement {
   }
 }
 
-const showResultList = (resultSegments, searchString, clickFunction) => {
-  return resultSegments.map(segment => {
-    return resultSegmentContainer(
+function showResultList(resultSegments, searchString, clickFunction) {
+  return resultSegments.map(segment =>
+    resultSegmentContainer(
       segment.segnr,
       segment.segtext,
       searchString,
       clickFunction
-    );
-  });
-};
+    )
+  );
+}
 
-const resultSegmentContainer = (
+function resultSegmentContainer(
   segmentNr,
   segText,
   searchString,
   clickFunction
-) => {
+) {
   let beg = segText.indexOf(searchString);
   let end = beg + searchString.length;
   segText = highlightTextByOffset(
@@ -116,11 +117,7 @@ const resultSegmentContainer = (
     end,
     getLanguageFromFilename(segmentNr)
   );
-  return resultSegment(segmentNr, segText, beg, end, clickFunction);
-};
-
-const resultSegment = (segmentNr, segText, beg, end, clickFunction) =>
-  html`
+  return html`
     <div
       class="result-segment"
       id="${segmentNr}"
@@ -133,3 +130,4 @@ const resultSegment = (segmentNr, segText, beg, end, clickFunction) =>
       <span class="result-text">${segText}</span>
     </div>
   `;
+}
