@@ -5,7 +5,7 @@ import { highlightTextByOffset } from '../utility/preprocessing';
 import { searchFileTextSegments } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
 
 @customElement('text-view-search')
 export class TextViewSearch extends LitElement {

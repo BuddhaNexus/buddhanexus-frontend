@@ -11,7 +11,6 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import '../menus/navigation-menu.js';
 import '../components/side-sheet';
 import '../components/card';
-import './text-select-combo-box';
 import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 import './data-view-filters-container';

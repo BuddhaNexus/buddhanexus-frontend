@@ -1,6 +1,8 @@
 import { html } from 'lit-element';
 
-export default function TextViewInfoModalContent(numbers, colors) {
+import { colorTable } from '../utility/preprocessing';
+
+export default function TextViewInfoModalContent() {
   return html`
     <div>
       <p>
@@ -11,10 +13,20 @@ export default function TextViewInfoModalContent(numbers, colors) {
       <p><b>Color codes per number of matches:</b></p>
       <table style="width:100%; table-layout:fixed" align="center">
         <tr>
-          ${numbers}
+          ${[...new Array(10)].map(
+            (k, i) => html`
+              <td><b>${i}</b></td>
+            `
+          )}
+          <td><b>10 or more</b></td>
         </tr>
         <tr>
-          ${colors}
+          <td bgcolor="#000000" style="height:30px"></td>
+          ${[...new Array(10)].map(
+            (k, i) => html`
+              <td bgcolor="${colorTable[i]}"></td>
+            `
+          )}
         </tr>
         <tr>
           <th></th>

@@ -6,6 +6,7 @@ export default css`
     min-height: 500px;
     display: flex;
     justify-content: space-between;
+    height: 100%;
   }
 
   main > * {
@@ -86,7 +87,6 @@ export default css`
     padding-top: 0;
     width: 100%;
     flex: 1;
-    height: 100%;
     --vaadin-app-layout-navbar-background: var(--color-background);
     background-color: var(--color-background-light);
   }

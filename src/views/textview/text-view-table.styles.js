@@ -28,7 +28,7 @@ export default css`
   }
 
   .result-text {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .result-segment {

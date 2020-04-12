@@ -5,6 +5,8 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
+import './text-select-combo-box';
+
 @customElement('data-view-header')
 class DataViewHeader extends LitElement {
   @property({ type: Boolean }) filterBarOpen = true;

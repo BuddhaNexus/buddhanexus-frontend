@@ -2,8 +2,8 @@ import { property, html, customElement, LitElement } from 'lit-element';
 
 import '../numbersview/numbers-view';
 import '../graphview/graph-view';
-import '../textview/text-view';
 import '../tableview/table-view';
+import '../textview/text-view-router';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view-router')
@@ -24,8 +24,7 @@ export class DataViewRouter extends LitElement {
   render() {
     if (this.selectedView === DATA_VIEW_MODES.TEXT) {
       return html`
-        <text-view
-          id="text-view"
+        <text-view-router
           .fileName="${this.fileName}"
           .leftActiveSegment="${this.activeSegment}"
           .folio="${this.folio}"
@@ -35,7 +34,7 @@ export class DataViewRouter extends LitElement {
           .cooccurance="${this.cooccurance}"
           .score="${this.score}"
           .searchString="${this.searchString}"
-        ></text-view>
+        ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
       return html`
@@ -69,11 +68,10 @@ export class DataViewRouter extends LitElement {
           .searchString="${this.searchString}"
         ></table-view>
       `;
-    } else {
-      return html`
-        <h2>Error: No View selected</h2>
-        <p>This shouldn't happen.</p>
-      `;
     }
+    return html`
+      <h2>Error: No View selected</h2>
+      <p>This shouldn't happen.</p>
+    `;
   }
 }

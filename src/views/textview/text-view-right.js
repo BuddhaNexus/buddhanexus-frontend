@@ -9,7 +9,7 @@ import {
 import { getFileTextAndParallels } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
 
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {

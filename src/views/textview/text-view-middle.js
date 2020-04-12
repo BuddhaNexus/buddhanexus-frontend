@@ -9,7 +9,7 @@ import {
 import { getFileTextParallelsMiddle } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
 
 @customElement('text-view-middle')
 export class TextView extends LitElement {

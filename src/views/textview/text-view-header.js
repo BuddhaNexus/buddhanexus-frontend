@@ -7,7 +7,7 @@ import '../utility/total-numbers';
 import { replaceFileNameForDisplay } from '../utility/preprocessing';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
 
 @customElement('text-view-header')
 export class TextViewHeader extends LitElement {
