@@ -2,23 +2,12 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const modeConfig = env => require(`./build-utils/webpack.${env.mode}.js`)(env);
 const loadPresets = require('./build-utils/loadPresets');
 
 const plugins = [
   new webpack.ProgressPlugin(),
-  new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
-  new HtmlWebpackPlugin({
-    filename: 'index.html',
-    template: './src/index.html',
-    minify: {
-      collapseWhitespace: true,
-      minifyCSS: true,
-      minifyJS: true,
-    },
-  }),
   new Dotenv({
     safe: true,
     systemvars: true,

@@ -4,12 +4,13 @@ import { sortByKey, getLanguageFromFilename } from '../utility/views-common';
 import {
   highlightTextByOffset,
   segmentArrayToString,
-  replaceSegmentForDisplay,
+
 } from '../utility/preprocessing';
 import { getFileTextParallelsMiddle } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
+import { FormattedSegment } from '../utility/common-components';
 
 @customElement('text-view-middle')
 export class TextView extends LitElement {
@@ -167,7 +168,7 @@ export class TextView extends LitElement {
               @mouseover="${this.mouseOverParallel}"
             >
               <span class="selected-parallel-nr">
-                ${replaceSegmentForDisplay(parSegnr, par_lang)}</span
+                ${FormattedSegment({ segment: parSegnr, lang: par_lang })}</span
               ><br />
               <span class="score">Score: ${selectedParallels[i].score} %</span>
               <span class="segment-length"

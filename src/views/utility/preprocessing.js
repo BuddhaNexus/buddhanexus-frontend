@@ -2,8 +2,6 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import { getLanguageFromFilename } from './views-common';
-
 export const preprocessTibetan = currentString => {
   currentString = currentString.replace(/\//g, '|') + ' ';
   if (currentString.match(/\|\||[.?!:;]/g)) {
@@ -46,7 +44,7 @@ export const highlightTextByOffset = (
     endoffset += 1;
   }
   for (let i = 0; i < textArray.length; i++) {
-    let WordList = [];
+    let wordList = [];
     let colourValues = [];
     let position = 0;
     let Words = textArray[i];
@@ -62,7 +60,7 @@ export const highlightTextByOffset = (
         Words = textArray[i].split(' ');
       }
       for (let j = 0; j < Words.length; ++j) {
-        WordList.push(position);
+        wordList.push(position);
         let colourValue = 1;
         position += Words[j].length;
         if (lang.match(/tib|pli/)) {
@@ -96,18 +94,18 @@ export const colorTable = {
   10: '#FF860D',
 };
 
-const getCooccuranceColor = cooc => {
+function getCooccuranceColor(cooc) {
   return cooc < 10 ? colorTable[cooc] : colorTable[10];
-};
+}
 
-export const segmentArrayToString = segmentArray => {
+export function segmentArrayToString(segmentArray) {
   let SegmentRef = segmentArray[0];
   if (segmentArray.length > 1) {
     let parallelArray = segmentArray.slice(-1)[0].split(':');
     SegmentRef = SegmentRef + `–${parallelArray.slice(-1)[0]}`;
   }
   return SegmentRef;
-};
+}
 
 const wrapWordsInSpan = (
   selectedSegment,
@@ -196,37 +194,6 @@ export function tokenizeWords(
     : html`
         ${words}<br />
       `;
-}
-
-export function replaceSegmentForDisplay(segment, lang) {
-  const filename = segment.split(':')[0];
-  const number = segment.split(':')[1];
-  let displayName = filename;
-  if (
-    window.menuData &&
-    window.menuData[lang] &&
-    window.menuData[lang][filename]
-  ) {
-    displayName = window.menuData[lang][filename];
-  }
-  return html`
-    <span title="${segment}">${displayName}:${number}</span>
-  `;
-}
-
-export function replaceFileNameForDisplay(fileName) {
-  const lang = getLanguageFromFilename(fileName);
-  let displayName = fileName.toUpperCase();
-  if (
-    window.displayData &&
-    window.displayData[lang] &&
-    window.displayData[lang][fileName]
-  ) {
-    displayName = window.displayData[lang][fileName];
-  }
-  return html`
-    <span title="${fileName}">${displayName}</span>
-  `;
 }
 
 export function getLinkForSegmentNumbers(language, segmentnr) {

@@ -20,7 +20,7 @@ export class Card extends LitElement {
         }
 
         .card--header {
-          padding: 16px 48px;
+          padding: 16px 64px 16px 48px;
           border-radius: 0;
           display: flex;
           flex-wrap: wrap;

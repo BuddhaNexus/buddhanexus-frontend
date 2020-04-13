@@ -1,6 +1,7 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
 import styles from './text-view-table.styles';
+import sharedDataViewStyles from '../data/data-view-shared.styles';
 
 @customElement('text-view-table')
 export default class TextViewTable extends LitElement {
@@ -14,18 +15,15 @@ export default class TextViewTable extends LitElement {
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
-  // todo find out what this is
-  @property({ type: String }) textSwitchedFlag = false;
   @property({ type: String }) leftActiveSegment = 'none';
 
   @property({ type: Function }) toggleMiddleData;
   @property({ type: Function }) highlightLeftAfterScrolling;
-  @property({ type: Function }) updateParallelCount;
   @property({ type: Function }) handleMouseOver;
-  @property({ type: Function }) updateText;
+  @property({ type: Function }) handleParallelClicked;
 
   static get styles() {
-    return [styles];
+    return [styles, sharedDataViewStyles];
   }
 
   render() {
@@ -42,11 +40,9 @@ export default class TextViewTable extends LitElement {
             .quoteLength="${this.quoteLength}"
             .cooccurance="${this.cooccurance}"
             .leftActiveSegment="${this.leftActiveSegment}"
-            .textSwitchedFlag="${this.textSwitchedFlag}"
             @active-segment-changed="${this.toggleMiddleData}"
             @highlight-left-after-scrolling="${this
               .highlightLeftAfterScrolling}"
-            @update-parallel-count="${this.updateParallelCount}"
           ></text-view-left>
         </div>
 
@@ -62,7 +58,7 @@ export default class TextViewTable extends LitElement {
                 .cooccurance="${this.cooccurance}"
                 .data="${this.middleData}"
                 @mouseover-parallel="${this.handleMouseOver}"
-                @click-parallel="${this.updateText}"
+                @click-parallel="${this.handleParallelClicked}"
               ></text-view-middle>
             </div>
 
@@ -83,7 +79,7 @@ export default class TextViewTable extends LitElement {
                     ></text-view-right>
                   `
                 : html`
-                    <p style="margin-top:0">
+                    <p>
                       Click on a match in the middle column in order to display
                       the full Hit Text here.
                     </p>

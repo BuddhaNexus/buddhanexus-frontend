@@ -29,7 +29,6 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) noEndlessScrolling = true;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
-  @property({ type: String }) textSwitchedFlag = false;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -52,7 +51,7 @@ export class TextViewLeft extends LitElement {
   updated(_changedProperties) {
     this.scrollLeftText();
     _changedProperties.forEach((oldValue, propName) => {
-      if (propName === 'fileName' && !this.textSwitchedFlag) {
+      if (propName === 'fileName') {
         this.textLeft = [];
         this.parallels = {};
         this.leftActiveSegment = 'none';
@@ -170,9 +169,7 @@ export class TextViewLeft extends LitElement {
     this.noScrolling = true;
     let allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
 
-    allSegments.forEach(item => {
-      item.classList.remove('selected-segment');
-    });
+    allSegments.forEach(item => item.classList.remove('selected-segment'));
 
     this.dispatchEvent(
       new CustomEvent('highlight-left-after-scrolling', {

@@ -10,7 +10,7 @@ export default css`
     background-color: #d3d3d3;
   }
 
-  #text-view-header, #text-view-search-header {
+  #text-view-search-header {
     padding-bottom: 16px;
     padding-top: 16px;
     font-weight: bold;
@@ -40,50 +40,6 @@ export default css`
     cursor: pointer;
   }
 
-  .swap-button,
-  .info-button {
-    padding: 0;
-    right: 16px;
-    display: inline-flex;
-    min-width: 24px;
-    height: 24px;
-    margin-left: 12px;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-
-  .up-button {
-    padding: 0;
-    left: 10px;
-    display: inline-flex;
-    min-width: 24px;
-    height: 24px;
-    margin-left: 12px;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-
-  .swap-icon {
-    color: var(--bn-dark-red);
-    margin: 0;
-  }
-
-  .swap-icon:hover {
-    color: #0f0;
-  }
-
-  .info-icon {
-    color: rgba(0, 0, 0, 0.54);
-  }
-
-  vaadin-button {
-    background-color: transparent;
-    color: var(--color-menu-items);
-    font-weight: bold;
-    height: 32px;
-  }
 
   .highlighted-by-parallel {
     background-color: #d3d3d3;

@@ -1,13 +1,70 @@
-import { customElement, html, LitElement, property } from 'lit-element';
-
+import { customElement, html, LitElement, css, property } from 'lit-element';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
+
 import '../utility/total-numbers';
-import { replaceFileNameForDisplay } from '../utility/preprocessing';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view-table.styles';
+import { FormattedFileName } from '../utility/common-components';
+
+function SwitchButton({
+  clickedSwitchButton,
+  clickedNewTabButton,
+  isDialogRightOpen,
+  setIsDialogRightOpen,
+  openDialogRight,
+  rightFileName,
+}) {
+  return html`
+    <vaadin-button
+      class="swap-button"
+      title="Display this text in the left column"
+      @click="${clickedSwitchButton}"
+    >
+      <iron-icon
+        class="swap-icon"
+        icon="vaadin:arrow-circle-left-o"
+        slot="prefix"
+      ></iron-icon>
+    </vaadin-button>
+
+    <vaadin-button
+      class="swap-button"
+      title="Display this text in a new tab"
+      @click="${clickedNewTabButton}"
+    >
+      <iron-icon
+        class="swap-icon"
+        icon="vaadin:plus-circle-o"
+        slot="prefix"
+      ></iron-icon>
+    </vaadin-button>
+
+    <vaadin-dialog
+      id="info-text-view-right"
+      aria-label="simple"
+      .opened="${isDialogRightOpen}"
+      @opened-changed="${setIsDialogRightOpen}"
+    >
+      <template>
+        <div>
+          The currently selected parallel as well as other possible parallels
+          that have been detected between the text in the left and the text in
+          the right column are highlighted. When clicking on a highlighted
+          passage on the right hand side, the corresponding parallel is
+          displayed in the middle column and the main text on the left side is
+          automatically scrolled to the corresponding position.
+        </div>
+      </template>
+    </vaadin-dialog>
+
+    <vaadin-button class="info-button" @click="${openDialogRight}">
+      <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
+    </vaadin-button>
+    Hit Text ${FormattedFileName({ fileName: rightFileName })}
+  `;
+}
 
 @customElement('text-view-header')
 export class TextViewHeader extends LitElement {
@@ -17,7 +74,63 @@ export class TextViewHeader extends LitElement {
   @property({ type: Boolean }) isDialogRightOpen = false;
 
   static get styles() {
-    return [sharedDataViewStyles, styles];
+    return [
+      sharedDataViewStyles,
+      css`
+        #text-view-header {
+          padding-bottom: 16px;
+          padding-top: 16px;
+          font-weight: bold;
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          text-transform: none;
+        }
+
+        .up-button {
+          padding: 0;
+          left: 10px;
+          display: inline-flex;
+          min-width: 24px;
+          height: 24px;
+          margin-left: 12px;
+          background-color: transparent;
+          cursor: pointer;
+        }
+
+        .info-icon {
+          color: rgba(0, 0, 0, 0.54);
+        }
+
+        vaadin-button {
+          background-color: transparent;
+          color: var(--color-menu-items);
+          font-weight: bold;
+          height: 32px;
+        }
+
+        .swap-icon {
+          color: var(--bn-dark-red);
+          margin: 0;
+        }
+
+        .swap-icon:hover {
+          color: #0f0;
+        }
+
+        .swap-button,
+        .info-button {
+          padding: 0;
+          right: 16px;
+          display: inline-flex;
+          min-width: 24px;
+          height: 24px;
+          margin-left: 12px;
+          background-color: transparent;
+          cursor: pointer;
+        }
+      `,
+    ];
   }
 
   clickedSwitchButton() {
@@ -79,69 +192,34 @@ export class TextViewHeader extends LitElement {
     `;
   }
 
-  // TODO move this to separate component as a constant
-  switchButton() {
-    return html`
-      <vaadin-button
-        class="swap-button"
-        title="Display this text in the left column"
-        @click="${this.clickedSwitchButton}"
-      >
-        <iron-icon
-          class="swap-icon"
-          icon="vaadin:arrow-circle-left-o"
-          slot="prefix"
-        ></iron-icon>
-      </vaadin-button>
-      <vaadin-button
-        class="swap-button"
-        title="Display this text in a new tab"
-        @click="${this.clickedNewTabButton}"
-      >
-        <iron-icon
-          class="swap-icon"
-          icon="vaadin:plus-circle-o"
-          slot="prefix"
-        ></iron-icon>
-      </vaadin-button>
-      <vaadin-dialog
-        id="info-text-view-right"
-        aria-label="simple"
-        .opened="${this.isDialogRightOpen}"
-        @opened-changed="${this.setisDialogRightOpen}"
-      >
-        <template>
-          <div>
-            The currently selected parallel as well as other possible parallels
-            that have been detected between the text in the left and the text in
-            the right column are highlighted. When clicking on a highlighted
-            passage on the right hand side, the corresponding parallel is
-            displayed in the middle column and the main text on the left side is
-            automatically scrolled to the corresponding position.
-          </div>
-        </template>
-      </vaadin-dialog>
-      <vaadin-button class="info-button" @click="${this.openDialogRight}">
-        <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
-      </vaadin-button>
-      Hit Text ${replaceFileNameForDisplay(this.rightFileName)}
-    `;
-  }
-
   render() {
-    const renderSwitchButton = !(
-      !this.renderSwitchButton || this.rightFileName === ''
-    );
+    console.log(this.renderSwitchButton);
+    console.log(this.rightFileName);
+
+    const renderSwitchButton =
+      this.renderSwitchButton && this.rightFileName !== '';
+
+    console.log({ renderSwitchButton });
+
     return html`
       <div id="text-view-header">
         <div id="text-view-header-left">
-          Inquiry Text
-          ${replaceFileNameForDisplay(this.fileName)}${this.beginningButton()}
+          Inquiry Text ${FormattedFileName({ fileName: this.fileName })}
+          ${this.beginningButton()}
         </div>
-        <div id="text-view-header-middle">Approximate matches</div>
-        <div id="text-view-header-right">
-          ${renderSwitchButton ? this.switchButton() : null}
-        </div>
+
+        <div>Approximate matches</div>
+
+        ${renderSwitchButton
+          ? SwitchButton({
+              clickedSwitchButton: this.clickedSwitchButton,
+              clickedNewTabButton: this.clickedNewTabButton,
+              isDialogRightOpen: this.isDialogRightOpen,
+              openDialogRight: this.openDialogRight,
+              setIsDialogRightOpen: this.setisDialogRightOpen,
+              rightFileName: this.rightFileName,
+            })
+          : null}
       </div>
     `;
   }

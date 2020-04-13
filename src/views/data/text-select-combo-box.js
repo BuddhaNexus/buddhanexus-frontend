@@ -162,8 +162,8 @@ export class TextSelectComboBox extends LitElement {
     return html`
       <div>
         <vaadin-combo-box
-          clear-button-visible
           id="text-select-combo-box"
+          clear-button-visible
           label="${this.getMenuLabel(this.language)}"
           item-value-path="textname"
           item-label-path="displayName"
@@ -172,6 +172,7 @@ export class TextSelectComboBox extends LitElement {
         >
         </vaadin-combo-box>
       </div>
+
       ${this.showFolioBox()
         ? html`
             <vaadin-combo-box

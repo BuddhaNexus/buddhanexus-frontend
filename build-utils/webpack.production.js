@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
@@ -57,8 +58,18 @@ module.exports = () => ({
   },
   plugins: [
     new CleanWebpackPlugin(),
+    new webpack.optimize.MinChunkSizePlugin({ minChunkSize: 10000 }),
     new CopyWebpackPlugin([...polyfills, ...assets], {
       ignore: ['.DS_Store'],
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+      minify: {
+        collapseWhitespace: true,
+        minifyCSS: true,
+        minifyJS: true,
+      },
     }),
     new MiniCssExtractPlugin(),
   ],

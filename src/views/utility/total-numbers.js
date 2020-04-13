@@ -1,6 +1,6 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import { getParallelCount } from '../../api/actions';
-import { replaceFileNameForDisplay } from '../utility/preprocessing';
+import { FormattedFileName } from './common-components';
 
 @customElement('data-view-total-numbers')
 export class TotalNumbers extends LitElement {
@@ -48,7 +48,7 @@ export class TotalNumbers extends LitElement {
   }
 
   addTotalNumbersText() {
-    const fileNameForDisplay = replaceFileNameForDisplay(this.fileName);
+    const fileNameForDisplay = FormattedFileName({ fileName: this.fileName });
     const numbersCount =
       this.parallelCount > 10000 ? `More than 10.000` : this.parallelCount;
     this.totalNumbersText = html`
