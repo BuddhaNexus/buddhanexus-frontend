@@ -1,5 +1,4 @@
 import { customElement, html, LitElement, property } from 'lit-element';
-
 import '@vaadin/vaadin-split-layout/theme/material/vaadin-split-layout';
 
 import './text-view-search';
@@ -62,6 +61,10 @@ export class TextView extends LitElement {
     };
   }
 
+  toggleMiddleData(e) {
+    this.middleData = e.detail;
+  }
+
   handleFolioChanged() {
     let segment = '';
     if (this.lang === LANGUAGE_CODES.CHINESE) {
@@ -83,10 +86,6 @@ export class TextView extends LitElement {
       startoffset: 0,
       endoffset: 0,
     };
-  }
-
-  toggleMiddleData(e) {
-    this.middleData = e.detail;
   }
 
   handleMouseOver(e) {
@@ -197,7 +196,7 @@ export class TextView extends LitElement {
     }
   }
 
-  // TODO: delete once search workd
+  // TODO: delete once search works
   // async updateTextBySearch(e) {
   //   let data = e.detail;
   //   this.leftTextData = data;
@@ -205,7 +204,6 @@ export class TextView extends LitElement {
   // }
 
   render() {
-    console.log({ switch: this.renderSwitchButton });
     return html`
       <data-view-subheader
         .score="${this.score}"
