@@ -13,7 +13,7 @@ export default css`
   [lang='skt'],
   [lang='pli'],
   [lang='en'] {
-    font-family: Roboto, sans-serif;
+    font-family: var(--system-font-stack);
     line-height: 1.3;
   }
 

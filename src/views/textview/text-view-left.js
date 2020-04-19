@@ -11,6 +11,12 @@ import { getFileTextAndParallels } from '../../api/actions';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
 
+/**
+ * TODO:
+ * - display loading spinner
+ * - don't remove previous data when endless loading
+ */
+
 @customElement('text-view-left')
 export class TextViewLeft extends LitElement {
   @property({ type: String }) fileName;

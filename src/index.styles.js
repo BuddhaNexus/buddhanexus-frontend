@@ -19,7 +19,7 @@ export default css`
 
   .header-title {
     margin: 20px 16px;
-    font-family: Roboto, Source Sans Pro, sans-serif;
+    font-family: var(--system-font-stack);
   }
 
   @media screen and (max-width: 400px) {

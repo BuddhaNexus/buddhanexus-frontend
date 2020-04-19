@@ -60,9 +60,11 @@ export default css`
   }
 
   .left-text-column {
-    overscroll-behavior: none;
+    // TODO: uncomment if there's issues with scrolling
+    // overscroll-behavior: none;
     overflow-wrap: break-word;
-    width: 50%;
+    font-size: 1em;
+    line-height: 1.7em;
   }
 
   .middle-text-column {
