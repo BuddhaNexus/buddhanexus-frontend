@@ -266,7 +266,7 @@ export class TextViewLeft extends LitElement {
           position: position,
           selectedParallels: parallels,
           limitCollection: this.limitCollection,
-          rightMode: 0,
+          rightMode: false,
         },
       })
     );

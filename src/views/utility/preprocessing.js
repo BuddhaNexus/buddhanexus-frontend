@@ -125,8 +125,9 @@ const wrapWordsInSpan = (
   if (!currentColor || currentColor == 0) {
     return cleanedWord;
   }
-  let highlightColor =
-    rightMode === 0 ? getCooccuranceColor(currentColor) : '#2ECC40';
+  let highlightColor = rightMode
+    ? '#2ECC40'
+    : getCooccuranceColor(currentColor);
   // prettier-ignore
   return html`<span 
         class="word highlight-parallel ${selectedSegment}"
@@ -141,7 +142,7 @@ export function tokenizeWords(
   colorValues,
   clickFunction = 0,
   highlightMode = 0,
-  rightMode = 0
+  rightMode = false
 ) {
   let words = [];
   let selectedSegment = '';

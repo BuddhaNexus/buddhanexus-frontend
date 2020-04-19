@@ -166,21 +166,15 @@ export class TextViewHeader extends LitElement {
     ];
   }
 
-  clickedSwitchButton() {
+  handleSwitchButtonClicked() {
     this.dispatchEvent(
-      new CustomEvent('switch-texts', {
-        bubbles: true,
-        composed: true,
-      })
+      new CustomEvent('switch-texts', { bubbles: true, composed: true })
     );
   }
 
   handleScrollUpButtonClicked() {
     this.dispatchEvent(
-      new CustomEvent('reset-left-text', {
-        bubbles: true,
-        composed: true,
-      })
+      new CustomEvent('reset-left-text', { bubbles: true, composed: true })
     );
   }
 
@@ -188,8 +182,8 @@ export class TextViewHeader extends LitElement {
     window.open(`./${this.fileName}`, '_blank').focus();
   }
 
-  clickedNewTabButton() {
-    let win = window.open(`./${this.rightFileName}`, '_blank');
+  handleRightTextNewTabButtonClicked() {
+    const win = window.open(`./${this.rightFileName}`, '_blank');
     win.focus();
   }
 
@@ -215,8 +209,8 @@ export class TextViewHeader extends LitElement {
 
         ${renderSwitchButton
           ? TextViewHeaderRightColumn({
-              clickedSwitchButton: this.clickedSwitchButton,
-              clickedNewTabButton: this.clickedNewTabButton,
+              clickedSwitchButton: this.handleSwitchButtonClicked,
+              clickedNewTabButton: this.handleRightTextNewTabButtonClicked,
               isInfoDialogOpen: this.isInfoDialogOpen,
               openDialogRight: this.openDialogRight,
               setIsDialogRightOpen: this.setIsInfoDialogOpen,

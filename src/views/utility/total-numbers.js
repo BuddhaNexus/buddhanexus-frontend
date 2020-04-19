@@ -1,4 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element';
+
 import { getParallelCount } from '../../api/actions';
 import { FormattedFileName } from './common-components';
 
@@ -32,40 +33,38 @@ export class TotalNumbers extends LitElement {
   }
 
   async updateParallelCount() {
-    if (!this.fetchLoading) {
-      const { parallel_count, error } = await getParallelCount({
-        fileName: this.fileName,
-        score: this.score,
-        co_occ: this.cooccurance,
-        par_length: this.quoteLength,
-        limit_collection: this.limitCollection,
-      });
-      this.parallelCount = parallel_count;
-      this.fetchLoading = false;
-      this.fetchError = error;
-      this.addTotalNumbersText();
+    if (this.fetchLoading) {
+      return;
     }
-  }
-
-  addTotalNumbersText() {
-    const fileNameForDisplay = FormattedFileName({ fileName: this.fileName });
-    const numbersCount =
-      this.parallelCount > 10000 ? `More than 10.000` : this.parallelCount;
-    this.totalNumbersText = html`
-      ${numbersCount} approximate matches have been found for
-      ${fileNameForDisplay} with the current filters.
-    `;
+    const { parallel_count, error } = await getParallelCount({
+      fileName: this.fileName,
+      score: this.score,
+      co_occ: this.cooccurance,
+      par_length: this.quoteLength,
+      limit_collection: this.limitCollection,
+    });
+    this.parallelCount = parallel_count;
+    this.fetchLoading = false;
+    this.fetchError = error;
   }
 
   render() {
+    const matchCount =
+      this.parallelCount > 10000 ? `More than 10.000` : this.parallelCount;
+
     if (this.fetchLoading) {
       return html`
-        <div><strong>Loading ...</strong></div>
+        <strong>Loading ...</strong>
       `;
     }
+
     return html`
       <div id="total-numbers">
-        <strong>${this.totalNumbersText}</strong>
+        <span>
+          <strong>${matchCount}</strong> approximate matches have been found for
+          <strong>${FormattedFileName({ fileName: this.fileName })}</strong>
+          with the current filters.
+        </span>
       </div>
     `;
   }

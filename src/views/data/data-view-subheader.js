@@ -6,6 +6,7 @@ import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
 import '../utility/total-numbers';
+import { LANGUAGE_CODES } from '../utility/constants';
 
 @customElement('data-view-subheader')
 class DataViewSubheader extends LitElement {
@@ -23,16 +24,12 @@ class DataViewSubheader extends LitElement {
     return [
       css`
         .data-view-subheader {
-          margin-top: 16px;
-          margin-bottom: 16px;
           display: flex;
           align-items: baseline;
         }
 
         .info-button {
-          padding: 0;
-          min-width: 24px;
-          height: 24px;
+          padding: 24px;
           margin-left: 12px;
           background-color: transparent;
           cursor: pointer;
@@ -70,6 +67,7 @@ class DataViewSubheader extends LitElement {
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
         ></data-view-total-numbers>
+
         <vaadin-dialog
           id="info-number-view"
           aria-label="simple"
@@ -78,16 +76,17 @@ class DataViewSubheader extends LitElement {
         >
           <template>
             ${this.infoModalContent}
-            ${this.language === 'pli'
+            ${this.language === LANGUAGE_CODES.PALI
               ? html`
                   <p>
                     <strong>NOTE</strong>: For technical reasons, the
                     co-occurances for Pāḷi texts are limited to maximum 50.
                   </p>
                 `
-              : ``}
+              : ''}
           </template>
         </vaadin-dialog>
+
         <vaadin-button class="info-button" @click="${this.openDialog}">
           <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
         </vaadin-button>

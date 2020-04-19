@@ -227,7 +227,7 @@ export class TextViewRight extends LitElement {
             position: position,
             selectedParallels: parallels,
             limitCollection: [this.fileName],
-            rightMode: 1,
+            rightMode: true,
           },
         })
       );

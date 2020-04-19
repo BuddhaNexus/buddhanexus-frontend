@@ -6,6 +6,7 @@ import DharmaWheelIcon from '../../assets/icons/dharma-wheel.svg';
 class LoadingSpinner extends LitElement {
   @property({ type: String }) marginAdjust = '0px';
   @property({ type: Boolean }) visible = true;
+  @property({ type: Boolean }) relative = false;
 
   static get styles() {
     return [
@@ -18,15 +19,20 @@ class LoadingSpinner extends LitElement {
           left: 50%;
           top: 50%;
           transform: translate(-50%, -50%);
-          -webkit-animation: rotating 2s linear infinite;
-          -moz-animation: rotating 2s linear infinite;
-          -ms-animation: rotating 2s linear infinite;
-          -o-animation: rotating 2s linear infinite;
-          animation: rotating 2s linear infinite;
+          -webkit-animation: rotating 3s linear infinite;
+          -moz-animation: rotating 3s linear infinite;
+          -ms-animation: rotating 3s linear infinite;
+          -o-animation: rotating 3s linear infinite;
+          animation: rotating 3s linear infinite;
         }
 
         .bn-loading-spinner--hidden {
           display: none;
+        }
+
+        .bn-loading-spinner--relative {
+          display: none;
+          position: relative;
         }
 
         @-webkit-keyframes rotating {
@@ -69,7 +75,8 @@ class LoadingSpinner extends LitElement {
         alt="loading spinner"
         style="margin-top:${this.marginAdjust}"
         class="bn-loading-spinner ${!this.visible &&
-          'bn-loading-spinner--hidden'}"
+          'bn-loading-spinner--hidden'} ${this.relative &&
+          'bn-loading-spinner--relative'}"
       />
     `;
   }

@@ -11,6 +11,8 @@ import { getLanguageFromFilename } from '../utility/views-common';
 import TextViewInfoModalContent from './text-view-modal-content';
 import { LANGUAGE_CODES } from '../utility/constants';
 
+const HIGHLIGHTED_PARALLEL_CLASS = 'highlighted-by-parallel';
+
 @customElement('text-view')
 export class TextView extends LitElement {
   @property({ type: String }) fileName;
@@ -20,7 +22,7 @@ export class TextView extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
-  @property({ type: Number }) rightMode;
+  @property({ type: Boolean }) rightMode;
   @property({ type: String }) searchString;
   @property({ type: Function }) setFileName;
   @property({ type: String }) rightFileName = '';
@@ -103,7 +105,7 @@ export class TextView extends LitElement {
         .slice(0, -1),
       rootOffsetBegin: parseInt(mainElement.getAttribute('rootoffsetbegin')),
       rootOffsetEnd: parseInt(mainElement.getAttribute('rootoffsetend')),
-      rightMode: rightMode,
+      rightMode,
     });
   }
 
@@ -112,7 +114,7 @@ export class TextView extends LitElement {
       rootSegments: e.detail.selectedParallels,
       rootOffsetBegin: e.detail.startoffset,
       rootOffsetEnd: e.detail.endoffset,
-      rightMode: 0,
+      rightMode: false,
     });
   }
 
@@ -122,26 +124,20 @@ export class TextView extends LitElement {
     rootOffsetEnd,
     rightMode,
   }) {
-    const HIGHLIGHTED_CLASS = 'highlighted-by-parallel';
-    const textViewTable = this.shadowRoot.getElementById('text-view-table');
-    const textContainer = textViewTable.shadowRoot.getElementById(
-      rightMode === 1 ? 'text-view-right' : 'text-view-left'
-    );
-
-    // TODO : uncomment if there's text selection issues
-    // const allSegments = textContainer.shadowRoot.querySelectorAll(
-    //   '.highlighted-by-parallel'
-    // );
-    // allSegments.forEach(item => item.classList.remove(HIGHLIGHTED_CLASS));
+    const textContainer = this.shadowRoot
+      .getElementById('text-view-table')
+      .shadowRoot.getElementById(
+        rightMode ? 'text-view-right' : 'text-view-left'
+      );
 
     for (let i = 0; i < rootSegments.length; ++i) {
       const segment = textContainer.shadowRoot.getElementById(rootSegments[i]);
       const words = segment ? segment.getElementsByClassName('word') : null;
+
       if (!segment || !words) {
         return;
       }
 
-      // TODO: simplify these if-statements
       for (let j = 0; j <= words.length; ++j) {
         let word = words[j];
         if (!word || !word.hasAttribute('position')) {
@@ -152,20 +148,20 @@ export class TextView extends LitElement {
           rootSegments[0] === rootSegments[i] &&
           position >= rootOffsetBegin
         ) {
-          word.classList.add(HIGHLIGHTED_CLASS);
+          word.classList.add(HIGHLIGHTED_PARALLEL_CLASS);
         }
         if (rootSegments.slice(1, -1).indexOf(rootSegments[i]) > -1) {
-          word.classList.add(HIGHLIGHTED_CLASS);
+          word.classList.add(HIGHLIGHTED_PARALLEL_CLASS);
         }
         if (rootSegments.slice(-1)[0] === rootSegments[i]) {
           if (position > rootOffsetEnd) {
-            word.classList.remove(HIGHLIGHTED_CLASS);
+            word.classList.remove(HIGHLIGHTED_PARALLEL_CLASS);
           } else {
-            word.classList.add(HIGHLIGHTED_CLASS);
+            word.classList.add(HIGHLIGHTED_PARALLEL_CLASS);
           }
         }
         if (rootSegments[0] === rootSegments[i] && position < rootOffsetBegin) {
-          word.classList.remove(HIGHLIGHTED_CLASS);
+          word.classList.remove(HIGHLIGHTED_PARALLEL_CLASS);
         }
       }
     }
@@ -178,18 +174,18 @@ export class TextView extends LitElement {
     const startOffset = parseInt(data.getAttribute('paroffsetbegin'));
     const endOffset = parseInt(data.getAttribute('paroffsetend'));
 
-    if (rightMode === 0) {
-      this.renderSwitchButton = true;
-      this.rightFileName = selectedParallels[0].replace(/:.*/, '');
-      this.rightTextData = {
-        selectedParallels: selectedParallels,
+    if (rightMode) {
+      this.fileName = selectedParallels[0].replace(/:.*/, '');
+      this.leftTextData = {
+        selectedParallels,
         startoffset: startOffset,
         endoffset: endOffset,
       };
     } else {
-      this.fileName = selectedParallels[0].replace(/:.*/, '');
-      this.leftTextData = {
-        selectedParallels,
+      this.renderSwitchButton = true;
+      this.rightFileName = selectedParallels[0].replace(/:.*/, '');
+      this.rightTextData = {
+        selectedParallels: selectedParallels,
         startoffset: startOffset,
         endoffset: endOffset,
       };
