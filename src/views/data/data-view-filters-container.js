@@ -158,7 +158,7 @@ export class DataViewFiltersContainer extends LitElement {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
   }
 
-  MultiSelectBox(label, id, changefunction, itempath) {
+  renderMultiSelectBox(label, id, changefunction, itempath) {
     return html`
       <multiselect-combo-box
         Label="${label}"
@@ -177,12 +177,15 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   renderFilesCollectionFilters() {
-    if (
+    const loading =
       this.filterCategoriesDataLoading ||
       this.filterFilesDataLoading ||
       this.filterCategoriesDataLoading ||
-      this.filterCategoriesDataLoading
-    ) {
+      this.filterCategoriesDataLoading;
+
+    if (!this.shouldShowFilterDropdown()) {
+      return null;
+    } else if (loading) {
       return html`
         <div class="loading-spinner-container">
           <bn-loading-spinner></bn-loading-spinner>
@@ -191,28 +194,27 @@ export class DataViewFiltersContainer extends LitElement {
     } else {
       return html`
         <div class="filter-group">
-          ${this.MultiSelectBox(
+          ${this.renderMultiSelectBox(
             'Exclude collections:',
             'exclude-collection',
             this.handleCategoriesExcludeComboBoxChanged,
             this.filterCategoriesData
           )}
-          ${this.MultiSelectBox(
+          ${this.renderMultiSelectBox(
             'Exclude files:',
             'exclude-filename',
             this.handleFilesExcludeComboBoxChanged,
             this.filterFilesData
           )}
         </div>
-
         <div class="filter-group">
-          ${this.MultiSelectBox(
+          ${this.renderMultiSelectBox(
             'Limit to collections:',
             'filter-collection',
             this.handleCategoriesComboBoxChanged,
             this.filterCategoriesData
           )}
-          ${this.MultiSelectBox(
+          ${this.renderMultiSelectBox(
             'Limit to files:',
             'filter-filename',
             this.handleFilesComboBoxChanged,

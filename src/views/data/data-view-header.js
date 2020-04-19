@@ -2,7 +2,7 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 
-import './text-select-combo-box';
+import './data-view-header-fields';
 
 @customElement('data-view-header')
 class DataViewHeader extends LitElement {
@@ -79,7 +79,7 @@ class DataViewHeader extends LitElement {
             >
             </data-view-view-selector>
 
-            <text-select-combo-box
+            <data-view-header-fields
               .language="${this.language}"
               .fileName="${this.fileName}"
               .setFileName="${this.setFileName}"
@@ -87,7 +87,7 @@ class DataViewHeader extends LitElement {
               .viewMode="${this.viewMode}"
               .updateSearch="${this.updateSearch}"
               .updateSortMethod="${this.updateSortMethod}"
-            ></text-select-combo-box>
+            ></data-view-header-fields>
 
             <iron-icon
               icon="vaadin:filter"

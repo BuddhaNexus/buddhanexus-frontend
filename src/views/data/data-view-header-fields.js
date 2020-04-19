@@ -6,8 +6,8 @@ import { LANGUAGE_CODES } from '../utility/constants';
 import { getFilesForMainMenu, getFoliosForFile } from '../menus/actions';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
-@customElement('text-select-combo-box')
-export class TextSelectComboBox extends LitElement {
+@customElement('data-view-header-fields')
+export class DataViewHeaderFields extends LitElement {
   @property({ type: String }) language;
   @property({ type: String }) viewMode;
   @property({ type: String }) fileName;
@@ -29,7 +29,7 @@ export class TextSelectComboBox extends LitElement {
           align-items: baseline;
         }
 
-        #text-select-combo-box {
+        #data-view-header-fields {
           width: 25em;
           margin-right: 1em;
         }
@@ -183,7 +183,7 @@ export class TextSelectComboBox extends LitElement {
 
     return html`
       <vaadin-combo-box
-        id="text-select-combo-box"
+        id="data-view-header-fields"
         clear-button-visible
         label="${this.getMenuLabel(this.language)}"
         item-value-path="textname"
