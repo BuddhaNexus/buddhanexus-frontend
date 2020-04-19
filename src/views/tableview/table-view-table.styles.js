@@ -5,9 +5,8 @@ export default css`
     display: flex;
     flex-direction: column;
     flex: 1;
-    // @todo: leave header in place when scrolling
     overflow: scroll;
-    margin-bottom: 36px;
+    margin-bottom: 2.25em;
   }
 
   .table-view-table__row {
@@ -40,27 +39,26 @@ export default css`
 
   .table-view-table__segment-id {
     color: var(--color-text-secondary);
-    font-size: 14px;
-    margin-right: 16px;
+    font-size: 0.875em;
+    margin-right: 1em;
   }
 
   .table-view-table__parallel-details {
     display: flex;
-    font-size: 16px;
+    font-size: 1em;
     flex-wrap: wrap;
   }
 
   .table-view-table__parallel-details
     .table-view-table__parallel-details-badge {
-    margin-right: 16px;
+    margin-right: 1em;
   }
 
   .table-view-table__text {
-    font-size: 18px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    -ms-word-break: break-all;
-    word-break: break-all;
+    font-size: 1em;
+    line-height: 1.4em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
     word-break: break-word;
   }
 

@@ -16,7 +16,8 @@ export default css`
   [lang='pli'],
   [lang='en'] {
     font-family: var(--alt-font-stack);
-    line-height: 1.3;
+    line-height: 1.4em;
+    font-size: 1em;
   }
 
   [lang='chn'] {
