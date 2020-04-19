@@ -73,6 +73,10 @@ export default class TextViewTable extends LitElement {
   render() {
     const showMiddleData = !isObjectEmpty(this.middleData);
 
+    if (!this.fileName) {
+      return null;
+    }
+
     return html`
       <bn-card light>
         <vaadin-split-layout>

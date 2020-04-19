@@ -3,22 +3,24 @@ import { css } from 'lit-element';
 export default css`
   [lang='en'] {
     text-transform: none;
+    font-family: var(--alt-font-stack);
   }
 
   [lang='tib'] {
     text-transform: uppercase;
+    font-family: var(--alt-font-stack);
   }
 
   [lang='tib'],
   [lang='skt'],
   [lang='pli'],
   [lang='en'] {
-    font-family: var(--system-font-stack);
+    font-family: var(--alt-font-stack);
     line-height: 1.3;
   }
 
   [lang='chn'] {
-    font-family: 'Noto Sans TC', sans-serif;
+    font-family: var(--alt-font-stack);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -54,6 +56,8 @@ export default css`
     background-color: rgb(244, 243, 242);
     margin-top: 0;
     z-index: 5;
+    font-size: 1em;
+    line-height: 1.4em;
     margin-bottom: 8px;
     padding: 10px;
     border-radius: 10px;

@@ -64,7 +64,7 @@ export default css`
     // overscroll-behavior: none;
     overflow-wrap: break-word;
     font-size: 1em;
-    line-height: 1.7em;
+    line-height: 1.5em;
   }
 
   .middle-text-column {
