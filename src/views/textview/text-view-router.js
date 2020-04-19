@@ -29,7 +29,6 @@ export class TextViewRouter extends LitElement {
   }
 
   render() {
-    // todo: create "selected view" flag
     if (this.searchString) {
       return html`
         <text-view-search

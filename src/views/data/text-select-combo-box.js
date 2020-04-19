@@ -11,12 +11,14 @@ export class TextSelectComboBox extends LitElement {
   @property({ type: String }) language;
   @property({ type: String }) viewMode;
   @property({ type: String }) fileName;
-  @property({ type: Function }) setFileName;
-  @property({ type: Function }) setFolio;
-  @property({ type: Function }) updateSearch;
   @property({ type: Array }) menuData;
   @property({ type: Array }) folioData;
   @property({ type: String }) fetchError;
+
+  @property({ type: Function }) setFileName;
+  @property({ type: Function }) setFolio;
+  @property({ type: Function }) updateSearch;
+  @property({ type: Function }) updateSortMethod;
 
   static get styles() {
     return [
@@ -43,13 +45,15 @@ export class TextSelectComboBox extends LitElement {
         }
 
         .search-box {
+          padding-top: 1em;
           transform: translateY(1.5px);
         }
 
         .search-icon {
-          margin-right: 0.8em;
           width: 1em;
           height: 1em;
+          margin-right: 0.8em;
+          margin-bottom: 4px;
         }
       `,
     ];
@@ -174,6 +178,7 @@ export class TextSelectComboBox extends LitElement {
 
   render() {
     const shouldShowTextSearchBox = this.viewMode === DATA_VIEW_MODES.TEXT;
+    const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
 
     return html`
       <vaadin-combo-box
@@ -213,6 +218,35 @@ export class TextSelectComboBox extends LitElement {
                 <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
               </div>
             </paper-input>
+          `
+        : null}
+      ${shouldShowSortBox
+        ? html`
+            <vaadin-select
+              @value-changed="${this.updateSortMethod}"
+              Label="Sorting method:"
+              class="input-field"
+              item-label-path="filename"
+            >
+              <template>
+                <vaadin-list-box @value-changed="${this.updateSortMethod}">
+                  <vaadin-item value="position"
+                    >By position in Inquiry Text</vaadin-item
+                  >
+                  <vaadin-item value="quoted-text"
+                    >By position in Hit Text(s)</vaadin-item
+                  >
+                  <vaadin-item value="length"
+                    >Length of match in Inquiry Text (beginning with
+                    longest)</vaadin-item
+                  >
+                  <vaadin-item value="length2"
+                    >Length of match in Hit Text (beginning with
+                    longest)</vaadin-item
+                  >
+                </vaadin-list-box>
+              </template>
+            </vaadin-select>
           `
         : null}
     `;

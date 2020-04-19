@@ -37,7 +37,6 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Function }) updateCooccurance;
 
-  @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) updateLimitCollection;
   @property({ type: Function }) updateTargetCollection;
   @property({ type: String }) language;
@@ -141,10 +140,6 @@ export class DataViewFiltersContainer extends LitElement {
     this.updateTargetCollection([...this.selectedCollections]);
   };
 
-  shouldShowSortingDropdown() {
-    return this.viewMode === DATA_VIEW_MODES.TABLE;
-  }
-
   shouldShowFilterDropdown() {
     return this.viewMode !== DATA_VIEW_MODES.GRAPH;
   }
@@ -241,38 +236,6 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
-  createSortMethodSelector() {
-    if (!this.shouldShowSortingDropdown()) {
-      return null;
-    }
-    return html`
-      <vaadin-select
-        @value-changed="${this.updateSortMethod}"
-        Label="Sorting method:"
-        class="input-field"
-        item-label-path="filename"
-      >
-        <template>
-          <vaadin-list-box @value-changed="${this.updateSortMethod}">
-            <vaadin-item value="position"
-              >By position in Inquiry Text</vaadin-item
-            >
-            <vaadin-item value="quoted-text"
-              >By position in Hit Text(s)</vaadin-item
-            >
-            <vaadin-item value="length"
-              >Length of match in Inquiry Text (beginning with
-              longest)</vaadin-item
-            >
-            <vaadin-item value="length2"
-              >Length of match in Hit Text (beginning with longest)</vaadin-item
-            >
-          </vaadin-list-box>
-        </template>
-      </vaadin-select>
-    `;
-  }
-
   render() {
     return html`    
       <data-view-filter-sliders .score="${this.score}" 
@@ -283,10 +246,7 @@ export class DataViewFiltersContainer extends LitElement {
       .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
       
-      ${this.createTargetFilterForGraph()}
-
-      ${this.createSortMethodSelector()}
-      
+      ${this.createTargetFilterForGraph()}      
 
       ${this.createFilesCollectionFilters()}
 

@@ -13,14 +13,13 @@ class DataViewHeader extends LitElement {
   @property({ type: String }) folio;
 
   @property({ type: Function }) updateSearch;
+  @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
   @property({ type: Function }) handleViewModeChanged;
   @property({ type: Function }) toggleFilterBarOpen;
 
-  // TODO: add search and sort here
   @property({ type: String }) searchString;
-  @property({ type: String }) sortMethod = 'position';
 
   static get styles() {
     return [
@@ -87,6 +86,7 @@ class DataViewHeader extends LitElement {
               .setFolio="${this.setFolio}"
               .viewMode="${this.viewMode}"
               .updateSearch="${this.updateSearch}"
+              .updateSortMethod="${this.updateSortMethod}"
             ></text-select-combo-box>
 
             <iron-icon
