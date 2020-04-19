@@ -18,7 +18,7 @@ export default css`
   }
 
   [lang='chn'] {
-    font-family: 'Noto Sans CJK TC', 'Noto Sans', sans-serif;
+    font-family: 'Noto Sans TC', sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
