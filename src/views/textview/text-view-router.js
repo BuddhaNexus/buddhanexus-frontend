@@ -9,6 +9,7 @@ import './text-view';
 /**
  * TODO
  * - Add text view search to URL path
+ * - remove activesegments attribute in middle text
  */
 
 @customElement('text-view-router')

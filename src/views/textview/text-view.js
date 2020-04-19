@@ -10,6 +10,7 @@ import './text-view-table';
 import { getLanguageFromFilename } from '../utility/views-common';
 import TextViewInfoModalContent from './text-view-modal-content';
 import { LANGUAGE_CODES } from '../utility/constants';
+import { isObjectEmpty } from '../utility/utils';
 
 const HIGHLIGHTED_PARALLEL_CLASS = 'highlighted-by-parallel';
 
@@ -192,13 +193,6 @@ export class TextView extends LitElement {
     }
   }
 
-  // TODO: delete once search works
-  // async updateTextBySearch(e) {
-  //   let data = e.detail;
-  //   this.leftTextData = data;
-  //   this.searchString = false;
-  // }
-
   render() {
     return html`
       <data-view-subheader
@@ -214,6 +208,7 @@ export class TextView extends LitElement {
         .fileName="${this.fileName}"
         .rightFileName="${this.rightFileName}"
         .renderSwitchButton="${this.renderSwitchButton}"
+        .renderMiddleTextLabel="${!isObjectEmpty(this.middleData)}"
         @switch-texts="${this.switchTexts}"
         @reset-left-text="${this.resetLeftText}"
       ></text-view-header>

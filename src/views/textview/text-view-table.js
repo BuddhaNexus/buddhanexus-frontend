@@ -2,6 +2,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 
 import styles from './text-view-table.styles';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
+import { isObjectEmpty } from '../utility/utils';
 
 @customElement('text-view-table')
 export default class TextViewTable extends LitElement {
@@ -26,68 +27,75 @@ export default class TextViewTable extends LitElement {
     return [styles, sharedDataViewStyles];
   }
 
-  render() {
+  renderMiddleData() {
     return html`
-      <vaadin-split-layout>
-        <div class="left-text-column">
-          <text-view-left
-            id="text-view-left"
-            lang="${this.lang}"
-            .fileName="${this.fileName}"
-            .leftTextData="${this.leftTextData}"
-            .score="${this.score}"
-            .limitCollection="${this.limitCollection}"
-            .quoteLength="${this.quoteLength}"
-            .cooccurance="${this.cooccurance}"
-            .leftActiveSegment="${this.leftActiveSegment}"
-            @active-segment-changed="${this.toggleMiddleData}"
-            @highlight-left-after-scrolling="${this
-              .highlightLeftAfterScrolling}"
-          ></text-view-left>
-        </div>
+      <div class="middle-right-texts-container">
+        <vaadin-split-layout>
+          <div class="middle-text-column">
+            <text-view-middle
+              id="text-view-middle"
+              lang="${this.lang}"
+              .score="${this.score}"
+              .fileName="${this.fileName}"
+              .quoteLength="${this.quoteLength}"
+              .cooccurance="${this.cooccurance}"
+              .data="${this.middleData}"
+              @mouseover-parallel="${this.handleMouseOver}"
+              @click-parallel="${this.handleParallelClicked}"
+            ></text-view-middle>
+          </div>
 
-        <div class="middle-right-texts-container">
-          <vaadin-split-layout>
-            <div class="middle-text-column">
-              <text-view-middle
-                id="text-view-middle"
-                lang="${this.lang}"
-                .score="${this.score}"
-                .fileName="${this.fileName}"
-                .quoteLength="${this.quoteLength}"
-                .cooccurance="${this.cooccurance}"
-                .data="${this.middleData}"
-                @mouseover-parallel="${this.handleMouseOver}"
-                @click-parallel="${this.handleParallelClicked}"
-              ></text-view-middle>
-            </div>
+          ${this.rightFileName && this.renderRightData()}
+        </vaadin-split-layout>
+      </div>
+    `;
+  }
 
-            <div class="right-text-column">
-              ${this.rightFileName
-                ? html`
-                    <text-view-right
-                      id="text-view-right"
-                      lang="${this.lang}"
-                      .fileName="${this.fileName}"
-                      .rightFileName="${this.rightFileName}"
-                      .rightTextData="${this.rightTextData}"
-                      .score="${this.score}"
-                      .limitCollection="${this.limitCollection}"
-                      .quoteLength="${this.quoteLength}"
-                      .cooccurance="${this.cooccurance}"
-                      @active-segment-changed="${this.toggleMiddleData}"
-                    ></text-view-right>
-                  `
-                : html`
-                    <p>
-                      Click on a match in the middle column in order to display
-                      the full Hit Text here.
-                    </p>
-                  `}
-            </div>
-          </vaadin-split-layout>
-        </div>
-      </vaadin-split-layout>
+  renderRightData() {
+    return html`
+      <div class="right-text-column">
+        <text-view-right
+          id="text-view-right"
+          lang="${this.lang}"
+          .fileName="${this.fileName}"
+          .rightFileName="${this.rightFileName}"
+          .rightTextData="${this.rightTextData}"
+          .score="${this.score}"
+          .limitCollection="${this.limitCollection}"
+          .quoteLength="${this.quoteLength}"
+          .cooccurance="${this.cooccurance}"
+          @active-segment-changed="${this.toggleMiddleData}"
+        ></text-view-right>
+      </div>
+    `;
+  }
+
+  render() {
+    const showMiddleData = !isObjectEmpty(this.middleData);
+
+    return html`
+      <bn-card light>
+        <vaadin-split-layout>
+          <div class="left-text-column">
+            <text-view-left
+              id="text-view-left"
+              lang="${this.lang}"
+              .fileName="${this.fileName}"
+              .leftTextData="${this.leftTextData}"
+              .score="${this.score}"
+              .limitCollection="${this.limitCollection}"
+              .quoteLength="${this.quoteLength}"
+              .cooccurance="${this.cooccurance}"
+              .leftActiveSegment="${this.leftActiveSegment}"
+              @active-segment-changed="${this.toggleMiddleData}"
+              @highlight-left-after-scrolling="${this
+                .highlightLeftAfterScrolling}"
+            ></text-view-left>
+          </div>
+
+          ${showMiddleData ? this.renderMiddleData() : null}
+        </vaadin-split-layout>
+      </bn-card>
     `;
   }
 }

@@ -105,6 +105,7 @@ export class TextViewHeader extends LitElement {
   @property({ type: String }) rightFileName;
   @property({ type: Number }) renderSwitchButton;
   @property({ type: Boolean }) isInfoDialogOpen = false;
+  @property({ type: Boolean }) renderMiddleTextLabel = false;
 
   static get styles() {
     return [
@@ -205,8 +206,11 @@ export class TextViewHeader extends LitElement {
           })}
         </div>
 
-        <div>Approximate matches</div>
-
+        ${this.renderMiddleTextLabel
+          ? html`
+              <div>Approximate matches</div>
+            `
+          : null}
         ${renderSwitchButton
           ? TextViewHeaderRightColumn({
               clickedSwitchButton: this.handleSwitchButtonClicked,

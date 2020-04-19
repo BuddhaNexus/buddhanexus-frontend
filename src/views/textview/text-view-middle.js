@@ -4,7 +4,6 @@ import { sortByKey, getLanguageFromFilename } from '../utility/views-common';
 import {
   highlightTextByOffset,
   segmentArrayToString,
-
 } from '../utility/preprocessing';
 import { getFileTextParallelsMiddle } from '../../api/actions';
 
@@ -168,7 +167,10 @@ export class TextView extends LitElement {
               @mouseover="${this.mouseOverParallel}"
             >
               <span class="selected-parallel-nr">
-                ${FormattedSegment({ segment: parSegnr, lang: par_lang })}</span
+                ${FormattedSegment({
+                  segment: parSegnr,
+                  lang: par_lang,
+                })}</span
               ><br />
               <span class="score">Score: ${selectedParallels[i].score} %</span>
               <span class="segment-length"

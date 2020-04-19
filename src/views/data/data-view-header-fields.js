@@ -29,7 +29,7 @@ export class DataViewHeaderFields extends LitElement {
           align-items: baseline;
         }
 
-        #data-view-header-fields {
+        #text-select-combo-box {
           width: 25em;
           margin-right: 1em;
         }
@@ -98,9 +98,9 @@ export class DataViewHeaderFields extends LitElement {
     this.fetchError = error;
   }
 
-  constructNameDic(results) {
-    let textNameDic = {};
-    let displayNameDic = {};
+  getTextAndDisplayNames(results) {
+    const textNameDic = {};
+    const displayNameDic = {};
 
     results.forEach(result => {
       // textname (the acronym of the text number) is used for headers parallels instead of the filename.
@@ -128,12 +128,12 @@ export class DataViewHeaderFields extends LitElement {
     }
     // I am not sure if it is hacky to use global scope window here or not,
     // but it works and we avoid having to fetch the data multiple times!
-    const nameDic = this.constructNameDic(result);
+    const [textNames, displayNames] = this.getTextAndDisplayNames(result);
     if (!window.menuData[this.language]) {
-      window.menuData[this.language] = nameDic[0];
+      window.menuData[this.language] = textNames;
     }
     if (!window.displayData[this.language]) {
-      window.displayData[this.language] = nameDic[1];
+      window.displayData[this.language] = displayNames;
     }
     this.fetchError = error;
   }
@@ -183,7 +183,7 @@ export class DataViewHeaderFields extends LitElement {
 
     return html`
       <vaadin-combo-box
-        id="data-view-header-fields"
+        id="text-select-combo-box"
         clear-button-visible
         label="${this.getMenuLabel(this.language)}"
         item-value-path="textname"

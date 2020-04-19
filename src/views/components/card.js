@@ -4,6 +4,7 @@ import { customElement, html, css, LitElement, property } from 'lit-element';
 export class Card extends LitElement {
   @property({ type: Boolean }) small;
   @property({ type: Boolean }) header;
+  @property({ type: Boolean }) light;
 
   static get styles() {
     return [
@@ -25,6 +26,10 @@ export class Card extends LitElement {
           display: flex;
           flex-wrap: wrap;
         }
+
+        .card--light {
+          background-color: var(--color-background-lighter);
+        }
       `,
     ];
   }
@@ -34,7 +39,7 @@ export class Card extends LitElement {
       <div
         class="card ${this.small ? 'card--small' : ''} ${this.header
           ? 'card--header'
-          : ''}"
+          : ''}${this.light ? 'card--light' : ''}"
       >
         <slot></slot>
       </div>

@@ -70,8 +70,7 @@ export class DataViewRouter extends LitElement {
       `;
     }
     return html`
-      <h2>Error: No View selected</h2>
-      <p>This shouldn't happen.</p>
+      <h2>Select the view mode.</h2>
     `;
   }
 }
