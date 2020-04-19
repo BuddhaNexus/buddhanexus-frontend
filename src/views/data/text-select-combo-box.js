@@ -53,7 +53,7 @@ export class TextSelectComboBox extends LitElement {
           width: 1em;
           height: 1em;
           margin-right: 0.8em;
-          margin-bottom: 4px;
+          margin-bottom: 0.25em;
         }
       `,
     ];
@@ -177,7 +177,8 @@ export class TextSelectComboBox extends LitElement {
   }
 
   render() {
-    const shouldShowTextSearchBox = this.viewMode === DATA_VIEW_MODES.TEXT;
+    const shouldShowTextSearchBox =
+      this.viewMode === DATA_VIEW_MODES.TEXT && this.fileName;
     const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
 
     return html`

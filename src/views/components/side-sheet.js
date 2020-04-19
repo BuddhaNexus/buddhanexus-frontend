@@ -41,7 +41,7 @@ export class SideSheet extends LitElement {
 
         .side-sheet__close-icon {
           padding: 12px;
-          margin-right: 6px;
+          margin-right: 1em;
           cursor: pointer;
         }
       `,
@@ -54,13 +54,11 @@ export class SideSheet extends LitElement {
         <div class="side-sheet__content">
           <div class="side-sheet__header">
             <div class="side-sheet__title">${this.title}</div>
-            <!--            <div >-->
             <iron-icon
               @click="${this.handleClose}"
               class="side-sheet__close-icon"
               icon="vaadin:close-small"
             ></iron-icon>
-            <!--            </div>-->
           </div>
           <slot></slot>
         </div>

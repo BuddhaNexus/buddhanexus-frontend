@@ -6,6 +6,11 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import './text-view-search';
 import './text-view';
 
+/**
+ * TODO
+ * - Add text view search to URL path
+ */
+
 @customElement('text-view-router')
 export class TextViewRouter extends LitElement {
   @property({ type: String }) fileName;
@@ -25,7 +30,7 @@ export class TextViewRouter extends LitElement {
 
   updateTextBySearch(e) {
     this.leftTextData = e.detail;
-    this.searchString = false;
+    this.searchString = null;
   }
 
   render() {

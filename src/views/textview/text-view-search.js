@@ -74,6 +74,12 @@ export class TextViewSearch extends LitElement {
       `;
     }
 
+    if (!this.resultSegments) {
+      return html`
+        <span>No results.</span>
+      `;
+    }
+
     return html`
       <div id="text-view-search-header">
         <strong

@@ -33,7 +33,7 @@ class DataViewHeader extends LitElement {
         }
 
         .filter-bar-toggle-icon {
-          margin-right: 48px;
+          margin-right: 2em;
           min-height: 22px;
           min-width: 22px;
           position: absolute;
