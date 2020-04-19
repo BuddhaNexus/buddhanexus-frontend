@@ -37,7 +37,6 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Function }) updateCooccurance;
 
-  @property({ type: Function }) updateSearch;
   @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) updateLimitCollection;
   @property({ type: Function }) updateTargetCollection;
@@ -274,28 +273,6 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
-  createTextViewSearchBox() {
-    if (this.viewMode !== DATA_VIEW_MODES.TEXT) {
-      return null;
-    }
-    return html`
-      <vaadin-text-field
-        .disabled="${this.viewMode !== DATA_VIEW_MODES.TEXT}"
-        @change="${this.updateSearch}"
-        @submit="${this.updateSearch}"
-        clear-button-visible
-        class="input-field search-box"
-        placeholder="Search in Inquiry Text"
-      >
-        <iron-icon
-          id="search-icon"
-          icon="vaadin:search"
-          slot="prefix"
-        ></iron-icon>
-      </vaadin-text-field>
-    `;
-  }
-
   render() {
     return html`    
       <data-view-filter-sliders .score="${this.score}" 
@@ -310,7 +287,6 @@ export class DataViewFiltersContainer extends LitElement {
 
       ${this.createSortMethodSelector()}
       
-      ${this.createTextViewSearchBox()}
 
       ${this.createFilesCollectionFilters()}
 

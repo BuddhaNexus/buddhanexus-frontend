@@ -138,9 +138,6 @@ export default css`
     border-top: #0f0;
   }
 
-  .search-icon-container {
-  }
-
   .search-icon {
     max-width: 12px;
     margin-right: 8px;

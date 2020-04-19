@@ -215,6 +215,7 @@ export class DataView extends LitElement {
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
+            .updateSearch="${this.setSearch}"
           ></data-view-header>
 
           <data-view-router
@@ -246,7 +247,6 @@ export class DataView extends LitElement {
             .viewMode="${this.viewMode}"
             .score="${this.score}"
             .updateScore="${this.setScore}"
-            .updateSearch="${this.setSearch}"
             .updateSortMethod="${this.setSortMethod}"
             .quoteLength="${this.quoteLength}"
             .updateQuoteLength="${this.setQuoteLength}"

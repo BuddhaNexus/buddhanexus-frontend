@@ -63,7 +63,7 @@ export class TextView extends LitElement {
     };
   }
 
-  toggleMiddleData(e) {
+  setMiddleData(e) {
     this.middleData = e.detail;
   }
 
@@ -231,7 +231,7 @@ export class TextView extends LitElement {
         .cooccurance="${this.cooccurance}"
         .rightFileName="${this.rightFileName}"
         .leftActiveSegment="${this.leftActiveSegment}"
-        .toggleMiddleData="${e => this.toggleMiddleData(e)}"
+        .toggleMiddleData="${e => this.setMiddleData(e)}"
         .highlightLeftAfterScrolling="${e =>
           this.highlightLeftAfterScrolling(e)}"
         .handleMouseOver="${e => this.handleMouseOver(e)}"

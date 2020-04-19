@@ -1,9 +1,6 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
-import '@vaadin/vaadin-button/vaadin-button.js';
-import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
-import '@vaadin/vaadin-icons/vaadin-icons.js';
 
 import './text-select-combo-box';
 
@@ -15,6 +12,7 @@ class DataViewHeader extends LitElement {
   @property({ type: String }) viewMode;
   @property({ type: String }) folio;
 
+  @property({ type: Function }) updateSearch;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
   @property({ type: Function }) handleViewModeChanged;
@@ -53,6 +51,16 @@ class DataViewHeader extends LitElement {
           opacity: 0;
           pointer-events: none;
         }
+
+        vaadin-text-field {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+          --iron-icon-width: 20px;
+        }
+
+        vaadin-text-field [part='value'] {
+          padding-left: 16px;
+        }
       `,
     ];
   }
@@ -78,6 +86,7 @@ class DataViewHeader extends LitElement {
               .setFileName="${this.setFileName}"
               .setFolio="${this.setFolio}"
               .viewMode="${this.viewMode}"
+              .updateSearch="${this.updateSearch}"
             ></text-select-combo-box>
 
             <iron-icon

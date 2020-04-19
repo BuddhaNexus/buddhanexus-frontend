@@ -4,6 +4,7 @@ import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box';
 
 import { LANGUAGE_CODES } from '../utility/constants';
 import { getFilesForMainMenu, getFoliosForFile } from '../menus/actions';
+import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('text-select-combo-box')
 export class TextSelectComboBox extends LitElement {
@@ -12,6 +13,7 @@ export class TextSelectComboBox extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
+  @property({ type: Function }) updateSearch;
   @property({ type: Array }) menuData;
   @property({ type: Array }) folioData;
   @property({ type: String }) fetchError;
@@ -22,20 +24,32 @@ export class TextSelectComboBox extends LitElement {
         :host {
           display: flex;
           flex-wrap: wrap;
+          align-items: baseline;
         }
 
         #text-select-combo-box {
-          width: 400px;
-          margin-right: 16px;
+          width: 25em;
+          margin-right: 1em;
         }
 
         #folio-select-combo-box {
-          width: 140px;
+          width: 8.75em;
+          margin-right: 2em;
         }
 
         vaadin-combo-box {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
+        }
+
+        .search-box {
+          transform: translateY(1.5px);
+        }
+
+        .search-icon {
+          margin-right: 0.8em;
+          width: 1em;
+          height: 1em;
         }
       `,
     ];
@@ -144,12 +158,12 @@ export class TextSelectComboBox extends LitElement {
     }
   };
 
-  showFolioBox() {
+  shouldShowFolioBox() {
     if (this.language === LANGUAGE_CODES.SANSKRIT) {
       return false;
     }
     if (
-      this.viewMode === 'text' &&
+      this.viewMode === DATA_VIEW_MODES.TEXT &&
       (this.language !== LANGUAGE_CODES.PALI ||
         this.fileName.match('([as]n[0-9]|dhp)'))
     ) {
@@ -159,21 +173,21 @@ export class TextSelectComboBox extends LitElement {
   }
 
   render() {
-    return html`
-      <div>
-        <vaadin-combo-box
-          id="text-select-combo-box"
-          clear-button-visible
-          label="${this.getMenuLabel(this.language)}"
-          item-value-path="textname"
-          item-label-path="displayName"
-          .items="${this.menuData}"
-          @value-changed="${e => this.updateFileName(e)}"
-        >
-        </vaadin-combo-box>
-      </div>
+    const shouldShowTextSearchBox = this.viewMode === DATA_VIEW_MODES.TEXT;
 
-      ${this.showFolioBox()
+    return html`
+      <vaadin-combo-box
+        id="text-select-combo-box"
+        clear-button-visible
+        label="${this.getMenuLabel(this.language)}"
+        item-value-path="textname"
+        item-label-path="displayName"
+        .items="${this.menuData}"
+        @value-changed="${e => this.updateFileName(e)}"
+      >
+      </vaadin-combo-box>
+
+      ${this.shouldShowFolioBox()
         ? html`
             <vaadin-combo-box
               id="folio-select-combo-box"
@@ -184,6 +198,21 @@ export class TextSelectComboBox extends LitElement {
               @value-changed="${e => this.updateFolio(e)}"
             >
             </vaadin-combo-box>
+          `
+        : null}
+      ${shouldShowTextSearchBox
+        ? html`
+            <paper-input
+              placeholder="Search in Inquiry Text"
+              class="search-box"
+              type="search"
+              @change="${this.updateSearch}"
+              no-label-float
+            >
+              <div slot="prefix">
+                <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
+              </div>
+            </paper-input>
           `
         : null}
     `;
