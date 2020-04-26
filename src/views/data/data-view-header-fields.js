@@ -91,11 +91,13 @@ export class DataViewHeaderFields extends LitElement {
     if (!this.fileName) {
       return;
     }
-    const { folios, error } = await getFoliosForFile({
+    const response = await getFoliosForFile({
       fileName: this.fileName,
     });
-    this.folioData = folios;
-    this.fetchError = error;
+    if (response) {
+      this.folioData = response.folios;
+      this.fetchError = response.error;
+    }
   }
 
   getTextAndDisplayNames(results) {

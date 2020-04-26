@@ -217,7 +217,6 @@ export class TextView extends LitElement {
         id="text-view-table"
         .lang="${this.lang}"
         .fileName="${this.fileName}"
-        .leftTextData="${this.leftTextData}"
         .middleData="${this.middleData}"
         .rightTextData="${this.rightTextData}"
         .score="${this.score}"

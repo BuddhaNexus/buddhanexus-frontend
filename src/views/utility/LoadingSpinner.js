@@ -4,7 +4,6 @@ import DharmaWheelIcon from '../../assets/icons/dharma-wheel.svg';
 
 @customElement('bn-loading-spinner')
 export default class LoadingSpinner extends LitElement {
-  @property({ type: String }) marginAdjust = '0px';
   @property({ type: Boolean }) visible = true;
   @property({ type: Boolean }) relative = false;
 
@@ -50,7 +49,6 @@ export default class LoadingSpinner extends LitElement {
       <img
         src="${DharmaWheelIcon}"
         alt="loading spinner"
-        style="margin-top:${this.marginAdjust}"
         class="bn-loading-spinner ${!this.visible &&
           'bn-loading-spinner--hidden'} ${this.relative &&
           'bn-loading-spinner--relative'}"

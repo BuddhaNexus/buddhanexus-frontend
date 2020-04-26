@@ -18,6 +18,7 @@ export class TextView extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: Object }) data;
+  @property({ type: String }) leftActiveSegment;
 
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) fetchError;
@@ -28,6 +29,7 @@ export class TextView extends LitElement {
 
   updated(_changedProperties) {
     this.fetchLoading = true;
+
     _changedProperties.forEach((oldValue, propName) => {
       if (
         [
@@ -85,8 +87,7 @@ export class TextView extends LitElement {
     );
   }
 
-  renderParallels() {
-    let { activeSegment, position, selectedParallels } = this.data;
+  renderParallels({ activeSegment, position, selectedParallels }) {
     let selectedParallelsText = html``;
     let positionFlag = 0;
     let parallelCounter = 0;

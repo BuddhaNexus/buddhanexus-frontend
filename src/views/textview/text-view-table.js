@@ -40,6 +40,7 @@ export default class TextViewTable extends LitElement {
               .quoteLength="${this.quoteLength}"
               .cooccurance="${this.cooccurance}"
               .data="${this.middleData}"
+              .leftActiveSegment="${this.leftActiveSegment}"
               @mouseover-parallel="${this.handleMouseOver}"
               @click-parallel="${this.handleParallelClicked}"
             ></text-view-middle>
@@ -85,7 +86,6 @@ export default class TextViewTable extends LitElement {
               id="text-view-left"
               lang="${this.lang}"
               .fileName="${this.fileName}"
-              .leftTextData="${this.leftTextData}"
               .score="${this.score}"
               .limitCollection="${this.limitCollection}"
               .quoteLength="${this.quoteLength}"

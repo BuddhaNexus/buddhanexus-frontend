@@ -1,6 +1,6 @@
 import { css } from 'lit-element';
 
-export default css`  
+export default css`
   vaadin-split-layout {
     --_material-split-layout-splitter-background-color: #6d5f47;
     height: calc(100vh - 220px);
@@ -40,7 +40,6 @@ export default css`
     cursor: pointer;
   }
 
-
   .highlighted-by-parallel {
     background-color: #d3d3d3;
   }
@@ -69,11 +68,18 @@ export default css`
 
   .middle-text-column {
     padding: 0 12px;
-    width: 30%;
   }
 
   .right-text-column {
     overflow-wrap: break-word;
     padding-left: 12px;
     width: 30%;
+  }
+
+  #text-view-right {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
 `;

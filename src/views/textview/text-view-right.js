@@ -238,7 +238,7 @@ export class TextViewRight extends LitElement {
     return html`
       ${this.fetchLoading && this.rightFileName
         ? html`
-            <bn-loading-spinner marginAdjust="-300px"></bn-loading-spinner>
+            <bn-loading-spinner></bn-loading-spinner>
           `
         : null}
       ${TextViewLayoutRight(
