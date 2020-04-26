@@ -1,6 +1,7 @@
 // this file contains preprocessing routines used both by text-view and table-view for the
 // text strings coming from the database.
 import { html } from 'lit-element';
+import { C_SELECTED_SEGMENT } from '../textview/text-view';
 
 export const preprocessTibetan = currentString => {
   currentString = currentString.replace(/\//g, '|') + ' ';
@@ -156,8 +157,8 @@ export function tokenizeWords(
     let position = 0;
     for (let i = 0; i < splitWords.length; ++i) {
       let currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
-      if (currentColor != 0 && highlightMode == 1) {
-        selectedSegment = 'selected-segment';
+      if (currentColor !== 0 && highlightMode === 1) {
+        selectedSegment = C_SELECTED_SEGMENT;
       }
       let cleanedWord = '';
       if (lang.match(/tib|pli/)) {

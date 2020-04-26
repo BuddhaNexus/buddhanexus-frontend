@@ -8,7 +8,7 @@ export function LeftSegmentContainer({
   segText,
   current_parallels,
   number,
-  clickFunction,
+  onClick,
   leftTextData,
   currentSegment,
   currentPosition,
@@ -34,7 +34,7 @@ export function LeftSegmentContainer({
     segText,
     lang,
     colorValues,
-    clickFunction,
+    onClick,
     leftSideHighlight
   );
   return LeftSegment({

@@ -6,10 +6,6 @@ export default css`
     height: calc(100vh - 220px);
   }
 
-  .selected-segment {
-    background-color: #d3d3d3;
-  }
-
   #text-view-search-header {
     padding-bottom: 16px;
     padding-top: 16px;
@@ -40,7 +36,11 @@ export default css`
     cursor: pointer;
   }
 
-  .highlighted-by-parallel {
+  .segment--highlighted {
+    background-color: #d3d3d3;
+  }
+
+  .segment--selected {
     background-color: #d3d3d3;
   }
 

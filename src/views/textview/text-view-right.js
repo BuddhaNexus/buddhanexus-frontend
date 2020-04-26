@@ -10,6 +10,7 @@ import { getFileTextAndParallels } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
+import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
 
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {
@@ -137,13 +138,13 @@ export class TextViewRight extends LitElement {
   async scrollRightText() {
     if (
       !this.noScrolling &&
-      this.shadowRoot.querySelector('.selected-segment')
+      this.shadowRoot.querySelector(`.${C_SELECTED_SEGMENT}`)
     ) {
       let parentWindow = this;
       let parentScroll = parentWindow.scrollTop;
       let mainElement = document.querySelector('html');
       let mainElementScroll = mainElement.scrollTop;
-      this.shadowRoot.querySelector('.selected-segment').scrollIntoView();
+      this.shadowRoot.querySelector(`.${C_SELECTED_SEGMENT}`).scrollIntoView();
       parentWindow.scrollTop = parentScroll;
       mainElement.scrollTop = mainElementScroll;
       this.noScrolling = true;
@@ -191,13 +192,15 @@ export class TextViewRight extends LitElement {
     if (!e || !e.target) {
       return;
     }
-    let allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
+    let allSegments = this.shadowRoot.querySelectorAll(
+      `.${C_SELECTED_SEGMENT}`
+    );
     allSegments.forEach(item => {
-      item.classList.remove('selected-segment');
+      item.classList.remove(C_SELECTED_SEGMENT);
     });
-    allSegments = this.shadowRoot.querySelectorAll('.highlighted-by-parallel');
+    allSegments = this.shadowRoot.querySelectorAll(`.${C_HIGHLIGHTED_SEGMENT}`);
     allSegments.forEach(item => {
-      item.classList.remove('highlighted-by-parallel');
+      item.classList.remove(C_HIGHLIGHTED_SEGMENT);
     });
     let selectedWord = e.target;
     let selectedSegment = e.target.parentElement;
@@ -206,7 +209,7 @@ export class TextViewRight extends LitElement {
     }
     this.selectedParallel = selectedSegment;
     if (selectedSegment) {
-      selectedWord.classList.add('highlighted-by-parallel');
+      selectedWord.classList.add(C_HIGHLIGHTED_SEGMENT);
       let position = selectedWord.getAttribute('position');
       let segnr = selectedSegment.id;
       let parallels = this.textRightBySegNr[segnr];

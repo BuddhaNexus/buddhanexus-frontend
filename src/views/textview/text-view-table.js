@@ -86,6 +86,7 @@ export default class TextViewTable extends LitElement {
               id="text-view-left"
               lang="${this.lang}"
               .fileName="${this.fileName}"
+              .leftTextData="${this.leftTextData}"
               .score="${this.score}"
               .limitCollection="${this.limitCollection}"
               .quoteLength="${this.quoteLength}"

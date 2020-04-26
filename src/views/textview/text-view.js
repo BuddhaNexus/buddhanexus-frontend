@@ -12,7 +12,8 @@ import TextViewInfoModalContent from './text-view-modal-content';
 import { LANGUAGE_CODES } from '../utility/constants';
 import { isObjectEmpty } from '../utility/utils';
 
-const HIGHLIGHTED_PARALLEL_CLASS = 'highlighted-by-parallel';
+export const C_HIGHLIGHTED_SEGMENT = 'segment--highlighted';
+export const C_SELECTED_SEGMENT = 'segment--selected';
 
 @customElement('text-view')
 export class TextView extends LitElement {
@@ -149,20 +150,20 @@ export class TextView extends LitElement {
           rootSegments[0] === rootSegments[i] &&
           position >= rootOffsetBegin
         ) {
-          word.classList.add(HIGHLIGHTED_PARALLEL_CLASS);
+          word.classList.add(C_HIGHLIGHTED_SEGMENT);
         }
         if (rootSegments.slice(1, -1).indexOf(rootSegments[i]) > -1) {
-          word.classList.add(HIGHLIGHTED_PARALLEL_CLASS);
+          word.classList.add(C_HIGHLIGHTED_SEGMENT);
         }
         if (rootSegments.slice(-1)[0] === rootSegments[i]) {
           if (position > rootOffsetEnd) {
-            word.classList.remove(HIGHLIGHTED_PARALLEL_CLASS);
+            word.classList.remove(C_HIGHLIGHTED_SEGMENT);
           } else {
-            word.classList.add(HIGHLIGHTED_PARALLEL_CLASS);
+            word.classList.add(C_HIGHLIGHTED_SEGMENT);
           }
         }
         if (rootSegments[0] === rootSegments[i] && position < rootOffsetBegin) {
-          word.classList.remove(HIGHLIGHTED_PARALLEL_CLASS);
+          word.classList.remove(C_HIGHLIGHTED_SEGMENT);
         }
       }
     }
@@ -217,6 +218,7 @@ export class TextView extends LitElement {
         id="text-view-table"
         .lang="${this.lang}"
         .fileName="${this.fileName}"
+        .leftTextData="${this.leftTextData}"
         .middleData="${this.middleData}"
         .rightTextData="${this.rightTextData}"
         .score="${this.score}"
