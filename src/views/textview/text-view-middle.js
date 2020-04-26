@@ -56,7 +56,7 @@ export class TextView extends LitElement {
       limit_collection: this.data.limitCollection,
       co_occ: this.cooccurance,
     });
-    this.data.selectedParallels = parallels[0];
+    this.data.selectedParallels = parallels;
     this.fetchError = error;
     this.fetchLoading = false;
     this.requestUpdate();

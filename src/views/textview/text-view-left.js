@@ -137,7 +137,7 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
-    this.endOfLeftTextFlag = textleft.length != 200 ? true : false;
+    this.endOfLeftTextFlag = textleft.length !== 200;
     this.textLeft = textleft;
     this.textLeft = removeDuplicates(this.textLeft, 'segnr');
     this.textLeftBySegNr = {};

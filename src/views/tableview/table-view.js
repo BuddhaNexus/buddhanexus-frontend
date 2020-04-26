@@ -29,7 +29,6 @@ export class TableView extends LitElement {
 
   @property({ type: String }) lang;
   @property({ type: Array }) parallelsData = [];
-  @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
   @property({ type: Number }) endReached = false;
@@ -89,7 +88,7 @@ export class TableView extends LitElement {
     }
     this.fetchLoading = true;
 
-    const { parallels, error } = await getTableViewData({
+    const parallels = await getTableViewData({
       fileName: this.fileName,
       score: this.score,
       co_occ: this.cooccurance,
@@ -107,9 +106,6 @@ export class TableView extends LitElement {
     }
 
     this.parallelsData = [...this.parallelsData, ...parallels];
-
-    // todo: display notification with error
-    this.fetchError = error;
   }
 
   addInfiniteScrollListener = async () => {
@@ -157,6 +153,7 @@ export class TableView extends LitElement {
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
       ></data-view-subheader>
+
       <table-view-table
         .fileName="${this.fileName}"
         .probability="${this.probability}"
