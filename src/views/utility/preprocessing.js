@@ -75,7 +75,11 @@ export const highlightTextByOffset = (
         }
         colourValues.push(colourValue);
       }
-      let tokenizedResult = tokenizeWords(textArray[i], lang, colourValues);
+      let tokenizedResult = tokenizeWords({
+        inputData: textArray[i],
+        lang: lang,
+        colorValues: colourValues,
+      });
       returnArray.push(tokenizedResult);
     }
   }
@@ -137,14 +141,14 @@ const wrapWordsInSpan = (
         @click="${clickFunction}">${cleanedWord}</span>`
 };
 
-export function tokenizeWords(
+export function tokenizeWords({
   inputData,
   lang,
   colorValues,
   clickFunction = 0,
   highlightMode = 0,
-  rightMode = false
-) {
+  rightMode = false,
+}) {
   let words = [];
   let selectedSegment = '';
   if (colorValues.length > 0) {

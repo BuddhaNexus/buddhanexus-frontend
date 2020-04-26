@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, css, LitElement, property } from 'lit-element';
 
 import styles from './text-view-table.styles';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
@@ -24,7 +24,15 @@ export default class TextViewTable extends LitElement {
   @property({ type: Function }) handleParallelClicked;
 
   static get styles() {
-    return [styles, sharedDataViewStyles];
+    return [
+      styles,
+      sharedDataViewStyles,
+      css`
+        .middle-right-texts-container {
+          min-width: 30%;
+        }
+      `,
+    ];
   }
 
   renderMiddleData() {

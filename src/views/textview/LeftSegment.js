@@ -3,6 +3,34 @@ import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import { getLanguageFromFilename } from '../utility/views-common';
 import { tokenizeWords } from '../utility/preprocessing';
 
+function getLeftSegmentColors(
+  current_parallels,
+  segText,
+  segmentNr,
+  lang,
+  leftSideSelected,
+  leftTextData
+) {
+  if (current_parallels[0]) {
+    return findColorValues({
+      mainSegment: segText,
+      segmentName: segmentNr,
+      parallels: current_parallels,
+      lang,
+    });
+  } else if (leftSideSelected) {
+    return highlightActiveMainElement({
+      rootSegtext: segText,
+      rootSegnr: segmentNr,
+      selectedNumbers: leftTextData.selectedParallels,
+      startoffset: leftTextData.startoffset,
+      endoffset: leftTextData.endoffset,
+      rightMode: false,
+    });
+  }
+  return [];
+}
+
 export function LeftSegmentContainer({
   segmentNr,
   segText,
@@ -13,33 +41,26 @@ export function LeftSegmentContainer({
   currentSegment,
   currentPosition,
 }) {
-  let colorValues = [];
-  let leftSideHighlight = 0;
-  if (leftTextData && leftTextData.selectedParallels.indexOf(segmentNr) > -1) {
-    leftSideHighlight = 1;
-    colorValues = highlightActiveMainElement(
-      segText,
-      segmentNr,
-      leftTextData.selectedParallels,
-      leftTextData.startoffset,
-      leftTextData.endoffset,
-      false
-    );
-  }
-  let lang = getLanguageFromFilename(segmentNr);
-  if (current_parallels[0]) {
-    colorValues = findColorValues(segText, segmentNr, current_parallels);
-  }
-  segText = tokenizeWords(
-    segText,
-    lang,
-    colorValues,
-    onClick,
-    leftSideHighlight
-  );
+  const lang = getLanguageFromFilename(segmentNr);
+  const leftSideSelected =
+    leftTextData && leftTextData.selectedParallels.indexOf(segmentNr) > -1;
+
   return LeftSegment({
     segmentNr: segmentNr,
-    segText: segText,
+    segText: tokenizeWords({
+      inputData: segText,
+      lang: lang,
+      colorValues: getLeftSegmentColors(
+        current_parallels,
+        segText,
+        segmentNr,
+        lang,
+        leftSideSelected,
+        leftTextData
+      ),
+      clickFunction: onClick,
+      highlightMode: leftSideSelected ? 1 : 0,
+    }),
     number: number,
     currentSegment: currentSegment,
     currentPosition: currentPosition,
@@ -61,7 +82,7 @@ export function LeftSegment({
     currentPosition < 100;
   // prettier-ignore
   return html`
-    ${showLineBreak ? "<br/>": null }
+    ${showLineBreak ? html`<br />` : null }
     <span class="left-segment" title=${displayNumber} id=${segmentNr} number="${number}">${segText}</span>
   `
 }

@@ -310,26 +310,31 @@ const rightSegmentContainer = (
   let rightSideHighlight = 0;
   if (rightTextData.selectedParallels.indexOf(segmentNr) > -1) {
     rightSideHighlight = 1;
-    colorValues = highlightActiveMainElement(
-      segText,
-      segmentNr,
-      rightTextData.selectedParallels,
-      rightTextData.startoffset,
-      rightTextData.endoffset,
-      true
-    );
+    colorValues = highlightActiveMainElement({
+      rootSegtext: segText,
+      rootSegnr: segmentNr,
+      selectedNumbers: rightTextData.selectedParallels,
+      startoffset: rightTextData.startoffset,
+      endoffset: rightTextData.endoffset,
+      rightMode: true,
+    });
   } else if (current_parallels[0]) {
-    colorValues = findColorValues(segText, segmentNr, current_parallels);
+    colorValues = findColorValues({
+      mainSegment: segText,
+      segmentName: segmentNr,
+      parallels: current_parallels,
+      lang: getLanguageFromFilename(segmentNr),
+    });
   }
   let lang = getLanguageFromFilename(segmentNr);
-  segText = tokenizeWords(
-    segText,
-    lang,
-    colorValues,
-    clickFunction,
-    rightSideHighlight,
-    1
-  );
+  segText = tokenizeWords({
+    inputData: segText,
+    lang: lang,
+    colorValues: colorValues,
+    clickFunction: clickFunction,
+    highlightMode: rightSideHighlight,
+    rightMode: 1,
+  });
   return rightSegment(
     segmentNr,
     segText,

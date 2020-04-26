@@ -1,8 +1,6 @@
 import { getLanguageFromFilename } from '../utility/views-common';
 
-export const findColorValues = (mainSegment, segmentName, parallels) => {
-  // todo: get language as parameter instead
-  let lang = getLanguageFromFilename(segmentName);
+export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
   let WordList = [];
   let colourValues = [];
   let position = 0;
@@ -51,16 +49,16 @@ export const findColorValues = (mainSegment, segmentName, parallels) => {
     }
   }
   return colourValues;
-};
+}
 
-export const highlightActiveMainElement = (
+export function highlightActiveMainElement({
   rootSegtext,
   rootSegnr,
   selectedNumbers,
   startoffset,
   endoffset,
-  rightMode = false
-) => {
+  rightMode = false,
+}) {
   let lang = getLanguageFromFilename(rootSegnr);
   let Words = rootSegtext;
   let Wordlist = [];
@@ -87,25 +85,26 @@ export const highlightActiveMainElement = (
   for (let i = 0; i < colourValues.length; ++i) {
     let position = Wordlist[i];
     if (
-      (rootSegnr == selectedNumbers[0] && position >= startoffset) ||
-      (rootSegnr == selectedNumbers.slice(-1)[0] &&
-        rootSegnr != selectedNumbers[0]) ||
+      (rootSegnr === selectedNumbers[0] && position >= startoffset) ||
+      (rootSegnr === selectedNumbers.slice(-1)[0] &&
+        rootSegnr !== selectedNumbers[0]) ||
       selectedNumbers.slice(1, -1).indexOf(rootSegnr) > -1
     ) {
       colourValues[i] = 1;
     }
     // danger: postion > endoffset -1 _might_ be bad in the case of chinese; debug this carefully.
-    if (rootSegnr == selectedNumbers.slice(-1)[0] && position > endoffset - 1) {
+    if (
+      rootSegnr === selectedNumbers.slice(-1)[0] &&
+      position > endoffset - 1
+    ) {
       colourValues[i] = 0;
     }
   }
   return colourValues;
-};
+}
 
-export const truncateSegnrText = segnrText => {
-  var lengths = segnrText.map(function(segment) {
-    return segment.length;
-  });
+export function truncateSegnrText(segnrText) {
+  const lengths = segnrText.map(segment => segment.length);
   const sumLength = lengths.reduce((partial_sum, a) => partial_sum + a, 0);
   if (sumLength > 500 && segnrText.length > 2) {
     segnrText.splice(
@@ -113,6 +112,6 @@ export const truncateSegnrText = segnrText => {
       segnrText.length - 2,
       '… this text has been truncated …'
     );
-    return segnrText;
-  } else return segnrText;
-};
+  }
+  return segnrText;
+}
