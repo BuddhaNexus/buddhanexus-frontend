@@ -5,7 +5,7 @@ import { getFileTextAndParallels } from '../../api/actions';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
 import { LeftSegmentContainer } from './LeftSegment';
-import { C_HIGHLIGHTED_SEGMENT } from './text-view';
+import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
 
 /**
  * TODO:
@@ -179,12 +179,12 @@ export class TextViewLeft extends LitElement {
   }
 
   handleSegmentClick(e) {
-    // this.shadowRoot
-    //   .querySelectorAll(`.${C_SELECTED_SEGMENT}`)
-    //   .forEach(el => el.classList.remove(C_SELECTED_SEGMENT));
-    // this.shadowRoot
-    //   .querySelectorAll(`.${C_HIGHLIGHTED_SEGMENT}`)
-    //   .forEach(el => el.classList.remove(C_HIGHLIGHTED_SEGMENT));
+    this.shadowRoot
+      .querySelectorAll(`.${C_SELECTED_SEGMENT}`)
+      .forEach(el => el.classList.remove(C_SELECTED_SEGMENT));
+    this.shadowRoot
+      .querySelectorAll(`.${C_HIGHLIGHTED_SEGMENT}`)
+      .forEach(el => el.classList.remove(C_HIGHLIGHTED_SEGMENT));
     if (e) {
       this.displayParallels(e.target);
     }

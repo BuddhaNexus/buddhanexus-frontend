@@ -2,10 +2,14 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import { TextSegment } from '../textview/TextSegment';
+import {
+  TextSegment,
+  TextSegmentChineseWord,
+  TibetanSegment,
+} from '../textview/TextSegment';
 
 export const SEGMENT_COLORS = {
-  1: '#003F5C',
+  1: '#005e7f',
   2: '#046D66',
   3: '#0A7E4B',
   4: '#119029',
@@ -17,13 +21,23 @@ export const SEGMENT_COLORS = {
   10: '#ef303e',
 };
 
+export function getCleanedWord(lang, splitWords, i) {
+  let cleanedWord = '';
+  if (lang.match(/tib|pli/)) {
+    cleanedWord = TibetanSegment(splitWords[i]);
+  } else {
+    cleanedWord = TextSegmentChineseWord(splitWords[i]);
+  }
+  return cleanedWord;
+}
+
 // this function is not yet revised or tested to work with the new refactored code.
-export const highlightTextByOffset = (
+export function highlightTextByOffset({
   textArray,
   startoffset,
   endoffset,
-  lang
-) => {
+  lang,
+}) {
   let returnArray = [];
   if (lang.match(/tib|pli/)) {
     // the next two lines are a hack because there is a slight mismatch in the behaviour
@@ -73,7 +87,7 @@ export const highlightTextByOffset = (
     }
   }
   return returnArray;
-};
+}
 
 export function segmentArrayToString(segmentArray) {
   let SegmentRef = segmentArray[0];

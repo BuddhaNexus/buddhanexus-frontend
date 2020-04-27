@@ -148,12 +148,12 @@ export class TextView extends LitElement {
           selectedParallels[i].par_segnr.forEach(item =>
             selParName.push(`${item};`)
           );
-          segnrText = highlightTextByOffset(
-            segnrText,
-            parOffsetBegin,
-            parOffsetEnd,
-            par_lang
-          );
+          segnrText = highlightTextByOffset({
+            textArray: segnrText,
+            startoffset: parOffsetBegin,
+            endoffset: parOffsetEnd,
+            lang: par_lang,
+          });
           selectedParallelsText = html`
             ${selectedParallelsText}
             <div

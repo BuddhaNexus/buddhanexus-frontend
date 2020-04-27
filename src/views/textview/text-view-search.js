@@ -117,12 +117,12 @@ function resultSegmentContainer(
 ) {
   let beg = segText.indexOf(searchString);
   let end = beg + searchString.length;
-  segText = highlightTextByOffset(
-    [segText],
-    beg,
-    end,
-    getLanguageFromFilename(segmentNr)
-  );
+  segText = highlightTextByOffset({
+    textArray: [segText],
+    startoffset: beg,
+    endoffset: end,
+    lang: getLanguageFromFilename(segmentNr),
+  });
   return html`
     <div
       class="result-segment"
