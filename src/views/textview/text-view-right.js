@@ -10,7 +10,7 @@ import { getFileTextAndParallels } from '../../api/actions';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
 import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
-import { SegmentWord } from './SegmentWord';
+import { TextSegment } from './TextSegment';
 
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {
@@ -327,11 +327,11 @@ const rightSegmentContainer = (
     });
   }
   let lang = getLanguageFromFilename(segmentNr);
-  segText = SegmentWord({
+  segText = TextSegment({
     inputData: segText,
     lang: lang,
     colorValues: colorValues,
-    clickFunction: clickFunction,
+    onClick: clickFunction,
     highlightMode: rightSideHighlight,
     rightMode: 1,
   });

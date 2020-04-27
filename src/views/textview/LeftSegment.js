@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import { getLanguageFromFilename } from '../utility/views-common';
-import { SegmentWord } from './SegmentWord';
+import { TextSegment } from './TextSegment';
 
 function getLeftSegmentColors(
   current_parallels,
@@ -47,7 +47,7 @@ export function LeftSegmentContainer({
 
   return LeftSegment({
     segmentNr: segmentNr,
-    segText: SegmentWord({
+    segText: TextSegment({
       inputData: segText,
       lang: lang,
       colorValues: getLeftSegmentColors(
@@ -58,7 +58,7 @@ export function LeftSegmentContainer({
         leftSideSelected,
         leftTextData
       ),
-      clickFunction: onClick,
+      onClick,
       highlightMode: leftSideSelected ? 1 : 0,
     }),
     number: number,

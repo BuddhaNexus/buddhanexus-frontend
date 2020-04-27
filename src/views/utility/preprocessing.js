@@ -2,32 +2,19 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import { SegmentWord } from '../textview/SegmentWord';
+import { TextSegment } from '../textview/TextSegment';
 
-export const preprocessTibetan = currentString => {
-  currentString = currentString.replace(/\//g, '|') + ' ';
-  if (currentString.match(/\|\||[.?!:;]/g)) {
-    if (!currentString.includes('*')) {
-      currentString = html`
-        ${currentString}<br />
-      `;
-    } else {
-      currentString = html`
-        ${currentString.replace('*_', '* ')}
-      `;
-    }
-  }
-  return currentString;
-};
-
-export const preprocessChineseCharacter = currentString => {
-  currentString = currentString.replace(/\//g, '|');
-  if (currentString.includes('#')) {
-    currentString = html`
-      <br />
-    `;
-  }
-  return currentString;
+export const SEGMENT_COLORS = {
+  1: '#003F5C',
+  2: '#046D66',
+  3: '#0A7E4B',
+  4: '#119029',
+  5: '#35A11A',
+  6: '#76B325',
+  7: '#BDC430',
+  8: '#D6A43E',
+  9: '#E77A4C',
+  10: '#ef303e',
 };
 
 // this function is not yet revised or tested to work with the new refactored code.
@@ -76,28 +63,16 @@ export const highlightTextByOffset = (
         }
         colourValues.push(colourValue);
       }
-      let tokenizedResult = SegmentWord({
-        inputData: textArray[i],
-        lang: lang,
-        colorValues: colourValues,
-      });
-      returnArray.push(tokenizedResult);
+      returnArray.push(
+        TextSegment({
+          inputData: textArray[i],
+          lang: lang,
+          colorValues: colourValues,
+        })
+      );
     }
   }
   return returnArray;
-};
-
-export const colorTable = {
-  1: '#0CC0E8',
-  2: '#0039FF',
-  3: '#610CE8',
-  4: '#AA00FF',
-  5: '#DC0CE8',
-  6: '#FF0093',
-  7: '#E80C0C',
-  8: '#FF2A00',
-  9: '#E8550C',
-  10: '#FF860D',
 };
 
 export function segmentArrayToString(segmentArray) {

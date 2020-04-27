@@ -1,6 +1,6 @@
 import { html } from 'lit-element';
 
-import { colorTable } from '../utility/preprocessing';
+import { SEGMENT_COLORS } from '../utility/preprocessing';
 
 export default function TextViewInfoModalContent() {
   return html`
@@ -24,7 +24,7 @@ export default function TextViewInfoModalContent() {
           <td bgcolor="#000000" style="height:30px"></td>
           ${[...new Array(10)].map(
             (k, i) => html`
-              <td bgcolor="${colorTable[i]}"></td>
+              <td bgcolor="${SEGMENT_COLORS[i]}"></td>
             `
           )}
         </tr>
