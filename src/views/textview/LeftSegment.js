@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import { getLanguageFromFilename } from '../utility/views-common';
-import { tokenizeWords } from '../utility/preprocessing';
+import { SegmentWord } from './SegmentWord';
 
 function getLeftSegmentColors(
   current_parallels,
@@ -47,7 +47,7 @@ export function LeftSegmentContainer({
 
   return LeftSegment({
     segmentNr: segmentNr,
-    segText: tokenizeWords({
+    segText: SegmentWord({
       inputData: segText,
       lang: lang,
       colorValues: getLeftSegmentColors(

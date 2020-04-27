@@ -1,6 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
-import { tokenizeWords } from '../utility/preprocessing';
 import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import {
   getLanguageFromFilename,
@@ -11,6 +10,7 @@ import { getFileTextAndParallels } from '../../api/actions';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
 import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
+import { SegmentWord } from './SegmentWord';
 
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {
@@ -327,7 +327,7 @@ const rightSegmentContainer = (
     });
   }
   let lang = getLanguageFromFilename(segmentNr);
-  segText = tokenizeWords({
+  segText = SegmentWord({
     inputData: segText,
     lang: lang,
     colorValues: colorValues,

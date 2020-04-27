@@ -22,6 +22,7 @@ export default class LoadingSpinner extends LitElement {
           -ms-animation: rotating 3s linear infinite;
           -o-animation: rotating 3s linear infinite;
           animation: rotating 3s linear infinite;
+          user-select: none;
         }
 
         .bn-loading-spinner--hidden {
