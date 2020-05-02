@@ -44,16 +44,27 @@ module.exports = () => ({
     rules: [
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: 'local',
+                exportGlobals: true,
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                context: path.resolve(__dirname, 'src'),
+                hashPrefix: 'bn-styles',
+              },
+            },
+          },
+        ],
       },
     ],
   },
   optimization: {
     minimize: true,
     moduleIds: 'hashed',
-    splitChunks: {
-      chunks: 'all',
-    },
   },
   plugins: [
     new CleanWebpackPlugin(),
