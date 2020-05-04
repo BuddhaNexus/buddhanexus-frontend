@@ -209,7 +209,9 @@ export class TextViewLeft extends LitElement {
         root: this.shadowRoot.querySelector('#left-text-column'),
       }
     );
-    observer.observe(targets[targets.length - 1]);
+    observer.observe(
+      targets[targets.length > 100 ? targets.length - 20 : targets.length]
+    );
   }
 
   handleSegmentClick(e) {
