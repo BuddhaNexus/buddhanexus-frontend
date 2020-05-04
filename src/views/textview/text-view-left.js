@@ -23,13 +23,15 @@ export class TextViewLeft extends LitElement {
   @property({ type: Number }) score;
   @property({ type: String }) leftActiveSegment;
   // Local variables
-  @property({ type: String }) endOfLeftTextFlag = false;
+  @property({ type: String }) reachedEndOfText = false;
   @property({ type: Array }) textLeft = [];
   @property({ type: Object }) parallels = {};
   @property({ type: String }) noScrolling = true;
   @property({ type: String }) noEndlessScrolling = true;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
+  @property({ type: Number }) currentPage = 0;
+  @property({ type: Object }) textLeftBySegNr = {};
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -40,8 +42,7 @@ export class TextViewLeft extends LitElement {
       return;
     }
     if (this.leftActiveSegment === undefined) {
-      this.leftActiveSegment = undefined;
-      this.fetchDataText();
+      this.fetchNewText();
     } else {
       this.leftTextData = { selectedParallels: [this.leftActiveSegment] };
     }
@@ -56,23 +57,30 @@ export class TextViewLeft extends LitElement {
       }
 
       if (propName === 'leftTextData') {
-        this.handleLeftTextDataChanged();
+        // this.handleLeftTextDataChanged();
       }
+
       const fileChanged = [
         'score',
         'cooccurance',
         'quoteLength',
         'limitCollection',
       ].includes(propName);
+
       if (fileChanged && !this.fetchLoading) {
-        console.log('fetching data.');
-        await this.fetchDataText();
+        await this.fetchNewText();
+        this.addSegmentObservers();
       }
+
       if (propName === 'textLeft') {
         await this.addSegmentObservers();
         if (this.noScrolling && !this.noEndlessScrolling) {
           this.scrollAfterEndlessReload();
         }
+      }
+
+      if (propName === 'currentPage') {
+        await this.fetchNextPage();
       }
     });
   }
@@ -82,7 +90,7 @@ export class TextViewLeft extends LitElement {
     this.parallels = {};
     this.leftActiveSegment = undefined;
     if (!this.fetchLoading) {
-      this.fetchDataText();
+      this.fetchNewText();
     }
   }
 
@@ -92,10 +100,11 @@ export class TextViewLeft extends LitElement {
     this.parallels = {};
     this.textLeft = [];
     this.leftActiveSegment = this.leftTextData.selectedParallels[0];
-    this.fetchDataText();
+    this.fetchNewText();
   }
 
-  async fetchDataText() {
+  async fetchNewText() {
+    console.log('fetching left text data.');
     this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,
@@ -105,9 +114,8 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
-    this.endOfLeftTextFlag = textleft.length !== 200;
+    this.reachedEndOfText = textleft.length !== 200;
     this.textLeft = removeDuplicates(textleft, 'segnr');
-    this.textLeftBySegNr = {};
     this.textLeft.forEach(
       ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
     );
@@ -119,6 +127,34 @@ export class TextViewLeft extends LitElement {
         }
       }
     }
+    this.fetchError = error;
+    this.fetchLoading = false;
+  }
+
+  async fetchNextPage() {
+    console.log('fetching NEXT PAGE');
+    this.fetchLoading = true;
+    const { textleft, parallels, error } = await getFileTextAndParallels({
+      fileName: this.fileName,
+      limit_collection: this.limitCollection,
+      score: this.score,
+      par_length: this.quoteLength,
+      co_occ: this.cooccurance,
+      active_segment: this.leftActiveSegment,
+    });
+    this.reachedEndOfText = textleft.length !== 200;
+    const newPageText = removeDuplicates(textleft, 'segnr');
+    newPageText.forEach(
+      ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
+    );
+    if (parallels.length >= 1) {
+      parallels.forEach(parallel => {
+        if (parallel) {
+          this.parallels[parallel.id] = parallel;
+        }
+      });
+    }
+    this.textLeft = [...this.textLeft, ...newPageText];
     this.fetchError = error;
     this.fetchLoading = false;
   }
@@ -145,35 +181,35 @@ export class TextViewLeft extends LitElement {
     rootEl.scrollTop = rootElScroll;
   }
 
+  incrementPage() {
+    this.currentPage = this.currentPage + 1;
+  }
+
   async addSegmentObservers() {
-    if (!this.shadowRoot.querySelector('.left-segment')) {
+    const targets = this.shadowRoot.querySelectorAll('.left-segment');
+    if (targets.length === 0 || this.reachedEndOfText) {
       return;
     }
-    const observedCallback = entries => {
-      for (let i = 0; i <= entries.length; i++) {
-        if (entries[i] && entries[i].isIntersecting === true) {
-          this.leftActiveSegment = entries[i].target.id;
-          this.noEndlessScrolling = false;
-          this.currentPosition = parseInt(
-            entries[i].target.getAttribute('number')
-          );
-          break;
-        }
+    const observer = new IntersectionObserver(
+      entries => {
+        console.log({ entries });
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.leftActiveSegment = entry.target.id;
+            this.incrementPage();
+            this.noEndlessScrolling = false;
+            this.currentPosition = parseInt(
+              entry.target.getAttribute('number')
+            );
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        root: this.shadowRoot.querySelector('#left-text-column'),
       }
-    };
-    const observer = new IntersectionObserver(observedCallback, {
-      root: this.shadowRoot.querySelector('#left-text-column'),
-    });
-    const targets = this.shadowRoot.querySelectorAll('.left-segment');
-    if (
-      this.leftActiveSegment !== undefined &&
-      this.leftActiveSegment !== targets[0].id
-    ) {
-      observer.observe(targets[0]);
-    }
-    if (!this.endOfLeftTextFlag) {
-      observer.observe(targets[targets.length - 1]);
-    }
+    );
+    observer.observe(targets[targets.length - 1]);
   }
 
   handleSegmentClick(e) {
@@ -204,17 +240,14 @@ export class TextViewLeft extends LitElement {
     }
 
     selectedWord.classList.add(C_HIGHLIGHTED_SEGMENT);
-    let position = selectedWord.getAttribute('position');
-    let segnr = selectedSegment.id;
-    let parallels = this.textLeftBySegNr[segnr];
-    parallels = parallels.map(parallel => {
-      if (this.parallels[parallel]) {
-        return parallel;
-      }
-    });
-    parallels = parallels.filter(function(el) {
-      return el != null;
-    });
+    const position = selectedWord.getAttribute('position');
+    const segnr = selectedSegment.id;
+    const parallels = this.textLeftBySegNr[segnr]
+      .map(parallel => {
+        if (this.parallels[parallel]) return parallel;
+      })
+      .filter(el => el != null);
+
     this.dispatchEvent(
       new CustomEvent('active-segment-changed', {
         bubbles: true,
@@ -239,6 +272,7 @@ export class TextViewLeft extends LitElement {
   }
 
   render() {
+    console.log({ textLeft: this.textLeft });
     return html`
       ${this.fetchLoading
         ? html`

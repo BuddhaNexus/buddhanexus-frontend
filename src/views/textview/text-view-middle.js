@@ -30,13 +30,13 @@ export class TextViewMiddle extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    console.log('getting new parallels');
+    // console.log('getting new parallels');
     await this.fetchMiddleParallels();
   }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
-    console.log('properties changed: ', _changedProperties);
+    // console.log('properties changed: ', _changedProperties);
     _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [
@@ -47,12 +47,12 @@ export class TextViewMiddle extends LitElement {
           'quoteLength',
         ].includes(propName)
       ) {
-        console.log('left active segment has changed.');
+        // console.log('left active segment has changed.');
         if (this.fetchLoading) {
-          console.log('returning because fetch loading');
+          // console.log('returning because fetch loading');
           return;
         }
-        console.log('getting new parallels');
+        // console.log('getting new parallels');
         await this.fetchMiddleParallels();
         this.fetchLoading = false;
       }
@@ -69,7 +69,7 @@ export class TextViewMiddle extends LitElement {
       limit_collection: this.data.limitCollection,
       co_occ: this.cooccurance,
     });
-    console.log('parallels from backend: ', parallels);
+    // console.log('parallels from backend: ', parallels);
     this.selectedParallels = parallels;
     this.fetchError = error;
     this.fetchLoading = false;
@@ -101,11 +101,11 @@ export class TextViewMiddle extends LitElement {
   }
 
   render() {
-    console.log({
-      data: this.data,
-      fetchLoading: this.fetchLoading,
-      leftActiveSegment: this.leftActiveSegment,
-    });
+    // console.log({
+    //   data: this.data,
+    //   fetchLoading: this.fetchLoading,
+    //   leftActiveSegment: this.leftActiveSegment,
+    // });
     if (!this.leftActiveSegment) {
       return html`
         <span lang="en"

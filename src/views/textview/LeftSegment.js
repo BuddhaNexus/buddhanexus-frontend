@@ -38,8 +38,8 @@ export function LeftSegmentContainer({
   number,
   onClick,
   leftTextData,
-  // currentSegment,
-  // currentPosition,
+  currentSegment,
+  currentPosition,
 }) {
   const lang = getLanguageFromFilename(segmentNr);
   const leftSideSelected =
@@ -54,13 +54,11 @@ export function LeftSegmentContainer({
     leftTextData
   );
 
-  // it looks like this is not used.
-  // todo: Sebastian, please double check it works as expected!
-  // const showLineBreak =
-  //   segmentNr === currentSegment &&
-  //   number > 10 &&
-  //   number < 180 &&
-  //   currentPosition < 100;
+  const showLineBreak =
+    segmentNr === currentSegment &&
+    number > 10 &&
+    number < 180 &&
+    currentPosition < 100;
 
   return LeftSegment({
     segmentNr: segmentNr,
@@ -73,7 +71,7 @@ export function LeftSegmentContainer({
     }),
     number: number,
     displayNumber,
-    showLineBreak: false,
+    showLineBreak,
   });
 }
 

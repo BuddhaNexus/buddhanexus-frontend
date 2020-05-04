@@ -54,6 +54,7 @@ function TextSegmentWords(
   onClick,
   rightMode
 ) {
+  console.log({ inputData });
   let segmentData = inputData;
   if (lang.match(/tib|pli/)) {
     // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
