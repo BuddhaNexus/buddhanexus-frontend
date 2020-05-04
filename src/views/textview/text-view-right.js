@@ -22,7 +22,7 @@ export class TextViewRight extends LitElement {
   @property({ type: Number }) score;
   @property({ type: Object }) rightTextData;
   // local variables
-  @property({ type: String }) activeSegment = 'none';
+  @property({ type: String }) activeSegment = undefined;
   @property({ type: String }) endOfRightTextFlag = false;
   @property({ type: Array }) textRight = [];
   @property({ type: Object }) parallels = {};
@@ -180,7 +180,10 @@ export class TextViewRight extends LitElement {
       return;
     }
     let targets = this.shadowRoot.querySelectorAll('.right-segment');
-    if (this.activeSegment != 'none' && this.activeSegment != targets[0].id) {
+    if (
+      this.activeSegment !== undefined &&
+      this.activeSegment != targets[0].id
+    ) {
       observer.observe(targets[0]);
     }
     if (!this.endOfRightTextFlag) {

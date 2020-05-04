@@ -15,7 +15,6 @@ import './text-view';
 @customElement('text-view-router')
 export class TextViewRouter extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: String }) leftActiveSegment = 'none';
   @property({ type: String }) folio;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
@@ -49,7 +48,6 @@ export class TextViewRouter extends LitElement {
     return html`
       <text-view
         .fileName="${this.fileName}"
-        .leftActiveSegment="${this.activeSegment}"
         .folio="${this.folio}"
         .setFileName="${this.setFileName}"
         .limitCollection="${this.limitCollection}"

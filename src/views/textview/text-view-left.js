@@ -40,7 +40,7 @@ export class TextViewLeft extends LitElement {
       return;
     }
     if (this.leftActiveSegment === undefined) {
-      this.leftActiveSegment = 'none';
+      this.leftActiveSegment = undefined;
       this.fetchDataText();
     } else {
       this.leftTextData = { selectedParallels: [this.leftActiveSegment] };
@@ -49,6 +49,7 @@ export class TextViewLeft extends LitElement {
 
   // TODO - needs refactoring
   updated(_changedProperties) {
+    console.log(_changedProperties);
     _changedProperties.forEach(async (oldValue, propName) => {
       if (propName === 'fileName') {
         this.handleFilenameChanged();
@@ -58,13 +59,13 @@ export class TextViewLeft extends LitElement {
         this.handleLeftTextDataChanged();
       }
       const fileChanged = [
-        'leftActiveSegment',
         'score',
         'cooccurance',
         'quoteLength',
         'limitCollection',
       ].includes(propName);
       if (fileChanged && !this.fetchLoading) {
+        console.log('fetching data.');
         await this.fetchDataText();
       }
       if (propName === 'textLeft') {
@@ -79,7 +80,7 @@ export class TextViewLeft extends LitElement {
   handleFilenameChanged() {
     this.textLeft = [];
     this.parallels = {};
-    this.leftActiveSegment = 'none';
+    this.leftActiveSegment = undefined;
     if (!this.fetchLoading) {
       this.fetchDataText();
     }
@@ -105,10 +106,7 @@ export class TextViewLeft extends LitElement {
       active_segment: this.leftActiveSegment,
     });
     this.endOfLeftTextFlag = textleft.length !== 200;
-    console.log({ textleft });
-    console.log('removing duplicates');
     this.textLeft = removeDuplicates(textleft, 'segnr');
-    console.log(this.textLeft);
     this.textLeftBySegNr = {};
     this.textLeft.forEach(
       ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
@@ -168,7 +166,7 @@ export class TextViewLeft extends LitElement {
     });
     const targets = this.shadowRoot.querySelectorAll('.left-segment');
     if (
-      this.leftActiveSegment !== 'none' &&
+      this.leftActiveSegment !== undefined &&
       this.leftActiveSegment !== targets[0].id
     ) {
       observer.observe(targets[0]);
@@ -241,7 +239,6 @@ export class TextViewLeft extends LitElement {
   }
 
   render() {
-    console.log(this.textLeft);
     return html`
       ${this.fetchLoading
         ? html`

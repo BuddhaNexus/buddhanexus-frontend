@@ -46,7 +46,6 @@ export class TextView extends LitElement {
 
   handleFileNameChanged() {
     this.rightFileName = '';
-    this.middleData = {};
     this.lang = getLanguageFromFilename(this.fileName);
   }
 
@@ -59,14 +58,16 @@ export class TextView extends LitElement {
 
   resetLeftText() {
     this.leftTextData = {
-      selectedParallels: ['none'],
+      selectedParallels: [undefined],
       startoffset: 0,
       endoffset: 0,
     };
   }
 
   setMiddleData(e) {
+    console.log({ middleData: e.detail });
     this.middleData = e.detail;
+    this.leftActiveSegment = e.detail.activeSegment;
   }
 
   handleFolioChanged() {

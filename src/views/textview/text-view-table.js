@@ -16,7 +16,7 @@ export default class TextViewTable extends LitElement {
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
-  @property({ type: String }) leftActiveSegment = 'none';
+  @property({ type: String }) leftActiveSegment;
 
   @property({ type: Function }) toggleMiddleData;
   @property({ type: Function }) highlightLeftAfterScrolling;

@@ -38,32 +38,42 @@ export function LeftSegmentContainer({
   number,
   onClick,
   leftTextData,
-  currentSegment,
-  currentPosition,
+  // currentSegment,
+  // currentPosition,
 }) {
   const lang = getLanguageFromFilename(segmentNr);
   const leftSideSelected =
     leftTextData && leftTextData.selectedParallels.indexOf(segmentNr) > -1;
+  const displayNumber = `${segmentNr.split(':')[1].split('_')[0]}`;
+  const colorValues = getLeftSegmentColors(
+    current_parallels,
+    segText,
+    segmentNr,
+    lang,
+    leftSideSelected,
+    leftTextData
+  );
+
+  // it looks like this is not used.
+  // todo: Sebastian, please double check it works as expected!
+  // const showLineBreak =
+  //   segmentNr === currentSegment &&
+  //   number > 10 &&
+  //   number < 180 &&
+  //   currentPosition < 100;
 
   return LeftSegment({
     segmentNr: segmentNr,
     segText: TextSegment({
-      inputData: segText,
-      lang: lang,
-      colorValues: getLeftSegmentColors(
-        current_parallels,
-        segText,
-        segmentNr,
-        lang,
-        leftSideSelected,
-        leftTextData
-      ),
+      lang,
+      colorValues,
       onClick,
+      inputData: segText,
       highlightMode: leftSideSelected ? 1 : 0,
     }),
     number: number,
-    currentSegment: currentSegment,
-    currentPosition: currentPosition,
+    displayNumber,
+    showLineBreak: false,
   });
 }
 
@@ -71,18 +81,9 @@ export function LeftSegment({
   segmentNr,
   segText,
   number,
-  currentSegment,
-  currentPosition,
+  displayNumber,
+  showLineBreak,
 }) {
-  const displayNumber = `${segmentNr.split(':')[1].split('_')[0]}`;
-  const showLineBreak =
-    segmentNr === currentSegment &&
-    number > 10 &&
-    number < 180 &&
-    currentPosition < 100;
   // prettier-ignore
-  return html`
-    ${showLineBreak ? html`<br />` : null }
-    <span class="left-segment" title=${displayNumber} id=${segmentNr} number="${number}">${segText}</span>
-  `
+  return html`${showLineBreak ? html`<br />` : null}<span class="left-segment" title=${displayNumber} id=${segmentNr} number="${number}">${segText}</span>`
 }
