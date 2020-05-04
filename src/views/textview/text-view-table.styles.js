@@ -62,7 +62,7 @@ export default css`
     // TODO: uncomment if there's issues with scrolling
     // overscroll-behavior: none;
     overflow-wrap: break-word;
-    font-size: 1em;
+    font-size: 1.1em;
     line-height: 1.5em;
   }
 
