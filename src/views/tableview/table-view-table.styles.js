@@ -62,14 +62,6 @@ export default css`
     word-break: break-word;
   }
 
-  .horizontal-divider {
-    height: 1px;
-    width: 100%;
-    background-color: var(--color-divider);
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
-
   .open-link-icon {
     float: right;
     width: 18px;

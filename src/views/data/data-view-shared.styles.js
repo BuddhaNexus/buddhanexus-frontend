@@ -96,4 +96,12 @@ export default css`
     border: 1px solid #e0e0e0;
     border-radius: 4px;
   }
+
+  .horizontal-divider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-divider);
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
 `;

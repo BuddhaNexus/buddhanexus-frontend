@@ -47,12 +47,9 @@ export class TextViewMiddle extends LitElement {
           'quoteLength',
         ].includes(propName)
       ) {
-        // console.log('left active segment has changed.');
         if (this.fetchLoading) {
-          // console.log('returning because fetch loading');
           return;
         }
-        // console.log('getting new parallels');
         await this.fetchMiddleParallels();
         this.fetchLoading = false;
       }
@@ -69,11 +66,9 @@ export class TextViewMiddle extends LitElement {
       limit_collection: this.data.limitCollection,
       co_occ: this.cooccurance,
     });
-    // console.log('parallels from backend: ', parallels);
     this.selectedParallels = parallels;
     this.fetchError = error;
     this.fetchLoading = false;
-    // this.requestUpdate();
   }
 
   clickedParallel(e) {
@@ -120,6 +115,7 @@ export class TextViewMiddle extends LitElement {
     let positionFlag = 0;
     let parallelCounter = 0;
     let parallels = [...this.selectedParallels];
+
     if (parallels) {
       parallels = sortByKey(parallels, 'score');
       parallels = parallels.reverse();
@@ -187,7 +183,7 @@ export class TextViewMiddle extends LitElement {
           selectedParallelsText = html`
             ${selectedParallelsText}
             <div
-              class="selected-parallel"
+              class="selected-parallel material-card"
               activeSegments="${rootSegnrText}"
               rootOffsetBegin="${rootOffsetBegin}"
               rootOffsetEnd="${rootOffsetEnd}"
@@ -210,6 +206,7 @@ export class TextViewMiddle extends LitElement {
               <span class="co-occurance"
                 >Co-occurance: ${parallels[i]['co-occ']} </span
               ><br />
+              <div class="horizontal-divider"></div>
               ${segnrText}
             </div>
           `;
