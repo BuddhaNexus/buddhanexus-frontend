@@ -44,7 +44,7 @@ export class DataView extends LitElement {
   }
 
   connectedCallback() {
-      super.connectedCallback();
+    super.connectedCallback();
     this.updateViewModeParamInUrl();
     this.setFileParamFromPath();
     this.setCurrentLanguageFromPath();
@@ -52,15 +52,15 @@ export class DataView extends LitElement {
 
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
-      this.handleViewModeParamChanged();
+    this.handleViewModeParamChanged();
     this.cooccurance = this.language === 'pli' ? 15 : 2000;
     this.quoteLength = this.language === 'chn' ? 7 : 12;
     this.score = this.language === 'chn' ? 30 : 60;
-    this.checkSelectedView();  
+    this.checkSelectedView();
   }
 
-    updated(_changedProperties) {
-	this.checkSelectedView();  
+  updated(_changedProperties) {
+    this.checkSelectedView();
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
@@ -91,18 +91,17 @@ export class DataView extends LitElement {
       this.activeSegment = activeSegment;
     }
   }
-    
-    checkSelectedView(){
-	// 
-	if (this.selectedView === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
-	    this.selectedView = DATA_VIEW_MODES.TEXT;
-	    this.viewMode = DATA_VIEW_MODES.TEXT;
-	    let newUrl = this.location.pathname.replace("neutral","text");
-	    this.location.pathname = newUrl;
-	    history.replaceState({}, null, newUrl);
-	}
+
+  checkSelectedView() {
+    if (this.selectedView === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
+      this.selectedView = DATA_VIEW_MODES.TEXT;
+      this.viewMode = DATA_VIEW_MODES.TEXT;
+      let newUrl = this.location.pathname.replace('neutral', 'text');
+      this.location.pathname = newUrl;
+      history.replaceState({}, null, newUrl);
     }
-    
+  }
+
   setCurrentLanguageFromPath() {
     this.language = this.location.pathname.split('/')[1];
   }
@@ -194,9 +193,8 @@ export class DataView extends LitElement {
     }
     this.location.params.viewMode = newViewMode;
   };
-    
-    handleViewModeChanged = newViewMode => {
 
+  handleViewModeChanged = newViewMode => {
     if (newViewMode === this.viewMode) {
       return;
     }
@@ -207,7 +205,7 @@ export class DataView extends LitElement {
     if (this.fileName) {
       this.applyFilter();
     }
-    };
+  };
 
   applyFilter() {
     this.selectedView = this.viewMode;
