@@ -7,11 +7,6 @@ import styles from './text-view-table.styles';
 import { LeftSegmentContainer } from './LeftSegment';
 import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
 
-/**
- * TODO:
- * - don't remove previous data when endless loading
- */
-
 @customElement('text-view-left')
 export class TextViewLeft extends LitElement {
   @property({ type: String }) fileName;
@@ -22,6 +17,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: Object }) leftTextData;
   @property({ type: Number }) score;
   @property({ type: String }) leftActiveSegment;
+
   // Local variables
   @property({ type: String }) reachedEndOfText = false;
   @property({ type: Array }) textLeft = [];
@@ -57,7 +53,7 @@ export class TextViewLeft extends LitElement {
       }
 
       if (propName === 'leftTextData') {
-        // this.handleLeftTextDataChanged();
+        this.handleLeftTextDataChanged();
       }
 
       const fileChanged = [
@@ -80,18 +76,10 @@ export class TextViewLeft extends LitElement {
       }
 
       if (propName === 'currentPage') {
-        await this.fetchNextPage();
+        // todo: append text instead of replacing it.
+        await this.fetchNewText();
       }
     });
-  }
-
-  handleFilenameChanged() {
-    this.textLeft = [];
-    this.parallels = {};
-    this.leftActiveSegment = undefined;
-    if (!this.fetchLoading) {
-      this.fetchNewText();
-    }
   }
 
   handleLeftTextDataChanged() {
@@ -101,6 +89,15 @@ export class TextViewLeft extends LitElement {
     this.textLeft = [];
     this.leftActiveSegment = this.leftTextData.selectedParallels[0];
     this.fetchNewText();
+  }
+
+  handleFilenameChanged() {
+    this.textLeft = [];
+    this.parallels = {};
+    this.leftActiveSegment = undefined;
+    if (!this.fetchLoading) {
+      this.fetchNewText();
+    }
   }
 
   async fetchNewText() {
@@ -127,34 +124,6 @@ export class TextViewLeft extends LitElement {
         }
       }
     }
-    this.fetchError = error;
-    this.fetchLoading = false;
-  }
-
-  async fetchNextPage() {
-    console.log('fetching NEXT PAGE');
-    this.fetchLoading = true;
-    const { textleft, parallels, error } = await getFileTextAndParallels({
-      fileName: this.fileName,
-      limit_collection: this.limitCollection,
-      score: this.score,
-      par_length: this.quoteLength,
-      co_occ: this.cooccurance,
-      active_segment: this.leftActiveSegment,
-    });
-    this.reachedEndOfText = textleft.length !== 200;
-    const newPageText = removeDuplicates(textleft, 'segnr');
-    newPageText.forEach(
-      ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
-    );
-    if (parallels.length >= 1) {
-      parallels.forEach(parallel => {
-        if (parallel) {
-          this.parallels[parallel.id] = parallel;
-        }
-      });
-    }
-    this.textLeft = [...this.textLeft, ...newPageText];
     this.fetchError = error;
     this.fetchLoading = false;
   }
