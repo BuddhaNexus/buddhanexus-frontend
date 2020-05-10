@@ -65,7 +65,6 @@ export class TextView extends LitElement {
   }
 
   setMiddleData(e) {
-    console.log({ middleData: e.detail });
     if (e.detail.activeSegment !== this.leftActiveSegment) {
       this.middleData = e.detail;
       this.leftActiveSegment = e.detail.activeSegment;

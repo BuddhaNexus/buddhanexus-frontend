@@ -30,13 +30,11 @@ export class TextViewMiddle extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    // console.log('getting new parallels');
     await this.fetchMiddleParallels();
   }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
-    console.log('middle view: properties changed: ', _changedProperties);
     _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [
@@ -96,11 +94,6 @@ export class TextViewMiddle extends LitElement {
   }
 
   render() {
-    console.log({
-      data: this.data,
-      fetchLoading: this.fetchLoading,
-      leftActiveSegment: this.leftActiveSegment,
-    });
     if (!this.leftActiveSegment) {
       return html`
         <span lang="en"

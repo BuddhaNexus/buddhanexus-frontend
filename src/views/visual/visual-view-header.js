@@ -45,7 +45,6 @@ export class VisualViewHeader extends LitElement {
   }
 
   updated(_changedProperties) {
-    console.log('visual header properties updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'searchItem') {
         this.setTargetCollectionData();
@@ -68,8 +67,6 @@ export class VisualViewHeader extends LitElement {
   }
 
   async fetchData() {
-    console.log('visual chart menu: fetching data');
-
     const { result, error } = await getCollectionsForVisual();
     this.collectionData = result;
     this.fetchError = error;

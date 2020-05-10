@@ -154,7 +154,6 @@ export class VisualViewGraph extends LitElement {
     searchTerm = !searchTerm.includes('acip')
       ? searchTerm.split('_')[1]
       : searchTerm.replace('tib_', '');
-    console.log('visual view: fetching data', this.searchItem);
     let { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,

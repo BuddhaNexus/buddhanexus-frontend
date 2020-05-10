@@ -44,9 +44,7 @@ export class TextViewLeft extends LitElement {
     }
   }
 
-  // TODO - needs refactoring
   updated(_changedProperties) {
-    console.log(_changedProperties);
     _changedProperties.forEach(async (oldValue, propName) => {
       if (propName === 'fileName') {
         this.handleFilenameChanged();
@@ -64,20 +62,20 @@ export class TextViewLeft extends LitElement {
       ].includes(propName);
 
       if (fileChanged && !this.fetchLoading) {
+        console.log('file changed. fetching text');
         await this.fetchNewText();
-        this.addSegmentObservers();
       }
 
       if (propName === 'textLeft') {
+        console.log('adding segment obecrversP');
         await this.addSegmentObservers();
-        if (this.noScrolling && !this.noEndlessScrolling) {
-          this.scrollAfterEndlessReload();
-        }
       }
 
       if (propName === 'currentPage') {
         // todo: append text instead of replacing it.
+        console.log('page changed');
         await this.fetchNewText();
+        this.scrollAfterEndlessReload();
       }
     });
   }
@@ -88,20 +86,19 @@ export class TextViewLeft extends LitElement {
     this.parallels = {};
     this.textLeft = [];
     this.leftActiveSegment = this.leftTextData.selectedParallels[0];
-    this.fetchNewText();
+    // this.fetchNewText();
   }
 
   handleFilenameChanged() {
     this.textLeft = [];
     this.parallels = {};
     this.leftActiveSegment = undefined;
-    if (!this.fetchLoading) {
-      this.fetchNewText();
-    }
+    // if (!this.fetchLoading) {
+    //   this.fetchNewText();
+    // }
   }
 
   async fetchNewText() {
-    console.log('fetching left text data.');
     this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,
@@ -132,12 +129,7 @@ export class TextViewLeft extends LitElement {
     const activeSegment = this.shadowRoot.getElementById(
       this.leftActiveSegment
     );
-    if (
-      !this.noScrolling ||
-      this.noEndlessScrolling ||
-      !this.leftActiveSegment ||
-      !activeSegment
-    ) {
+    if (!activeSegment) {
       return;
     }
     const rootEl = document.querySelector('html');
@@ -154,25 +146,58 @@ export class TextViewLeft extends LitElement {
     this.currentPage = this.currentPage + 1;
   }
 
+  // TODO: Uncomment if this turns out to be needed
+  // async scrollLeftText() {
+  //   if (this.noScrolling) {
+  //     return;
+  //   }
+  //   let selectedSegment = this.shadowRoot.querySelector('.selected-segment');
+  //   if (!selectedSegment) {
+  //     return;
+  //   }
+  //   let parentWindow = this;
+  //   let parentScroll = parentWindow.scrollTop;
+  //   let mainElement = document.querySelector('html');
+  //   let mainElementScroll = mainElement.scrollTop;
+  //   selectedSegment.scrollIntoView();
+  //   parentWindow.scrollTop = parentScroll;
+  //   mainElement.scrollTop = mainElementScroll;
+  //   this.noScrolling = true;
+  //   let allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
+  //
+  //   allSegments.forEach(item => {
+  //     item.classList.remove('selected-segment');
+  //   });
+  //
+  //   this.dispatchEvent(
+  //     new CustomEvent('highlight-left-after-scrolling', {
+  //       bubbles: true,
+  //       composed: true,
+  //       detail: this.leftTextData,
+  //     })
+  //   );
+  // }
+
   async addSegmentObservers() {
+    // this.scrollLeftText();
     const targets = this.shadowRoot.querySelectorAll('.left-segment');
     if (targets.length === 0 || this.reachedEndOfText) {
       return;
     }
     const observer = new IntersectionObserver(
       entries => {
-        console.log({ entries });
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.leftActiveSegment = entry.target.id;
-            this.incrementPage();
-            this.noEndlessScrolling = false;
-            this.currentPosition = parseInt(
-              entry.target.getAttribute('number')
-            );
-            observer.unobserve(entry.target);
+        for (let i = 0; i < entries.length; i++) {
+          let entry = entries[i];
+          if (!entry.isIntersecting) {
+            continue;
           }
-        });
+          this.leftActiveSegment = entry.target.id;
+          this.incrementPage();
+          this.noEndlessScrolling = false;
+          this.currentPosition = parseInt(entry.target.getAttribute('number'));
+          observer.unobserve(entry.target);
+          break;
+        }
       },
       {
         root: this.shadowRoot.querySelector('#left-text-column'),
@@ -243,7 +268,6 @@ export class TextViewLeft extends LitElement {
   }
 
   render() {
-    console.log({ textLeft: this.textLeft });
     return html`
       ${this.fetchLoading
         ? html`
