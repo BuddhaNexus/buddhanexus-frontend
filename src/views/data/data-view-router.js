@@ -4,6 +4,7 @@ import '../numbersview/numbers-view';
 import '../graphview/graph-view';
 import '../textview/text-view';
 import '../tableview/table-view';
+import '../neutralview/neutral-view';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view-router')
@@ -14,7 +15,8 @@ export class DataViewRouter extends LitElement {
   @property({ type: String }) activeSegment;
   @property({ type: Number }) folio;
   @property({ type: String }) searchString;
-  @property({ type: String }) sortMethod;
+    @property({ type: String }) sortMethod;
+    @property({ type: String }) lang;
   @property({ type: Number }) cooccurance;
   @property({ type: Array }) limitCollection;
   @property({ type: Array }) targetCollection;
@@ -22,7 +24,8 @@ export class DataViewRouter extends LitElement {
   @property({ type: Number }) quoteLength;
 
   render() {
-    if (this.selectedView === DATA_VIEW_MODES.TEXT) {
+      if (this.selectedView === DATA_VIEW_MODES.TEXT) {
+	  
       return html`
         <text-view
           id="text-view"
@@ -69,6 +72,13 @@ export class DataViewRouter extends LitElement {
           .searchString="${this.searchString}"
         ></table-view>
       `;
+    } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
+      return html`
+        <neutral-view
+          .lang="${this.lang}"
+        ></neutral-view>
+      `;
+	
     } else {
       return html`
         <h2>Error: No View selected</h2>

@@ -35,7 +35,7 @@ export class DataViewViewSelector extends LitElement {
         @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
       >
         ${Object.values(DATA_VIEW_MODES).map(filter => {
-          if (filter !== 'numbers' || this.language !== 'tib') {
+          if ((filter !== 'numbers' || this.language !== 'tib') && filter !== "neutral") {
             return html`
               <vaadin-radio-button value="${filter}">
                 ${filter}
