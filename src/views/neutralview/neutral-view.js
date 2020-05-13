@@ -7,7 +7,7 @@ import './neutral-view-pali';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './neutral-view.styles';
-
+import { LANGUAGE_CODES } from '../utility/constants';
 
 @customElement('neutral-view')
 export class NeutralView extends LitElement {
@@ -18,22 +18,22 @@ export class NeutralView extends LitElement {
   }
 
   render() {
-    if (this.lang == "skt") {
+    if (this.lang == LANGUAGE_CODES.SANSKRIT) {
       return html`
         <neutral-view-sanskrit></neutral-view-sanskrit>
       `;
     }
-    if (this.lang == "tib") {
+    if (this.lang == LANGUAGE_CODES.TIBETAN) {
       return html`
       <neutral-view-tibetan></neutral-view-tibetan>
       `;
     }
-    if (this.lang == "chn") {
+    if (this.lang == LANGUAGE_CODES.CHINESE) {
       return html`
      <neutral-view-chinese></neutral-view-chinese>
       `;
     }
-    if (this.lang == "pli") {
+    if (this.lang == LANGUAGE_CODES.PALI) {
       return html`
         <neutral-view-pali></neutral-view-pali>
       `;

@@ -20,6 +20,7 @@ import './data-view-header';
 
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
+import { LANGUAGE_CODES } from '../utility/constants';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view')
@@ -96,7 +97,7 @@ export class DataView extends LitElement {
     if (this.selectedView === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
       this.selectedView = DATA_VIEW_MODES.TEXT;
       this.viewMode = DATA_VIEW_MODES.TEXT;
-      let newUrl = this.location.pathname.replace('neutral', 'text');
+      const newUrl = this.location.pathname.replace('neutral', 'text');
       this.location.pathname = newUrl;
       history.replaceState({}, null, newUrl);
     }
