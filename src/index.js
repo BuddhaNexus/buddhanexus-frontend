@@ -52,16 +52,16 @@ export class AppLayout extends LitElement {
           <a class="menu-tab subsite" href="/">
             <vaadin-tab>Home</vaadin-tab>
           </a>
-          <a class="menu-tab subsite" href="/pli/text">
+          <a class="menu-tab subsite" href="/pli/neutral">
             <vaadin-tab>Pali</vaadin-tab>
           </a>
-          <a class="menu-tab subsite" href="/skt/text">
+          <a class="menu-tab subsite" href="/skt/neutral">
             <vaadin-tab>Sanskrit</vaadin-tab>
           </a>
-          <a class="menu-tab subsite" href="/tib/text"
+          <a class="menu-tab subsite" href="/tib/neutral"
             ><vaadin-tab>Tibetan</vaadin-tab></a
           >
-          <a class="menu-tab subsite" href="/chn/text">
+          <a class="menu-tab subsite" href="/chn/neutral">
             <vaadin-tab>Chinese</vaadin-tab>
           </a>
           <a class="menu-tab subsite" href="/visual">

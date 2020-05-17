@@ -19,6 +19,7 @@ import './data-view-header';
 
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
+import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view')
 export class DataView extends LitElement {
@@ -54,9 +55,11 @@ export class DataView extends LitElement {
     this.cooccurance = this.language === 'pli' ? 15 : 2000;
     this.quoteLength = this.language === 'chn' ? 7 : 12;
     this.score = this.language === 'chn' ? 30 : 60;
+    this.checkSelectedView();
   }
 
   updated(_changedProperties) {
+    this.checkSelectedView();
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
@@ -85,6 +88,16 @@ export class DataView extends LitElement {
         this.fileName = fileName;
       }
       this.activeSegment = activeSegment;
+    }
+  }
+
+  checkSelectedView() {
+    if (this.selectedView === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
+      this.selectedView = DATA_VIEW_MODES.TEXT;
+      this.viewMode = DATA_VIEW_MODES.TEXT;
+      const newUrl = this.location.pathname.replace('neutral', 'text');
+      this.location.pathname = newUrl;
+      history.replaceState({}, null, newUrl);
     }
   }
 
@@ -221,6 +234,7 @@ export class DataView extends LitElement {
 
           <data-view-router
             .selectedView="${this.selectedView}"
+            .lang="${this.language}"
             .setFileName="${this.setFileName}"
             .fileName="${this.fileName}"
             .activeSegment="${this.activeSegment}"

@@ -24,6 +24,7 @@ export const DATA_VIEW_MODES = {
   TABLE: 'table',
   NUMBERS: 'numbers',
   GRAPH: 'graph',
+  NEUTRAL: 'neutral',
 };
 
 @customElement('data-view-filters-container')
