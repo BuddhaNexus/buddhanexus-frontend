@@ -6,6 +6,10 @@ export default css`
     height: calc(100vh - 220px);
   }
 
+  vaadin-split-layout div {
+    flex: 1;
+  }
+
   #text-view-search-header {
     padding-bottom: 16px;
     padding-top: 16px;
