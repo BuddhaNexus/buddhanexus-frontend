@@ -151,7 +151,7 @@ const ROUTES = [
     },
   },
   {
-    path: '/visual',
+    path: '/visual/:lang?',
     component: 'visual-view',
     action: () => {
       import('./views/visual/visual-view.js');
@@ -192,13 +192,14 @@ class BNRouter {
     await this.router.setRoutes(ROUTES);
   }
 
-  static selectTab(tabName) {
-    const vaadinTabs = getMainLayout().querySelectorAll('vaadin-tab');
-    vaadinTabs.forEach(item => {
-      item.removeAttribute('selected');
-    });
+    static selectTab(tabName) {
+	// this is commented out because we need to change the menu bar first
+    // const vaadinTabs = getMainLayout().querySelectorAll('vaadin-tab');
+    // vaadinTabs.forEach(item => {
+    //   item.removeAttribute('selected');
+    // });
 
-    vaadinTabs[TABS_IN_ORDER.indexOf(tabName)].setAttribute('selected', 'true');
+    // vaadinTabs[TABS_IN_ORDER.indexOf(tabName)].setAttribute('selected', 'true');
   }
 }
 

@@ -37,6 +37,7 @@
     "@vaadin/vaadin-select": "^2.1.7",
     "@vaadin/vaadin-split-layout": "^4.2.0",
     "@vaadin/vaadin-tabs": "^3.1.0",
+    "@vaadin/vaadin-menu-bar": "^1.1.0",
     "@webcomponents/webcomponentsjs": "^2.4.3",
     "core-js": "^3.6.5",
     "default-passive-events": "^1.0.10",
@@ -71,7 +72,7 @@
     "url-loader": "^3.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3",
+    "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"
   },
   "prettier": {

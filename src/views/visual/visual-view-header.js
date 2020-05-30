@@ -44,7 +44,8 @@ export class VisualViewHeader extends LitElement {
     this.fetchData();
   }
 
-  updated(_changedProperties) {
+    updated(_changedProperties) {
+	console.log("ACTIVE LANGUAGE VISUAL VIEW HEADER",this.activeLanguage);
     console.log('visual header properties updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'searchItem') {
@@ -145,20 +146,6 @@ export class VisualViewHeader extends LitElement {
             ></iron-icon>
           </vaadin-button>
 
-          <vaadin-combo-box
-            id="visual-view-language-dropdown"
-            label="Select Language"
-            item-label-path="label"
-            item-value-path="language"
-            @value-changed="${this.handleLanguageChanged}"
-            .items="${this.languages}"
-          >
-            <template>
-              <strong style="display: inline; margin-bottom: 4px;"
-                >[[item.label]]</strong
-              >
-            </template>
-          </vaadin-combo-box>
 
           ${this.activeLanguage
             ? html`

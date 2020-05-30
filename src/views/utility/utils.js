@@ -37,8 +37,8 @@ export function setLogoPosition(isStart) {
 }
 
 export function setNavbarLinks(isStart) {
-  const navbarStart = getMainLayout().querySelectorAll('a.menu-tab.start');
-  const navbarSubsite = getMainLayout().querySelectorAll('a.menu-tab.subsite');
+  const navbarStart = getMainLayout().querySelectorAll('vaadin-menu-bar.start');
+  const navbarSubsite = getMainLayout().querySelectorAll('vaadin-menu-bar.subsite');
   if (isStart) {
     navbarStart.forEach(item => {
       item.setAttribute('style', 'display: block');

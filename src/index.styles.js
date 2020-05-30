@@ -63,12 +63,16 @@ export default css`
     --material-primary-color: var(--bn-dark-red);
   }
 
-  vaadin-tabs paper-input {
-    position: absolute;
-    display: flex;
-    right: 32px;
-    top: 10%;
+  vaadin-menu-bar {
+    display: flex;    
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;
     color: var(--color-menu-items);
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: white;
+
   }
 
   #search-input {
