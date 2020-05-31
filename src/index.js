@@ -20,36 +20,8 @@ export class AppLayout extends LitElement {
   static get styles() {
     return [styles];
   }
-    navMenuDataSubsite =  [
-	{
-            text: 'Home',
-            children: [
-		{text: 'Example1'
-		},]
-	},
-	{
-            text: 'Pali',
-	    url: 'pli/neutral',
-	},
-	{
-            text: 'Sanskrit',
-	    url: 'skt/neutral',
-	},
-	{
-            text: 'Tibetan',
-	    url: 'tib/neutral',
-	},
-	{
-            text: 'Chinese',
-	    url: 'chn/neutral',
-	},
-	{
-            text: 'Visual Charts',
-	    url: 'visual',
-	},
 
-    ]
-    navMenuDataStart =  [
+    navMenuDataMain =  [
 	{
             text: 'About',
             children: [
@@ -68,16 +40,43 @@ export class AppLayout extends LitElement {
             text: 'Institutions',
 	    url: 'institutions'
 	},
-	{
-            text: 'Events',
-	    url: 'events'
+	// {
+        //     text: 'Events',
+	//     url: 'events'
 	    
-	},
+	// },
+	// {
+        //     text: 'Publications',
+	//     url: 'publications'
+	// },
 	{
-            text: 'Publications',
-	    url: 'publications'
+            text: 'Visual Charts',
+	    url: 'visual'
 	},
 
+    ]
+        navMenuDataLang =  [
+	{
+            text: 'Language',
+            children: [
+	{
+            text: 'Pali',
+	    url: 'pli/neutral',
+	},
+	{
+            text: 'Sanskrit',
+	    url: 'skt/neutral',
+	},
+	{
+            text: 'Tibetan',
+	    url: 'tib/neutral',
+	},
+	{
+            text: 'Chinese',
+	    url: 'chn/neutral',
+	},
+	    ]
+	},
     ]
     handleMenuClick(e){
 	const url = e.detail.value.url;
@@ -113,13 +112,13 @@ export class AppLayout extends LitElement {
           />
         </h1>
 
-<vaadin-menu-bar open-on-hover slot="navbar" class="menu-tab start"
-.items="${this.navMenuDataStart}"
+<vaadin-menu-bar open-on-hover slot="navbar" class="menu-tab main"
+.items="${this.navMenuDataMain}"
 @item-selected="${e => this.handleMenuClick(e)}"
 ></vaadin-menu-bar>
 
-<vaadin-menu-bar open-on-hover slot="navbar" class="menu-tab subsite"
-.items="${this.navMenuDataSubsite}"
+<vaadin-menu-bar open-on-hover slot="navbar" class="menu-tab lang"
+.items="${this.navMenuDataLang}"
 @item-selected="${e => this.handleMenuClick(e)}"
 ></vaadin-menu-bar>
 

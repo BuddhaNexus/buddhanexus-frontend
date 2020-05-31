@@ -126,12 +126,15 @@ export default css`
     color: var(--color-menu-items);
   }
 
-  .menu-tab.start {
+  .menu-tab.main {
     display: block;
+
   }
 
-  .menu-tab.subsite {
-    display: none;
+  .menu-tab.lang {
+    display: block;
+    position: absolute;
+    right: 300px;
   }
 
   #menu-drawer {
