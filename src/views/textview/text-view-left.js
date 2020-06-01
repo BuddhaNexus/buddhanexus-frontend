@@ -28,6 +28,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) currentPage = 0;
   @property({ type: Object }) textLeftBySegNr = {};
+  @property({ type: Boolean }) addedSegmentObservers = false;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -45,6 +46,7 @@ export class TextViewLeft extends LitElement {
   }
 
   updated(_changedProperties) {
+    this.scrollLeftText();
     _changedProperties.forEach(async (oldValue, propName) => {
       if (propName === 'fileName') {
         this.handleFilenameChanged();
@@ -67,15 +69,23 @@ export class TextViewLeft extends LitElement {
       }
 
       if (propName === 'textLeft') {
-        console.log('adding segment obecrversP');
+        console.log({ oldValue });
+        console.log(_changedProperties);
+      }
+
+      if (propName === 'textLeft' && oldValue) {
+        console.log(_changedProperties);
+        console.log({ textLeft: this.textLeft });
+        console.log('adding segment obsesrvers');
         await this.addSegmentObservers();
+        this.scrollAfterEndlessReload();
       }
 
       if (propName === 'currentPage') {
         // todo: append text instead of replacing it.
         console.log('page changed');
         await this.fetchNewText();
-        this.scrollAfterEndlessReload();
+        // this.scrollAfterEndlessReload();
       }
     });
   }
@@ -110,6 +120,7 @@ export class TextViewLeft extends LitElement {
     });
     this.reachedEndOfText = textleft.length !== 200;
     this.textLeft = removeDuplicates(textleft, 'segnr');
+    this.textLeftBySegNr = {};
     this.textLeft.forEach(
       ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
     );
@@ -144,44 +155,47 @@ export class TextViewLeft extends LitElement {
 
   incrementPage() {
     this.currentPage = this.currentPage + 1;
+    this.addedSegmentObservers = false;
   }
 
   // TODO: Uncomment if this turns out to be needed
-  // async scrollLeftText() {
-  //   if (this.noScrolling) {
-  //     return;
-  //   }
-  //   let selectedSegment = this.shadowRoot.querySelector('.selected-segment');
-  //   if (!selectedSegment) {
-  //     return;
-  //   }
-  //   let parentWindow = this;
-  //   let parentScroll = parentWindow.scrollTop;
-  //   let mainElement = document.querySelector('html');
-  //   let mainElementScroll = mainElement.scrollTop;
-  //   selectedSegment.scrollIntoView();
-  //   parentWindow.scrollTop = parentScroll;
-  //   mainElement.scrollTop = mainElementScroll;
-  //   this.noScrolling = true;
-  //   let allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
-  //
-  //   allSegments.forEach(item => {
-  //     item.classList.remove('selected-segment');
-  //   });
-  //
-  //   this.dispatchEvent(
-  //     new CustomEvent('highlight-left-after-scrolling', {
-  //       bubbles: true,
-  //       composed: true,
-  //       detail: this.leftTextData,
-  //     })
-  //   );
-  // }
+  async scrollLeftText() {
+    if (this.noScrolling) {
+      return;
+    }
+    let selectedSegment = this.shadowRoot.querySelector('.selected-segment');
+    if (!selectedSegment) {
+      return;
+    }
+    const parentWindow = this;
+    const parentScroll = parentWindow.scrollTop;
+    const mainElement = document.querySelector('html');
+    const mainElementScroll = mainElement.scrollTop;
+    selectedSegment.scrollIntoView();
+    parentWindow.scrollTop = parentScroll;
+    mainElement.scrollTop = mainElementScroll;
+    this.noScrolling = true;
+    const allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
+
+    allSegments.forEach(item => item.classList.remove('selected-segment'));
+
+    this.dispatchEvent(
+      new CustomEvent('highlight-left-after-scrolling', {
+        bubbles: true,
+        composed: true,
+        detail: this.leftTextData,
+      })
+    );
+  }
 
   async addSegmentObservers() {
     // this.scrollLeftText();
     const targets = this.shadowRoot.querySelectorAll('.left-segment');
-    if (targets.length === 0 || this.reachedEndOfText) {
+    if (
+      targets.length === 0 ||
+      this.reachedEndOfText ||
+      this.addedSegmentObservers
+    ) {
       return;
     }
     const observer = new IntersectionObserver(
@@ -203,9 +217,16 @@ export class TextViewLeft extends LitElement {
         root: this.shadowRoot.querySelector('#left-text-column'),
       }
     );
+    if (
+      this.leftActiveSegment !== 'none' &&
+      this.leftActiveSegment !== targets[0].id
+    ) {
+      observer.observe(targets[0]);
+    }
     observer.observe(
       targets[targets.length > 100 ? targets.length - 20 : targets.length]
     );
+    this.addedSegmentObservers = true;
   }
 
   handleSegmentClick(e) {
