@@ -16,80 +16,77 @@ import BNRouter from './router';
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
-
   static get styles() {
     return [styles];
   }
 
-    navMenuDataMain =  [
-	{
-            text: 'About',
-            children: [
-		{text: 'Example1'
-		},]
-	},
-	{
-            text: 'History',
-	    url: 'history'
-	},
-	{
-            text: 'Guidelines',
-	    url:'guidelines'
-	},
-	{
-            text: 'Institutions',
-	    url: 'institutions'
-	},
-	// {
-        //     text: 'Events',
-	//     url: 'events'
-	    
-	// },
-	// {
-        //     text: 'Publications',
-	//     url: 'publications'
-	// },
-	{
-            text: 'Visual Charts',
-	    url: 'visual'
-	},
+  navMenuDataMain = [
+    {
+      text: 'About',
+      children: [{ text: 'Example1' }],
+    },
+    {
+      text: 'History',
+      url: 'history',
+    },
+    {
+      text: 'Guidelines',
+      url: 'guidelines',
+    },
+    {
+      text: 'Institutions',
+      url: 'institutions',
+    },
+    // {
+    //     text: 'Events',
+    //     url: 'events'
 
-    ]
-        navMenuDataLang =  [
-	{
-            text: 'Language',
-            children: [
-	{
-            text: 'Pali',
-	    url: 'pli/neutral',
-	},
-	{
-            text: 'Sanskrit',
-	    url: 'skt/neutral',
-	},
-	{
-            text: 'Tibetan',
-	    url: 'tib/neutral',
-	},
-	{
-            text: 'Chinese',
-	    url: 'chn/neutral',
-	},
-	    ]
-	},
-    ]
-    handleMenuClick(e){
-	const url = e.detail.value.url;
-	console.log("DATA 1",e.detail.value);
-	//history.pushState({}, null, url); //e.detail.value.text);	
-	window.location.assign(url);
-    }
-    
+    // },
+    // {
+    //     text: 'Publications',
+    //     url: 'publications'
+    // },
+    {
+      text: 'Visual Charts',
+      url: 'visual',
+    },
+  ];
+  navMenuDataLang = [
+    {
+      text: 'Language',
+      children: [
+        {
+          text: 'Pali',
+          url: 'pli/neutral',
+        },
+        {
+          text: 'Sanskrit',
+          url: 'skt/neutral',
+        },
+        {
+          text: 'Tibetan',
+          url: 'tib/neutral',
+        },
+        {
+          text: 'Chinese',
+          url: 'chn/neutral',
+        },
+      ],
+    },
+  ];
+  handleMenuClick({
+    detail: {
+      value: { url },
+    },
+  }) {
+    Router.go(`/${url}`);
+  }
+
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
     disableDrawer();
     // insert router into `<main>` element
-      new BNRouter().init();
+    new BNRouter().init();
   }
 
   navigateToSearch = e => {
@@ -112,16 +109,21 @@ export class AppLayout extends LitElement {
           />
         </h1>
 
-<vaadin-menu-bar open-on-hover slot="navbar" class="menu-tab main"
-.items="${this.navMenuDataMain}"
-@item-selected="${e => this.handleMenuClick(e)}"
-></vaadin-menu-bar>
+        <vaadin-menu-bar
+          open-on-hover
+          .items="${this.navMenuDataMain}"
+          slot="navbar"
+          class="menu-tab main"
+          @item-selected="${e => this.handleMenuClick(e)}"
+        ></vaadin-menu-bar>
 
-<vaadin-menu-bar open-on-hover slot="navbar" class="menu-tab lang"
-.items="${this.navMenuDataLang}"
-@item-selected="${e => this.handleMenuClick(e)}"
-></vaadin-menu-bar>
-
+        <vaadin-menu-bar
+          open-on-hover
+          slot="navbar"
+          class="menu-tab lang"
+          .items="${this.navMenuDataLang}"
+          @item-selected="${e => this.handleMenuClick(e)}"
+        ></vaadin-menu-bar>
 
         <bn-card slot="navbar" small>
           <paper-input
