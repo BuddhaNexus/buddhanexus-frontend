@@ -205,7 +205,6 @@ export class TextViewMiddle extends LitElement {
           `;
         }
       }
-      console.log('SELECTED PARALLELS', selectedParallelsText);
     }
     return html`
       <p class="parallels-text" lang="en">

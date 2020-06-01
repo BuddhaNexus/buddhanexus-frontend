@@ -128,11 +128,21 @@ export class TextView extends LitElement {
     rootOffsetEnd,
     rightMode,
   }) {
+    if (!rootSegments) {
+      return;
+    }
+
     const textContainer = this.shadowRoot
       .getElementById('text-view-table')
       .shadowRoot.getElementById(
         rightMode ? 'text-view-right' : 'text-view-left'
       );
+
+    textContainer.shadowRoot
+      .querySelectorAll(`.${C_HIGHLIGHTED_SEGMENT}`)
+      .forEach(item => {
+        item.classList.remove(C_HIGHLIGHTED_SEGMENT);
+      });
 
     for (let i = 0; i < rootSegments.length; ++i) {
       const segment = textContainer.shadowRoot.getElementById(rootSegments[i]);

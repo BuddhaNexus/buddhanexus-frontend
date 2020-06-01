@@ -96,16 +96,12 @@ export class TextViewLeft extends LitElement {
     this.parallels = {};
     this.textLeft = [];
     this.leftActiveSegment = this.leftTextData.selectedParallels[0];
-    // this.fetchNewText();
   }
 
   handleFilenameChanged() {
     this.textLeft = [];
     this.parallels = {};
     this.leftActiveSegment = undefined;
-    // if (!this.fetchLoading) {
-    //   this.fetchNewText();
-    // }
   }
 
   async fetchNewText() {
