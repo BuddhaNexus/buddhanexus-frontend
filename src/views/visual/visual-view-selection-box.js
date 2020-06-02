@@ -14,6 +14,7 @@ export class VisualViewSelectionBox extends LitElement {
         <div class="main-border">
           <div class="main-content">
  <p>Choose language for the visualization:</p>
+</div>
           <div class="box-languages">
             <a href="/visual/pli" class="link">
               <img
@@ -44,7 +45,6 @@ export class VisualViewSelectionBox extends LitElement {
               /><br /><span class="link-description">Chinese</span></a
             >
           </div>
-</div>
 </div>
 </div>
     `;

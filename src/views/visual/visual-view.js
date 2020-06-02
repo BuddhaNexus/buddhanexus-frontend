@@ -57,14 +57,16 @@ export class VisualView extends LitElement {
 
   render() {
     return html`
+${this.activeLanguage
+            ? null : html`<visual-view-selection-box></visual-view-selection-box>`}
       <div class="visual-view-container">
         <visual-view-header
           .setSelection="${this.setSelection}"
           .setColorScheme="${this.setColorScheme}"
           .activeLanguage="${this.activeLanguage}"
           ></visual-view-header>
-${this.activeLanguage
-            ? null : html`<visual-view-selection-box></visual-view-selection-box>`}
+
+
 
         <visual-view-graph
           .searchItem="${this.searchItem}"
@@ -74,6 +76,7 @@ ${this.activeLanguage
         >
         </visual-view-graph>
       </div>
-    `;
+	  `
   }
+  
 }
