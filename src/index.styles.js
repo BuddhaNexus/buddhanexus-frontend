@@ -188,6 +188,10 @@ export default css`
     min-height: 3em;
   }
 
+  .footer-corner {
+    content: ' ';
+  }
+
   .footer-right {
     text-align: right;
   }

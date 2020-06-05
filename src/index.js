@@ -120,6 +120,7 @@ export class AppLayout extends LitElement {
             </div>
           </div>
           <div class="footer-color">
+            <div class="footer-corner"></div>
             <div class="footer-right">
               <img
                 src="/src/assets/img/tree.png"
