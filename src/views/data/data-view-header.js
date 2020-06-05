@@ -45,6 +45,7 @@ class DataViewHeader extends LitElement {
           pointer-events: auto;
           opacity: 1;
           transition: opacity var(--vaadin-app-layout-transition);
+          color: var(--material-secondary-text-color);
         }
 
         .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open {

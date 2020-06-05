@@ -43,6 +43,7 @@ const ROUTES = [
     action: () => {
       BNRouter.selectTab(TABS.HOME);
       switchNavbarLayout(true);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -50,7 +51,8 @@ const ROUTES = [
     animate: true,
     component: 'history-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -58,7 +60,8 @@ const ROUTES = [
     animate: true,
     component: 'people-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -66,7 +69,8 @@ const ROUTES = [
     animate: true,
     component: 'institutions-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -74,7 +78,8 @@ const ROUTES = [
     animate: true,
     component: 'activities-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -82,7 +87,8 @@ const ROUTES = [
     animate: true,
     component: 'publications-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -90,7 +96,8 @@ const ROUTES = [
     animate: true,
     component: 'guidelines-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -98,7 +105,8 @@ const ROUTES = [
     animate: true,
     component: 'events-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -106,7 +114,8 @@ const ROUTES = [
     animate: true,
     component: 'contact-view',
     action: () => {
-      switchNavbarLayout(true);
+      switchNavbarLayout(false);
+      //      setFooterVisible(true);
     },
   },
   {
@@ -116,6 +125,7 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.PALI);
       switchNavbarLayout(false);
+      //      setFooterVisible(false);
       setLogoSource('/src/assets/img/buddhanexus_pli.jpg');
     },
   },
@@ -126,6 +136,7 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.SANSKRIT);
       switchNavbarLayout(false);
+      //      setFooterVisible(false);
       setLogoSource('/src/assets/img/buddhanexus_skt.jpg');
     },
   },
@@ -137,6 +148,7 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
       switchNavbarLayout(false);
+      //      setFooterVisible(false);
       setLogoSource('/src/assets/img/buddhanexus_tib.jpg');
     },
   },
@@ -147,6 +159,7 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.CHINESE);
       switchNavbarLayout(false);
+      //      setFooterVisible(false);
       setLogoSource('/src/assets/img/buddhanexus_chn.jpg');
     },
   },
@@ -157,6 +170,7 @@ const ROUTES = [
       import('./views/visual/visual-view.js');
       BNRouter.selectTab(TABS.VISUAL);
       switchNavbarLayout(false);
+      //      setFooterVisible(false);
       setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
@@ -167,6 +181,7 @@ const ROUTES = [
     action: () => {
       import('./views/searchview/search-view.js');
       switchNavbarLayout(false);
+      //      setFooterVisible(false);
       setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
@@ -177,6 +192,7 @@ const ROUTES = [
     action: () => {
       import('./views/not-found-view');
       switchNavbarLayout(true);
+      //      setFooterVisible(false);
       setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');
     },

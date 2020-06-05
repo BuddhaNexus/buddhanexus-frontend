@@ -113,3 +113,8 @@ export function switchNavbarLayout(isLargeNavbar) {
   setFooterVisibility(isLargeNavbar);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }
+/*
+export function setFooterVisible(isVisible) {
+//  setFooterVisibility(isVisible);
+}
+*/

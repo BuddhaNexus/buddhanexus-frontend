@@ -190,6 +190,7 @@ export default css`
 
   .footer-corner {
     content: ' ';
+    background: #221f19;
   }
 
   .footer-right {

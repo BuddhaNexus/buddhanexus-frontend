@@ -13,7 +13,10 @@ export class HistoryView extends LitElement {
       <div class="static-page-container">
         <div class="main-border">
           <div class="main-content">
-            <p class="construction">HISTORY PAGE</p>
+            <h1>HISTORY PAGE</h1>
+            <p>
+              Content - Lorem ipsum
+            </p>
           </div>
         </div>
       </div>
