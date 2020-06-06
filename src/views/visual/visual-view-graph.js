@@ -32,7 +32,8 @@ export class VisualViewGraph extends LitElement {
     return [styles];
   }
 
-  updated(_changedProperties) {
+    updated(_changedProperties) {
+
     _changedProperties.forEach((oldValue, propName) => {
       if (
         ['searchItem', 'selectedCollections'].includes(propName) &&
