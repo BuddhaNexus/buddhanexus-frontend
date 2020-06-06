@@ -36,7 +36,6 @@ export function setLogoPosition(isStart) {
   }
 }
 
-
 function setLogoVisibility(isVisible) {
   const logo = getMainLayout().querySelector('.logo-buddhanexus');
   if (!isVisible) {
@@ -84,13 +83,13 @@ export function closeDrawer() {
   getMainLayout().querySelector('vaadin-app-layout').drawerOpened = false;
 }
 
-export function switchNavbarLayout(isLargeNavbar) {
+export function switchNavbarLayout(isLargeNavbar, isVisibleFooter) {
   closeDrawer();
   setNavigationDrawerVisibility(!isLargeNavbar);
   setLogoVisibility(!isLargeNavbar);
   setNavbarFixed(!isLargeNavbar);
   setLogoPosition(isLargeNavbar);
-  setFooterVisibility(isLargeNavbar);
+  setFooterVisibility(isVisibleFooter);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }
 /*

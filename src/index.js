@@ -23,29 +23,62 @@ export class AppLayout extends LitElement {
   navMenuDataMain = [
     {
       text: 'About',
-      children: [{ text: 'Example1' }],
+      url: 'about',
+      children: [
+        {
+          text: ' Introduction',
+          url: 'introduction',
+        },
+        {
+          text: ' History',
+          url: 'history',
+        },
+      ],
     },
     {
-      text: 'History',
-      url: 'history',
+      text: 'Community',
+      url: 'community',
+      children: [
+        {
+          text: ' Institutions',
+          url: 'institutions',
+        },
+        {
+          text: ' People',
+          url: 'people',
+        },
+      ],
+    },
+    {
+      text: 'News',
+      url: 'news',
     },
     {
       text: 'Guidelines',
       url: 'guidelines',
     },
     {
-      text: 'Institutions',
-      url: 'institutions',
+      text: 'Activities',
+      url: 'Activities',
+      children: [
+        {
+          text: ' Events',
+          url: 'events',
+        },
+        {
+          text: ' Projects',
+          url: 'projects',
+        },
+        {
+          text: ' Presentations',
+          url: 'presentations',
+        },
+      ],
     },
-    // {
-    //     text: 'Events',
-    //     url: 'events'
-
-    // },
-    // {
-    //     text: 'Publications',
-    //     url: 'publications'
-    // },
+    {
+      text: 'Publications',
+      url: 'publications',
+    },
     {
       text: 'Visual Charts',
       url: 'visual',

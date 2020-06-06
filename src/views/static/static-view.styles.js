@@ -63,12 +63,12 @@ export default css`
   }
 
   .static-page-container a.link {
-    color: #fff;
+    color: #7d6f57;
     text-decoration: none;
   }
 
   .static-page-container a.link:hover {
-    color: #ccc;
+    color: #4d3f27;
     text-decoration: underline;
   }
 
@@ -76,44 +76,13 @@ export default css`
     padding-top: 0.4em;
   }
 
-  .popup {
-    display: none;
-    position: fixed;
-    top: 0px;
-    width: 80%;
-    min-height: 20%;
-    margin: 10%;
-    background: var(--material-popup-back);
-    box-shadow: 0.3em 0.3em 0.9em rgba(0, 0, 0, 0.4);
-    border-top: 8px solid #221f19;
-    z-index: 100;
-    overflow: hidden;
+  .menu-tab.main button {
+    color: #fff;
   }
 
-  .popup-close {
-    font-size: 2em;
-    float: right;
-    cursor: pointer;
-    color: var(--material-popup-close-x);
-    line-height: 0.2em;
-  }
-
-  .popup-head {
-    padding: 0.8em;
-    height: 0.8em;
-    position: absolute;
-    right: 0;
-    background: var(--material-popup-close);
-  }
-
-  .popup-content {
-    padding: 1.3em 2.5em 1em 1.5em;
-    overflow-y: scroll;
-    height: 300px;
-  }
-
-  .popup-footer {
-    height: 10px;
+  table.activity td {
+    padding: 0 0.8em 0.6em 0;
+    vertical-align: top;
   }
 
   .box-languages {

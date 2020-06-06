@@ -63,16 +63,12 @@ export default css`
     --material-primary-color: var(--bn-dark-red);
   }
 
-  vaadin-menu-bar {
-    display: flex;    
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-    overflow: hidden;
+  vaadin-tabs paper-input {
+    position: absolute;
+    display: flex;
+    right: 32px;
+    top: 10%;
     color: var(--color-menu-items);
-    --material-primary-color: var(--bn-dark-red);
-    --material-primary-text-color: white;
-
   }
 
   #search-input {
@@ -126,15 +122,12 @@ export default css`
     color: var(--color-menu-items);
   }
 
-  .menu-tab.main {
+  .menu-tab.start {
     display: block;
-
   }
 
-  .menu-tab.lang {
-    display: block;
-    position: absolute;
-    right: 300px;
+  .menu-tab.subsite {
+    display: none;
   }
 
   #menu-drawer {
