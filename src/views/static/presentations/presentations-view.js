@@ -27,15 +27,6 @@ export class PresentationsView extends LitElement {
                 <td>2019</td><td>Orna Almogi. “The Formation of the ‘Treatises in [Tibetan] Translation’ (bsTan ’gyur): Some Milestones.” Kyoto University, February 12, 2019.</td>
               </tr>
               <tr>
-                <td>2018</td><td>Orna Almogi, Dorji Wangchuk, Kiyonori Nagasaki, and Sebastian Nehrdich. “Digital Devices for Studying the Evolution of Scriptures and Formation of Canons.” 25.09.2018. Conference Evolution of Scriptures, Formation of Canons, Tokyo, September 24–25.</td>
-              </tr>
-              <tr>
-                <td>2018</td><td>Orna Almogi. “Editors as Canon-Makers: The Formation of the Tibetan Buddhist Canon in View of Its Editors’ Agendas.” 25.09.2018. Conference: “Evolution of Scriptures, Formation of Canons.” Tokyo, September 24–25.</td>
-              </tr>
-              <tr>
-                <td>2017</td><td>Orna Almogi. “The Evolution of the Ancient Tantras and the Formation of the rNying ma rgyud ʼbum: The State of Affairs.” Circle of Tibetan and Himalayan Studies. SOAS, University of London, November 17, 2017.</td>
-              </tr>
-              <tr>
                 <td>2017</td><td>Orna Almogi. “The Making of Canons: Means of Reaching a (Forced) Consensus.” Tokyo University, October 13, 2017.</td>
               </tr>
               <tr>
