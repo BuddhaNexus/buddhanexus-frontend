@@ -111,12 +111,8 @@ export class AppLayout extends LitElement {
         <footer>
           <div class="footer-bar">
             <div class="footer-bar-content">
-              <a href="/history" class="link">HISTORY</a>
-              <a href="/people" class="link">PEOPLE</a>
-              <a href="/institutions" class="link">INSTITUTIONS</a>
-              <a href="/activities" class="link">ACTIVITIES</a>
-              <a href="/publications" class="link">PUBLICATIONS</a>
-              <a href="/contact" class="link">CONTACT / IMPRINT</a>
+              <a href="/contact" class="link">CONTACT</a>
+              <a href="/imprint" class="link">IMPRINT</a>
             </div>
           </div>
           <div class="footer-color">
