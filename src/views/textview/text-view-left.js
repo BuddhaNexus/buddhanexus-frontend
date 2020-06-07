@@ -52,8 +52,7 @@ export class TextViewLeft extends LitElement {
         this.handleFilenameChanged();
       }
 
-	if (propName === 'leftTextData') {
-	    console.log("TEXTLEFTDATA CHANGED");
+      if (propName === 'leftTextData') {
         this.handleLeftTextDataChanged();
       }
 
@@ -69,16 +68,12 @@ export class TextViewLeft extends LitElement {
         await this.fetchNewText();
       }
 
-	if (propName === 'textLeft') {
-
+      if (propName === 'textLeft') {
         console.log({ oldValue });
         console.log(_changedProperties);
       }
 
       if (propName === 'textLeft' && oldValue) {
-        console.log(_changedProperties);
-        console.log({ textLeft: this.textLeft });
-        console.log('adding segment obsesrvers');
         await this.addSegmentObservers();
         this.scrollAfterEndlessReload();
       }
@@ -97,8 +92,8 @@ export class TextViewLeft extends LitElement {
     this.noEndlessScrolling = true;
     this.parallels = {};
     this.textLeft = [];
-      this.leftActiveSegment = this.leftTextData.selectedParallels[0];
-      this.fetchNewText();
+    this.leftActiveSegment = this.leftTextData.selectedParallels[0];
+    this.fetchNewText();
   }
 
   handleFilenameChanged() {
@@ -107,9 +102,9 @@ export class TextViewLeft extends LitElement {
     this.leftActiveSegment = undefined;
   }
 
-    async fetchNewText() {
-	console.log("FETCHING NEW TEXT DATA");
-      this.fetchLoading = true;
+  async fetchNewText() {
+    console.log('FETCHING NEW TEXT DATA');
+    this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,
       limit_collection: this.limitCollection,

@@ -25,6 +25,13 @@ export default css`
     padding: 12px 48px 48px;
   }
 
+  @media screen and (max-width: 900px) {
+    data-view-router {
+      font-size: 0.9em;
+      padding: 12px;
+    }
+  }
+
   .data-view__main-container bn-card {
     margin-right: auto;
   }

@@ -27,6 +27,14 @@ export class Card extends LitElement {
           flex-wrap: wrap;
         }
 
+        @media screen and (max-width: 900px) {
+          .card--header {
+            padding: 12px 16px;
+            font-size: 0.8em;
+            position: sticky;
+          }
+        }
+
         .card--light {
           background-color: var(--color-background-lighter);
         }
