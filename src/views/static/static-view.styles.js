@@ -62,12 +62,12 @@ export default css`
     cursor: pointer;
   }
 
-  .static-page-container a.link {
+  .static-page-container a.content-link {
     color: #7d6f57;
     text-decoration: none;
   }
 
-  .static-page-container a.link:hover {
+  .static-page-container a.content-link:hover {
     color: #4d3f27;
     text-decoration: underline;
   }

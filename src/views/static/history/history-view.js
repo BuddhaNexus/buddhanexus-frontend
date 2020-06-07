@@ -18,26 +18,26 @@ export class HistoryView extends LitElement {
               BuddhaNexus is an initiative of the
               <a
                 target="_blank"
-                class="link"
+                class="content-link"
                 href="https://www.kc-tbts.uni-hamburg.de/"
                 >Khyentse Center</a
               >
               that pools the efforts and results of several projects and
               individual research. “<a
                 target="_blank"
-                class="link"
+                class="content-link"
                 href="https://www.kc-tbts.uni-hamburg.de/research/projects.html"
                 >Scholars and Scribes</a
               >,” a collaborative project of the
               <a
                 target="_blank"
-                class="link"
+                class="content-link"
                 href="https://www.kc-tbts.uni-hamburg.de/"
                 >Khyentse Center</a
               >, Universität Hamburg (Orna Almogi, Dorji Wangchuk) and
               <a
                 target="_blank"
-                class="link"
+                class="content-link"
                 href="https://en-exact-sciences.tau.ac.il/computer"
                 >The Blavatnik School of Computer Science</a
               >, Tel Aviv University (Nachum Dershowitz, Lior Wolf) funded by
@@ -76,7 +76,10 @@ export class HistoryView extends LitElement {
               technical aspect of which was entrusted to Sebastian Nehrdich
               under the conceptual guidance of Orna Almogi and Dorji Wangcuk.
               Since 2019, Nehrdich has been assisted by Ven. Ayya Vimala of
-              <a target="_blank" class="link" href="https://suttacentral.net/"
+              <a
+                target="_blank"
+                class="content-link"
+                href="https://suttacentral.net/"
                 >SuttaCentral</a
               >, a project focusing on Pāli texts, and Hubert Dworczyński
               (financed by the Khyentse Center).
@@ -87,7 +90,7 @@ export class HistoryView extends LitElement {
               was initiated with the
               <a
                 target="_blank"
-                class="link"
+                class="content-link"
                 href="https://www.dhii.jp/index-e.html"
                 >International Institute for Digital Humanities</a
               >
