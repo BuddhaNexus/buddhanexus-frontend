@@ -21,11 +21,11 @@ export class SideSheet extends LitElement {
 
         .side-sheet__content {
           height: 100%;
+          max-height: calc(100vh - var(--header-height));
 
           overflow-y: scroll;
           padding-left: 16px;
           padding-right: 16px;
-          padding-top: 20px;
         }
 
         .side-sheet__title {

@@ -35,6 +35,12 @@ class DataViewSubheader extends LitElement {
           cursor: pointer;
         }
 
+        @media screen and (max-width: 900px) {
+          .info-button {
+            padding: 12px;
+          }
+        }
+
         vaadin-button {
           background-color: var(--bn-dark-red);
           color: rgba(0, 0, 0, 0.54);

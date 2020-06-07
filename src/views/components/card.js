@@ -14,6 +14,7 @@ export class Card extends LitElement {
           border-radius: 4px;
           background-color: var(--color-light-grey);
           box-shadow: var(--material-card-shadow);
+          height: inherit;
         }
 
         .card--small {

@@ -23,12 +23,12 @@ export class TextViewSearch extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (['searchString'].includes(propName)) {
-        this.fetchDataText();
+        this.fetchSearchResultsData();
       }
     });
   }
 
-  async fetchDataText() {
+  async fetchSearchResultsData() {
     if (!this.fileName) {
       this.fetchLoading = false;
       return;
@@ -43,7 +43,7 @@ export class TextViewSearch extends LitElement {
     this.fetchError = error;
   }
 
-  clickedResult(e) {
+  handleSearchResultClicked(e) {
     let target = e.target;
     if (!target.getAttribute('segment')) {
       target = target.parentElement;
@@ -51,20 +51,21 @@ export class TextViewSearch extends LitElement {
         target = target.parentElement;
       }
     }
-    let segment = target.getAttribute('segment');
-    let beg = parseInt(target.getAttribute('beg'));
-    let end = parseInt(target.getAttribute('end'));
-    this.dispatchEvent(
-      new CustomEvent('click-result', {
-        bubbles: true,
-        composed: true,
-        detail: {
-          selectedParallels: [segment],
-          startoffset: beg,
-          endoffset: end,
-        },
-      })
-    );
+    const segment = target.getAttribute('segment');
+    const beg = parseInt(target.getAttribute('beg'));
+    const end = parseInt(target.getAttribute('end'));
+    const searchResultClickedEvent = new CustomEvent('click-result', {
+      bubbles: true,
+      composed: true,
+      // pass leftTextData from clicked segment.
+      // TODO: refactor so that this would navigates to a URL instead of firing an event
+      detail: {
+        selectedParallels: [segment],
+        startoffset: beg,
+        endoffset: end,
+      },
+    });
+    this.dispatchEvent(searchResultClickedEvent);
   }
 
   render() {
@@ -88,28 +89,20 @@ export class TextViewSearch extends LitElement {
         >
       </div>
       <div id="text-view-search-content">
-        ${showResultList(
-          this.resultSegments,
-          this.searchString,
-          this.clickedResult
+        ${this.resultSegments.map(segment =>
+          ResultSegmentContainer(
+            segment.segnr,
+            segment.segtext,
+            this.searchString,
+            this.handleSearchResultClicked
+          )
         )}
       </div>
     `;
   }
 }
 
-function showResultList(resultSegments, searchString, clickFunction) {
-  return resultSegments.map(segment =>
-    resultSegmentContainer(
-      segment.segnr,
-      segment.segtext,
-      searchString,
-      clickFunction
-    )
-  );
-}
-
-function resultSegmentContainer(
+function ResultSegmentContainer(
   segmentNr,
   segText,
   searchString,

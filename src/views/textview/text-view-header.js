@@ -152,8 +152,7 @@ export class TextViewHeader extends LitElement {
           color: #0f0;
         }
 
-        .swap-button,
-        .info-button {
+        .swap-button {
           padding: 0;
           right: 16px;
           display: inline-flex;
@@ -162,6 +161,13 @@ export class TextViewHeader extends LitElement {
           margin-left: 12px;
           background-color: transparent;
           cursor: pointer;
+        }
+
+        @media screen and (max-width: 900px) {
+          #text-view-header {
+            padding-bottom: 8px;
+            padding-top: 8px;
+          }
         }
       `,
     ];
