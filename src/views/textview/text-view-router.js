@@ -5,6 +5,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 
 import './text-view-search';
 import './text-view';
+import { DATA_VIEW_MODES } from '../data/data-view-filters-container';
 
 /**
  * TODO
@@ -27,20 +28,22 @@ export class TextViewRouter extends LitElement {
   @property({ type: Object }) middleData = {};
   @property({ type: Object }) leftTextData;
   @property({ type: String }) lang;
+  @property({ type: String }) selectedView;
+  @property({ type: Function }) setSelectedView;
 
-  updateTextBySearch(e) {
+  handleSearchResultClicked(e) {
     this.leftTextData = e.detail;
-    this.searchString = null;
+    this.setSelectedView(DATA_VIEW_MODES.TEXT);
   }
 
   render() {
-    if (this.searchString) {
+    if (this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH) {
       return html`
         <text-view-search
-          lang="${this.lang}"
+          .lang="${this.lang}"
           .fileName="${this.fileName}"
           .searchString="${this.searchString}"
-          @click-result="${this.updateTextBySearch}"
+          @click-result="${this.handleSearchResultClicked}"
         ></text-view-search>
       `;
     }

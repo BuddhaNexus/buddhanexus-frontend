@@ -64,13 +64,7 @@ export class TextViewLeft extends LitElement {
       ].includes(propName);
 
       if (fileChanged && !this.fetchLoading) {
-        console.log('file changed. fetching text');
         await this.fetchNewText();
-      }
-
-      if (propName === 'textLeft') {
-        console.log({ oldValue });
-        console.log(_changedProperties);
       }
 
       if (propName === 'textLeft' && oldValue) {
@@ -80,7 +74,6 @@ export class TextViewLeft extends LitElement {
 
       if (propName === 'currentPage') {
         // todo: append text instead of replacing it.
-        console.log('page changed');
         await this.fetchNewText();
         // this.scrollAfterEndlessReload();
       }
@@ -103,7 +96,6 @@ export class TextViewLeft extends LitElement {
   }
 
   async fetchNewText() {
-    console.log('FETCHING NEW TEXT DATA');
     this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,

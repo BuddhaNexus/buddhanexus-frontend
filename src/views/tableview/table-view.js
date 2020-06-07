@@ -129,7 +129,6 @@ export class TableView extends LitElement {
 
   async fetchNextPage() {
     if (!this.fetchLoading && !this.endReached) {
-      console.debug('fetching next page: ', this.pageNumber);
       this.fetchLoading = true;
       this.pageNumber = this.pageNumber + 1;
       await this.fetchData(this.pageNumber);

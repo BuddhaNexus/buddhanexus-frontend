@@ -169,7 +169,8 @@ export class DataViewHeaderFields extends LitElement {
       return false;
     }
     if (
-      this.viewMode === DATA_VIEW_MODES.TEXT &&
+      (this.viewMode === DATA_VIEW_MODES.TEXT ||
+        this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH) &&
       (this.language !== LANGUAGE_CODES.PALI ||
         this.fileName.match('([as]n[0-9]|dhp)'))
     ) {
@@ -180,7 +181,9 @@ export class DataViewHeaderFields extends LitElement {
 
   render() {
     const shouldShowTextSearchBox =
-      this.viewMode === DATA_VIEW_MODES.TEXT && this.fileName;
+      (this.viewMode === DATA_VIEW_MODES.TEXT ||
+        this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH) &&
+      this.fileName;
     const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
 
     return html`
@@ -214,8 +217,13 @@ export class DataViewHeaderFields extends LitElement {
               placeholder="Search in Inquiry Text"
               class="search-box"
               type="search"
-              @change="${this.updateSearch}"
               no-label-float
+              @change="${e => this.updateSearch(e.target.value)}"
+              @keydown="${e => {
+                if (e.code === 'Enter') {
+                  this.updateSearch(e.target.value);
+                }
+              }}"
             >
               <div slot="prefix">
                 <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>

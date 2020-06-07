@@ -10,6 +10,7 @@ import { DATA_VIEW_MODES } from './data-view-filters-container';
 @customElement('data-view-router')
 export class DataViewRouter extends LitElement {
   @property({ type: String }) selectedView;
+  @property({ type: Function }) setSelectedView;
   @property({ type: String }) fileName;
   @property({ type: Function }) setFileName;
   @property({ type: Number }) folio;
@@ -23,7 +24,10 @@ export class DataViewRouter extends LitElement {
   @property({ type: Number }) quoteLength;
 
   render() {
-    if (this.selectedView === DATA_VIEW_MODES.TEXT) {
+    if (
+      this.selectedView === DATA_VIEW_MODES.TEXT ||
+      this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH
+    ) {
       return html`
         <text-view-router
           .fileName="${this.fileName}"
@@ -34,6 +38,8 @@ export class DataViewRouter extends LitElement {
           .cooccurance="${this.cooccurance}"
           .score="${this.score}"
           .searchString="${this.searchString}"
+          .selectedView="${this.selectedView}"
+          .setSelectedView="${this.setSelectedView}"
         ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {

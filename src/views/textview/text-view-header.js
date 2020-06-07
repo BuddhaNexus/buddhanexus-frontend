@@ -136,6 +136,12 @@ export class TextViewHeader extends LitElement {
           color: rgba(0, 0, 0, 0.54);
         }
 
+        .text-name-label {
+          color: var(--color-text-secondary);
+          font-weight: 500;
+          font-size: 0.8em;
+        }
+
         vaadin-button {
           background-color: transparent;
           color: var(--color-menu-items);
@@ -161,6 +167,11 @@ export class TextViewHeader extends LitElement {
           margin-left: 12px;
           background-color: transparent;
           cursor: pointer;
+        }
+
+        .formatted-file-name {
+          font-size: 1.05em;
+          margin-left: 8px;
         }
 
         @media screen and (max-width: 900px) {
@@ -205,7 +216,8 @@ export class TextViewHeader extends LitElement {
     return html`
       <div id="text-view-header">
         <div id="text-view-header-left">
-          Inquiry Text ${FormattedFileName({ fileName: this.fileName })}
+          <span class="text-name-label">Inquiry Text: </span>
+          ${FormattedFileName({ fileName: this.fileName })}
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,

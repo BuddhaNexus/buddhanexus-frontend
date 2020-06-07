@@ -143,38 +143,40 @@ export class TextView extends LitElement {
       .forEach(item => {
         item.classList.remove(C_HIGHLIGHTED_SEGMENT);
       });
-      console.log("CURENT ROOTSEGMENTs",rootSegments);
-      for (let i = 0; i < rootSegments.length; ++i) {
-	const segment = textContainer.shadowRoot.getElementById(rootSegments[i]);
+    for (let i = 0; i < rootSegments.length; ++i) {
+      const segment = textContainer.shadowRoot.getElementById(rootSegments[i]);
       const words = segment ? segment.getElementsByClassName('word') : null;
       for (let j = 0; j <= words.length; ++j) {
         let word = words[j];
-          if (word && word.hasAttribute('position')) {
-              const position = parseInt(word.getAttribute('position'));
-              if (
-		  rootSegments[0] === rootSegments[i] &&
-		      position >= rootOffsetBegin
-              ) {
-		  word.classList.add(C_HIGHLIGHTED_SEGMENT);
-              }
-              if (rootSegments.slice(1, -1).indexOf(rootSegments[i]) > -1) {
-		  word.classList.add(C_HIGHLIGHTED_SEGMENT);
-              }
-              if (rootSegments.slice(-1)[0] === rootSegments[i]) {
-		  if (position > rootOffsetEnd) {
-		      word.classList.remove(C_HIGHLIGHTED_SEGMENT);
-		  } else {
-		      word.classList.add(C_HIGHLIGHTED_SEGMENT);
-		  }
-              }
-              if (rootSegments[0] === rootSegments[i] && position < rootOffsetBegin) {
-		  word.classList.remove(C_HIGHLIGHTED_SEGMENT);
-	      }
+        if (word && word.hasAttribute('position')) {
+          const position = parseInt(word.getAttribute('position'));
+          if (
+            rootSegments[0] === rootSegments[i] &&
+            position >= rootOffsetBegin
+          ) {
+            word.classList.add(C_HIGHLIGHTED_SEGMENT);
           }
+          if (rootSegments.slice(1, -1).indexOf(rootSegments[i]) > -1) {
+            word.classList.add(C_HIGHLIGHTED_SEGMENT);
+          }
+          if (rootSegments.slice(-1)[0] === rootSegments[i]) {
+            if (position > rootOffsetEnd) {
+              word.classList.remove(C_HIGHLIGHTED_SEGMENT);
+            } else {
+              word.classList.add(C_HIGHLIGHTED_SEGMENT);
+            }
+          }
+          if (
+            rootSegments[0] === rootSegments[i] &&
+            position < rootOffsetBegin
+          ) {
+            word.classList.remove(C_HIGHLIGHTED_SEGMENT);
+          }
+        }
       }
-      }
+    }
   }
-    
+
   async handleParallelClicked(e) {
     const [data, rightMode] = e.detail;
     const selectedParallels = data.getAttribute('parsegments').split(';');

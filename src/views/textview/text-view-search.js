@@ -90,24 +90,24 @@ export class TextViewSearch extends LitElement {
       </div>
       <div id="text-view-search-content">
         ${this.resultSegments.map(segment =>
-          ResultSegmentContainer(
-            segment.segnr,
-            segment.segtext,
-            this.searchString,
-            this.handleSearchResultClicked
-          )
+          ResultSegmentContainer({
+            segmentNr: segment.segnr,
+            segText: segment.segtext,
+            searchString: this.searchString,
+            onSegmentClicked: this.handleSearchResultClicked,
+          })
         )}
       </div>
     `;
   }
 }
 
-function ResultSegmentContainer(
+function ResultSegmentContainer({
   segmentNr,
   segText,
   searchString,
-  clickFunction
-) {
+  onSegmentClicked,
+}) {
   let beg = segText.indexOf(searchString);
   let end = beg + searchString.length;
   segText = highlightTextByOffset({
@@ -120,7 +120,7 @@ function ResultSegmentContainer(
     <div
       class="result-segment"
       id="${segmentNr}"
-      @click="${clickFunction}"
+      @click="${onSegmentClicked}"
       segment="${segmentNr}"
       beg="${beg}"
       end="${end}"

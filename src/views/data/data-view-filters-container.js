@@ -21,6 +21,7 @@ import styles from './data-view-filters-container.styles';
 
 export const DATA_VIEW_MODES = {
   TEXT: 'text',
+  TEXT_SEARCH: 'text-search',
   TABLE: 'table',
   NUMBERS: 'numbers',
   GRAPH: 'graph',

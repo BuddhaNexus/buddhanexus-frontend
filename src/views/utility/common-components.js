@@ -29,6 +29,6 @@ export function FormattedFileName({ fileName }) {
     displayName = window.displayData[lang][fileName];
   }
   return html`
-    <span title="${fileName}">${displayName}</span>
+    <span class="formatted-file-name" title="${fileName}">${displayName}</span>
   `;
 }
