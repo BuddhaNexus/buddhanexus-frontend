@@ -7,9 +7,10 @@ import '../utility/total-numbers';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import { FormattedFileName } from '../utility/common-components';
+//import TextViewInfoModalContent from './text-view-modal-content';
+
 
 function TextViewHeaderRightColumn({
-  clickedSwitchButton,
   clickedNewTabButton,
   isInfoDialogOpen,
   setIsInfoDialogOpen,
@@ -18,18 +19,6 @@ function TextViewHeaderRightColumn({
 }) {
   return html`
     <div class="text-view-header-right">
-      <vaadin-button
-        class="swap-button"
-        title="Display this text in the left column"
-        @click="${clickedSwitchButton}"
-      >
-        <iron-icon
-          class="swap-icon"
-          icon="vaadin:arrow-circle-left-o"
-          slot="prefix"
-        ></iron-icon>
-      </vaadin-button>
-
       <vaadin-button
         class="swap-button"
         title="Display this text in a new tab"
@@ -101,12 +90,23 @@ function TextViewHeaderLeftColumn({
 
 @customElement('text-view-header')
 export class TextViewHeader extends LitElement {
-  @property({ type: String }) fileName;
+    @property({ type: String }) fileName;
+      @property({ type: Array }) limitCollection;
+  @property({ type: Number }) quoteLength;
+  @property({ type: Number }) cooccurance;
+  @property({ type: Number }) score;
+
   @property({ type: String }) rightFileName;
-  @property({ type: Number }) renderSwitchButton;
+  @property({ type: Object }) rightSegmentName;
+    @property({ type: Number }) renderSwitchButton;
   @property({ type: Boolean }) isInfoDialogOpen = false;
   @property({ type: Boolean }) renderMiddleTextLabel = false;
 
+    updated(_changedProperties) {
+	console.log("CHANGED HEADER PROPERTIES",_changedProperties);
+  }
+
+    
   static get styles() {
     return [
       sharedDataViewStyles,
@@ -119,6 +119,12 @@ export class TextViewHeader extends LitElement {
           align-items: baseline;
           justify-content: space-between;
           text-transform: none;
+        }
+        #total-numbers {
+          display: flex;
+          text-transform: none;
+           float:middle;
+           clear: both;
         }
 
         .up-button {
@@ -164,7 +170,7 @@ export class TextViewHeader extends LitElement {
           display: inline-flex;
           min-width: 24px;
           height: 24px;
-          margin-left: 12px;
+tot          margin-left: 12px;
           background-color: transparent;
           cursor: pointer;
         }
@@ -184,11 +190,8 @@ export class TextViewHeader extends LitElement {
     ];
   }
 
-  handleSwitchButtonClicked() {
-    this.dispatchEvent(
-      new CustomEvent('switch-texts', { bubbles: true, composed: true })
-    );
-  }
+
+
 
   handleScrollUpButtonClicked() {
     this.dispatchEvent(
@@ -200,8 +203,8 @@ export class TextViewHeader extends LitElement {
     window.open(`./${this.fileName}`, '_blank').focus();
   }
 
-  handleRightTextNewTabButtonClicked() {
-    const win = window.open(`./${this.rightFileName}`, '_blank');
+    handleRightTextNewTabButtonClicked() {
+    const win = window.open(`./${this.rightFileName}/${this.rightSegmentName}`, '_blank');
     win.focus();
   }
 
@@ -222,6 +225,17 @@ export class TextViewHeader extends LitElement {
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
           })}
+</div>
+<div id="total-numbers">
+        <data-view-total-numbers
+          id="total-numbers"
+          .fileName="${this.fileName}"
+          .score="${this.score}"
+          .limitCollection="${this.limitCollection}"
+          .quoteLength="${this.quoteLength}"
+          .cooccurance="${this.cooccurance}"
+        ></data-view-total-numbers>
+
         </div>
 
         ${this.renderMiddleTextLabel
@@ -231,7 +245,6 @@ export class TextViewHeader extends LitElement {
           : null}
         ${renderSwitchButton
           ? TextViewHeaderRightColumn({
-              clickedSwitchButton: this.handleSwitchButtonClicked,
               clickedNewTabButton: this.handleRightTextNewTabButtonClicked,
               isInfoDialogOpen: this.isInfoDialogOpen,
               openDialogRight: this.openDialogRight,

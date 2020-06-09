@@ -30,7 +30,7 @@ export class DataViewHeaderFields extends LitElement {
         }
 
         #text-select-combo-box {
-          width: 25em;
+          width: 15em;
           margin-right: 1em;
         }
 

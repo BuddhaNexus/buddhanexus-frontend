@@ -34,22 +34,25 @@ export class TextViewLeft extends LitElement {
     return [sharedDataViewStyles, styles];
   }
 
-  firstUpdated() {
-    if (this.leftTextData) {
-      return;
+    firstUpdated() {
+	if (this.leftTextData) {
+	    
+    this.handleLeftTextDataChanged()
     }
-    if (this.leftActiveSegment === undefined) {
+    else if (this.leftActiveSegment === undefined) {
       this.fetchNewText();
     } else {
       this.leftTextData = { selectedParallels: [this.leftActiveSegment] };
     }
   }
 
-  updated(_changedProperties) {
-    this.scrollLeftText();
+    updated(_changedProperties) {
+
     _changedProperties.forEach(async (oldValue, propName) => {
-      if (propName === 'fileName') {
-        this.handleFilenameChanged();
+	if (propName === 'fileName' && !this.fetchLoading) {
+	    if(!('leftTextData' in _changedProperties)){
+		this.handleFilenameChanged();
+	    }
       }
 
       if (propName === 'leftTextData') {
@@ -63,39 +66,57 @@ export class TextViewLeft extends LitElement {
         'limitCollection',
       ].includes(propName);
 
-      if (fileChanged && !this.fetchLoading) {
+	if (fileChanged && !this.fetchLoading) {
+
         await this.fetchNewText();
       }
 
-      if (propName === 'textLeft' && oldValue) {
+	if (propName === 'textLeft' && oldValue) {
+            this.scrollAfterEndlessReload();
+	    this.addedSegmentObservers = false;
         await this.addSegmentObservers();
-        this.scrollAfterEndlessReload();
+
       }
 
-      if (propName === 'currentPage') {
-        // todo: append text instead of replacing it.
-        await this.fetchNewText();
-        // this.scrollAfterEndlessReload();
+	if (propName === 'currentPage' && !this.fetchLoading) {
+            // todo: append text instead of replacing it.
+	    console.log("PAGE HAS CHANGED");
+          await this.fetchNewText();
+          this.scrollAfterEndlessReload();
       }
     });
   }
 
-  handleLeftTextDataChanged() {
+    handleLeftTextDataChanged() {
+	console.log("LEFT TEXT DATA CHANGED");
+	this.addedSegmentObservers = false; 
     this.noScrolling = false;
     this.noEndlessScrolling = true;
+
     this.parallels = {};
     this.textLeft = [];
     this.leftActiveSegment = this.leftTextData.selectedParallels[0];
-    this.fetchNewText();
+	this.fetchNewText();
+
   }
 
-  handleFilenameChanged() {
-    this.textLeft = [];
-    this.parallels = {};
-    this.leftActiveSegment = undefined;
+    handleFilenameChanged() {
+	console.log("FILENAME CHANGED");
+      this.textLeft = [];
+      this.parallels = {};
+      this.leftActiveSegment = undefined;
+      this.fetchNewText();
+
+      
+
   }
 
-  async fetchNewText() {
+    async fetchNewText() {
+	// if(this.fetchLoading){
+	//     return;
+	// }
+	console.log("FETCH NEW DATA");
+	console.log("ACTIVE SEGMENT",this.leftActiveSegment);
     this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,
@@ -105,7 +126,7 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
-    this.reachedEndOfText = textleft.length !== 200;
+    this.reachedEndOfText = textleft.length !== 400;
     this.textLeft = removeDuplicates(textleft, 'segnr');
     this.textLeftBySegNr = {};
     this.textLeft.forEach(
@@ -120,10 +141,11 @@ export class TextViewLeft extends LitElement {
       }
     }
     this.fetchError = error;
-    this.fetchLoading = false;
+      this.fetchLoading = false;
   }
 
-  scrollAfterEndlessReload() {
+    scrollAfterEndlessReload() {
+	console.log("SCROLLING AFTER ENDLESS");
     const activeSegment = this.shadowRoot.getElementById(
       this.leftActiveSegment
     );
@@ -134,7 +156,7 @@ export class TextViewLeft extends LitElement {
     const rootElScroll = rootEl.scrollTop;
     activeSegment.scrollIntoView({
       // depends on direction of scrolling (downwards/upwards)
-      block: this.currentPosition > 100 ? 'end' : 'start',
+      block: this.currentPosition > 200 ? 'end' : 'start',
       inline: 'nearest',
     });
     rootEl.scrollTop = rootElScroll;
@@ -142,42 +164,15 @@ export class TextViewLeft extends LitElement {
 
   incrementPage() {
     this.currentPage = this.currentPage + 1;
-    this.addedSegmentObservers = false;
+    //this.addedSegmentObservers = false;
   }
 
-  // TODO: Uncomment if this turns out to be needed
-  async scrollLeftText() {
-    if (this.noScrolling) {
-      return;
-    }
-    let selectedSegment = this.shadowRoot.querySelector('.selected-segment');
-    if (!selectedSegment) {
-      return;
-    }
-    const parentWindow = this;
-    const parentScroll = parentWindow.scrollTop;
-    const mainElement = document.querySelector('html');
-    const mainElementScroll = mainElement.scrollTop;
-    selectedSegment.scrollIntoView();
-    parentWindow.scrollTop = parentScroll;
-    mainElement.scrollTop = mainElementScroll;
-    this.noScrolling = true;
-    const allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
-
-    allSegments.forEach(item => item.classList.remove('selected-segment'));
-
-    this.dispatchEvent(
-      new CustomEvent('highlight-left-after-scrolling', {
-        bubbles: true,
-        composed: true,
-        detail: this.leftTextData,
-      })
-    );
-  }
 
   async addSegmentObservers() {
-    // this.scrollLeftText();
-    const targets = this.shadowRoot.querySelectorAll('.left-segment');
+      const targets = this.shadowRoot.querySelectorAll('.left-segment');
+      console.log("END OF TEXT",this.reachedEndOfText);
+      console.log("ADDED OBSERVERS",this.addedSegmentObservers);
+      console.log("LEFT ACTIVE SEGMENT",this.leftActiveSegment);
     if (
       targets.length === 0 ||
       this.reachedEndOfText ||
@@ -192,6 +187,7 @@ export class TextViewLeft extends LitElement {
           if (!entry.isIntersecting) {
             continue;
           }
+	    console.log("OBSERVER FIRED",entry.target);
           this.leftActiveSegment = entry.target.id;
           this.incrementPage();
           this.noEndlessScrolling = false;
@@ -205,13 +201,16 @@ export class TextViewLeft extends LitElement {
       }
     );
     if (
-      this.leftActiveSegment !== 'none' &&
+      this.leftActiveSegment !== undefined && // ### delete me? 
       this.leftActiveSegment !== targets[0].id
     ) {
+	console.log("OBSERVING BEGINNING",targets[0]);
+	console.log("LEFT ACTIVE SEGMENT",this.leftActiveSegment);
+	console.log("TARGET SEGMENT",targets[0].id);
       observer.observe(targets[0]);
     }
     observer.observe(
-      targets[targets.length > 100 ? targets.length - 1 : targets.length]
+      targets[targets.length > 200 ? targets.length - 1 : targets.length]
     );
     this.addedSegmentObservers = true;
   }
@@ -222,13 +221,13 @@ export class TextViewLeft extends LitElement {
       .forEach(el => el.classList.remove(C_SELECTED_SEGMENT));
     this.shadowRoot
       .querySelectorAll(`.${C_HIGHLIGHTED_SEGMENT}`)
-      .forEach(el => el.classList.remove(C_HIGHLIGHTED_SEGMENT));
+	  .forEach(el => el.classList.remove(C_HIGHLIGHTED_SEGMENT));
     if (e) {
       this.displayParallels(e.target);
     }
   }
 
-  displayParallels(element) {
+    displayParallels(element) {
     if (!element) {
       return;
     }
@@ -251,7 +250,6 @@ export class TextViewLeft extends LitElement {
         if (this.parallels[parallel]) return parallel;
       })
       .filter(el => el != null);
-
     this.dispatchEvent(
       new CustomEvent('active-segment-changed', {
         bubbles: true,

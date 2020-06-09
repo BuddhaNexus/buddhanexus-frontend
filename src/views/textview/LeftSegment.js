@@ -38,8 +38,6 @@ export function LeftSegmentContainer({
   number,
   onClick,
   leftTextData,
-  currentSegment,
-  currentPosition,
 }) {
   const lang = getLanguageFromFilename(segmentNr);
   const leftSideSelected =
@@ -54,12 +52,6 @@ export function LeftSegmentContainer({
     leftTextData
   );
 
-  const showLineBreak =
-    segmentNr === currentSegment &&
-    number > 10 &&
-    number < 180 &&
-    currentPosition < 100;
-
   return LeftSegment({
     segmentNr: segmentNr,
     segText: TextSegment({
@@ -71,7 +63,6 @@ export function LeftSegmentContainer({
     }),
     number: number,
     displayNumber,
-    showLineBreak,
   });
 }
 
@@ -80,8 +71,7 @@ export function LeftSegment({
   segText,
   number,
   displayNumber,
-  showLineBreak,
 }) {
   // prettier-ignore
-  return html`${showLineBreak ? html`<br />` : null}<span class="left-segment" title=${displayNumber} id=${segmentNr} number="${number}">${segText}</span>`
+      return html`<span class="left-segment" title=${displayNumber} id=${segmentNr} number="${number}">${segText}</span>`
 }

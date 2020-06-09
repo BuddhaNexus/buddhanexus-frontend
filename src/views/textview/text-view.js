@@ -8,7 +8,7 @@ import './text-view-middle';
 import './text-view-right';
 import './text-view-table';
 import { getLanguageFromFilename } from '../utility/views-common';
-import TextViewInfoModalContent from './text-view-modal-content';
+//import TextViewInfoModalContent from './text-view-modal-content';
 import { LANGUAGE_CODES } from '../utility/constants';
 import { isObjectEmpty } from '../utility/utils';
 
@@ -19,7 +19,8 @@ export const C_SELECTED_SEGMENT = 'segment--selected';
 export class TextView extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) leftActiveSegment = 'none';
-  @property({ type: String }) folio;
+  @property({ type: String }) rightActiveSegment = 'none';
+    @property({ type: String }) folio;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
@@ -28,7 +29,7 @@ export class TextView extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: Function }) setFileName;
   @property({ type: String }) rightFileName = '';
-  @property({ type: Object }) rightTextData;
+    @property({ type: Object }) rightTextData;
   @property({ type: Object }) middleData = {};
   @property({ type: Object }) leftTextData;
   @property({ type: String }) lang;
@@ -46,29 +47,31 @@ export class TextView extends LitElement {
 
   handleFileNameChanged() {
     this.rightFileName = '';
-    this.lang = getLanguageFromFilename(this.fileName);
+      this.lang = getLanguageFromFilename(this.fileName);
+      this.middleData = {};
   }
 
   switchTexts() {
     this.leftTextData = this.rightTextData;
     this.setFileName(this.rightFileName);
     this.fileName = this.rightFileName;
-    this.rightFileName = '';
+      this.rightFileName = '';
+      this.middleData = false;
   }
 
-  resetLeftText() {
+    resetLeftText() {
+	console.log("resetting middle data");
     this.leftTextData = {
       selectedParallels: [undefined],
       startoffset: 0,
       endoffset: 0,
     };
+      this.middleData = false;
   }
 
   setMiddleData(e) {
-    if (e.detail.activeSegment !== this.leftActiveSegment) {
       this.middleData = e.detail;
       this.leftActiveSegment = e.detail.activeSegment;
-    }
   }
 
   handleFolioChanged() {
@@ -113,7 +116,8 @@ export class TextView extends LitElement {
     });
   }
 
-  highlightLeftAfterScrolling(e) {
+    highlightLeftAfterScrolling(e) {
+	console.log("HIGHLIGHT LEFT AFTER SCROLLING");
     this.highlightParallel({
       rootSegments: e.detail.selectedParallels,
       rootOffsetBegin: e.detail.startoffset,
@@ -131,7 +135,7 @@ export class TextView extends LitElement {
     if (!rootSegments) {
       return;
     }
-
+      console.log("HIGHLIGHT PARALLEL");
     const textContainer = this.shadowRoot
       .getElementById('text-view-table')
       .shadowRoot.getElementById(
@@ -178,7 +182,7 @@ export class TextView extends LitElement {
   }
 
   async handleParallelClicked(e) {
-    const [data, rightMode] = e.detail;
+      const [data, rightMode] = e.detail;
     const selectedParallels = data.getAttribute('parsegments').split(';');
     selectedParallels.pop();
     const startOffset = parseInt(data.getAttribute('paroffsetbegin'));
@@ -193,7 +197,8 @@ export class TextView extends LitElement {
       };
     } else {
       this.renderSwitchButton = true;
-      this.rightFileName = selectedParallels[0].replace(/:.*/, '');
+	this.rightFileName = selectedParallels[0].replace(/:.*/, '');
+	this.rightActiveSegment = selectedParallels[0]
       this.rightTextData = {
         selectedParallels: selectedParallels,
         startoffset: startOffset,
@@ -204,18 +209,15 @@ export class TextView extends LitElement {
 
   render() {
     return html`
-      <data-view-subheader
-        .score="${this.score}"
-        .limitCollection="${this.limitCollection}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
-        .fileName="${this.fileName}"
-        .infoModalContent="${TextViewInfoModalContent()}"
-      ></data-view-subheader>
 
       <text-view-header
         .fileName="${this.fileName}"
         .rightFileName="${this.rightFileName}"
+        .rightSegmentName="${this.rightActiveSegment}"
+        .score="${this.score}"
+        .limitCollection="${this.limitCollection}"
+        .quoteLength="${this.quoteLength}"
+        .cooccurance="${this.cooccurance}"
         .renderSwitchButton="${this.renderSwitchButton}"
         .renderMiddleTextLabel="${!isObjectEmpty(this.middleData)}"
         @switch-texts="${this.switchTexts}"

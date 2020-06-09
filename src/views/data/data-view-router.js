@@ -15,6 +15,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: Function }) setFileName;
   @property({ type: Number }) folio;
   @property({ type: String }) searchString;
+  @property({ type: String }) activeSegment;
   @property({ type: String }) sortMethod;
   @property({ type: String }) lang;
   @property({ type: Number }) cooccurance;
@@ -31,6 +32,8 @@ export class DataViewRouter extends LitElement {
       return html`
         <text-view-router
           .fileName="${this.fileName}"
+          .activeSegment="${this.activeSegment}"
+
           .folio="${this.folio}"
           .setFileName="${this.setFileName}"
           .limitCollection="${this.limitCollection}"

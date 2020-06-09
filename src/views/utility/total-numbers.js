@@ -1,7 +1,6 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
 import { getParallelCount } from '../../api/actions';
-import { FormattedFileName } from './common-components';
 
 @customElement('data-view-total-numbers')
 export class TotalNumbers extends LitElement {
@@ -50,22 +49,16 @@ export class TotalNumbers extends LitElement {
 
   render() {
     const matchCount =
-      this.parallelCount > 10000 ? `More than 10.000` : this.parallelCount;
+      this.parallelCount > 10000 ? `> 10.000` : this.parallelCount;
 
     if (this.fetchLoading) {
-      return html`
-        <strong>Loading ...</strong>
-      `;
+      return html`<strong>Loading ...</strong>`;
     }
 
     return html`
-      <div id="total-numbers">
         <span>
-          <strong>${matchCount}</strong> approximate matches have been found for
-          <strong>${FormattedFileName({ fileName: this.fileName })}</strong>
-          with the current filters.
+          <strong>${matchCount}</strong> matches
         </span>
-      </div>
     `;
   }
 }
