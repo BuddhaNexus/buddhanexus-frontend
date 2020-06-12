@@ -55,11 +55,10 @@ export class VisualViewGraph extends LitElement {
     // the rendering of smaller entities more readable. a value of ** 1 means nothing
     // is changed. The smaller the value is, the stronger the graph is 'compressed'.
       value = value ** 0.2;
-      // we force this min. value of 2 for each connection in order to avoid elements in the graph that are too tiny to be visible. 
+      // we force this min. value of 2 for each connection in order to avoid elements in the graph that are too tiny to be visible.
       if(value < 2){
-      	  value = 2;
+	  value = 2;
       }
-      console.log("VALUE",value);
       return value;
   }
 
