@@ -145,11 +145,11 @@ export class TextViewMiddle extends LitElement {
           positionFlag = 1;
         }
         if (positionFlag === 1) {
-          let parSegnr = segmentArrayToString(parallels[i].par_segnr);
           let segnrText = parallels[i].par_segtext;
           segnrText = truncateSegnrText(segnrText);
 
           const par_lang = getLanguageFromFilename(parallels[i].par_segnr[0]);
+          let parSegnr = segmentArrayToString(parallels[i].par_segnr, par_lang);
           parallelCounter += 1;
           let rootOffsetBegin = parallels[i].root_offset_beg;
           let rootOffsetEnd = parallels[i].root_offset_end;

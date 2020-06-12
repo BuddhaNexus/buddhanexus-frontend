@@ -54,8 +54,12 @@ export class VisualViewGraph extends LitElement {
     // smaller collections are enlarged, resulting in a compression effect that makes
     // the rendering of smaller entities more readable. a value of ** 1 means nothing
     // is changed. The smaller the value is, the stronger the graph is 'compressed'.
-    return value ** 0.33;
-    // We can also add language specific values here.
+    value = value ** 0.2;
+    if (value < 2) {
+      value = 2;
+    }
+    console.log('VALUE', value);
+    return value;
   }
 
   changeColorScheme() {

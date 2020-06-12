@@ -9,16 +9,16 @@ import {
 } from '../textview/TextSegment';
 
 export const SEGMENT_COLORS = {
-  1: '#005e7f',
-  2: '#046D66',
-  3: '#0A7E4B',
-  4: '#119029',
-  5: '#35A11A',
-  6: '#76B325',
-  7: '#BDC430',
-  8: '#D6A43E',
-  9: '#E77A4C',
-  10: '#ef303e',
+  1: '#0CC0E8',
+  2: '#0039FF',
+  3: '#610CE8',
+  4: '#AA00FF',
+  5: '#DC0CE8',
+  6: '#FF0093',
+  7: '#E80C0C',
+  8: '#FF2A00',
+  9: '#E85650C',
+  10: '#FF860D',
 };
 
 export function getCleanedWord(lang, splitWords, i) {
@@ -89,11 +89,14 @@ export function highlightTextByOffset({
   return returnArray;
 }
 
-export function segmentArrayToString(segmentArray) {
-  let SegmentRef = segmentArray[0];
-  if (segmentArray.length > 1) {
-    let parallelArray = segmentArray.slice(-1)[0].split(':');
-    SegmentRef = SegmentRef + `–${parallelArray.slice(-1)[0]}`;
+export function segmentArrayToString(segmentArray, lang) {
+  let SegmentRef = segmentArray[0].replace(/-[0-9]+$/, '');
+  if (lang != 'tib') {
+    if (segmentArray.length > 1) {
+      let parallelArray = segmentArray.slice(-1)[0].split(':');
+      SegmentRef =
+        SegmentRef + `–${parallelArray.slice(-1)[0].replace(/-[0-9]+$/, '')}`;
+    }
   }
   return SegmentRef;
 }
