@@ -74,6 +74,7 @@ export default css`
 
   .static-page-container a.link span.link-description {
     padding-top: 0.4em;
+    color: #fff;
   }
 
   .menu-tab.main button {
@@ -108,6 +109,18 @@ export default css`
 
   .box-languages ul li {
     display: inline-block;
+  }
+
+  .partner {
+    width: 50%;
+    margin: 10px 0 20px 120px;
+  }
+  .partner img {
+    width: 90%;
+    text-align: center;
+    box-shadow: 4px 4px 20px 4px rgba(0, 0, 0, 0.2);
+    margin: 0 10px 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .lang-img {

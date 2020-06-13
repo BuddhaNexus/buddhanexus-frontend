@@ -1,20 +1,25 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement } from 'lit-element';
 import styles from '../static/static-view.styles';
-
 
 @customElement('visual-view-selection-box')
 export class VisualViewSelectionBox extends LitElement {
-    static get styles() {
-	return [styles];
-    }
+  static get styles() {
+    return [styles];
+  }
 
   render() {
     return html`
       <div class="static-page-container">
         <div class="main-border">
           <div class="main-content">
- <p>Choose language for the visualization:</p>
-</div>
+            <p>
+              The Visual Charts display the intertextuality between collections,
+              sections within collections, and single texts using a Sankey
+              diagram. A click on a single text leads you to Text View,
+              displaying the matches of the selected text (Inquiry Text).
+            </p>
+            <p>Choose language for the visualization:</p>
+          </div>
           <div class="box-languages">
             <a href="/visual/pli" class="link">
               <img
@@ -45,8 +50,8 @@ export class VisualViewSelectionBox extends LitElement {
               /><br /><span class="link-description">Chinese</span></a
             >
           </div>
-</div>
-</div>
+        </div>
+      </div>
     `;
   }
 }

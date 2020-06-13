@@ -10,8 +10,13 @@ export class NeutralViewSanskrit extends LitElement {
     return [styles, sharedDataViewStyles];
   }
   render() {
-      return html`
-        <p>Sanskrit</p>
-      `;
-    }
+    return html`
+      <p>Sanskrit</p>
+      <p>
+        The textual corpus used in BuddhaNexus was obtained from the Göttingen
+        Register of Electronic Texts in Indian Languages (GRETIL) for Sanskrit
+        texts.
+      </p>
+    `;
+  }
 }

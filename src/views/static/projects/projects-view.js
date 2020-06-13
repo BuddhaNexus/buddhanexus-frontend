@@ -21,10 +21,10 @@ export class ProjectsView extends LitElement {
           <p>
             <table class="activity">
               <tr>
-                <td><nobr>2016–2019</nobr></td><td>“<a href="https://www.kc-tbts.uni-hamburg.de/research/projects.html" target="_blank" class="link">A Canon in the Making: The History of the Formation, Production, and Transmission of the bsTan ’gyur, the Corpus of Treatises in Tibetan Translation.</a>” Jun 2016–Jul 2017, Jul 2018–Jun 2019. Lead by Orna Almogi, funded by the Deutsche Forschungsgemeinschaft (DFG).</td>
+                <td><nobr>2016–2019</nobr></td><td>“<a href="https://www.kc-tbts.uni-hamburg.de/research/projects.html" target="_blank" class="content-link">A Canon in the Making: The History of the Formation, Production, and Transmission of the bsTan ’gyur, the Corpus of Treatises in Tibetan Translation.</a>” Jun 2016–Jul 2017, Jul 2018–Jun 2019. Lead by Orna Almogi, funded by the Deutsche Forschungsgemeinschaft (DFG).</td>
               </tr>
               <tr>
-                <td><nobr>2015–2017</nobr></td><td>“<a href="https://www.kc-tbts.uni-hamburg.de/research/projects.html" target="_blank" class="link">Scholars and Scribes: Leveraging Computerized Tools for Navigating an Uncharted Tibetan Buddhist Philosophical Corpus.</a>” A collaborative project of the Khyentse Center, Universität Hamburg and the The Blavatnik School of Computer Science of the Tel Aviv University. Led by Orna Almogi, Dorji Wangchuk, Nachum Dershowitz, Lior Wolf, funded by the German-Israeli Foundation (GIF).</td>
+                <td><nobr>2015–2017</nobr></td><td>“<a href="https://www.kc-tbts.uni-hamburg.de/research/projects.html" target="_blank" class="content-link">Scholars and Scribes: Leveraging Computerized Tools for Navigating an Uncharted Tibetan Buddhist Philosophical Corpus.</a>” A collaborative project of the Khyentse Center, Universität Hamburg and the The Blavatnik School of Computer Science of the Tel Aviv University. Led by Orna Almogi, Dorji Wangchuk, Nachum Dershowitz, Lior Wolf, funded by the German-Israeli Foundation (GIF).</td>
               </tr>
             </table>
             </p>
