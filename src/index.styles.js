@@ -54,6 +54,17 @@ export default css`
     box-shadow: 0 4px 8px #888888;
   }
 
+  [part='overlay'],
+  #overlay {
+    background: #f0f;
+  }
+
+  [part='content'],
+  #content {
+    color: #fff;
+    background-color: #6d5f47; /* var(--color-background-all); */
+  }
+
   vaadin-tabs {
     display: flex;
     justify-content: space-between;
