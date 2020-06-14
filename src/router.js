@@ -258,7 +258,7 @@ class BNRouter {
   }
 
   static selectTab(tabName) {
-  // this is commented out because we need to change the menu bar first
+  //this is commented out because we need to change the menu bar first
   // const vaadinTabs = getMainLayout().querySelectorAll('vaadin-tab');
   // vaadinTabs.forEach(item => {
   //   item.removeAttribute('selected');
