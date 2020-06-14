@@ -257,7 +257,7 @@ class BNRouter {
     await this.router.setRoutes(ROUTES);
   }
 
-  //  static selectTab(tabName) {
+  ///static selectTab(tabName) {
   // this is commented out because we need to change the menu bar first
   // const vaadinTabs = getMainLayout().querySelectorAll('vaadin-tab');
   // vaadinTabs.forEach(item => {
@@ -265,7 +265,7 @@ class BNRouter {
   // });
 
   // vaadinTabs[TABS_IN_ORDER.indexOf(tabName)].setAttribute('selected', 'true');
-  //  }
+  ///}
 }
 
 export default BNRouter;
