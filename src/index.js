@@ -2,6 +2,8 @@ import 'normalize.css';
 import 'default-passive-events';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-app-layout';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-drawer-toggle';
+import '@vaadin/vaadin-select/theme/material/vaadin-select';
+
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 import '@vaadin/vaadin-menu-bar/theme/material/vaadin-menu-bar.js';
 import '@polymer/paper-input/paper-input.js';
@@ -13,6 +15,7 @@ import { disableDrawer } from './views/utility/utils';
 
 import styles from './index.styles';
 import BNRouter from './router';
+import {navMenuDataMain, navMenuDataSub} from "./menu-data";
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
@@ -20,93 +23,6 @@ export class AppLayout extends LitElement {
     return [styles];
   }
 
-  navMenuDataMain = [
-    {
-      text: 'About',
-      url: 'about',
-      children: [
-        {
-          text: ' Introduction',
-          url: 'introduction',
-        },
-        {
-          text: ' History',
-          url: 'history',
-        },
-      ],
-    },
-    {
-      text: 'Community',
-      url: 'community',
-      children: [
-        {
-          text: ' Institutions',
-          url: 'institutions',
-        },
-        {
-          text: ' People',
-          url: 'people',
-        },
-      ],
-    },
-    {
-      text: 'News',
-      url: 'news',
-    },
-    {
-      text: 'Guidelines',
-      url: 'guidelines',
-    },
-    {
-      text: 'Activities',
-      url: 'Activities',
-      children: [
-        {
-          text: ' Events',
-          url: 'events',
-        },
-        {
-          text: ' Projects',
-          url: 'projects',
-        },
-        {
-          text: ' Presentations',
-          url: 'presentations',
-        },
-      ],
-    },
-    {
-      text: 'Publications',
-      url: 'publications',
-    },
-    {
-      text: 'Visual Charts',
-      url: 'visual',
-    },
-  ];
-  navMenuDataLang = [
-    {
-      text: 'Language',
-      children: [
-        {
-          text: 'Pali',
-          url: 'pli/neutral',
-        },
-        {
-          text: 'Sanskrit',
-          url: 'skt/neutral',
-        },
-        {
-          text: 'Tibetan',
-          url: 'tib/neutral',
-        },
-        {
-          text: 'Chinese',
-          url: 'chn/neutral',
-        },
-      ],
-    },
-  ];
   handleMenuClick({
     detail: {
       value: { url },
@@ -128,7 +44,43 @@ export class AppLayout extends LitElement {
       Router.go(`/search/${e.target.value}`);
     }
   };
+    updateLanguage = e => {
+	const url = e.target.value + "/neutral";
+	Router.go(`/${url}`);
+    }
+    createLanguageSelector() {
+	console.log("LANG VAR",window.globalLang);
+    return html`
+      <vaadin-select
+        @value-changed="${this.updateLanguage}"
+        class="lang"
+        slot="navbar"
+             label="Select language"
+      >
+        <template>
+          <vaadin-list-box 
 
+             @value-changed="${this.updateLanguage}">
+            <vaadin-item value="pli"
+              >Pāli</vaadin-item
+            >
+            <vaadin-item value="skt"
+              >Sanskrit</vaadin-item
+            >
+            <vaadin-item value="tib"
+              >Tibetan</vaadin-item
+            >
+            <vaadin-item value="chn"
+              >Chinese</vaadin-item
+            >
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+    `;
+  }
+
+
+    
   render() {
     return html`
       <vaadin-app-layout>
@@ -144,7 +96,7 @@ export class AppLayout extends LitElement {
 
         <vaadin-menu-bar
           open-on-hover
-          .items="${this.navMenuDataMain}"
+          .items="${navMenuDataMain}"
           slot="navbar"
           class="menu-tab main"
           @item-selected="${e => this.handleMenuClick(e)}"
@@ -152,11 +104,13 @@ export class AppLayout extends LitElement {
 
         <vaadin-menu-bar
           open-on-hover
+          .items="${navMenuDataSub}"
           slot="navbar"
-          class="menu-tab lang"
-          .items="${this.navMenuDataLang}"
+          class="menu-tab sub"
           @item-selected="${e => this.handleMenuClick(e)}"
         ></vaadin-menu-bar>
+
+      ${this.createLanguageSelector()}
 
         <bn-card slot="navbar" small>
           <paper-input

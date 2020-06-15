@@ -43,8 +43,11 @@ export class VisualView extends LitElement {
       `,
     ];
   }
-    updated() {
+    firstUpdated() {
 	this.activeLanguage = this.location.params.lang;
+	if(window.globalLang){
+	    this.activeLanguage = window.globalLang;
+	}
     }
   setSelection = (searchItem, selectedCollections) => {
     this.searchItem = searchItem;

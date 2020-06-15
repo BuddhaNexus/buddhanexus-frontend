@@ -18,6 +18,22 @@ export function setNavigationDrawerVisibility(isVisible) {
   }
 }
 
+export function setNavbarMenus(isStart) {
+    const navBarStart = getMainLayout().querySelector('.menu-tab.main');
+    const navBarSubsite = getMainLayout().querySelector('.menu-tab.sub');
+    if (isStart) {
+	console.log("NAVBAR START ISSTART",navBarStart);
+	navBarStart.setAttribute('style', 'display: block');
+	navBarSubsite.setAttribute('style', 'display: none');
+    } else {
+	console.log("NAVBAR START ISNOTSTART",navBarStart);
+	navBarStart.setAttribute('style', 'display: none');
+	navBarSubsite.setAttribute('style', 'display: block');
+  }
+}
+
+
+
 export function disableDrawer() {
   getMainLayout().querySelector('vaadin-app-layout').drawerOpened = false;
   getMainLayout()
@@ -88,7 +104,8 @@ export function switchNavbarLayout(isLargeNavbar, isVisibleFooter) {
   setNavigationDrawerVisibility(!isLargeNavbar);
   setLogoVisibility(!isLargeNavbar);
   setNavbarFixed(!isLargeNavbar);
-  setLogoPosition(isLargeNavbar);
+    setLogoPosition(isLargeNavbar);
+    setNavbarMenus(isLargeNavbar);
   setFooterVisibility(isVisibleFooter);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }

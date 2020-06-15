@@ -82,10 +82,28 @@ export default css`
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: white;
   }
-  .menu-tab .lang {
-    ￼display: block;
-    ￼position: absolute;
-    ￼right: 300px;
+  vaadin-select, vaadin-text-field,  {
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: white;
+  }
+  .input-field {
+      color: var(--material-primary-text-color);
+  }
+
+  .menu-tab.main {
+    display: block;
+  }
+
+  .menu-tab.sub {
+    display: none;
+  }
+  .lang {
+      display: block;
+      background: white;
+      color: white;
+    position: absolute;
+    right: 300px;    
+
   }
 
   #search-input {
@@ -106,6 +124,7 @@ export default css`
     height: 100%;
     --vaadin-app-layout-navbar-background: var(--color-background);
     background-color: var(--color-background-light);
+    --material-primary-text-color: white;
   }
 
   vaadin-app-layout::part(navbar) {
@@ -139,13 +158,6 @@ export default css`
     color: var(--color-menu-items);
   }
 
-  .menu-tab.start {
-    display: block;
-  }
-
-  .menu-tab.subsite {
-    display: none;
-  }
 
   #menu-drawer {
     height: 100%;

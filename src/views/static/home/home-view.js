@@ -22,28 +22,28 @@ export class HomeView extends LitElement {
             </p>
           </div>
           <div class="box-languages">
-            <a href="/pli/text" class="link">
+            <a href="/pli/neutral" class="link">
               <img
                 src="./src/assets/img/buddhanexus_pli.jpg"
                 class="lang-img"
                 alt="Buddha Nexus"
               /><br /><span class="link-description">Pāli</span></a
             >
-            <a href="/skt/text" class="link"
+            <a href="/skt/neutral" class="link"
               ><img
                 src="./src/assets/img/buddhanexus_skt.jpg"
                 class="lang-img"
                 alt="Buddha Nexus"
               /><br /><span class="link-description">Sanskrit</span></a
             >
-            <a href="/tib/text" class="link"
+            <a href="/tib/neutral" class="link"
               ><img
                 src="./src/assets/img/buddhanexus_tib.jpg"
                 class="lang-img"
                 alt="Buddha Nexus"
               /><br /><span class="link-description">Tibetan</span></a
             >
-            <a href="/chn/text" class="link"
+            <a href="/chn/neutral" class="link"
               ><img
                 src="./src/assets/img/buddhanexus_vio.jpg"
                 class="lang-img"

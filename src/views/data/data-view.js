@@ -20,7 +20,6 @@ import './data-view-header';
 
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
-import { LANGUAGE_CODES } from '../utility/constants';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view')
@@ -51,8 +50,10 @@ export class DataView extends LitElement {
     this.setCurrentLanguageFromPath();
   }
 
-  firstUpdated(_changedProperties) {
-    super.firstUpdated(_changedProperties);
+    firstUpdated(_changedProperties) {
+
+	super.firstUpdated(_changedProperties);
+	window.globalLang = this.language;
     this.handleViewModeParamChanged();
     this.cooccurance = this.language === 'pli' ? 15 : 2000;
     this.quoteLength = this.language === 'chn' ? 7 : 12;
