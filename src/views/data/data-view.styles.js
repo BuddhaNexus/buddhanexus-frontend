@@ -23,6 +23,7 @@ export default css`
 
   data-view-router {
     padding: 12px 48px 16px;
+    height: 100%;
   }
 
   @media screen and (max-width: 900px) {
