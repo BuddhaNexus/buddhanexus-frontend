@@ -47,6 +47,7 @@ export class DataViewHeaderFields extends LitElement {
         .search-box {
           padding-top: 1em;
           transform: translateY(1.5px);
+          --paper-input-container-focus-color: var(--bn-dark-red);
         }
 
         .search-icon {
