@@ -20,7 +20,6 @@ import './data-view-header';
 
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
-import { LANGUAGE_CODES } from '../utility/constants';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view')
