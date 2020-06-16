@@ -81,8 +81,9 @@ export class HistoryView extends LitElement {
                 class="content-link"
                 href="https://suttacentral.net/"
                 >SuttaCentral</a
-              >, a project focusing on Pāli texts, and Hubert Dworczyński
-              (financed by the Khyentse Center).
+              >, a project focusing on Early Buddhist texts, their translations
+              and parallels, and Hubert Dworczyński (financed by the Khyentse
+              Center).
             </p>
             <p>
               In order to facilitate the visualization of the results towards

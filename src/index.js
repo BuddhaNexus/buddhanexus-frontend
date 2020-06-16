@@ -15,7 +15,7 @@ import { disableDrawer } from './views/utility/utils';
 
 import styles from './index.styles';
 import BNRouter from './router';
-import {navMenuDataMain, navMenuDataSub} from "./menu-data";
+import { navMenuDataMain, navMenuDataSub } from './menu-data';
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
@@ -44,43 +44,32 @@ export class AppLayout extends LitElement {
       Router.go(`/search/${e.target.value}`);
     }
   };
-    updateLanguage = e => {
-	const url = e.target.value + "/neutral";
-	Router.go(`/${url}`);
-    }
-    createLanguageSelector() {
-	console.log("LANG VAR",window.globalLang);
-    return html`
-      <vaadin-select
-        @value-changed="${this.updateLanguage}"
-        class="lang"
-        slot="navbar"
-             label="Select language"
-      >
-        <template>
-          <vaadin-list-box 
 
-             @value-changed="${this.updateLanguage}">
-            <vaadin-item value="pli"
-              >Pāli</vaadin-item
-            >
-            <vaadin-item value="skt"
-              >Sanskrit</vaadin-item
-            >
-            <vaadin-item value="tib"
-              >Tibetan</vaadin-item
-            >
-            <vaadin-item value="chn"
-              >Chinese</vaadin-item
-            >
-          </vaadin-list-box>
-        </template>
-      </vaadin-select>
+  updateLanguage = e => {
+    const url = e.target.value + '/neutral';
+    Router.go(`/${url}`);
+  };
+  createLanguageSelector() {
+    return html`
+      <bn-card slot="navbar" small style="margin-right: 4px">
+        <vaadin-select
+          @value-changed="${this.updateLanguage}"
+          placeholder="Select language"
+          id="lang"
+        >
+          <template>
+            <vaadin-list-box @value-changed="${this.updateLanguage}">
+              <vaadin-item value="pli">Pāli</vaadin-item>
+              <vaadin-item value="skt">Sanskrit</vaadin-item>
+              <vaadin-item value="tib">Tibetan</vaadin-item>
+              <vaadin-item value="chn">Chinese</vaadin-item>
+            </vaadin-list-box>
+          </template>
+        </vaadin-select>
+      </bn-card>
     `;
   }
 
-
-    
   render() {
     return html`
       <vaadin-app-layout>
@@ -110,7 +99,7 @@ export class AppLayout extends LitElement {
           @item-selected="${e => this.handleMenuClick(e)}"
         ></vaadin-menu-bar>
 
-      ${this.createLanguageSelector()}
+        ${this.createLanguageSelector()}
 
         <bn-card slot="navbar" small>
           <paper-input

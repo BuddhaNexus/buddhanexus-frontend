@@ -54,25 +54,6 @@ export default css`
     box-shadow: 0 4px 8px #888888;
   }
 
-  [part='overlay'],
-  #overlay {
-    background: #f0f;
-  }
-
-  [part='content'],
-  #content {
-    color: #fff;
-    background-color: #6d5f47; /* var(--color-background-all); */
-  }
-
-  vaadin-tabs {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1;
-    overflow: hidden;
-    --material-primary-color: var(--bn-dark-red);
-  }
   vaadin-menu-bar {
     display: flex;
     justify-content: space-between;
@@ -82,12 +63,11 @@ export default css`
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: white;
   }
-  vaadin-select, vaadin-text-field,  {
+
+  vaadin-select,
+  [part='input-field'] {
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: white;
-  }
-  .input-field {
-      color: var(--material-primary-text-color);
   }
 
   .menu-tab.main {
@@ -97,20 +77,19 @@ export default css`
   .menu-tab.sub {
     display: none;
   }
-  .lang {
-      display: block;
-      background: white;
-      color: white;
-    position: absolute;
-    right: 300px;    
-
-  }
 
   #search-input {
     margin-left: 16px;
     margin-right: 16px;
     // get rid of the top padding caused by label
     margin-top: -20px;
+    --paper-input-container-focus-color: var(--bn-dark-red);
+  }
+
+  #lang {
+    margin-left: 16px;
+    margin-right: 16px;
+    height: 45px;
   }
 
   #search-input .floated-label-placeholder {
@@ -157,7 +136,6 @@ export default css`
   .menu-tab vaadin-tab {
     color: var(--color-menu-items);
   }
-
 
   #menu-drawer {
     height: 100%;
