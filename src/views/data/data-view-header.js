@@ -38,7 +38,7 @@ class DataViewHeader extends LitElement {
           min-height: 22px;
           min-width: 22px;
           position: absolute;
-          top: 24px;
+          top: 52px;
           padding: 12px;
           right: 0;
           cursor: pointer;

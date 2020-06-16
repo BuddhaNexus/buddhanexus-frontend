@@ -79,11 +79,11 @@ export default css`
   }
 
   #search-input {
-    margin-left: 16px;
-    margin-right: 16px;
-    // get rid of the top padding caused by label
-    margin-top: -20px;
+    margin: 2px 16px -2px 16px;
     --paper-input-container-focus-color: var(--bn-dark-red);
+    --paper-input-container-input: {
+      padding: 2px 0;
+    }
   }
 
   #lang {

@@ -20,6 +20,12 @@ export class NeutralViewPali extends LitElement {
         Saṅgāyana published by the Vipassana Research Institute (VRI), with
         corrections and proofreading by the Dhamma Society.
       </p>
+      <p>
+        The texts of the Suttas, Vinaya and Abhidhamma use the SuttaCentral
+        versions as its base and have been adapted for BuddhaNexus. The texts
+        use the same segment numbers as are used in SuttaCentral and link to the
+        corresponding segments on that site.
+      </p>
     `;
   }
 }
