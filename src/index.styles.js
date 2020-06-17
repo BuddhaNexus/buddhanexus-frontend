@@ -80,7 +80,7 @@ export default css`
   }
 
   #search-input {
-    margin: 2px 16px -2px 16px;
+    margin: 3px 16px -3px;
     --paper-input-container-focus-color: var(--bn-dark-red);
     --paper-input-container-input: {
       padding: 2px 0;
@@ -90,7 +90,7 @@ export default css`
   #lang {
     margin-left: 16px;
     margin-right: 16px;
-    height: 45px;
+    height: 44px;
   }
 
   #search-input .floated-label-placeholder {

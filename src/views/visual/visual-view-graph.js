@@ -155,7 +155,7 @@ export class VisualViewGraph extends LitElement {
     this.language = this.searchItem.split('_')[0];
     this.pageSize = this.language === 'pli' ? 25 : 100;
     let searchTerm = this.searchItem;
-    searchTerm = !searchTerm.includes('acip')
+    searchTerm = !searchTerm.includes('_H')
       ? searchTerm.split('_')[1]
       : searchTerm.replace('tib_', '');
     let { graphdata, error } = await getDataForVisual({
