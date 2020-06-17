@@ -22,8 +22,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) reachedEndOfText = false;
   @property({ type: Array }) textLeft = [];
   @property({ type: Object }) parallels = {};
-  @property({ type: String }) noScrolling = true;
-  @property({ type: String }) noEndlessScrolling = true;
+  @property({ type: String }) noEndlessScrolling = false;
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) currentPage = 0;
@@ -55,6 +54,9 @@ export class TextViewLeft extends LitElement {
       if (propName === 'leftTextData') {
         this.handleLeftTextDataChanged();
       }
+      if (propName === 'leftActiveSegment') {
+        this.noEndlessScrolling = false;
+      }
 
       const fileChanged = [
         'score',
@@ -82,11 +84,8 @@ export class TextViewLeft extends LitElement {
   }
 
   handleLeftTextDataChanged() {
-    console.log('LEFT TEXT DATA CHANGED');
     this.addedSegmentObservers = false;
-    this.noScrolling = false;
-    this.noEndlessScrolling = true;
-
+    this.noEndlessScrolling = false;
     this.parallels = {};
     this.textLeft = [];
     this.leftActiveSegment = this.leftTextData.selectedParallels[0];
@@ -94,7 +93,7 @@ export class TextViewLeft extends LitElement {
   }
 
   handleFilenameChanged() {
-    console.log('FILENAME CHANGED');
+    this.noEndlessScrolling = true;
     this.textLeft = [];
     this.parallels = {};
     this.leftActiveSegment = undefined;
@@ -102,11 +101,6 @@ export class TextViewLeft extends LitElement {
   }
 
   async fetchNewText() {
-    // if(this.fetchLoading){
-    //     return;
-    // }
-    console.log('FETCH NEW DATA');
-    console.log('ACTIVE SEGMENT', this.leftActiveSegment);
     this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,
@@ -116,7 +110,7 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
-    this.reachedEndOfText = textleft.length !== 400;
+    this.reachedEndOfText = textleft.length !== 800;
     this.textLeft = removeDuplicates(textleft, 'segnr');
     this.textLeftBySegNr = {};
     this.textLeft.forEach(
@@ -135,7 +129,9 @@ export class TextViewLeft extends LitElement {
   }
 
   scrollAfterEndlessReload() {
-    console.log('SCROLLING AFTER ENDLESS');
+    if (this.noEndlessScrolling) {
+      return;
+    }
     const activeSegment = this.shadowRoot.getElementById(
       this.leftActiveSegment
     );
@@ -150,6 +146,7 @@ export class TextViewLeft extends LitElement {
       inline: 'nearest',
     });
     rootEl.scrollTop = rootElScroll;
+    this.noEndlessScrolling = true;
   }
 
   incrementPage() {
@@ -158,10 +155,10 @@ export class TextViewLeft extends LitElement {
   }
 
   async addSegmentObservers() {
+    if (this.addedSegmentObservers) {
+      return;
+    }
     const targets = this.shadowRoot.querySelectorAll('.left-segment');
-    console.log('END OF TEXT', this.reachedEndOfText);
-    console.log('ADDED OBSERVERS', this.addedSegmentObservers);
-    console.log('LEFT ACTIVE SEGMENT', this.leftActiveSegment);
     if (
       targets.length === 0 ||
       this.reachedEndOfText ||
@@ -176,10 +173,10 @@ export class TextViewLeft extends LitElement {
           if (!entry.isIntersecting) {
             continue;
           }
-          console.log('OBSERVER FIRED', entry.target);
+          // when an intersecting element is observed, we need to allow scrolling!
+          this.noEndlessScrolling = false;
           this.leftActiveSegment = entry.target.id;
           this.incrementPage();
-          this.noEndlessScrolling = false;
           this.currentPosition = parseInt(entry.target.getAttribute('number'));
           observer.unobserve(entry.target);
           break;
@@ -193,9 +190,6 @@ export class TextViewLeft extends LitElement {
       this.leftActiveSegment !== undefined && // ### delete me?
       this.leftActiveSegment !== targets[0].id
     ) {
-      console.log('OBSERVING BEGINNING', targets[0]);
-      console.log('LEFT ACTIVE SEGMENT', this.leftActiveSegment);
-      console.log('TARGET SEGMENT', targets[0].id);
       observer.observe(targets[0]);
     }
     observer.observe(

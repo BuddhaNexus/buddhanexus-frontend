@@ -9,7 +9,6 @@ import sharedDataViewStyles from '../data/data-view-shared.styles';
 import { FormattedFileName } from '../utility/common-components';
 //import TextViewInfoModalContent from './text-view-modal-content';
 
-
 function TextViewHeaderRightColumn({
   clickedNewTabButton,
   isInfoDialogOpen,
@@ -90,23 +89,22 @@ function TextViewHeaderLeftColumn({
 
 @customElement('text-view-header')
 export class TextViewHeader extends LitElement {
-    @property({ type: String }) fileName;
-      @property({ type: Array }) limitCollection;
+  @property({ type: String }) fileName;
+  @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
 
   @property({ type: String }) rightFileName;
   @property({ type: Object }) rightSegmentName;
-    @property({ type: Number }) renderSwitchButton;
+  @property({ type: Number }) renderSwitchButton;
   @property({ type: Boolean }) isInfoDialogOpen = false;
   @property({ type: Boolean }) renderMiddleTextLabel = false;
 
-    updated(_changedProperties) {
-	console.log("CHANGED HEADER PROPERTIES",_changedProperties);
+  updated(_changedProperties) {
+    console.log('CHANGED HEADER PROPERTIES', _changedProperties);
   }
 
-    
   static get styles() {
     return [
       sharedDataViewStyles,
@@ -123,8 +121,8 @@ export class TextViewHeader extends LitElement {
         #total-numbers {
           display: flex;
           text-transform: none;
-           float:middle;
-           clear: both;
+          float: middle;
+          clear: both;
         }
 
         .up-button {
@@ -170,7 +168,7 @@ export class TextViewHeader extends LitElement {
           display: inline-flex;
           min-width: 24px;
           height: 24px;
-tot          margin-left: 12px;
+          totmargin-left: 12px;
           background-color: transparent;
           cursor: pointer;
         }
@@ -190,9 +188,6 @@ tot          margin-left: 12px;
     ];
   }
 
-
-
-
   handleScrollUpButtonClicked() {
     this.dispatchEvent(
       new CustomEvent('reset-left-text', { bubbles: true, composed: true })
@@ -203,8 +198,11 @@ tot          margin-left: 12px;
     window.open(`./${this.fileName}`, '_blank').focus();
   }
 
-    handleRightTextNewTabButtonClicked() {
-    const win = window.open(`./${this.rightFileName}/${this.rightSegmentName}`, '_blank');
+  handleRightTextNewTabButtonClicked() {
+    const win = window.open(
+      `./${this.rightFileName}/${this.rightSegmentName}`,
+      '_blank'
+    );
     win.focus();
   }
 
@@ -225,17 +223,6 @@ tot          margin-left: 12px;
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
           })}
-</div>
-<div id="total-numbers">
-        <data-view-total-numbers
-          id="total-numbers"
-          .fileName="${this.fileName}"
-          .score="${this.score}"
-          .limitCollection="${this.limitCollection}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
-        ></data-view-total-numbers>
-
         </div>
 
         ${this.renderMiddleTextLabel
