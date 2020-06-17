@@ -1,6 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
-import { tokenizeWords } from '../utility/preprocessing';
 import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import {
   getLanguageFromFilename,
@@ -9,7 +8,9 @@ import {
 import { getFileTextAndParallels } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
+import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
+import { TextSegment } from './TextSegment';
 
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {
@@ -21,7 +22,7 @@ export class TextViewRight extends LitElement {
   @property({ type: Number }) score;
   @property({ type: Object }) rightTextData;
   // local variables
-  @property({ type: String }) activeSegment = 'none';
+  @property({ type: String }) activeSegment = undefined;
   @property({ type: String }) endOfRightTextFlag = false;
   @property({ type: Array }) textRight = [];
   @property({ type: Object }) parallels = {};
@@ -137,13 +138,13 @@ export class TextViewRight extends LitElement {
   async scrollRightText() {
     if (
       !this.noScrolling &&
-      this.shadowRoot.querySelector('.selected-segment')
+      this.shadowRoot.querySelector(`.${C_SELECTED_SEGMENT}`)
     ) {
       let parentWindow = this;
       let parentScroll = parentWindow.scrollTop;
       let mainElement = document.querySelector('html');
       let mainElementScroll = mainElement.scrollTop;
-      this.shadowRoot.querySelector('.selected-segment').scrollIntoView();
+      this.shadowRoot.querySelector(`.${C_SELECTED_SEGMENT}`).scrollIntoView();
       parentWindow.scrollTop = parentScroll;
       mainElement.scrollTop = mainElementScroll;
       this.noScrolling = true;
@@ -179,7 +180,10 @@ export class TextViewRight extends LitElement {
       return;
     }
     let targets = this.shadowRoot.querySelectorAll('.right-segment');
-    if (this.activeSegment != 'none' && this.activeSegment != targets[0].id) {
+    if (
+      this.activeSegment !== undefined &&
+      this.activeSegment != targets[0].id
+    ) {
       observer.observe(targets[0]);
     }
     if (!this.endOfRightTextFlag) {
@@ -191,13 +195,15 @@ export class TextViewRight extends LitElement {
     if (!e || !e.target) {
       return;
     }
-    let allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
+    let allSegments = this.shadowRoot.querySelectorAll(
+      `.${C_SELECTED_SEGMENT}`
+    );
     allSegments.forEach(item => {
-      item.classList.remove('selected-segment');
+      item.classList.remove(C_SELECTED_SEGMENT);
     });
-    allSegments = this.shadowRoot.querySelectorAll('.highlighted-by-parallel');
+    allSegments = this.shadowRoot.querySelectorAll(`.${C_HIGHLIGHTED_SEGMENT}`);
     allSegments.forEach(item => {
-      item.classList.remove('highlighted-by-parallel');
+      item.classList.remove(C_HIGHLIGHTED_SEGMENT);
     });
     let selectedWord = e.target;
     let selectedSegment = e.target.parentElement;
@@ -206,7 +212,7 @@ export class TextViewRight extends LitElement {
     }
     this.selectedParallel = selectedSegment;
     if (selectedSegment) {
-      selectedWord.classList.add('highlighted-by-parallel');
+      selectedWord.classList.add(C_HIGHLIGHTED_SEGMENT);
       let position = selectedWord.getAttribute('position');
       let segnr = selectedSegment.id;
       let parallels = this.textRightBySegNr[segnr];
@@ -227,7 +233,7 @@ export class TextViewRight extends LitElement {
             position: position,
             selectedParallels: parallels,
             limitCollection: [this.fileName],
-            rightMode: 1,
+            rightMode: true,
           },
         })
       );
@@ -238,7 +244,7 @@ export class TextViewRight extends LitElement {
     return html`
       ${this.fetchLoading && this.rightFileName
         ? html`
-            <bn-loading-spinner marginAdjust="-300px"></bn-loading-spinner>
+            <bn-loading-spinner></bn-loading-spinner>
           `
         : null}
       ${TextViewLayoutRight(
@@ -307,26 +313,31 @@ const rightSegmentContainer = (
   let rightSideHighlight = 0;
   if (rightTextData.selectedParallels.indexOf(segmentNr) > -1) {
     rightSideHighlight = 1;
-    colorValues = highlightActiveMainElement(
-      segText,
-      segmentNr,
-      rightTextData.selectedParallels,
-      rightTextData.startoffset,
-      rightTextData.endoffset,
-      true
-    );
+    colorValues = highlightActiveMainElement({
+      rootSegtext: segText,
+      rootSegnr: segmentNr,
+      selectedNumbers: rightTextData.selectedParallels,
+      startoffset: rightTextData.startoffset,
+      endoffset: rightTextData.endoffset,
+      rightMode: true,
+    });
   } else if (current_parallels[0]) {
-    colorValues = findColorValues(segText, segmentNr, current_parallels);
+    colorValues = findColorValues({
+      mainSegment: segText,
+      segmentName: segmentNr,
+      parallels: current_parallels,
+      lang: getLanguageFromFilename(segmentNr),
+    });
   }
   let lang = getLanguageFromFilename(segmentNr);
-  segText = tokenizeWords(
-    segText,
-    lang,
-    colorValues,
-    clickFunction,
-    rightSideHighlight,
-    1
-  );
+  segText = TextSegment({
+    inputData: segText,
+    lang: lang,
+    colorValues: colorValues,
+    onClick: clickFunction,
+    highlightMode: rightSideHighlight,
+    rightMode: 1,
+  });
   return rightSegment(
     segmentNr,
     segText,

@@ -3,22 +3,25 @@ import { css } from 'lit-element';
 export default css`
   [lang='en'] {
     text-transform: none;
+    font-family: var(--alt-font-stack);
   }
 
   [lang='tib'] {
     text-transform: uppercase;
+    font-family: var(--alt-font-stack);
   }
 
   [lang='tib'],
   [lang='skt'],
   [lang='pli'],
   [lang='en'] {
-    font-family: Roboto, sans-serif;
-    line-height: 1.3;
+    font-family: var(--alt-font-stack);
+    line-height: 1.4em;
+    font-size: 1em;
   }
 
   [lang='chn'] {
-    font-family: 'Noto Sans CJK TC', 'Noto Sans', sans-serif;
+    font-family: var(--alt-font-stack);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -54,6 +57,8 @@ export default css`
     background-color: rgb(244, 243, 242);
     margin-top: 0;
     z-index: 5;
+    font-size: 1em;
+    line-height: 1.4em;
     margin-bottom: 8px;
     padding: 10px;
     border-radius: 10px;
@@ -90,5 +95,13 @@ export default css`
     box-shadow: var(--material-card-shadow-inset);
     border: 1px solid #e0e0e0;
     border-radius: 4px;
+  }
+
+  .horizontal-divider {
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-divider);
+    margin-top: 4px;
+    margin-bottom: 4px;
   }
 `;

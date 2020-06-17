@@ -25,12 +25,12 @@ export class NeutralView extends LitElement {
     }
     if (this.lang == LANGUAGE_CODES.TIBETAN) {
       return html`
-      <neutral-view-tibetan></neutral-view-tibetan>
+        <neutral-view-tibetan></neutral-view-tibetan>
       `;
     }
     if (this.lang == LANGUAGE_CODES.CHINESE) {
       return html`
-     <neutral-view-chinese></neutral-view-chinese>
+        <neutral-view-chinese></neutral-view-chinese>
       `;
     }
     if (this.lang == LANGUAGE_CODES.PALI) {

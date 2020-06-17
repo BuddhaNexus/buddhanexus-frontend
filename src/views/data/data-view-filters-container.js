@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, css, LitElement, property } from 'lit-element';
 
 import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-button';
 import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-group';
@@ -21,6 +21,7 @@ import styles from './data-view-filters-container.styles';
 
 export const DATA_VIEW_MODES = {
   TEXT: 'text',
+  TEXT_SEARCH: 'text-search',
   TABLE: 'table',
   NUMBERS: 'numbers',
   GRAPH: 'graph',
@@ -38,8 +39,6 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Function }) updateCooccurance;
 
-  @property({ type: Function }) updateSearch;
-  @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) updateLimitCollection;
   @property({ type: Function }) updateTargetCollection;
   @property({ type: String }) language;
@@ -60,7 +59,17 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: String }) filterCategoriesDataError = false;
 
   static get styles() {
-    return [styles];
+    return [
+      styles,
+      css`
+        .loading-spinner-container {
+          width: 100%;
+          height: 100%;
+          margin-top: 5em;
+          position: relative;
+        }
+      `,
+    ];
   }
 
   firstUpdated(_changedProperties) {
@@ -143,10 +152,6 @@ export class DataViewFiltersContainer extends LitElement {
     this.updateTargetCollection([...this.selectedCollections]);
   };
 
-  shouldShowSortingDropdown() {
-    return this.viewMode === DATA_VIEW_MODES.TABLE;
-  }
-
   shouldShowFilterDropdown() {
     return this.viewMode !== DATA_VIEW_MODES.GRAPH;
   }
@@ -155,7 +160,7 @@ export class DataViewFiltersContainer extends LitElement {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
   }
 
-  MultiSelectBox(label, id, changefunction, itempath) {
+  renderMultiSelectBox(label, id, changefunction, itempath) {
     return html`
       <multiselect-combo-box
         Label="${label}"
@@ -173,128 +178,53 @@ export class DataViewFiltersContainer extends LitElement {
     `;
   }
 
-  createFilesCollectionFilters() {
-    if (
+  renderFilesCollectionFilters() {
+    const loading =
       this.filterCategoriesDataLoading ||
       this.filterFilesDataLoading ||
       this.filterCategoriesDataLoading ||
-      this.filterCategoriesDataLoading
-    ) {
+      this.filterCategoriesDataLoading;
+
+    if (!this.shouldShowFilterDropdown()) {
+      return null;
+    } else if (loading) {
       return html`
-        <bn-loading-spinner></bn-loading-spinner>
+        <div class="loading-spinner-container">
+          <bn-loading-spinner></bn-loading-spinner>
+        </div>
       `;
     } else {
       return html`
         <div class="filter-group">
-          ${html`
-            ${this.MultiSelectBox(
-              'Exclude collections:',
-              'exclude-collection',
-              this.handleCategoriesExcludeComboBoxChanged,
-              this.filterCategoriesData
-            )}
-          `}
-          ${html`
-              ${this.MultiSelectBox(
-                'Exclude files:',
-                'exclude-filename',
-                this.handleFilesExcludeComboBoxChanged,
-                this.filterFilesData
-              )}
-            </div>`}
+          ${this.renderMultiSelectBox(
+            'Exclude collections:',
+            'exclude-collection',
+            this.handleCategoriesExcludeComboBoxChanged,
+            this.filterCategoriesData
+          )}
+          ${this.renderMultiSelectBox(
+            'Exclude files:',
+            'exclude-filename',
+            this.handleFilesExcludeComboBoxChanged,
+            this.filterFilesData
+          )}
         </div>
-
         <div class="filter-group">
-          ${html`
-            ${this.MultiSelectBox(
-              'Limit to collections:',
-              'filter-collection',
-              this.handleCategoriesComboBoxChanged,
-              this.filterCategoriesData
-            )}
-          `}
-          ${html`
-            ${this.MultiSelectBox(
-              'Limit to files:',
-              'filter-filename',
-              this.handleFilesComboBoxChanged,
-              this.filterFilesData
-            )}
-          `}
+          ${this.renderMultiSelectBox(
+            'Limit to collections:',
+            'filter-collection',
+            this.handleCategoriesComboBoxChanged,
+            this.filterCategoriesData
+          )}
+          ${this.renderMultiSelectBox(
+            'Limit to files:',
+            'filter-filename',
+            this.handleFilesComboBoxChanged,
+            this.filterFilesData
+          )}
         </div>
       `;
     }
-  }
-
-  createTargetFilterForGraph() {
-    return html`
-      <multiselect-combo-box
-        Label="Filter by target collection:"
-        item-label-path="collectionname"
-        style="display: ${this.shouldShowTargetDropdown()
-          ? 'inline-flex'
-          : 'none'}"
-        class="input-field"
-        @selected-items-changed="${this.handleTargetComboBoxChanged}"
-        .items="${this.targetCollectionData}"
-        item-value-path="collectionkey"
-      >
-      </multiselect-combo-box>
-    `;
-  }
-
-  createSortMethodSelector() {
-    if (!this.shouldShowSortingDropdown()) {
-      return null;
-    }
-    return html`
-      <vaadin-select
-        @value-changed="${this.updateSortMethod}"
-        Label="Sorting method:"
-        class="input-field"
-        item-label-path="filename"
-      >
-        <template>
-          <vaadin-list-box @value-changed="${this.updateSortMethod}">
-            <vaadin-item value="position"
-              >By position in Inquiry Text</vaadin-item
-            >
-            <vaadin-item value="quoted-text"
-              >By position in Hit Text(s)</vaadin-item
-            >
-            <vaadin-item value="length"
-              >Length of match in Inquiry Text (beginning with
-              longest)</vaadin-item
-            >
-            <vaadin-item value="length2"
-              >Length of match in Hit Text (beginning with longest)</vaadin-item
-            >
-          </vaadin-list-box>
-        </template>
-      </vaadin-select>
-    `;
-  }
-
-  createTextViewSearchBox() {
-    if (this.viewMode !== DATA_VIEW_MODES.TEXT) {
-      return null;
-    }
-    return html`
-      <vaadin-text-field
-        .disabled="${this.viewMode !== DATA_VIEW_MODES.TEXT}"
-        @change="${this.updateSearch}"
-        @submit="${this.updateSearch}"
-        clear-button-visible
-        class="input-field search-box"
-        placeholder="Search in Inquiry Text"
-      >
-        <iron-icon
-          id="search-icon"
-          icon="vaadin:search"
-          slot="prefix"
-        ></iron-icon>
-      </vaadin-text-field>
-    `;
   }
 
   render() {
@@ -307,13 +237,20 @@ export class DataViewFiltersContainer extends LitElement {
       .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
       
-      ${this.createTargetFilterForGraph()}
+      <multiselect-combo-box
+        Label="Filter by target collection:"
+        item-label-path="collectionname"
+        style="display: ${
+          this.shouldShowTargetDropdown() ? 'inline-flex' : 'none'
+        }"
+        class="input-field"
+        @selected-items-changed="${this.handleTargetComboBoxChanged}"
+        .items="${this.targetCollectionData}"
+        item-value-path="collectionkey"
+      >
+      </multiselect-combo-box>
 
-      ${this.createSortMethodSelector()}
-      
-      ${this.createTextViewSearchBox()}
-
-      ${this.createFilesCollectionFilters()}
+      ${this.renderFilesCollectionFilters()}
 
       </div>
     `;

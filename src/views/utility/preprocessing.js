@@ -2,41 +2,42 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import { getLanguageFromFilename } from './views-common';
+import {
+  TextSegment,
+  TextSegmentChineseWord,
+  TibetanSegment,
+} from '../textview/TextSegment';
 
-export const preprocessTibetan = currentString => {
-  currentString = currentString.replace(/\//g, '|') + ' ';
-  if (currentString.match(/\|\||[.?!:;]/g)) {
-    if (!currentString.includes('*')) {
-      currentString = html`
-        ${currentString}<br />
-      `;
-    } else {
-      currentString = html`
-        ${currentString.replace('*_', '* ')}
-      `;
-    }
-  }
-  return currentString;
+export const SEGMENT_COLORS = {
+  1: '#0CC0E8',
+  2: '#0039FF',
+  3: '#610CE8',
+  4: '#AA00FF',
+  5: '#DC0CE8',
+  6: '#FF0093',
+  7: '#E80C0C',
+  8: '#FF2A00',
+  9: '#E85650C',
+  10: '#FF860D',
 };
 
-export const preprocessChineseCharacter = currentString => {
-  currentString = currentString.replace(/\//g, '|');
-  if (currentString.includes('#')) {
-    currentString = html`
-      <br />
-    `;
+export function getCleanedWord(lang, splitWords, i) {
+  let cleanedWord = '';
+  if (lang.match(/tib|pli/)) {
+    cleanedWord = TibetanSegment(splitWords[i]);
+  } else {
+    cleanedWord = TextSegmentChineseWord(splitWords[i]);
   }
-  return currentString;
-};
+  return cleanedWord;
+}
 
 // this function is not yet revised or tested to work with the new refactored code.
-export const highlightTextByOffset = (
+export function highlightTextByOffset({
   textArray,
   startoffset,
   endoffset,
-  lang
-) => {
+  lang,
+}) {
   let returnArray = [];
   if (lang.match(/tib|pli/)) {
     // the next two lines are a hack because there is a slight mismatch in the behaviour
@@ -46,7 +47,7 @@ export const highlightTextByOffset = (
     endoffset += 1;
   }
   for (let i = 0; i < textArray.length; i++) {
-    let WordList = [];
+    let wordList = [];
     let colourValues = [];
     let position = 0;
     let Words = textArray[i];
@@ -62,7 +63,7 @@ export const highlightTextByOffset = (
         Words = textArray[i].split(' ');
       }
       for (let j = 0; j < Words.length; ++j) {
-        WordList.push(position);
+        wordList.push(position);
         let colourValue = 1;
         position += Words[j].length;
         if (lang.match(/tib|pli/)) {
@@ -76,157 +77,28 @@ export const highlightTextByOffset = (
         }
         colourValues.push(colourValue);
       }
-      let tokenizedResult = tokenizeWords(textArray[i], lang, colourValues);
-      returnArray.push(tokenizedResult);
+      returnArray.push(
+        TextSegment({
+          inputData: textArray[i],
+          lang: lang,
+          colorValues: colourValues,
+        })
+      );
     }
   }
   return returnArray;
-};
+}
 
-export const colorTable = {
-  1: '#0CC0E8',
-  2: '#0039FF',
-  3: '#610CE8',
-  4: '#AA00FF',
-  5: '#DC0CE8',
-  6: '#FF0093',
-  7: '#E80C0C',
-  8: '#FF2A00',
-  9: '#E8550C',
-  10: '#FF860D',
-};
-
-const getCooccuranceColor = cooc => {
-  return cooc < 10 ? colorTable[cooc] : colorTable[10];
-};
-
-export const segmentArrayToString = segmentArray => {
-  let SegmentRef = segmentArray[0];
-  if (segmentArray.length > 1) {
-    let parallelArray = segmentArray.slice(-1)[0].split(':');
-    SegmentRef = SegmentRef + `–${parallelArray.slice(-1)[0]}`;
+export function segmentArrayToString(segmentArray, lang) {
+  let SegmentRef = segmentArray[0].replace(/-[0-9]+$/, '');
+  if (lang != 'tib') {
+    if (segmentArray.length > 1) {
+      let parallelArray = segmentArray.slice(-1)[0].split(':');
+      SegmentRef =
+        SegmentRef + `–${parallelArray.slice(-1)[0].replace(/-[0-9]+$/, '')}`;
+    }
   }
   return SegmentRef;
-};
-
-const wrapWordsInSpan = (
-  selectedSegment,
-  currentColor,
-  rightMode,
-  position,
-  clickFunction,
-  cleanedWord
-) => {
-  if (currentColor == -1) {
-    // prettier-ignore
-    return html`<span 
-        class="word ${selectedSegment}"
-        position="${position}"
-        @click="${clickFunction}">${cleanedWord}</span>`
-  }
-  if (!currentColor || currentColor == 0) {
-    return cleanedWord;
-  }
-  let highlightColor =
-    rightMode === 0 ? getCooccuranceColor(currentColor) : '#2ECC40';
-  // prettier-ignore
-  return html`<span 
-        class="word highlight-parallel ${selectedSegment}"
-        style="color:${highlightColor}"
-        position="${position}"
-        @click="${clickFunction}">${cleanedWord}</span>`
-};
-
-export function tokenizeWords(
-  inputData,
-  lang,
-  colorValues,
-  clickFunction = 0,
-  highlightMode = 0,
-  rightMode = 0
-) {
-  let words = [];
-  let selectedSegment = '';
-  if (colorValues.length > 0) {
-    let splitWords = inputData;
-    if (lang.match(/tib|pli/)) {
-      // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
-      inputData = inputData.replace(/\* \//, '*_/');
-      splitWords = inputData.split(' ');
-    }
-    let position = 0;
-    for (let i = 0; i < splitWords.length; ++i) {
-      let currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
-      if (currentColor != 0 && highlightMode == 1) {
-        selectedSegment = 'selected-segment';
-      }
-      let cleanedWord = '';
-      if (lang.match(/tib|pli/)) {
-        cleanedWord = preprocessTibetan(splitWords[i]);
-      } else {
-        cleanedWord = preprocessChineseCharacter(splitWords[i]);
-      }
-      words.push(
-        wrapWordsInSpan(
-          selectedSegment,
-          currentColor,
-          rightMode,
-          position,
-          clickFunction,
-          cleanedWord
-        )
-      );
-      if (lang.match(/tib|pli/)) {
-        position += splitWords[i].length + 1;
-      } else {
-        position += splitWords[i].length;
-      }
-    }
-  } else {
-    if (lang.match(/tib|pli/)) {
-      words = preprocessTibetan(inputData);
-    } else {
-      words = inputData.split('').map(character => {
-        return preprocessChineseCharacter(character);
-      });
-    }
-  }
-  return lang !== 'skt'
-    ? words
-    : html`
-        ${words}<br />
-      `;
-}
-
-export function replaceSegmentForDisplay(segment, lang) {
-  const filename = segment.split(':')[0];
-  const number = segment.split(':')[1];
-  let displayName = filename;
-  if (
-    window.menuData &&
-    window.menuData[lang] &&
-    window.menuData[lang][filename]
-  ) {
-    displayName = window.menuData[lang][filename];
-  }
-  return html`
-    <span title="${segment}">${displayName}:${number}</span>
-  `;
-}
-
-export function replaceFileNameForDisplay(fileName) {
-  const lang = getLanguageFromFilename(fileName);
-  let displayName = fileName.toUpperCase();
-  if (
-    window.displayData &&
-    window.displayData[lang] &&
-    window.displayData[lang][fileName]
-  ) {
-    displayName = window.displayData[lang][fileName];
-  }
-  return html`
-    <span title="${fileName}">${displayName}</span>
-  `;
 }
 
 export function getLinkForSegmentNumbers(language, segmentnr) {

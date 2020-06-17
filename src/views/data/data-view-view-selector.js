@@ -11,7 +11,7 @@ export class DataViewViewSelector extends LitElement {
       css`
         .visibility-filters {
           margin-left: 0;
-          margin-right: 32px;
+          margin-right: 2em;
         }
 
         .visibility-filters vaadin-radio-button {
@@ -35,7 +35,12 @@ export class DataViewViewSelector extends LitElement {
         @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
       >
         ${Object.values(DATA_VIEW_MODES).map(filter => {
-          if ((filter !== 'numbers' || this.language !== 'tib') && filter !== "neutral") {
+          if (
+            (filter !== 'numbers' || this.language !== 'tib') &&
+            filter !== 'neutral' &&
+            filter !== 'text-search'
+
+          ) {
             return html`
               <vaadin-radio-button value="${filter}">
                 ${filter}

@@ -10,8 +10,8 @@ export class NeutralViewSanskrit extends LitElement {
     return [styles, sharedDataViewStyles];
   }
   render() {
-      return html`
-        <p>Sanskrit</p>
-      `;
-    }
+    return html`
+      <p>Sanskrit</p>
+    `;
+  }
 }

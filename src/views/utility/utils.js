@@ -9,6 +9,10 @@ export function getMainLayout() {
   return document.getElementById('app_layout').shadowRoot;
 }
 
+export function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 export function setNavigationDrawerVisibility(isVisible) {
   const drawerToggle = getMainLayout().querySelector('vaadin-drawer-toggle');
   if (isVisible) {

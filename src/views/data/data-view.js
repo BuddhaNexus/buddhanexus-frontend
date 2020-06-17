@@ -11,7 +11,6 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import '../menus/navigation-menu.js';
 import '../components/side-sheet';
 import '../components/card';
-import './text-select-combo-box';
 import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 import './data-view-filters-container';
@@ -114,6 +113,10 @@ export class DataView extends LitElement {
     }
   };
 
+  setSelectedView = viewName => {
+    this.selectedView = viewName;
+  };
+
   setFolio = folio => {
     if (this.folio !== folio) {
       this.folio = folio;
@@ -126,8 +129,10 @@ export class DataView extends LitElement {
     }
   };
 
-  setSearch = e => {
-    this.searchString = e.target.value;
+  setSearch = searchString => {
+    this.searchString = searchString;
+    this.viewMode = DATA_VIEW_MODES.TEXT_SEARCH;
+    this.selectedView = DATA_VIEW_MODES.TEXT_SEARCH;
   };
 
   setQuoteLength = e => {
@@ -229,10 +234,13 @@ export class DataView extends LitElement {
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
+            .updateSearch="${this.setSearch}"
+            .updateSortMethod="${this.setSortMethod}"
           ></data-view-header>
 
           <data-view-router
             .selectedView="${this.selectedView}"
+            .setSelectedView="${this.setSelectedView}"
             .lang="${this.language}"
             .setFileName="${this.setFileName}"
             .fileName="${this.fileName}"
@@ -261,8 +269,6 @@ export class DataView extends LitElement {
             .viewMode="${this.viewMode}"
             .score="${this.score}"
             .updateScore="${this.setScore}"
-            .updateSearch="${this.setSearch}"
-            .updateSortMethod="${this.setSortMethod}"
             .quoteLength="${this.quoteLength}"
             .updateQuoteLength="${this.setQuoteLength}"
             .updateLimitCollection="${this.setLimitCollection}"

@@ -4,20 +4,22 @@ import { sortByKey, getLanguageFromFilename } from '../utility/views-common';
 import {
   highlightTextByOffset,
   segmentArrayToString,
-  replaceSegmentForDisplay,
 } from '../utility/preprocessing';
 import { getFileTextParallelsMiddle } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
+import { FormattedSegment } from '../utility/common-components';
 
 @customElement('text-view-middle')
-export class TextView extends LitElement {
+export class TextViewMiddle extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: Object }) data;
+  @property({ type: String }) leftActiveSegment;
+  @property({ type: Array }) selectedParallels;
 
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) fetchError;
@@ -26,9 +28,14 @@ export class TextView extends LitElement {
     return [sharedDataViewStyles, styles];
   }
 
+  async connectedCallback() {
+    super.connectedCallback();
+    await this.fetchMiddleParallels();
+  }
+
   updated(_changedProperties) {
-    this.fetchLoading = true;
-    _changedProperties.forEach((oldValue, propName) => {
+    super.updated(_changedProperties);
+    _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [
           'data',
@@ -38,29 +45,30 @@ export class TextView extends LitElement {
           'quoteLength',
         ].includes(propName)
       ) {
-        this.fetchMiddleParallels();
+        if (this.fetchLoading) {
+          return;
+        }
+        await this.fetchMiddleParallels();
+        this.fetchLoading = false;
       }
     });
   }
 
   async fetchMiddleParallels() {
-    if (!this.data.selectedParallels) {
-      return;
-    }
-    let segmentnr = this.data.activeSegment;
+    this.fetchLoading = true;
     const { parallels, error } = await getFileTextParallelsMiddle({
-      segmentnr: segmentnr,
+      segmentnr: this.leftActiveSegment,
       file_name: this.fileName,
       score: this.score,
       par_length: this.quoteLength,
       limit_collection: this.data.limitCollection,
       co_occ: this.cooccurance,
     });
-    this.data.selectedParallels = parallels;
+    this.selectedParallels = parallels;
     this.fetchError = error;
     this.fetchLoading = false;
-    this.requestUpdate();
   }
+
   clickedParallel(e) {
     let target = e.target;
     if (!target.getAttribute('parsegments')) {
@@ -85,78 +93,90 @@ export class TextView extends LitElement {
     );
   }
 
-  renderParallels() {
-    let { activeSegment, position, selectedParallels } = this.data;
+  render() {
+    if (!this.leftActiveSegment) {
+      return html`
+        <span lang="en"
+          >Click on a syllable in the Inquiry Text to display the approximate
+          matches. Only colored syllables have parallels. Black text has no
+          parallels with the current filter settings.</span
+        >
+      `;
+    }
+
     let selectedParallelsText = html``;
     let positionFlag = 0;
     let parallelCounter = 0;
-    if (selectedParallels) {
-      selectedParallels = sortByKey(selectedParallels, 'score');
-      selectedParallels = selectedParallels.reverse();
-      for (let i = 0; i < selectedParallels.length; i++) {
+    let parallels = [...this.selectedParallels];
+
+    if (parallels) {
+      parallels = sortByKey(parallels, 'score');
+      parallels = parallels.reverse();
+      for (let i = 0; i < parallels.length; i++) {
         if (
-          selectedParallels[i].root_offset_beg <= position &&
-          selectedParallels[i].root_segnr[0] == activeSegment
+          parallels[i].root_offset_beg <= this.data.position &&
+          parallels[i].root_segnr[0] === this.data.activeSegment
         ) {
           positionFlag = 1;
         }
         if (
-          selectedParallels[i].root_offset_end >= position &&
-          selectedParallels[i].root_segnr.slice(-1)[0] == activeSegment
+          parallels[i].root_offset_end >= this.data.position &&
+          parallels[i].root_segnr.slice(-1)[0] === this.data.activeSegment
         ) {
           positionFlag = 1;
         }
         if (
-          selectedParallels[i].root_offset_beg > position &&
-          selectedParallels[i].root_segnr[0] == activeSegment
+          parallels[i].root_offset_beg > this.data.position &&
+          parallels[i].root_segnr[0] === this.data.activeSegment
         ) {
           positionFlag = 0;
         }
         if (
-          selectedParallels[i].root_offset_end < position &&
-          selectedParallels[i].root_segnr.slice(-1)[0] == activeSegment
+          parallels[i].root_offset_end < this.data.position &&
+          parallels[i].root_segnr.slice(-1)[0] === this.data.activeSegment
         ) {
           positionFlag = 0;
         }
         if (
-          selectedParallels[i].root_segnr.slice(1, -1).indexOf(activeSegment) >
-          -1
+          parallels[i].root_segnr
+            .slice(1, -1)
+            .indexOf(this.data.activeSegment) > -1
         ) {
           positionFlag = 1;
         }
         if (positionFlag === 1) {
-          let parSegnr = segmentArrayToString(selectedParallels[i].par_segnr);
-          let segnrText = selectedParallels[i].par_segtext;
+          let segnrText = parallels[i].par_segtext;
           segnrText = truncateSegnrText(segnrText);
 
-          const par_lang = getLanguageFromFilename(
-            selectedParallels[i].par_segnr[0]
-          );
+          const par_lang = getLanguageFromFilename(parallels[i].par_segnr[0]);
+          let parSegnr = segmentArrayToString(parallels[i].par_segnr, par_lang);
           parallelCounter += 1;
-          let rootOffsetBegin = selectedParallels[i].root_offset_beg;
-          let rootOffsetEnd = selectedParallels[i].root_offset_end;
-          let parOffsetBegin = selectedParallels[i].par_offset_beg;
-          let parOffsetEnd = selectedParallels[i].par_offset_end;
-          let rootSegnr = selectedParallels[i].root_segnr;
+          let rootOffsetBegin = parallels[i].root_offset_beg;
+          let rootOffsetEnd = parallels[i].root_offset_end;
+          let parOffsetBegin = parallels[i].par_offset_beg;
+          let parOffsetEnd = parallels[i].par_offset_end;
+          let rootSegnr = parallels[i].root_segnr;
           let rootSegnrText = '';
           for (let l = 0; l < rootSegnr.length; l++) {
             rootSegnrText += rootSegnr[l] + ';';
           }
 
+          // const selParName = parallels[i].par_segnr.map(i => `${i};`);
+
           let selParName = [];
-          selectedParallels[i].par_segnr.forEach(item =>
-            selParName.push(`${item};`)
-          );
-          segnrText = highlightTextByOffset(
-            segnrText,
-            parOffsetBegin,
-            parOffsetEnd,
-            par_lang
-          );
+          parallels[i].par_segnr.forEach(item => selParName.push(`${item};`));
+
+          segnrText = highlightTextByOffset({
+            textArray: segnrText,
+            startoffset: parOffsetBegin,
+            endoffset: parOffsetEnd,
+            lang: par_lang,
+          });
+
           selectedParallelsText = html`
             ${selectedParallelsText}
             <div
-              class="selected-parallel"
+              class="selected-parallel material-card"
               activeSegments="${rootSegnrText}"
               rootOffsetBegin="${rootOffsetBegin}"
               rootOffsetEnd="${rootOffsetEnd}"
@@ -167,21 +187,24 @@ export class TextView extends LitElement {
               @mouseover="${this.mouseOverParallel}"
             >
               <span class="selected-parallel-nr">
-                ${replaceSegmentForDisplay(parSegnr, par_lang)}</span
+                ${FormattedSegment({
+                  segment: parSegnr,
+                  lang: par_lang,
+                })}</span
               ><br />
-              <span class="score">Score: ${selectedParallels[i].score} %</span>
+              <span class="score">Score: ${parallels[i].score} %</span>
               <span class="segment-length"
-                >Length: ${selectedParallels[i].par_length}
+                >Length: ${parallels[i].par_length}
               </span>
               <span class="co-occurance"
-                >Co-occurance: ${selectedParallels[i]['co-occ']} </span
+                >Co-occurance: ${parallels[i]['co-occ']} </span
               ><br />
+              <div class="horizontal-divider"></div>
               ${segnrText}
             </div>
           `;
         }
       }
-	console.log("SELECTED PARALLELS",selectedParallelsText);
     }
     return html`
       <p class="parallels-text" lang="en">
@@ -189,21 +212,11 @@ export class TextView extends LitElement {
         for the selected segment with the current filters.
       </p>
       <br />${selectedParallelsText}
+      ${this.fetchLoading
+        ? html`
+            <bn-loading-spinner></bn-loading-spinner>
+          `
+        : null}
     `;
-  }
-
-  render() {
-    if (!this.data.activeSegment) {
-      return html`
-        <span lang="en"
-          >Click on a syllable in the Inquiry Text to display the approximate
-          matches. Only colored syllables have parallels. Black text has no
-          parallels with the current filter settings.</span
-        >
-      `;
-    }
-    if (!this.fetchLoading) {
-      return this.renderParallels(this.data);
-    }
   }
 }
