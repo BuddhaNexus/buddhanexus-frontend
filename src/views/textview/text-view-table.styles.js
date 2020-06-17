@@ -3,14 +3,14 @@ import { css } from 'lit-element';
 export default css`
   vaadin-split-layout {
     --_material-split-layout-splitter-background-color: #6d5f47;
-    height: calc(100vh - 220px);
+    height: calc(100vh - 410px);
   }
 
-  .selected-segment {
-    background-color: #d3d3d3;
+  vaadin-split-layout div {
+    flex: 1;
   }
 
-  #text-view-header, #text-view-search-header {
+  #text-view-search-header {
     padding-bottom: 16px;
     padding-top: 16px;
     font-weight: bold;
@@ -28,7 +28,7 @@ export default css`
   }
 
   .result-text {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .result-segment {
@@ -40,52 +40,11 @@ export default css`
     cursor: pointer;
   }
 
-  .swap-button,
-  .info-button {
-    padding: 0;
-    right: 16px;
-    display: inline-flex;
-    min-width: 24px;
-    height: 24px;
-    margin-left: 12px;
-    background-color: transparent;
-    cursor: pointer;
+  .segment--highlighted {
+    background-color: #d3d3d3;
   }
 
-
-  .up-button {
-    padding: 0;
-    left: 10px;
-    display: inline-flex;
-    min-width: 24px;
-    height: 24px;
-    margin-left: 12px;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-
-  .swap-icon {
-    color: var(--bn-dark-red);
-    margin: 0;
-  }
-
-  .swap-icon:hover {
-    color: #0f0;
-  }
-
-  .info-icon {
-    color: rgba(0, 0, 0, 0.54);
-  }
-
-  vaadin-button {
-    background-color: transparent;
-    color: var(--color-menu-items);
-    font-weight: bold;
-    height: 32px;
-  }
-
-  .highlighted-by-parallel {
+  .segment--selected {
     background-color: #d3d3d3;
   }
 
@@ -104,18 +63,30 @@ export default css`
   }
 
   .left-text-column {
-    overscroll-behavior: none;
+    // TODO: uncomment if there's issues with scrolling
+    // overscroll-behavior: none;
     overflow-wrap: break-word;
-    width: 50%;
+    font-size: 1.1em;
+    font-weight: 550;
+    line-height: 1.5em;
   }
 
   .middle-text-column {
     padding: 0 12px;
-    width: 30%;
+    font-weight: 550;
   }
 
   .right-text-column {
     overflow-wrap: break-word;
     padding-left: 12px;
     width: 30%;
+    font-weight: 550;
+  }
+
+  #text-view-right {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
 `;

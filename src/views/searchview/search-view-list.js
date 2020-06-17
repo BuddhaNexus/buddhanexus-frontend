@@ -31,12 +31,12 @@ export class SearchViewList extends LitElement {
         ${this.searchResults.map(result =>
           SearchViewListItem({
             SegmentId: result.segment_nr[1],
-            SegmentText: highlightTextByOffset(
-              [result.search_string_precise],
-              result.offset_beg,
-              result.offset_end,
-              getLanguageFromFilename(result.segment_nr[0])
-            ),
+            SegmentText: highlightTextByOffset({
+              textArray: [result.search_string_precise],
+              startoffset: result.offset_beg,
+              endoffset: result.offset_end,
+              lang: getLanguageFromFilename(result.segment_nr[0]),
+            }),
             distance: result.distance,
             rootUrl: createTextViewSegmentUrl(result.segment_nr[1]),
           })

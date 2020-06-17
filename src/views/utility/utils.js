@@ -9,6 +9,10 @@ export function getMainLayout() {
   return document.getElementById('app_layout').shadowRoot;
 }
 
+export function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
 export function setNavigationDrawerVisibility(isVisible) {
   const drawerToggle = getMainLayout().querySelector('vaadin-drawer-toggle');
   if (isVisible) {
@@ -19,20 +23,18 @@ export function setNavigationDrawerVisibility(isVisible) {
 }
 
 export function setNavbarMenus(isStart) {
-    const navBarStart = getMainLayout().querySelector('.menu-tab.main');
-    const navBarSubsite = getMainLayout().querySelector('.menu-tab.sub');
-    if (isStart) {
-	console.log("NAVBAR START ISSTART",navBarStart);
-	navBarStart.setAttribute('style', 'display: block');
-	navBarSubsite.setAttribute('style', 'display: none');
-    } else {
-	console.log("NAVBAR START ISNOTSTART",navBarStart);
-	navBarStart.setAttribute('style', 'display: none');
-	navBarSubsite.setAttribute('style', 'display: block');
+  const navBarStart = getMainLayout().querySelector('.menu-tab.main');
+  const navBarSubsite = getMainLayout().querySelector('.menu-tab.sub');
+  if (isStart) {
+    console.log('NAVBAR START ISSTART', navBarStart);
+    navBarStart.setAttribute('style', 'display: block');
+    navBarSubsite.setAttribute('style', 'display: none');
+  } else {
+    console.log('NAVBAR START ISNOTSTART', navBarStart);
+    navBarStart.setAttribute('style', 'display: none');
+    navBarSubsite.setAttribute('style', 'display: block');
   }
 }
-
-
 
 export function disableDrawer() {
   getMainLayout().querySelector('vaadin-app-layout').drawerOpened = false;
@@ -104,8 +106,8 @@ export function switchNavbarLayout(isLargeNavbar, isVisibleFooter) {
   setNavigationDrawerVisibility(!isLargeNavbar);
   setLogoVisibility(!isLargeNavbar);
   setNavbarFixed(!isLargeNavbar);
-    setLogoPosition(isLargeNavbar);
-    setNavbarMenus(isLargeNavbar);
+  setLogoPosition(isLargeNavbar);
+  setNavbarMenus(isLargeNavbar);
   setFooterVisibility(isVisibleFooter);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }

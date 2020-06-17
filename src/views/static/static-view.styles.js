@@ -33,14 +33,14 @@ export default css`
 
   .main-border {
     margin: 0 25%;
-    padding-top: 70px;
-    padding-bottom: 50px;
+    padding-top: 4.375em;
+    padding-bottom: 3.125em;
   }
 
   .main-content {
     background-color: #fff;
-    padding: 14px 40px;
-    border-top: 8px solid #221f19;
+    padding: 0.875em 2.5em;
+    border-top: 0.5em solid #221f19;
   }
 
   .main-content h1 {
@@ -89,8 +89,8 @@ export default css`
   .box-languages {
     background-color: #221f19;
     width: 100%;
-    margin-top: 30px;
-    margin-bottom: 100px;
+    margin-top: 1.875em;
+    margin-bottom: 6.25em;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -102,8 +102,8 @@ export default css`
   }
 
   .box-languages ul {
-    margin: 4px;
-    padding: 4px;
+    margin: 0.25em;
+    padding: 0.25em;
     text-align: center;
   }
 
@@ -124,9 +124,9 @@ export default css`
   }
 
   .lang-img {
-    width: 120px;
+    width: 7.5em;
     display: inline-block;
-    margin: 0 6px;
+    margin: 0 0.375em;
   }
 
   body [part='navbar'] {
@@ -141,12 +141,12 @@ export default css`
       padding: 0.05em 0 0.05em 4.75em;
       box-shadow: var(--material-shadow-elevation-4dp);
       background: #221f19;
-      margin: 400px 0 0 0;
+      margin: 25em 0 0 0;
     }
 
     [part='navbar'].navbar-subsite {
       position: fixed;
-      top: 70px;
+      top: 4.375em;
     }
 
     a active {
@@ -156,7 +156,7 @@ export default css`
 
   @media screen and (max-width: 1100px) {
     .main-border {
-      margin: 0px 15%;
+      margin: 0 15%;
     }
   }
 
@@ -166,13 +166,14 @@ export default css`
     }
 
     .main-border {
-      margin: 0px 3%;
-      padding-top: 80px;
-      padding-bottom: 50px;
+      margin: 0 3%;
+      padding-top: 5em;
+      padding-bottom: 3.125em;
     }
+
     .main-content {
       background-color: #fff;
-      padding: 14px 30px;
+      padding: 0.875em 1.875em;
     }
   }
 
@@ -180,5 +181,9 @@ export default css`
     .construction-message {
       display: none;
     }
+  }
+
+  p {
+    line-height: 1.4em;
   }
 `;

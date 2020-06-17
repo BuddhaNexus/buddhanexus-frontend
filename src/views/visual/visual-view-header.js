@@ -44,8 +44,8 @@ export class VisualViewHeader extends LitElement {
     this.fetchData();
   }
 
-    updated(_changedProperties) {
-	console.log("ACTIVE LANGUAGE VISUAL VIEW HEADER",this.activeLanguage);
+  updated(_changedProperties) {
+    console.log('ACTIVE LANGUAGE VISUAL VIEW HEADER', this.activeLanguage);
     console.log('visual header properties updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'searchItem') {
@@ -69,8 +69,6 @@ export class VisualViewHeader extends LitElement {
   }
 
   async fetchData() {
-    console.log('visual chart menu: fetching data');
-
     const { result, error } = await getCollectionsForVisual();
     this.collectionData = result;
     this.fetchError = error;
@@ -145,7 +143,6 @@ export class VisualViewHeader extends LitElement {
               icon="vaadin:info-circle-o"
             ></iron-icon>
           </vaadin-button>
-
 
           ${this.activeLanguage
             ? html`

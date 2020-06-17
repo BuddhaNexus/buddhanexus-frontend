@@ -37,18 +37,18 @@ export class TableViewTable extends LitElement {
         ${this.parallels.map(parallel =>
           TableViewTableRow({
             rootSegmentId: getSegmentIdFromKey(parallel.root_segnr),
-            rootSegmentText: highlightTextByOffset(
-              parallel.root_seg_text,
-              parallel.root_offset_beg,
-              parallel.root_offset_end + 1, // the +1 is necessary for the chinese display, but hard to tell why.
-              getLanguageFromFilename(parallel.root_segnr[0])
-            ),
-            parallelSegmentText: highlightTextByOffset(
-              parallel.par_segment,
-              parallel.par_offset_beg,
-              parallel.par_offset_end,
-              getLanguageFromFilename(parallel.file_name)
-            ),
+            rootSegmentText: highlightTextByOffset({
+              textArray: parallel.root_seg_text,
+              startoffset: parallel.root_offset_beg,
+              endoffset: parallel.root_offset_end + 1,
+              lang: getLanguageFromFilename(parallel.root_segnr[0]),
+            }),
+            parallelSegmentText: highlightTextByOffset({
+              textArray: parallel.par_segment,
+              startoffset: parallel.par_offset_beg,
+              endoffset: parallel.par_offset_end,
+              lang: getLanguageFromFilename(parallel.file_name),
+            }),
             parallelSegmentId: getSegmentIdFromKey(parallel.par_segnr),
             score: parallel.score,
             parLength: parallel.par_length,

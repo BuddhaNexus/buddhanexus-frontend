@@ -1,13 +1,13 @@
 import { html } from 'lit-element';
 
-import { replaceFileNameForDisplay } from '../utility/preprocessing';
+import { FormattedFileName } from '../utility/common-components';
 
 const NumbersViewTableHeader = (fileName, collectionKeys) =>
   html`
     <thead>
       <tr>
         <th class="segment-header">
-          Segment id in ${replaceFileNameForDisplay(fileName)}
+          Segment id in ${FormattedFileName({ fileName: fileName })}
         </th>
         ${Object.keys(collectionKeys).map(
           item =>

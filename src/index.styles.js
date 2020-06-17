@@ -6,6 +6,7 @@ export default css`
     min-height: 500px;
     display: flex;
     justify-content: space-between;
+    height: 100%;
   }
 
   main > * {
@@ -18,7 +19,7 @@ export default css`
 
   .header-title {
     margin: 20px 16px;
-    font-family: Roboto, Source Sans Pro, sans-serif;
+    font-family: var(--system-font-stack);
   }
 
   @media screen and (max-width: 400px) {
@@ -100,7 +101,6 @@ export default css`
     padding-top: 0;
     width: 100%;
     flex: 1;
-    height: 100%;
     --vaadin-app-layout-navbar-background: var(--color-background);
     background-color: var(--color-background-light);
     --material-primary-text-color: white;
@@ -143,9 +143,6 @@ export default css`
     padding-top: 100px;
     background: var(--color-sidebar-menu);
     border-top: #0f0;
-  }
-
-  .search-icon-container {
   }
 
   .search-icon {

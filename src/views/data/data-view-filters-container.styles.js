@@ -25,10 +25,6 @@ export default css`
     width: calc(100% - 32px);
   }
 
-  .search-box {
-    padding-top: 24px;
-  }
-
   #search-icon {
     margin-right: 24px;
   }

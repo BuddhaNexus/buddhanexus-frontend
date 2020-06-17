@@ -1,9 +1,8 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
-import '@vaadin/vaadin-button/vaadin-button.js';
-import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
-import '@vaadin/vaadin-icons/vaadin-icons.js';
+
+import './data-view-header-fields';
 
 @customElement('data-view-header')
 class DataViewHeader extends LitElement {
@@ -13,14 +12,14 @@ class DataViewHeader extends LitElement {
   @property({ type: String }) viewMode;
   @property({ type: String }) folio;
 
+  @property({ type: Function }) updateSearch;
+  @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
   @property({ type: Function }) handleViewModeChanged;
   @property({ type: Function }) toggleFilterBarOpen;
 
-  // TODO: add search and sort here
   @property({ type: String }) searchString;
-  @property({ type: String }) sortMethod = 'position';
 
   static get styles() {
     return [
@@ -34,7 +33,7 @@ class DataViewHeader extends LitElement {
         }
 
         .filter-bar-toggle-icon {
-          margin-right: 48px;
+          margin-right: 2em;
           min-height: 22px;
           min-width: 22px;
           position: absolute;
@@ -51,6 +50,16 @@ class DataViewHeader extends LitElement {
         .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open {
           opacity: 0;
           pointer-events: none;
+        }
+
+        vaadin-text-field {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+          --iron-icon-width: 20px;
+        }
+
+        vaadin-text-field [part='value'] {
+          padding-left: 16px;
         }
       `,
     ];
@@ -71,13 +80,15 @@ class DataViewHeader extends LitElement {
             >
             </data-view-view-selector>
 
-            <text-select-combo-box
+            <data-view-header-fields
               .language="${this.language}"
               .fileName="${this.fileName}"
               .setFileName="${this.setFileName}"
               .setFolio="${this.setFolio}"
               .viewMode="${this.viewMode}"
-            ></text-select-combo-box>
+              .updateSearch="${this.updateSearch}"
+              .updateSortMethod="${this.updateSortMethod}"
+            ></data-view-header-fields>
 
             <iron-icon
               icon="vaadin:filter"

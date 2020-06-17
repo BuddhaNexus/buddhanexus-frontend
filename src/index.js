@@ -109,12 +109,9 @@ export class AppLayout extends LitElement {
             @change="${this.navigateToSearch}"
             no-label-float
             autosave="test"
-            results="5"
           >
             <div slot="prefix">
-              <div class="search-icon-container">
-                <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
-              </div>
+              <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
             </div>
           </paper-input>
         </bn-card>

@@ -4,17 +4,21 @@ import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box';
 
 import { LANGUAGE_CODES } from '../utility/constants';
 import { getFilesForMainMenu, getFoliosForFile } from '../menus/actions';
+import { DATA_VIEW_MODES } from './data-view-filters-container';
 
-@customElement('text-select-combo-box')
-export class TextSelectComboBox extends LitElement {
+@customElement('data-view-header-fields')
+export class DataViewHeaderFields extends LitElement {
   @property({ type: String }) language;
   @property({ type: String }) viewMode;
   @property({ type: String }) fileName;
-  @property({ type: Function }) setFileName;
-  @property({ type: Function }) setFolio;
   @property({ type: Array }) menuData;
   @property({ type: Array }) folioData;
   @property({ type: String }) fetchError;
+
+  @property({ type: Function }) setFileName;
+  @property({ type: Function }) setFolio;
+  @property({ type: Function }) updateSearch;
+  @property({ type: Function }) updateSortMethod;
 
   static get styles() {
     return [
@@ -22,20 +26,35 @@ export class TextSelectComboBox extends LitElement {
         :host {
           display: flex;
           flex-wrap: wrap;
+          align-items: baseline;
         }
 
         #text-select-combo-box {
-          width: 400px;
-          margin-right: 16px;
+          width: 15em;
+          margin-right: 1em;
         }
 
         #folio-select-combo-box {
-          width: 140px;
+          width: 8.75em;
+          margin-right: 2em;
         }
 
         vaadin-combo-box {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
+        }
+
+        .search-box {
+          padding-top: 1em;
+          transform: translateY(1.5px);
+          --paper-input-container-focus-color: var(--bn-dark-red);
+        }
+
+        .search-icon {
+          width: 1em;
+          height: 1em;
+          margin-right: 0.8em;
+          margin-bottom: 0.25em;
         }
       `,
     ];
@@ -73,16 +92,18 @@ export class TextSelectComboBox extends LitElement {
     if (!this.fileName) {
       return;
     }
-    const { folios, error } = await getFoliosForFile({
+    const response = await getFoliosForFile({
       fileName: this.fileName,
     });
-    this.folioData = folios;
-    this.fetchError = error;
+    if (response) {
+      this.folioData = response.folios;
+      this.fetchError = response.error;
+    }
   }
 
-  constructNameDic(results) {
-    let textNameDic = {};
-    let displayNameDic = {};
+  getTextAndDisplayNames(results) {
+    const textNameDic = {};
+    const displayNameDic = {};
 
     results.forEach(result => {
       // textname (the acronym of the text number) is used for headers parallels instead of the filename.
@@ -110,12 +131,12 @@ export class TextSelectComboBox extends LitElement {
     }
     // I am not sure if it is hacky to use global scope window here or not,
     // but it works and we avoid having to fetch the data multiple times!
-    const nameDic = this.constructNameDic(result);
+    const [textNames, displayNames] = this.getTextAndDisplayNames(result);
     if (!window.menuData[this.language]) {
-      window.menuData[this.language] = nameDic[0];
+      window.menuData[this.language] = textNames;
     }
     if (!window.displayData[this.language]) {
-      window.displayData[this.language] = nameDic[1];
+      window.displayData[this.language] = displayNames;
     }
     this.fetchError = error;
   }
@@ -144,12 +165,13 @@ export class TextSelectComboBox extends LitElement {
     }
   };
 
-  showFolioBox() {
+  shouldShowFolioBox() {
     if (this.language === LANGUAGE_CODES.SANSKRIT) {
       return false;
     }
     if (
-      this.viewMode === 'text' &&
+      (this.viewMode === DATA_VIEW_MODES.TEXT ||
+        this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH) &&
       (this.language !== LANGUAGE_CODES.PALI ||
         this.fileName.match('([as]n[0-9]|dhp)'))
     ) {
@@ -159,20 +181,25 @@ export class TextSelectComboBox extends LitElement {
   }
 
   render() {
+    const shouldShowTextSearchBox =
+      (this.viewMode === DATA_VIEW_MODES.TEXT ||
+        this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH) &&
+      this.fileName;
+    const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
+
     return html`
-      <div>
-        <vaadin-combo-box
-          clear-button-visible
-          id="text-select-combo-box"
-          label="${this.getMenuLabel(this.language)}"
-          item-value-path="textname"
-          item-label-path="displayName"
-          .items="${this.menuData}"
-          @value-changed="${e => this.updateFileName(e)}"
-        >
-        </vaadin-combo-box>
-      </div>
-      ${this.showFolioBox()
+      <vaadin-combo-box
+        id="text-select-combo-box"
+        clear-button-visible
+        label="${this.getMenuLabel(this.language)}"
+        item-value-path="textname"
+        item-label-path="displayName"
+        .items="${this.menuData}"
+        @value-changed="${e => this.updateFileName(e)}"
+      >
+      </vaadin-combo-box>
+
+      ${this.shouldShowFolioBox()
         ? html`
             <vaadin-combo-box
               id="folio-select-combo-box"
@@ -183,6 +210,55 @@ export class TextSelectComboBox extends LitElement {
               @value-changed="${e => this.updateFolio(e)}"
             >
             </vaadin-combo-box>
+          `
+        : null}
+      ${shouldShowTextSearchBox
+        ? html`
+            <paper-input
+              placeholder="Search in Inquiry Text"
+              class="search-box"
+              type="search"
+              no-label-float
+              @change="${e => this.updateSearch(e.target.value)}"
+              @keydown="${e => {
+                if (e.code === 'Enter') {
+                  this.updateSearch(e.target.value);
+                }
+              }}"
+            >
+              <div slot="prefix">
+                <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
+              </div>
+            </paper-input>
+          `
+        : null}
+      ${shouldShowSortBox
+        ? html`
+            <vaadin-select
+              @value-changed="${this.updateSortMethod}"
+              Label="Sorting method:"
+              class="input-field"
+              item-label-path="filename"
+            >
+              <template>
+                <vaadin-list-box @value-changed="${this.updateSortMethod}">
+                  <vaadin-item value="position"
+                    >By position in Inquiry Text</vaadin-item
+                  >
+                  <vaadin-item value="quoted-text"
+                    >By position in Hit Text(s)</vaadin-item
+                  >
+                  <vaadin-item value="length"
+                    >Length of match in Inquiry Text (beginning with
+                    longest)</vaadin-item
+                  >
+                  <vaadin-item value="length2"
+                    >Length of match in Hit Text (beginning with
+                    longest)</vaadin-item
+                  >
+                </vaadin-list-box>
+              </template>
+            </vaadin-select>
           `
         : null}
     `;

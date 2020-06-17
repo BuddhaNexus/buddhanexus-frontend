@@ -5,10 +5,10 @@ import { highlightTextByOffset } from '../utility/preprocessing';
 import { searchFileTextSegments } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
 
 @customElement('text-view-search')
-export class TextViewLeft extends LitElement {
+export class TextViewSearch extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: String }) fileName;
 
@@ -23,12 +23,12 @@ export class TextViewLeft extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (['searchString'].includes(propName)) {
-        this.fetchDataText();
+        this.fetchSearchResultsData();
       }
     });
   }
 
-  async fetchDataText() {
+  async fetchSearchResultsData() {
     if (!this.fileName) {
       this.fetchLoading = false;
       return;
@@ -43,7 +43,7 @@ export class TextViewLeft extends LitElement {
     this.fetchError = error;
   }
 
-  clickedResult(e) {
+  handleSearchResultClicked(e) {
     let target = e.target;
     if (!target.getAttribute('segment')) {
       target = target.parentElement;
@@ -51,20 +51,21 @@ export class TextViewLeft extends LitElement {
         target = target.parentElement;
       }
     }
-    let segment = target.getAttribute('segment');
-    let beg = parseInt(target.getAttribute('beg'));
-    let end = parseInt(target.getAttribute('end'));
-    this.dispatchEvent(
-      new CustomEvent('click-result', {
-        bubbles: true,
-        composed: true,
-        detail: {
-          selectedParallels: [segment],
-          startoffset: beg,
-          endoffset: end,
-        },
-      })
-    );
+    const segment = target.getAttribute('segment');
+    const beg = parseInt(target.getAttribute('beg'));
+    const end = parseInt(target.getAttribute('end'));
+    const searchResultClickedEvent = new CustomEvent('click-result', {
+      bubbles: true,
+      composed: true,
+      // pass leftTextData from clicked segment.
+      // TODO: refactor so that this would navigates to a URL instead of firing an event
+      detail: {
+        selectedParallels: [segment],
+        startoffset: beg,
+        endoffset: end,
+      },
+    });
+    this.dispatchEvent(searchResultClickedEvent);
   }
 
   render() {
@@ -73,6 +74,13 @@ export class TextViewLeft extends LitElement {
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }
+
+    if (!this.resultSegments) {
+      return html`
+        <span>No results.</span>
+      `;
+    }
+
     return html`
       <div id="text-view-search-header">
         <strong
@@ -81,50 +89,38 @@ export class TextViewLeft extends LitElement {
         >
       </div>
       <div id="text-view-search-content">
-        ${showResultList(
-          this.resultSegments,
-          this.searchString,
-          this.clickedResult
+        ${this.resultSegments.map(segment =>
+          ResultSegmentContainer({
+            segmentNr: segment.segnr,
+            segText: segment.segtext,
+            searchString: this.searchString,
+            onSegmentClicked: this.handleSearchResultClicked,
+          })
         )}
       </div>
     `;
   }
 }
 
-const showResultList = (resultSegments, searchString, clickFunction) => {
-  return resultSegments.map(segment => {
-    return resultSegmentContainer(
-      segment.segnr,
-      segment.segtext,
-      searchString,
-      clickFunction
-    );
-  });
-};
-
-const resultSegmentContainer = (
+function ResultSegmentContainer({
   segmentNr,
   segText,
   searchString,
-  clickFunction
-) => {
+  onSegmentClicked,
+}) {
   let beg = segText.indexOf(searchString);
   let end = beg + searchString.length;
-  segText = highlightTextByOffset(
-    [segText],
-    beg,
-    end,
-    getLanguageFromFilename(segmentNr)
-  );
-  return resultSegment(segmentNr, segText, beg, end, clickFunction);
-};
-
-const resultSegment = (segmentNr, segText, beg, end, clickFunction) =>
-  html`
+  segText = highlightTextByOffset({
+    textArray: [segText],
+    startoffset: beg,
+    endoffset: end,
+    lang: getLanguageFromFilename(segmentNr),
+  });
+  return html`
     <div
       class="result-segment"
       id="${segmentNr}"
-      @click="${clickFunction}"
+      @click="${onSegmentClicked}"
       segment="${segmentNr}"
       beg="${beg}"
       end="${end}"
@@ -133,3 +129,4 @@ const resultSegment = (segmentNr, segText, beg, end, clickFunction) =>
       <span class="result-text">${segText}</span>
     </div>
   `;
+}

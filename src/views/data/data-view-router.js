@@ -2,21 +2,22 @@ import { property, html, customElement, LitElement } from 'lit-element';
 
 import '../numbersview/numbers-view';
 import '../graphview/graph-view';
-import '../textview/text-view';
 import '../tableview/table-view';
+import '../textview/text-view-router';
 import '../neutralview/neutral-view';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view-router')
 export class DataViewRouter extends LitElement {
   @property({ type: String }) selectedView;
+  @property({ type: Function }) setSelectedView;
   @property({ type: String }) fileName;
   @property({ type: Function }) setFileName;
-  @property({ type: String }) activeSegment;
   @property({ type: Number }) folio;
   @property({ type: String }) searchString;
-    @property({ type: String }) sortMethod;
-    @property({ type: String }) lang;
+  @property({ type: String }) activeSegment;
+  @property({ type: String }) sortMethod;
+  @property({ type: String }) lang;
   @property({ type: Number }) cooccurance;
   @property({ type: Array }) limitCollection;
   @property({ type: Array }) targetCollection;
@@ -24,13 +25,14 @@ export class DataViewRouter extends LitElement {
   @property({ type: Number }) quoteLength;
 
   render() {
-      if (this.selectedView === DATA_VIEW_MODES.TEXT) {
-	  
+    if (
+      this.selectedView === DATA_VIEW_MODES.TEXT ||
+      this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH
+    ) {
       return html`
-        <text-view
-          id="text-view"
+        <text-view-router
           .fileName="${this.fileName}"
-          .leftActiveSegment="${this.activeSegment}"
+          .activeSegment="${this.activeSegment}"
           .folio="${this.folio}"
           .setFileName="${this.setFileName}"
           .limitCollection="${this.limitCollection}"
@@ -38,7 +40,9 @@ export class DataViewRouter extends LitElement {
           .cooccurance="${this.cooccurance}"
           .score="${this.score}"
           .searchString="${this.searchString}"
-        ></text-view>
+          .selectedView="${this.selectedView}"
+          .setSelectedView="${this.setSelectedView}"
+        ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
       return html`
@@ -74,15 +78,11 @@ export class DataViewRouter extends LitElement {
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
       return html`
-        <neutral-view
-          .lang="${this.lang}"
-        ></neutral-view>
+        <neutral-view .lang="${this.lang}"></neutral-view>
       `;
-	
     } else {
       return html`
-        <h2>Error: No View selected</h2>
-        <p>This shouldn't happen.</p>
+        <h2>Select the view mode.</h2>
       `;
     }
   }

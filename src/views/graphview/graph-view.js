@@ -48,7 +48,6 @@ export class GraphView extends LitElement {
   }
 
   updated(_changedProperties) {
-    console.log('graph view updated. ', _changedProperties);
     _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [

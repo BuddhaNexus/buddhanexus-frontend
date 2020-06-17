@@ -32,8 +32,7 @@ export class VisualViewGraph extends LitElement {
     return [styles];
   }
 
-    updated(_changedProperties) {
-
+  updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (
         ['searchItem', 'selectedCollections'].includes(propName) &&
@@ -55,8 +54,12 @@ export class VisualViewGraph extends LitElement {
     // smaller collections are enlarged, resulting in a compression effect that makes
     // the rendering of smaller entities more readable. a value of ** 1 means nothing
     // is changed. The smaller the value is, the stronger the graph is 'compressed'.
-    return value ** 0.33;
-    // We can also add language specific values here.
+    value = value ** 0.2;
+    // we force this min. value of 2 for each connection in order to avoid elements in the graph that are too tiny to be visible.
+    if (value < 2) {
+      value = 2;
+    }
+    return value;
   }
 
   changeColorScheme() {
@@ -155,7 +158,6 @@ export class VisualViewGraph extends LitElement {
     searchTerm = !searchTerm.includes('acip')
       ? searchTerm.split('_')[1]
       : searchTerm.replace('tib_', '');
-    console.log('visual view: fetching data', this.searchItem);
     let { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,
