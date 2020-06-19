@@ -37,7 +37,7 @@ export const navMenuDataMain = [
   },
   {
     text: 'Activities',
-    url: 'Activities',
+    url: 'activities',
     children: [
       {
         text: ' Events',
@@ -59,7 +59,6 @@ export const navMenuDataMain = [
   },
   {
     text: 'Database',
-    url: 'visual',
     children: [
       {
         text: 'Pāli',

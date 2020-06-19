@@ -14,7 +14,6 @@ import './views/static/events/events-view.js';
 import './views/static/projects/projects-view.js';
 import './views/static/presentations/presentations-view.js';
 import './views/static/publications/publications-view.js';
-import './views/static/tools/tools-view.js';
 import './views/static/imprint/imprint-view.js';
 import './views/static/contact/contact-view.js';
 import {
@@ -24,32 +23,12 @@ import {
   switchNavbarLayout,
 } from './views/utility/utils';
 
-const TABS = {
-  HOME: '',
-  PALI: 'pli',
-  SANSKRIT: 'skt',
-  TIBETAN: 'tib',
-  CHINESE: 'chn',
-  VISUAL: 'visual',
-  SEARCH: 'search',
-};
-
-const TABS_IN_ORDER = [
-  TABS.HOME,
-  TABS.PALI,
-  TABS.SANSKRIT,
-  TABS.TIBETAN,
-  TABS.CHINESE,
-  TABS.VISUAL
-];
-
 const ROUTES = [
   {
     path: '/',
     animate: true,
     component: 'home-view',
     action: () => {
-      BNRouter.selectTab(TABS.HOME);
       switchNavbarLayout(true, true);
     },
   },
@@ -178,7 +157,6 @@ const ROUTES = [
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');
-      BNRouter.selectTab(TABS.PALI);
       switchNavbarLayout(false, false);
       setLogoSource('/src/assets/img/buddhanexus_pli.jpg');
     },
@@ -188,7 +166,6 @@ const ROUTES = [
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');
-      BNRouter.selectTab(TABS.SANSKRIT);
       switchNavbarLayout(false, false);
       setLogoSource('/src/assets/img/buddhanexus_skt.jpg');
     },
@@ -199,9 +176,7 @@ const ROUTES = [
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');
-      BNRouter.selectTab(TABS.TIBETAN);
       switchNavbarLayout(false, false);
-      //      setFooterVisible(false);
       setLogoSource('/src/assets/img/buddhanexus_tib.jpg');
     },
   },
@@ -210,7 +185,6 @@ const ROUTES = [
     component: 'data-view',
     action: () => {
       import('./views/data/data-view.js');
-      BNRouter.selectTab(TABS.CHINESE);
       switchNavbarLayout(false, false);
       setLogoSource('/src/assets/img/buddhanexus_chn.jpg');
     },
@@ -220,7 +194,6 @@ const ROUTES = [
     component: 'visual-view',
     action: () => {
       import('./views/visual/visual-view.js');
-      BNRouter.selectTab(TABS.VISUAL);
       switchNavbarLayout(false, false);
       setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');
@@ -255,16 +228,6 @@ class BNRouter {
 
   async init() {
     await this.router.setRoutes(ROUTES);
-  }
-
-  static selectTab(tabName) {
-  //this is commented out because we need to change the menu bar first
-  // const vaadinTabs = getMainLayout().querySelectorAll('vaadin-tab');
-  // vaadinTabs.forEach(item => {
-  //   item.removeAttribute('selected');
-  // });
-
-  // vaadinTabs[TABS_IN_ORDER.indexOf(tabName)].setAttribute('selected', 'true');
   }
 }
 
