@@ -11,7 +11,7 @@ export class NeutralViewTibetan extends LitElement {
   }
   render() {
     return html`
-      <p>Tibetan</p>
+      <h2>Tibetan</h2>
       <p>
         The Tibetan textual corpora used in BuddhaNexus were obtained from
         various sources, including Asian Classics Input Projects (ACIP) for the
