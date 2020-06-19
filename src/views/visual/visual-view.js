@@ -9,8 +9,8 @@ import './visual-view-selection-box';
 @customElement('visual-view')
 export class VisualView extends LitElement {
   @property({ type: String }) searchItem;
-    @property({ type: String }) colorScheme;
-      @property({ type: String }) activeLanguage;
+  @property({ type: String }) colorScheme;
+  @property({ type: String }) activeLanguage;
   @property({ type: Array }) selectedCollections;
 
   static get styles() {
@@ -43,12 +43,9 @@ export class VisualView extends LitElement {
       `,
     ];
   }
-    firstUpdated() {
-	this.activeLanguage = this.location.params.lang;
-	if(window.globalLang){
-	    this.activeLanguage = window.globalLang;
-	}
-    }
+  firstUpdated() {
+    this.activeLanguage = this.location.params.lang;
+  }
   setSelection = (searchItem, selectedCollections) => {
     this.searchItem = searchItem;
     this.selectedCollections = selectedCollections;
@@ -60,16 +57,17 @@ export class VisualView extends LitElement {
 
   render() {
     return html`
-${this.activeLanguage
-            ? null : html`<visual-view-selection-box></visual-view-selection-box>`}
+      ${this.activeLanguage
+        ? null
+        : html`
+            <visual-view-selection-box></visual-view-selection-box>
+          `}
       <div class="visual-view-container">
         <visual-view-header
           .setSelection="${this.setSelection}"
           .setColorScheme="${this.setColorScheme}"
           .activeLanguage="${this.activeLanguage}"
-          ></visual-view-header>
-
-
+        ></visual-view-header>
 
         <visual-view-graph
           .searchItem="${this.searchItem}"
@@ -79,7 +77,6 @@ ${this.activeLanguage
         >
         </visual-view-graph>
       </div>
-	  `
+    `;
   }
-  
 }

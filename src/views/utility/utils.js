@@ -26,11 +26,9 @@ export function setNavbarMenus(isStart) {
   const navBarStart = getMainLayout().querySelector('.menu-tab.main');
   const navBarSubsite = getMainLayout().querySelector('.menu-tab.sub');
   if (isStart) {
-    console.log('NAVBAR START ISSTART', navBarStart);
     navBarStart.setAttribute('style', 'display: block');
     navBarSubsite.setAttribute('style', 'display: none');
   } else {
-    console.log('NAVBAR START ISNOTSTART', navBarStart);
     navBarStart.setAttribute('style', 'display: none');
     navBarSubsite.setAttribute('style', 'display: block');
   }

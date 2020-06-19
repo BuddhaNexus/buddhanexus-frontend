@@ -45,8 +45,6 @@ export class VisualViewHeader extends LitElement {
   }
 
   updated(_changedProperties) {
-    console.log('ACTIVE LANGUAGE VISUAL VIEW HEADER', this.activeLanguage);
-    console.log('visual header properties updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'searchItem') {
         this.setTargetCollectionData();

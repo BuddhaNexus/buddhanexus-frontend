@@ -28,8 +28,13 @@ const polyfills = [
 const assets = [
   {
     from: 'src/assets/icons',
-    to: 'img/',
+    to: 'src/assets/icons/',
   },
+  {
+    from: 'src/assets/img',
+    to: 'src/assets/img/',
+  },
+
   {
     from: 'src/assets/fonts',
     to: 'fonts/',

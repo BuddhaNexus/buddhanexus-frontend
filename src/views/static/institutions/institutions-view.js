@@ -18,7 +18,7 @@ export class InstitutionsView extends LitElement {
             <div>Khyentse Center (KC)</div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_khyentse_center.jpg"
+                src="./src/assets/img/partner_khyentse_center.jpg"
                 alt="Khyentse Center"
               />
             </div>
@@ -26,7 +26,7 @@ export class InstitutionsView extends LitElement {
             <div>Universität Hamburg (UHH)</div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_uni_hamburg.jpg"
+                src="./src/assets/img/partner_uni_hamburg.jpg"
                 alt="UNI Hamburg"
               />
             </div>
@@ -34,7 +34,7 @@ export class InstitutionsView extends LitElement {
             <div>SuttaCentral</div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_sutta_central.jpg"
+                src="./src/assets/img/partner_sutta_central.jpg"
                 alt="Sutta Central"
               />
             </div>
@@ -44,7 +44,7 @@ export class InstitutionsView extends LitElement {
             </div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_digital_humanities.jpg"
+                src="./src/assets/img/partner_digital_humanities.jpg"
                 alt="Digital Humanities"
               />
             </div>
@@ -54,20 +54,20 @@ export class InstitutionsView extends LitElement {
             <div>Vipassana Research Institute (VRI)</div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_vipassana_research_institute.jpg"
+                src="./src/assets/img/partner_vipassana_research_institute.jpg"
                 alt="VRI"
               />
             </div>
 
             <div>Asian Classics Input Projects (ACIP)</div>
             <div class="partner">
-              <img src="/src/assets/img/partner_acip.jpg" alt="ACIP" />
+              <img src="./src/assets/img/partner_acip.jpg" alt="ACIP" />
             </div>
 
             <div>Buddhist Digital Resource Center (BDRC)</div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_buddhist_digital_resource_center.jpg"
+                src="./src/assets/img/partner_buddhist_digital_resource_center.jpg"
                 alt="Buddhist Digital Resource Center"
               />
             </div>
@@ -78,18 +78,18 @@ export class InstitutionsView extends LitElement {
             </div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_uni_goettingen.jpg"
+                src="./src/assets/img/partner_uni_goettingen.jpg"
                 alt="UNI Göttingen"
               />
             </div>
 
             <div class="partner">
-              <img src="/src/assets/img/partner_sub.jpg" alt="SUB" />
+              <img src="./src/assets/img/partner_sub.jpg" alt="SUB" />
             </div>
 
             <div>Chinese Buddhist Electronic Text Association (CBETA)</div>
             <div class="partner">
-              <img src="/src/assets/img/partner_beta.jpg" alt="CBETA" />
+              <img src="./src/assets/img/partner_beta.jpg" alt="CBETA" />
             </div>
 
             <h2>FUNDING INSTITUTIONS</h2>
@@ -97,7 +97,7 @@ export class InstitutionsView extends LitElement {
             <div>Khyentse Center (KC)</div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_khyentse_center.jpg"
+                src="./src/assets/img/partner_khyentse_center.jpg"
                 alt="Khyentse Center"
               />
             </div>
@@ -105,7 +105,7 @@ export class InstitutionsView extends LitElement {
             <div>Universität Hamburg (UHH)</div>
             <div class="partner">
               <img
-                src="/src/assets/img/partner_uni_hamburg.jpg"
+                src="./src/assets/img/partner_uni_hamburg.jpg"
                 alt="UNI Hamburg"
               />
             </div>

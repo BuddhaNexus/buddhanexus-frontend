@@ -45,31 +45,6 @@ export class AppLayout extends LitElement {
     }
   };
 
-  updateLanguage = e => {
-    const url = e.target.value + '/neutral';
-    Router.go(`/${url}`);
-  };
-  createLanguageSelector() {
-    return html`
-      <bn-card slot="navbar" small style="margin-right: 4px">
-        <vaadin-select
-          @value-changed="${this.updateLanguage}"
-          placeholder="Select language"
-          id="lang"
-        >
-          <template>
-            <vaadin-list-box @value-changed="${this.updateLanguage}">
-              <vaadin-item value="pli">Pāli</vaadin-item>
-              <vaadin-item value="skt">Sanskrit</vaadin-item>
-              <vaadin-item value="tib">Tibetan</vaadin-item>
-              <vaadin-item value="chn">Chinese</vaadin-item>
-            </vaadin-list-box>
-          </template>
-        </vaadin-select>
-      </bn-card>
-    `;
-  }
-
   render() {
     return html`
       <vaadin-app-layout>
@@ -98,8 +73,6 @@ export class AppLayout extends LitElement {
           class="menu-tab sub"
           @item-selected="${e => this.handleMenuClick(e)}"
         ></vaadin-menu-bar>
-
-        ${this.createLanguageSelector()}
 
         <bn-card slot="navbar" small>
           <paper-input

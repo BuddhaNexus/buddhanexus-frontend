@@ -17,7 +17,7 @@ export const SEGMENT_COLORS = {
   6: '#FF0093',
   7: '#E80C0C',
   8: '#FF2A00',
-  9: '#E85650C',
+  9: '#E85650',
   10: '#FF860D',
 };
 

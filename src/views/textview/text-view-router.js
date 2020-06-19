@@ -34,7 +34,6 @@ export class TextViewRouter extends LitElement {
 
   handleSearchResultClicked(e) {
     this.leftTextData = e.detail;
-    console.log('TEXT SEARCH ROUTER LEFTTEXTDATA', this.leftTextData);
     this.setSelectedView(DATA_VIEW_MODES.TEXT);
   }
 

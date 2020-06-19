@@ -60,7 +60,6 @@ export class TextView extends LitElement {
   }
 
   resetLeftText() {
-    console.log('resetting middle data');
     this.leftTextData = {
       selectedParallels: [undefined],
       startoffset: 0,
@@ -117,7 +116,6 @@ export class TextView extends LitElement {
   }
 
   highlightLeftAfterScrolling(e) {
-    console.log('HIGHLIGHT LEFT AFTER SCROLLING');
     this.highlightParallel({
       rootSegments: e.detail.selectedParallels,
       rootOffsetBegin: e.detail.startoffset,
@@ -135,7 +133,7 @@ export class TextView extends LitElement {
     if (!rootSegments) {
       return;
     }
-    console.log('HIGHLIGHT PARALLEL');
+
     const textContainer = this.shadowRoot
       .getElementById('text-view-table')
       .shadowRoot.getElementById(

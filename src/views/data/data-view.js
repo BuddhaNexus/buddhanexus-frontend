@@ -51,7 +51,6 @@ export class DataView extends LitElement {
 
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
-    window.globalLang = this.language;
     this.handleViewModeParamChanged();
     this.cooccurance = this.language === 'pli' ? 15 : 2000;
     this.quoteLength = this.language === 'chn' ? 7 : 12;

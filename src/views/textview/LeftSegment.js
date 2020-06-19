@@ -43,6 +43,7 @@ export function LeftSegmentContainer({
   const leftSideSelected =
     leftTextData && leftTextData.selectedParallels.indexOf(segmentNr) > -1;
   const displayNumber = `${segmentNr.split(':')[1].split('_')[0]}`;
+
   const colorValues = getLeftSegmentColors(
     current_parallels,
     segText,
