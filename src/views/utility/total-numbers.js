@@ -52,13 +52,13 @@ export class TotalNumbers extends LitElement {
       this.parallelCount > 10000 ? `> 10.000` : this.parallelCount;
 
     if (this.fetchLoading) {
-      return html`<strong>Loading ...</strong>`;
+      return html`
+        <strong>Loading ...</strong>
+      `;
     }
 
     return html`
-        <span>
-          <strong>${matchCount}</strong> matches
-        </span>
+      <span> <strong>${matchCount}</strong> matches </span>
     `;
   }
 }

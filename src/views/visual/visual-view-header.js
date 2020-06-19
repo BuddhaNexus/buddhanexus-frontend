@@ -142,21 +142,6 @@ export class VisualViewHeader extends LitElement {
             ></iron-icon>
           </vaadin-button>
 
-          <vaadin-combo-box
-            id="visual-view-language-dropdown"
-            label="Select Language"
-            item-label-path="label"
-            item-value-path="language"
-            @value-changed="${this.handleLanguageChanged}"
-            .items="${this.languages}"
-          >
-            <template>
-              <strong style="display: inline; margin-bottom: 4px;"
-                >[[item.label]]</strong
-              >
-            </template>
-          </vaadin-combo-box>
-
           ${this.activeLanguage
             ? html`
                 <vaadin-combo-box

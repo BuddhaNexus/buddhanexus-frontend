@@ -29,6 +29,7 @@ function TextSegmentWord({
   if (!currentColor || currentColor === 0) {
     return cleanedWord;
   }
+
   // prettier-ignore
   return html`<span class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}" style="color:${highlightColor}" position="${position}" @click="${onClick}">${cleanedWord}</span>`;
 }
@@ -66,6 +67,7 @@ function TextSegmentWords(
   let selected = false;
   return segmentData.map((word, i) => {
     const currentColor = colorValues.length >= 0 ? colorValues[i] : 0;
+
     if (currentColor !== 0 && highlightMode === 1) {
       selected = true;
     }
@@ -84,6 +86,7 @@ function TextSegmentWords(
     } else {
       position += segmentData[i].length;
     }
+
     return renderedWord;
   });
 }

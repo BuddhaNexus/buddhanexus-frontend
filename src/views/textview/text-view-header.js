@@ -101,10 +101,6 @@ export class TextViewHeader extends LitElement {
   @property({ type: Boolean }) isInfoDialogOpen = false;
   @property({ type: Boolean }) renderMiddleTextLabel = false;
 
-  updated(_changedProperties) {
-    console.log('CHANGED HEADER PROPERTIES', _changedProperties);
-  }
-
   static get styles() {
     return [
       sharedDataViewStyles,

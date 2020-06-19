@@ -12,7 +12,7 @@ export class Card extends LitElement {
         .card {
           padding: 12px 24px 24px 24px;
           border-radius: 4px;
-          background-color: var(--color-light-grey);
+          background-color: var(--color-light-chartbar);
           box-shadow: var(--material-card-shadow);
           height: inherit;
         }
@@ -22,7 +22,7 @@ export class Card extends LitElement {
         }
 
         .card--header {
-          padding: 16px 64px 16px 48px;
+          padding: 36px 48px 16px 48px;
           border-radius: 0;
           display: flex;
           flex-wrap: wrap;

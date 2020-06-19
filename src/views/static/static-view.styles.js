@@ -2,14 +2,14 @@ import { css } from 'lit-element';
 
 export default css`
   .construction {
-    text-align: center;
-    color: blue;
-    font-weight: bold;
+    text-align: left;
+    color: #000;
+    font-weight: 300;
   }
 
   .construction-sub {
     text-align: center;
-    color: blue;
+    color: #000;
   }
 
   .backgroundpanel {
@@ -43,62 +43,47 @@ export default css`
     border-top: 0.5em solid #221f19;
   }
 
+  .main-content h1 {
+    font-size: 1.6em;
+    font-weight: bold;
+  }
+
+  .main-content h2 {
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+
+  .main-content h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
   .more {
     cursor: pointer;
   }
 
-  .static-page-container a.link {
-    color: #fff;
+  .static-page-container a.content-link {
+    color: #7d6f57;
     text-decoration: none;
   }
 
-  .static-page-container a.link:hover {
-    color: #ccc;
+  .static-page-container a.content-link:hover {
+    color: #4d3f27;
     text-decoration: underline;
   }
 
   .static-page-container a.link span.link-description {
     padding-top: 0.4em;
+    color: #fff;
   }
 
-  .popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    width: 80%;
-    min-height: 20%;
-    margin: 10%;
-    background: var(--material-popup-back);
-    box-shadow: 0.3em 0.3em 0.9em rgba(0, 0, 0, 0.4);
-    border-top: 8px solid #221f19;
-    z-index: 100;
-    overflow: hidden;
+  .menu-tab.main button {
+    color: #fff;
   }
 
-  .popup-close {
-    font-size: 2em;
-    float: right;
-    cursor: pointer;
-    color: var(--material-popup-close-x);
-    line-height: 0.2em;
-  }
-
-  .popup-head {
-    padding: 0.8em;
-    height: 0.8em;
-    position: absolute;
-    right: 0;
-    background: var(--material-popup-close);
-  }
-
-  .popup-content {
-    padding: 1.3em 2.5em 1em 1.5em;
-    overflow-y: scroll;
-    height: 300px;
-  }
-
-  .popup-footer {
-    height: 18.75em;
+  table.activity td {
+    padding: 0 0.8em 0.6em 0;
+    vertical-align: top;
   }
 
   .box-languages {
@@ -124,6 +109,18 @@ export default css`
 
   .box-languages ul li {
     display: inline-block;
+  }
+
+  .partner {
+    width: 50%;
+    margin: 10px 0 20px 120px;
+  }
+  .partner img {
+    width: 90%;
+    text-align: center;
+    box-shadow: 4px 4px 20px 4px rgba(0, 0, 0, 0.2);
+    margin: 0 10px 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .lang-img {

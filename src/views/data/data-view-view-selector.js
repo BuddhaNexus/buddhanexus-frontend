@@ -39,7 +39,6 @@ export class DataViewViewSelector extends LitElement {
             (filter !== 'numbers' || this.language !== 'tib') &&
             filter !== 'neutral' &&
             filter !== 'text-search'
-
           ) {
             return html`
               <vaadin-radio-button value="${filter}">

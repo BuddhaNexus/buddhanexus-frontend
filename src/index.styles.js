@@ -55,28 +55,30 @@ export default css`
     box-shadow: 0 4px 8px #888888;
   }
 
-  vaadin-tabs {
+  vaadin-menu-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex: 1;
     overflow: hidden;
     --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: white;
   }
 
-  vaadin-tabs paper-input {
-    position: absolute;
-    display: flex;
-    right: 32px;
-    top: 10%;
-    color: var(--color-menu-items);
+  .menu-tab.main {
+    display: block;
+  }
+
+  .menu-tab.sub {
+    display: none;
   }
 
   #search-input {
-    margin-left: 16px;
-    margin-right: 16px;
-    // get rid of the top padding caused by label
-    margin-top: -20px;
+    margin: 3px 16px -3px;
+    --paper-input-container-focus-color: var(--bn-dark-red);
+    --paper-input-container-input: {
+      padding: 2px 0;
+    }
   }
 
   #search-input .floated-label-placeholder {
@@ -89,6 +91,7 @@ export default css`
     flex: 1;
     --vaadin-app-layout-navbar-background: var(--color-background);
     background-color: var(--color-background-light);
+    --material-primary-text-color: white;
   }
 
   vaadin-app-layout::part(navbar) {
@@ -120,14 +123,6 @@ export default css`
 
   .menu-tab vaadin-tab {
     color: var(--color-menu-items);
-  }
-
-  .menu-tab.start {
-    display: block;
-  }
-
-  .menu-tab.subsite {
-    display: none;
   }
 
   #menu-drawer {
@@ -183,6 +178,11 @@ export default css`
   .footer-color {
     background: var(--color-background-all);
     min-height: 3em;
+  }
+
+  .footer-corner {
+    content: ' ';
+    background: #221f19;
   }
 
   .footer-right {

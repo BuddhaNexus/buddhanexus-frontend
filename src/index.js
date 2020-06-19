@@ -1,10 +1,9 @@
 import 'normalize.css';
 import 'default-passive-events';
-import '@vaadin/vaadin-tabs/theme/material/vaadin-tabs';
-import '@vaadin/vaadin-tabs/theme/material/vaadin-tab';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-app-layout';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-drawer-toggle';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
+import '@vaadin/vaadin-menu-bar/theme/material/vaadin-menu-bar.js';
 import '@polymer/paper-input/paper-input.js';
 import { LitElement, html, customElement } from 'lit-element';
 import { Router } from '@vaadin/router';
@@ -14,11 +13,20 @@ import { disableDrawer } from './views/utility/utils';
 
 import styles from './index.styles';
 import BNRouter from './router';
+import { navMenuDataMain, navMenuDataSub } from './menu-data';
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
   static get styles() {
     return [styles];
+  }
+
+  handleMenuClick({
+    detail: {
+      value: { url },
+    },
+  }) {
+    Router.go(`/${url}`);
   }
 
   firstUpdated(_changedProperties) {
@@ -48,45 +56,21 @@ export class AppLayout extends LitElement {
           />
         </h1>
 
-        <vaadin-tabs slot="navbar" overflow="both">
-          <a class="menu-tab subsite" href="/">
-            <vaadin-tab>Home</vaadin-tab>
-          </a>
-          <a class="menu-tab subsite" href="/pli/neutral">
-            <vaadin-tab>Pali</vaadin-tab>
-          </a>
-          <a class="menu-tab subsite" href="/skt/neutral">
-            <vaadin-tab>Sanskrit</vaadin-tab>
-          </a>
-          <a class="menu-tab subsite" href="/tib/neutral"
-            ><vaadin-tab>Tibetan</vaadin-tab></a
-          >
-          <a class="menu-tab subsite" href="/chn/neutral">
-            <vaadin-tab>Chinese</vaadin-tab>
-          </a>
-          <a class="menu-tab subsite" href="/visual">
-            <vaadin-tab>Visual Charts</vaadin-tab>
-          </a>
+        <vaadin-menu-bar
+          open-on-hover
+          .items="${navMenuDataMain}"
+          slot="navbar"
+          class="menu-tab main"
+          @item-selected="${e => this.handleMenuClick(e)}"
+        ></vaadin-menu-bar>
 
-          <a class="menu-tab start" href="/">
-            <vaadin-tab>About</vaadin-tab>
-          </a>
-          <a class="menu-tab start" href="/history">
-            <vaadin-tab>History</vaadin-tab>
-          </a>
-          <a class="menu-tab start" href="/guidelines">
-            <vaadin-tab>Guideslines</vaadin-tab>
-          </a>
-          <a class="menu-tab start" href="/institutions"
-            ><vaadin-tab>Institutions</vaadin-tab></a
-          >
-          <a class="menu-tab start" href="/events">
-            <vaadin-tab>Events</vaadin-tab>
-          </a>
-          <a class="menu-tab start" href="/publications">
-            <vaadin-tab>Publications</vaadin-tab>
-          </a>
-        </vaadin-tabs>
+        <vaadin-menu-bar
+          open-on-hover
+          .items="${navMenuDataSub}"
+          slot="navbar"
+          class="menu-tab sub"
+          @item-selected="${e => this.handleMenuClick(e)}"
+        ></vaadin-menu-bar>
 
         <bn-card slot="navbar" small>
           <paper-input
@@ -108,15 +92,12 @@ export class AppLayout extends LitElement {
         <footer>
           <div class="footer-bar">
             <div class="footer-bar-content">
-              <a href="/history" class="link">HISTORY</a>
-              <a href="/people" class="link">PEOPLE</a>
-              <a href="/institutions" class="link">INSTITUTIONS</a>
-              <a href="/activities" class="link">ACTIVITIES</a>
-              <a href="/publications" class="link">PUBLICATIONS</a>
-              <a href="/contact" class="link">CONTACT / IMPRINT</a>
+              <a href="/contact" class="link">CONTACT</a>
+              <a href="/imprint" class="link">IMPRINT</a>
             </div>
           </div>
           <div class="footer-color">
+            <div class="footer-corner">&nbsp;</div>
             <div class="footer-right">
               <img
                 src="/src/assets/img/tree.png"

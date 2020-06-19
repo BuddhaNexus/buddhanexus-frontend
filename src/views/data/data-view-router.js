@@ -33,7 +33,6 @@ export class DataViewRouter extends LitElement {
         <text-view-router
           .fileName="${this.fileName}"
           .activeSegment="${this.activeSegment}"
-
           .folio="${this.folio}"
           .setFileName="${this.setFileName}"
           .limitCollection="${this.limitCollection}"

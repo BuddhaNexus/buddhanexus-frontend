@@ -22,6 +22,18 @@ export function setNavigationDrawerVisibility(isVisible) {
   }
 }
 
+export function setNavbarMenus(isStart) {
+  const navBarStart = getMainLayout().querySelector('.menu-tab.main');
+  const navBarSubsite = getMainLayout().querySelector('.menu-tab.sub');
+  if (isStart) {
+    navBarStart.setAttribute('style', 'display: block');
+    navBarSubsite.setAttribute('style', 'display: none');
+  } else {
+    navBarStart.setAttribute('style', 'display: none');
+    navBarSubsite.setAttribute('style', 'display: block');
+  }
+}
+
 export function disableDrawer() {
   getMainLayout().querySelector('vaadin-app-layout').drawerOpened = false;
   getMainLayout()
@@ -37,26 +49,6 @@ export function setLogoPosition(isStart) {
   } else {
     logoContainer.classList.remove('logo-position-start');
     logoContainer.classList.add('logo-position');
-  }
-}
-
-export function setNavbarLinks(isStart) {
-  const navbarStart = getMainLayout().querySelectorAll('a.menu-tab.start');
-  const navbarSubsite = getMainLayout().querySelectorAll('a.menu-tab.subsite');
-  if (isStart) {
-    navbarStart.forEach(item => {
-      item.setAttribute('style', 'display: block');
-    });
-    navbarSubsite.forEach(item => {
-      item.setAttribute('style', 'display: none');
-    });
-  } else {
-    navbarStart.forEach(item => {
-      item.setAttribute('style', 'display: none');
-    });
-    navbarSubsite.forEach(item => {
-      item.setAttribute('style', 'display: block');
-    });
   }
 }
 
@@ -107,13 +99,18 @@ export function closeDrawer() {
   getMainLayout().querySelector('vaadin-app-layout').drawerOpened = false;
 }
 
-export function switchNavbarLayout(isLargeNavbar) {
+export function switchNavbarLayout(isLargeNavbar, isVisibleFooter) {
   closeDrawer();
   setNavigationDrawerVisibility(!isLargeNavbar);
   setLogoVisibility(!isLargeNavbar);
   setNavbarFixed(!isLargeNavbar);
   setLogoPosition(isLargeNavbar);
-  setNavbarLinks(isLargeNavbar);
-  setFooterVisibility(isLargeNavbar);
+  setNavbarMenus(isLargeNavbar);
+  setFooterVisibility(isVisibleFooter);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }
+/*
+export function setFooterVisible(isVisible) {
+//  setFooterVisibility(isVisible);
+}
+*/

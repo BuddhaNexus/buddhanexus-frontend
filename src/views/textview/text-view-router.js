@@ -19,8 +19,8 @@ export class TextViewRouter extends LitElement {
   @property({ type: String }) folio;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
-    @property({ type: Number }) cooccurance;
-      @property({ type: String }) activeSegment;
+  @property({ type: Number }) cooccurance;
+  @property({ type: String }) activeSegment;
   @property({ type: Number }) score;
   @property({ type: String }) searchString;
   @property({ type: Function }) setFileName;
@@ -33,8 +33,7 @@ export class TextViewRouter extends LitElement {
   @property({ type: Function }) setSelectedView;
 
   handleSearchResultClicked(e) {
-      this.leftTextData = e.detail;
-      console.log("TEXT SEARCH ROUTER LEFTTEXTDATA",this.leftTextData);
+    this.leftTextData = e.detail;
     this.setSelectedView(DATA_VIEW_MODES.TEXT);
   }
 

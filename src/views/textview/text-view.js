@@ -20,7 +20,7 @@ export class TextView extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) leftActiveSegment = 'none';
   @property({ type: String }) rightActiveSegment = 'none';
-    @property({ type: String }) folio;
+  @property({ type: String }) folio;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
@@ -29,7 +29,7 @@ export class TextView extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: Function }) setFileName;
   @property({ type: String }) rightFileName = '';
-    @property({ type: Object }) rightTextData;
+  @property({ type: Object }) rightTextData;
   @property({ type: Object }) middleData = {};
   @property({ type: Object }) leftTextData;
   @property({ type: String }) lang;
@@ -47,31 +47,30 @@ export class TextView extends LitElement {
 
   handleFileNameChanged() {
     this.rightFileName = '';
-      this.lang = getLanguageFromFilename(this.fileName);
-      this.middleData = {};
+    this.lang = getLanguageFromFilename(this.fileName);
+    this.middleData = {};
   }
 
   switchTexts() {
     this.leftTextData = this.rightTextData;
     this.setFileName(this.rightFileName);
     this.fileName = this.rightFileName;
-      this.rightFileName = '';
-      this.middleData = false;
+    this.rightFileName = '';
+    this.middleData = false;
   }
 
-    resetLeftText() {
-	console.log("resetting middle data");
+  resetLeftText() {
     this.leftTextData = {
       selectedParallels: [undefined],
       startoffset: 0,
       endoffset: 0,
     };
-      this.middleData = false;
+    this.middleData = false;
   }
 
   setMiddleData(e) {
-      this.middleData = e.detail;
-      this.leftActiveSegment = e.detail.activeSegment;
+    this.middleData = e.detail;
+    this.leftActiveSegment = e.detail.activeSegment;
   }
 
   handleFolioChanged() {
@@ -116,8 +115,7 @@ export class TextView extends LitElement {
     });
   }
 
-    highlightLeftAfterScrolling(e) {
-	console.log("HIGHLIGHT LEFT AFTER SCROLLING");
+  highlightLeftAfterScrolling(e) {
     this.highlightParallel({
       rootSegments: e.detail.selectedParallels,
       rootOffsetBegin: e.detail.startoffset,
@@ -135,7 +133,7 @@ export class TextView extends LitElement {
     if (!rootSegments) {
       return;
     }
-      console.log("HIGHLIGHT PARALLEL");
+
     const textContainer = this.shadowRoot
       .getElementById('text-view-table')
       .shadowRoot.getElementById(
@@ -182,7 +180,7 @@ export class TextView extends LitElement {
   }
 
   async handleParallelClicked(e) {
-      const [data, rightMode] = e.detail;
+    const [data, rightMode] = e.detail;
     const selectedParallels = data.getAttribute('parsegments').split(';');
     selectedParallels.pop();
     const startOffset = parseInt(data.getAttribute('paroffsetbegin'));
@@ -197,8 +195,8 @@ export class TextView extends LitElement {
       };
     } else {
       this.renderSwitchButton = true;
-	this.rightFileName = selectedParallels[0].replace(/:.*/, '');
-	this.rightActiveSegment = selectedParallels[0]
+      this.rightFileName = selectedParallels[0].replace(/:.*/, '');
+      this.rightActiveSegment = selectedParallels[0];
       this.rightTextData = {
         selectedParallels: selectedParallels,
         startoffset: startOffset,
@@ -209,7 +207,6 @@ export class TextView extends LitElement {
 
   render() {
     return html`
-
       <text-view-header
         .fileName="${this.fileName}"
         .rightFileName="${this.rightFileName}"

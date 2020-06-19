@@ -1,9 +1,8 @@
 import { customElement, html, LitElement } from 'lit-element';
+import styles from '../static/static-view.styles';
 
-import styles from '../static-view.styles';
-
-@customElement('home-view')
-export class HomeView extends LitElement {
+@customElement('visual-view-selection-box')
+export class VisualViewSelectionBox extends LitElement {
   static get styles() {
     return [styles];
   }
@@ -13,47 +12,45 @@ export class HomeView extends LitElement {
       <div class="static-page-container">
         <div class="main-border">
           <div class="main-content">
-            <h1>BuddhaNexus</h1>
             <p>
-              A database devoted to the study of Buddhist texts and literary
-              corpora in Pāli, Sanskrit, Tibetan, and Chinese, with particular
-              emphasis on evolution of scriptures, formation of canons, and
-              intellectual networks.
+              The Visual Charts display the intertextuality between collections,
+              sections within collections, and single texts using a Sankey
+              diagram. A click on a single text leads you to Text View,
+              displaying the matches of the selected text (Inquiry Text).
             </p>
+            <p>Choose language for the visualization:</p>
           </div>
           <div class="box-languages">
-            <a href="/pli/neutral" class="link">
+            <a href="/visual/pli" class="link">
               <img
-                src="./src/assets/img/buddhanexus_pli.jpg"
+                src="../src/assets/img/buddhanexus_pli.jpg"
                 class="lang-img"
                 alt="Buddha Nexus"
               /><br /><span class="link-description">Pāli</span></a
             >
-            <a href="/skt/neutral" class="link"
+            <a href="/visual/skt" class="link"
               ><img
-                src="./src/assets/img/buddhanexus_skt.jpg"
+                src="../src/assets/img/buddhanexus_skt.jpg"
                 class="lang-img"
                 alt="Buddha Nexus"
               /><br /><span class="link-description">Sanskrit</span></a
             >
-            <a href="/tib/neutral" class="link"
+            <a href="/visual/tib" class="link"
               ><img
-                src="./src/assets/img/buddhanexus_tib.jpg"
+                src="../src/assets/img/buddhanexus_tib.jpg"
                 class="lang-img"
                 alt="Buddha Nexus"
               /><br /><span class="link-description">Tibetan</span></a
             >
-            <a href="/chn/neutral" class="link"
+            <a href="/visual/chn" class="link"
               ><img
-                src="./src/assets/img/buddhanexus_vio.jpg"
+                src="../src/assets/img/buddhanexus_vio.jpg"
                 class="lang-img"
                 alt="Buddha Nexus"
               /><br /><span class="link-description">Chinese</span></a
             >
           </div>
         </div>
-
-        <div class="backgroundpanel" @click="${this.closePopup}">&nbsp;</div>
       </div>
     `;
   }
