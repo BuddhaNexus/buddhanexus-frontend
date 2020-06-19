@@ -2,8 +2,6 @@ import 'normalize.css';
 import 'default-passive-events';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-app-layout';
 import '@vaadin/vaadin-app-layout/theme/material/vaadin-drawer-toggle';
-import '@vaadin/vaadin-select/theme/material/vaadin-select';
-
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 import '@vaadin/vaadin-menu-bar/theme/material/vaadin-menu-bar.js';
 import '@polymer/paper-input/paper-input.js';
