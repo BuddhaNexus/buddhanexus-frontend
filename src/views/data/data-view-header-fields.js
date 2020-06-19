@@ -50,6 +50,11 @@ export class DataViewHeaderFields extends LitElement {
           --paper-input-container-focus-color: var(--bn-dark-red);
         }
 
+        vaadin-select,
+        [part='input-field'] {
+          --material-primary-color: var(--bn-dark-red);
+        }
+
         .search-icon {
           width: 1em;
           height: 1em;
