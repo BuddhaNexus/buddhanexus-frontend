@@ -11,7 +11,7 @@ export class NeutralViewPali extends LitElement {
   }
   render() {
     return html`
-      <p>Pāli</p>
+      <h2>Pāli</h2>
       <p>
         The Pāli textual corpus used in BuddhaNexus was obtained from the
         Mahāsaṅgīti Tipiṭaka Buddhavasse 2500: World Tipiṭaka Edition in Roman

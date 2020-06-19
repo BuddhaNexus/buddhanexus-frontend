@@ -65,12 +65,6 @@ export default css`
     --material-primary-text-color: white;
   }
 
-  vaadin-select,
-  [part='input-field'] {
-    --material-primary-color: var(--bn-dark-red);
-    --material-primary-text-color: white;
-  }
-
   .menu-tab.main {
     display: block;
   }
@@ -85,12 +79,6 @@ export default css`
     --paper-input-container-input: {
       padding: 2px 0;
     }
-  }
-
-  #lang {
-    margin-left: 16px;
-    margin-right: 16px;
-    height: 44px;
   }
 
   #search-input .floated-label-placeholder {
