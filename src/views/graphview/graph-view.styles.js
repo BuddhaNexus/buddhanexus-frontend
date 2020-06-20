@@ -1,6 +1,14 @@
 import { css } from 'lit-element';
 
 export default css`
+  .graph-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+    margin-bottom: 2.25em;
+  }
+
   #histogram-title {
     font-weight: bold;
     margin-bottom: 12px;
@@ -8,6 +16,10 @@ export default css`
 
   #pie-wrapper,
   #histogram-wrapper {
+    display: flex;
+  }
+
+  #pie-wrapper {
     margin-bottom: 24px;
   }
 
