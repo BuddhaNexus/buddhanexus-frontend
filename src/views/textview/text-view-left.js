@@ -116,8 +116,8 @@ export class TextViewLeft extends LitElement {
     this.textLeft.forEach(
       ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
     );
+    this.parallels = {};
     if (parallels.length >= 1) {
-      this.parallels = {};
       for (let i = 0; i <= parallels.length; i++) {
         if (parallels[i]) {
           this.parallels[parallels[i].id] = parallels[i];
