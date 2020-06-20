@@ -201,7 +201,6 @@ const ROUTES = [
       import('./views/data/data-view.js');
       BNRouter.selectTab(TABS.TIBETAN);
       switchNavbarLayout(false, false);
-      //      setFooterVisible(false);
       setLogoSource('/src/assets/img/buddhanexus_tib.jpg');
     },
   },

@@ -110,14 +110,15 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
+      console.log("PARALLELS", parallels);
     this.reachedEndOfText = textleft.length !== 800;
     this.textLeft = removeDuplicates(textleft, 'segnr');
     this.textLeftBySegNr = {};
     this.textLeft.forEach(
       ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
     );
-    if (parallels.length >= 1) {
       this.parallels = {};
+    if (parallels.length >= 1) {
       for (let i = 0; i <= parallels.length; i++) {
         if (parallels[i]) {
           this.parallels[parallels[i].id] = parallels[i];
