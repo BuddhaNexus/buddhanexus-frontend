@@ -67,20 +67,17 @@ export default css`
     // overscroll-behavior: none;
     overflow-wrap: break-word;
     font-size: 1.1em;
-    font-weight: 550;
     line-height: 1.5em;
   }
 
   .middle-text-column {
     padding: 0 12px;
-    font-weight: 550;
   }
 
   .right-text-column {
     overflow-wrap: break-word;
     padding-left: 12px;
     width: 30%;
-    font-weight: 550;
   }
 
   #text-view-right {

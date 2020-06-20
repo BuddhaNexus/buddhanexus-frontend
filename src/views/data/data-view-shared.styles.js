@@ -3,19 +3,19 @@ import { css } from 'lit-element';
 export default css`
   [lang='en'] {
     text-transform: none;
-    font-family: var(--alt-font-stack);
+    font-family: var(--system-font-stack);
   }
 
   [lang='tib'] {
     text-transform: uppercase;
-    font-family: var(--alt-font-stack);
+    font-family: var(--system-font-stack);
   }
 
   [lang='tib'],
   [lang='skt'],
   [lang='pli'],
   [lang='en'] {
-    font-family: var(--alt-font-stack);
+    font-family: var(--system-font-stack);
     line-height: 1.4em;
     font-size: 1em;
   }
