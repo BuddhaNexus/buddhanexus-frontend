@@ -29,6 +29,7 @@ export class DataViewRouter extends LitElement {
       this.selectedView === DATA_VIEW_MODES.TEXT ||
       this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH
     ) {
+      console.log('VIEW MODE', this.selectedView);
       return html`
         <text-view-router
           .fileName="${this.fileName}"

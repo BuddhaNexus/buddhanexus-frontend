@@ -148,7 +148,7 @@ export class GraphView extends LitElement {
               The distribution of the top files that have matches with the
               Inquiry Text is displayed based on the accumulated length of the
               approximate matches.<br />
-              The top files to a maximum of 50 are shown.
+              A maximum of 50 hit texts are shown.
             </template>
           </vaadin-dialog>
           <vaadin-button class="info-button" @click="${this.openDialog}">
