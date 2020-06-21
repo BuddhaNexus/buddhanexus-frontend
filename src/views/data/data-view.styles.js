@@ -22,12 +22,20 @@ export default css`
   }
 
   data-view-router {
+    padding: 0;
+  }
+  text-view {
+    position: absolute;
+    margin: 10px 20px;
     padding: 12px 48px 16px;
     height: 100%;
   }
 
   @media screen and (max-width: 900px) {
     data-view-router {
+      padding: 0;
+    }
+    text-view {
       font-size: 0.9em;
       padding: 12px;
     }

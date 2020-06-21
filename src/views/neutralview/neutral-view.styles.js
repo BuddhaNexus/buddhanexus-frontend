@@ -1,10 +1,14 @@
 import { css } from 'lit-element';
 
 export default css`
+  data-view-router {
+    padding: 0;
+  }
+
   .static-page-container {
     display: block;
     height: 100%;
-    background-image: url('src/assets/img/background_welcome.jpg');
+    background-image: url('/src/assets/img/background_welcome.jpg');
     background-size: cover;
     background-attachment: fixed;
   }
