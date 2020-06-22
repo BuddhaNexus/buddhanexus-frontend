@@ -24,7 +24,7 @@ export default function TextViewInfoModalContent() {
           <td bgcolor="#000000" style="height:30px"></td>
           ${[...new Array(10)].map(
             (k, i) => html`
-              <td bgcolor="${SEGMENT_COLORS[i]}"></td>
+              <td bgcolor="${SEGMENT_COLORS[i + 1]}"></td>
             `
           )}
         </tr>
