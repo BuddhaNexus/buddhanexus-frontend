@@ -8,7 +8,6 @@ import './text-view-middle';
 import './text-view-right';
 import './text-view-table';
 import { getLanguageFromFilename } from '../utility/views-common';
-//import TextViewInfoModalContent from './text-view-modal-content';
 import { LANGUAGE_CODES } from '../utility/constants';
 import { isObjectEmpty } from '../utility/utils';
 
