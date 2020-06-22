@@ -7,12 +7,12 @@ import '../utility/total-numbers';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import { FormattedFileName } from '../utility/common-components';
-//import TextViewInfoModalContent from './text-view-modal-content';
+import TextViewInfoModalContent from './text-view-modal-content';
 
 function TextViewHeaderRightColumn({
   clickedNewTabButton,
-  isInfoDialogOpen,
-  setIsInfoDialogOpen,
+  isInfoDialogRightOpen,
+  setIsInfoDialogRightOpen,
   openDialogRight,
   rightFileName,
 }) {
@@ -33,8 +33,8 @@ function TextViewHeaderRightColumn({
       <vaadin-dialog
         id="info-text-view-right"
         aria-label="simple"
-        .opened="${isInfoDialogOpen}"
-        @opened-changed="${setIsInfoDialogOpen}"
+        .opened="${isInfoDialogRightOpen}"
+        @opened-changed="${setIsInfoDialogRightOpen}"
       >
         <template>
           <div>
@@ -59,8 +59,26 @@ function TextViewHeaderRightColumn({
 function TextViewHeaderLeftColumn({
   handleScrollUpButtonClicked,
   handleNewTabButtonClicked,
+  isInfoDialogLeftOpen,
+  setIsInfoDialogLeftOpen,
+  openDialogLeft,
 }) {
   return html`
+    <vaadin-dialog
+      id="info-text-view-left"
+      aria-label="simple"
+      .opened="${isInfoDialogLeftOpen}"
+      @opened-changed="${setIsInfoDialogLeftOpen}"
+    >
+      <template>
+        ${TextViewInfoModalContent()}
+      </template>
+    </vaadin-dialog>
+
+    <vaadin-button class="info-button" @click="${openDialogLeft}">
+      <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
+    </vaadin-button>
+
     <vaadin-button
       class="up-button"
       title="Go back to the beginning of the Inquiry Text"
@@ -98,7 +116,8 @@ export class TextViewHeader extends LitElement {
   @property({ type: String }) rightFileName;
   @property({ type: Object }) rightSegmentName;
   @property({ type: Number }) renderSwitchButton;
-  @property({ type: Boolean }) isInfoDialogOpen = false;
+  @property({ type: Boolean }) isInfoDialogRightOpen = false;
+  @property({ type: Boolean }) isInfoDialogLeftOpen = false;
   @property({ type: Boolean }) renderMiddleTextLabel = false;
 
   static get styles() {
@@ -202,9 +221,13 @@ export class TextViewHeader extends LitElement {
     win.focus();
   }
 
-  openDialogRight = () => (this.isInfoDialogOpen = true);
+  openDialogRight = () => (this.isInfoDialogRightOpen = true);
 
-  setIsInfoDialogOpen = e => (this.isInfoDialogOpen = e.detail.value);
+  openDialogLeft = () => (this.isInfoDialogLeftOpen = true);
+
+  setIsInfoDialogRightOpen = e => (this.isInfoDialogRightOpen = e.detail.value);
+
+  setIsInfoDialogLeftOpen = e => (this.isInfoDialogLeftOpen = e.detail.value);
 
   render() {
     const renderSwitchButton =
@@ -218,6 +241,9 @@ export class TextViewHeader extends LitElement {
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
+            isInfoDialogLeftOpen: this.isInfoDialogLeftOpen,
+            setIsInfoDialogLeftOpen: this.setIsInfoDialogLeftOpen,
+            openDialogLeft: this.openDialogLeft,
           })}
         </div>
 
@@ -229,9 +255,9 @@ export class TextViewHeader extends LitElement {
         ${renderSwitchButton
           ? TextViewHeaderRightColumn({
               clickedNewTabButton: this.handleRightTextNewTabButtonClicked,
-              isInfoDialogOpen: this.isInfoDialogOpen,
+              isInfoDialogRightOpen: this.isInfoDialogRightOpen,
               openDialogRight: this.openDialogRight,
-              setIsDialogRightOpen: this.setIsInfoDialogOpen,
+              setIsInfoDialogRightOpen: this.setIsInfoDialogRightOpen,
               rightFileName: this.rightFileName,
             })
           : null}
