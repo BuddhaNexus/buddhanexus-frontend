@@ -74,6 +74,7 @@ class DataViewHeader extends LitElement {
         >
           <bn-card header="true">
             <data-view-view-selector
+              .language="${this.language}"
               .viewMode="${this.viewMode}"
               .handleViewModeChanged="${viewMode =>
                 this.handleViewModeChanged(viewMode)}"
