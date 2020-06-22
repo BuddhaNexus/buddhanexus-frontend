@@ -7,7 +7,7 @@ const NumbersViewTableHeader = (fileName, collectionKeys) =>
     <thead>
       <tr>
         <th class="segment-header">
-          Segment id in ${FormattedFileName({ fileName: fileName })}
+          Segment id in ${FormattedFileName({ fileName })}
         </th>
         ${Object.keys(collectionKeys).map(
           item =>
