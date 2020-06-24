@@ -11,11 +11,17 @@ export class NeutralViewChinese extends LitElement {
   }
   render() {
     return html`
-      <h2>Chinese</h2>
-      <p>
-        The textual corpus used in BuddhaNexus was obtained from the Chinese
-        Buddhist Electronic Text Association (CBETA).
-      </p>
+      <div class="static-page-container">
+        <div class="main-border">
+          <div class="main-content">
+            <h2>Chinese</h2>
+            <p>
+              The textual corpus used in BuddhaNexus was obtained from the
+              Chinese Buddhist Electronic Text Association (CBETA).
+            </p>
+          </div>
+        </div>
+      </div>
     `;
   }
 }
