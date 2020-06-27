@@ -222,7 +222,7 @@ export class DataView extends LitElement {
 
   render() {
     return html`
-      <div class="data-view" lang="${this.language}">
+      <div class="data-view" lang="${this.language}" view="${this.viewMode}">
         <div class="data-view__main-container">
           <data-view-header
             .language="${this.language}"

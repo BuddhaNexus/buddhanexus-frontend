@@ -4,33 +4,6 @@ export default css`
   .static-page-container {
     display: block;
     height: 100vh;
-    background-image: url('/src/assets/img/background_welcome.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-  .static-page-container.lang_pli {
-    background-image: url('/src/assets/img/background_content_pli.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-  .static-page-container.lang_skt {
-    background-image: url('/src/assets/img/background_content_skt.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-  .static-page-container.lang_tib {
-    background-image: url('/src/assets/img/background_content_tib.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-  }
-
-  .static-page-container.lang_chn {
-    background-image: url('/src/assets/img/background_content_chn.jpg');
-    background-size: cover;
-    background-attachment: fixed;
   }
 
   .main-border {

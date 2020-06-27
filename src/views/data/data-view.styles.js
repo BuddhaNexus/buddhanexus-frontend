@@ -14,6 +14,30 @@ export default css`
     flex: 1;
   }
 
+  .data-view[lang='pli'][view='neutral'] {
+    background-image: url('/src/assets/img/background_content_pli.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .data-view[lang='skt'][view='neutral'] {
+    background-image: url('/src/assets/img/background_content_skt.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .data-view[lang='tib'][view='neutral'] {
+    background-image: url('/src/assets/img/background_content_tib.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .data-view[lang='chn'][view='neutral'] {
+    background-image: url('/src/assets/img/background_content_chn.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
   .data-view__main-container {
     display: flex;
     flex-direction: column;
