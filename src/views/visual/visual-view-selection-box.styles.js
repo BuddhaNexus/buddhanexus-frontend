@@ -2,7 +2,7 @@ import { css } from 'lit-element';
 
 export default css`
   .box-languages {
-    background-color: #221f19;
+    background-color: var(--color-footer-bar);
     width: 100%;
     margin-top: 30px;
     margin-bottom: 100px;
@@ -31,5 +31,4 @@ export default css`
     display: inline-block;
     margin: 0 6px;
   }
-
 `;

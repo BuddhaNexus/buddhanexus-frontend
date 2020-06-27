@@ -38,9 +38,9 @@ export default css`
   }
 
   .main-content {
-    background-color: #fff;
+    background-color: var(--material-nav-left-color);
     padding: 0.875em 2.5em;
-    border-top: 0.5em solid #221f19;
+    border-top: 0.5em solid var(--color-footer-bar);
   }
 
   .main-content h1 {
@@ -74,11 +74,11 @@ export default css`
 
   .static-page-container a.link span.link-description {
     padding-top: 0.4em;
-    color: #fff;
+    color: var(--material-nav-left-color);
   }
 
   .menu-tab.main button {
-    color: #fff;
+    color: var(--material-nav-left-color);
   }
 
   table.activity td {
@@ -87,7 +87,7 @@ export default css`
   }
 
   .box-languages {
-    background-color: #221f19;
+    background-color: var(--color-footer-bar);
     width: 100%;
     margin-top: 1.875em;
     margin-bottom: 6.25em;
@@ -132,7 +132,7 @@ export default css`
   body [part='navbar'] {
     padding: 0.05em 0 0.05em 4.75em;
     box-shadow: var(--material-shadow-elevation-4dp);
-    background: #221f19;
+    background: var(--color-footer-bar);
     margin: 400px 0 0 0;
   }
 
@@ -140,7 +140,7 @@ export default css`
     [part='navbar'] {
       padding: 0.05em 0 0.05em 4.75em;
       box-shadow: var(--material-shadow-elevation-4dp);
-      background: #221f19;
+      background: var(--color-footer-bar);
       margin: 25em 0 0 0;
     }
 
@@ -172,7 +172,7 @@ export default css`
     }
 
     .main-content {
-      background-color: #fff;
+      background-color: var(--material-nav-left-color);
       padding: 0.875em 1.875em;
     }
   }

@@ -9,7 +9,7 @@ export default css`
     position: relative;
     display: flex;
     justify-content: space-between;
-    height: 100vw;
+    height: 100%;
     max-width: 100vw;
     flex: 1;
   }
@@ -21,25 +21,13 @@ export default css`
     flex: 1;
   }
 
-  text-view-router {
-    margin: 1em 2em 3em 2em;
-  }
-
   data-view-router {
-    padding: 0;
-  }
-  text-view {
-    position: absolute;
-    margin: 10px 20px;
     padding: 12px 48px 16px;
     height: 100%;
   }
 
   @media screen and (max-width: 900px) {
     data-view-router {
-      padding: 0;
-    }
-    text-view {
       font-size: 0.9em;
       padding: 12px;
     }
