@@ -9,7 +9,7 @@ export default css`
     position: relative;
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: 100vw;
     max-width: 100vw;
     flex: 1;
   }
@@ -19,6 +19,10 @@ export default css`
     flex-direction: column;
     overflow: auto;
     flex: 1;
+  }
+
+  text-view-router {
+    margin: 1em 2em 3em 2em;
   }
 
   data-view-router {

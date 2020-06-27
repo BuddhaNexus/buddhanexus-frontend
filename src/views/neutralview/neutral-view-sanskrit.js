@@ -11,7 +11,7 @@ export class NeutralViewSanskrit extends LitElement {
   }
   render() {
     return html`
-      <div class="static-page-container">
+      <div class="static-page-container lang_skt">
         <div class="main-border">
           <div class="main-content">
             <h2>Sanskrit</h2>

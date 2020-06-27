@@ -11,7 +11,7 @@ export class NeutralViewPali extends LitElement {
   }
   render() {
     return html`
-      <div class="static-page-container">
+      <div class="static-page-container lang_pli">
         <div class="main-border">
           <div class="main-content">
             <h2>Pāli</h2>

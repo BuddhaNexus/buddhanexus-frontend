@@ -11,7 +11,7 @@ export class NeutralViewChinese extends LitElement {
   }
   render() {
     return html`
-      <div class="static-page-container">
+      <div class="static-page-container lang_chn">
         <div class="main-border">
           <div class="main-content">
             <h2>Chinese</h2>
