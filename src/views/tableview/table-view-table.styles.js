@@ -5,7 +5,7 @@ export default css`
     display: flex;
     flex-direction: column;
     flex: 1;
-    overflow: scroll;
+    overflow: hidden;
     margin-bottom: 2.25em;
   }
 

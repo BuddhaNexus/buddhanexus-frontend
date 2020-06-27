@@ -74,7 +74,7 @@ export default css`
   }
 
   #search-input {
-    margin: 3px 16px -3px;
+    margin: 0px 16px 0px;
     --paper-input-container-focus-color: var(--bn-dark-red);
     --paper-input-container-input: {
       padding: 2px 0;

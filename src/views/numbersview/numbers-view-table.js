@@ -11,9 +11,10 @@ const NumbersViewTable = ({ fileName, collections, segments, language }) => {
   }
 
   let collectionslist = {};
-  for (let key in collections) {
-    collectionslist = Object.assign(collectionslist, collections[key]);
+  for (let key in collections[0]) {
+    collectionslist = Object.assign(collectionslist, collections[0][key]);
   }
+
   return html`
     <table class="numbers-view-table">
       ${NumbersViewTableHeader(fileName, collectionslist)}

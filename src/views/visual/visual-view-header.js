@@ -23,8 +23,8 @@ export class VisualViewHeader extends LitElement {
   ];
   @property({ type: Array }) colorSchemeValues = [
     'Gradient',
-    'Source',
-    'Target',
+    'Inquiry Collection',
+    'Hit Collection',
   ];
   @property({ type: String }) activeLanguage;
   @property({ type: Array }) collectionData;

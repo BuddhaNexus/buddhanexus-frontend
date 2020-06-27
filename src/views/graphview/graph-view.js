@@ -102,77 +102,85 @@ export class GraphView extends LitElement {
     }
 
     return html`
-      <data-view-subheader
-        .score="${this.score}"
-        .limitCollection="${this.targetCollection}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
-        .fileName="${this.fileName}"
-        .language="${this.lang}"
-        .infoModalContent="${GraphViewInfoModalContent()}"
-      ></data-view-subheader>
+      <div
+        class="graph-container"
+        style="height: ${window.innerHeight * 1.7}px"
+      >
+        <data-view-subheader
+          .score="${this.score}"
+          .limitCollection="${this.targetCollection}"
+          .quoteLength="${this.quoteLength}"
+          .cooccurance="${this.cooccurance}"
+          .fileName="${this.fileName}"
+          .language="${this.lang}"
+          .infoModalContent="${GraphViewInfoModalContent()}"
+        ></data-view-subheader>
 
-      <div id="pie-wrapper" style="height: ${this.graphHeight}">
-        <google-chart
-          id="pie-chart"
-          type="pie"
-          .cols="${[
-            { label: 'Collection', type: 'string' },
-            { label: 'Match-lengths', type: 'number' },
-          ]}"
-          .rows="${this.pieGraphData}"
-          .options="${{
-            width: window.innerWidth < 1000 ? window.innerWidth : 1000,
-            height: window.innerHeight < 700 ? window.innerHeight * 0.7 : 500,
-            chartArea: { left: 0, top: 0, width: '100%', height: '100%' },
-            is3D: true,
-            backgroundColor: '#ffeed4',
-          }}"
-        >
-        </google-chart>
-      </div>
+        <div id="pie-wrapper" style="height: ${this.graphHeight}">
+          <google-chart
+            id="pie-chart"
+            type="pie"
+            .cols="${[
+              { label: 'Collection', type: 'string' },
+              { label: 'Match-lengths', type: 'number' },
+            ]}"
+            .rows="${this.pieGraphData}"
+            .options="${{
+              width: window.innerWidth < 1000 ? window.innerWidth : 1000,
+              height: window.innerHeight < 700 ? window.innerHeight * 0.7 : 500,
+              chartArea: { left: 0, top: 0, width: '100%', height: '100%' },
+              is3D: true,
+              backgroundColor: '#ffeed4',
+            }}"
+          >
+          </google-chart>
+        </div>
 
-      <div id="histogram-title">
-        Distribution of the top files that have matches with the Inquiry Text
-        <vaadin-dialog
-          id="info-histogram"
-          aria-label="simple"
-          .opened="${this.isDialogOpen}"
-          @opened-changed="${this.setIsDialogOpen}"
-        >
-          <template>
-            The distribution of the top files that have matches with the Inquiry
-            Text is displayed based on the accumulated length of the approximate
-            matches.<br />
-            The top files to a maximum of 50 are shown.
-          </template>
-        </vaadin-dialog>
-        <vaadin-button class="info-button" @click="${this.openDialog}">
-          <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
-        </vaadin-button>
-      </div>
+        <div id="histogram-title">
+          Distribution of the top files that have matches with the Inquiry Text
+          <vaadin-dialog
+            id="info-histogram"
+            aria-label="simple"
+            .opened="${this.isDialogOpen}"
+            @opened-changed="${this.setIsDialogOpen}"
+          >
+            <template>
+              The distribution of the top files that have matches with the
+              Inquiry Text is displayed based on the accumulated length of the
+              approximate matches.<br />
+              A maximum of 50 hit texts are shown.
+            </template>
+          </vaadin-dialog>
+          <vaadin-button class="info-button" @click="${this.openDialog}">
+            <iron-icon
+              class="info-icon"
+              icon="vaadin:info-circle-o"
+            ></iron-icon>
+          </vaadin-button>
+        </div>
 
-      <div id="histogram-wrapper" style="height: ${this.graphHeight}">
-        <google-chart
-          id="histogram-chart"
-          type="histogram"
-          .cols="${[
-            { label: 'Collection', type: 'string' },
-            { label: 'Match-lengths', type: 'number' },
-          ]}"
-          .rows="${this.histogramGraphData}"
-          .options="${{
-            maxNumBuckets: 10,
-            width: window.innerWidth < 1000 ? window.innerWidth : 1000,
-            height:
-              window.innerHeight < 700
-                ? window.innerHeight * 0.65
-                : window.innerHeight * 0.8,
-            chartArea: { left: 0, top: 0, width: '100%', height: '90%' },
-            backgroundColor: '#ffeed4',
-          }}"
-        >
-        </google-chart>
+        <div id="histogram-wrapper" style="height: ${this.graphHeight}">
+          <google-chart
+            id="histogram-chart"
+            type="histogram"
+            .cols="${[
+              { label: 'Collection', type: 'string' },
+              { label: 'Match-lengths', type: 'number' },
+            ]}"
+            .rows="${this.histogramGraphData}"
+            .options="${{
+              maxNumBuckets: 10,
+              width: window.innerWidth < 1000 ? window.innerWidth : 1000,
+              height:
+                window.innerHeight < 700
+                  ? window.innerHeight * 0.65
+                  : window.innerHeight * 0.8,
+              chartArea: { left: 0, top: 0, width: '100%', height: '90%' },
+              backgroundColor: '#ffeed4',
+            }}"
+          >
+          </google-chart>
+        </div>
       </div>
     `;
   }

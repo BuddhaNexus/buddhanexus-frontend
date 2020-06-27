@@ -4,6 +4,7 @@ import { DATA_VIEW_MODES } from './data-view-filters-container';
 @customElement('data-view-view-selector')
 export class DataViewViewSelector extends LitElement {
   @property({ type: String }) viewMode;
+  @property({ type: String }) language;
   @property({ type: Function }) handleViewModeChanged;
 
   static get styles() {
