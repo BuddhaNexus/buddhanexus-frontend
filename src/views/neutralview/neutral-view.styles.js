@@ -1,11 +1,6 @@
 import { css } from 'lit-element';
 
 export default css`
-  .static-page-container {
-    display: block;
-    height: 100vh;
-  }
-
   .main-border {
     margin: 0 25%;
     padding-top: 70px;
