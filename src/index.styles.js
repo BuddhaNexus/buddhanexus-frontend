@@ -158,7 +158,7 @@ export default css`
   }
 
   .footer-bar-content {
-    color: #fff;
+    color: var(--material-nav-left-color);
     background: var(--color-footer-bar-content);
     float: right;
     padding: 0 3em 0 1em;
@@ -168,7 +168,7 @@ export default css`
   .footer-bar-content a,
   .footer-bar-content a:hover,
   .footer-bar-content a:active {
-    color: #fff;
+    color: var(--material-nav-left-color);
     font-family: var(--material-font-family);
     font-size: var(--material-button-font-size);
     text-decoration: none;
@@ -182,7 +182,7 @@ export default css`
 
   .footer-corner {
     content: ' ';
-    background: #221f19;
+    background: var(--color-footer-bar);
   }
 
   .footer-right {
