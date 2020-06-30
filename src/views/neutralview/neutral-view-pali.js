@@ -16,6 +16,12 @@ export class NeutralViewPali extends LitElement {
           <div class="main-content">
             <h2>Pāli</h2>
             <p>
+              <b
+                >The Pāli data has not been uploaded yet and is therefore not
+                visible in the database. It will be uploaded soon.</b
+              >
+            </p>
+            <p>
               The Pāli textual corpus used in BuddhaNexus was obtained from the
               Mahāsaṅgīti Tipiṭaka Buddhavasse 2500: World Tipiṭaka Edition in
               Roman Script. Edited and published by The M.L. Maniratana Bunnag
@@ -24,10 +30,10 @@ export class NeutralViewPali extends LitElement {
               (VRI), with corrections and proofreading by the Dhamma Society.
             </p>
             <p>
-              The texts of the Suttas, Vinaya and Abhidhamma use the
-              SuttaCentral versions as its base and have been adapted for
-              BuddhaNexus. The texts use the same segment numbers as are used in
-              SuttaCentral and link to the corresponding segments on that site.
+              The texts of the Suttas, Vinaya and Abhidhamma are based on the
+              SuttaCentral versions and were adapted for BuddhaNexus by Bhante
+              Sujato. They have the same segment numbers as in SuttaCentral and
+              are linked to the corresponding segments on that site.
             </p>
           </div>
         </div>

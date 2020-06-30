@@ -75,14 +75,16 @@ export class HistoryView extends LitElement {
               the creation of the BuddhaNexus database has been initiated, the
               technical aspect of which was entrusted to Sebastian Nehrdich
               under the conceptual guidance of Orna Almogi and Dorji Wangcuk.
-              Since 2019, Nehrdich has been assisted by Ven. Ayya Vimala of
+              Since 2019, Nehrdich has been collaborating with Ven. Ayya Vimala
+              of
               <a
                 target="_blank"
                 class="content-link"
                 href="https://suttacentral.net/"
                 >SuttaCentral</a
-              >, a project focusing on Early Buddhist texts, their translations
-              and parallels, and Hubert Dworczyński (financed by the Khyentse
+              >
+              —a project focusing on early Buddhist texts, their translations,
+              and parallels—and Hubert Dworczyński (financed by the Khyentse
               Center).
             </p>
             <p>
