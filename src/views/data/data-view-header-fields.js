@@ -198,10 +198,10 @@ export class DataViewHeaderFields extends LitElement {
         clear-button-visible
         label="${this.getMenuLabel(this.language)}"
         item-value-path="textname"
-        item-label-path="displayName"
+        item-label-path="search_field"
         .items="${this.menuData}"
         @value-changed="${e => this.updateFileName(e)}"
-      >
+        ><template><b>[[item.textname]]</b><br />[[item.displayName]]</template>
       </vaadin-combo-box>
 
       ${this.shouldShowFolioBox()

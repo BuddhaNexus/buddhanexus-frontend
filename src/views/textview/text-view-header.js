@@ -237,7 +237,7 @@ export class TextViewHeader extends LitElement {
       <div id="text-view-header">
         <div id="text-view-header-left">
           <span class="text-name-label">Inquiry Text: </span>
-          ${FormattedFileName({ fileName: this.fileName })}
+          ${FormattedFileName({ fileName: this.fileName, displayType: 'full' })}
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
