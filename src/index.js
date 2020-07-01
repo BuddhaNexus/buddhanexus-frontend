@@ -75,7 +75,7 @@ export class AppLayout extends LitElement {
         <bn-card slot="navbar" small>
           <paper-input
             id="search-input"
-            placeholder="Search..."
+            placeholder="Global Text Search..."
             type="search"
             @change="${this.navigateToSearch}"
             no-label-float

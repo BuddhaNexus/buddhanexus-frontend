@@ -49,6 +49,6 @@ export default css`
   }
 
   #color-scheme-dropdown {
-    width: 150px;
+    width: 200px;
   }
 `;

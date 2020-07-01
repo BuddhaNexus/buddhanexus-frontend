@@ -36,14 +36,15 @@ export class NeutralViewTibetan extends LitElement {
               Regarding matches involving the Prajñāpāramitā Section of the bKa’
               ’gyur, due to the extremely repetitive nature of this corpus
               within itself, all matches among files of this section have been
-              excluded from the results.
+              excluded from the results for the sake of a better performance.
             </p>
             <p>
-              The minimum match length is 16 syllables. Shorter matches are also
+              The minimum match length is 14 syllables. Shorter matches are also
               displayed if the match in either the Inquiry or Hit text is a
               verse line consisting of a precise length of 7, 9, or 11
               syllables. The verse lines are only detected if they are placed
-              between a pair of double strokes (shad).
+              between a pair of either a single or double stroke (shad) at the
+              beginning and a double stroke at the end.
             </p>
           </div>
         </div>
