@@ -6,8 +6,6 @@ export function FormattedSegment({ segment, lang }) {
   const filename = segment.split(':')[0];
   const number = segment.split(':')[1];
   let displayName = filename;
-  console.log('FILENAME', filename);
-  console.log('LANG', lang);
   if (
     window.menuData &&
     window.menuData[lang] &&
@@ -30,7 +28,7 @@ export function FormattedFileName({ fileName, displayType = 'short' }) {
   ) {
     displayName = window.displayData[lang][fileName];
   }
-  console.log('displayType', displayType);
+
   if (displayType == 'full') {
     if (fileName != displayName) {
       return html`
