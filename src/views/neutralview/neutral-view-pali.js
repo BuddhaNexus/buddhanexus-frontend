@@ -35,6 +35,10 @@ export class NeutralViewPali extends LitElement {
               Sujato. They have the same segment numbers as in SuttaCentral and
               are linked to the corresponding segments on that site.
             </p>
+            <p>
+              For the calculation of the Pāli matches, SuttaCentral's
+              hyphenation and stemming algorithms have been used.
+            </p>
           </div>
         </div>
       </div>

@@ -32,7 +32,6 @@ export class NeutralViewSanskrit extends LitElement {
               and the like). Some minor changes have, nonetheless, been made for
               the sake of standardization.
             </p>
-
             <p>
               For the calculation of the Sanskrit matches, a stemming algorithm
               has been used. This stemming algorithm is accessible as a
