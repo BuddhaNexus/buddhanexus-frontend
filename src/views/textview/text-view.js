@@ -41,6 +41,12 @@ export class TextView extends LitElement {
       if (['folio'].includes(propName)) {
         this.handleFolioChanged();
       }
+
+      if (['limitCollection'].includes(propName)) {
+        if ('limitCollection' in this.middleData) {
+          this.middleData.limitCollection = this.limitCollection;
+        }
+      }
     });
   }
 

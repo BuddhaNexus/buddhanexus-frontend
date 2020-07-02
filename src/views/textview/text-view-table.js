@@ -46,6 +46,7 @@ export default class TextViewTable extends LitElement {
               .score="${this.score}"
               .fileName="${this.fileName}"
               .quoteLength="${this.quoteLength}"
+              .limitCollection="${this.limitCollection}"
               .cooccurance="${this.cooccurance}"
               .data="${this.middleData}"
               .leftActiveSegment="${this.leftActiveSegment}"
