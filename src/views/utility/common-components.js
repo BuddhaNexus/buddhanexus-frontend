@@ -11,14 +11,14 @@ export function FormattedSegment({ segment, lang }) {
     window.menuData[lang] &&
     window.menuData[lang][filename]
   ) {
-    displayName = window.menuData[lang][filename];
+    displayName = window.displayData[lang][filename];
   }
   return html`
-    <span title="${segment}">${displayName}:${number}</span>
+    <span title="${displayName}">${segment}:${number}</span>
   `;
 }
 
-export function FormattedFileName({ fileName }) {
+export function FormattedFileName({ fileName, displayType = 'short' }) {
   const lang = getLanguageFromFilename(fileName);
   let displayName = fileName.toUpperCase();
   if (
@@ -28,7 +28,23 @@ export function FormattedFileName({ fileName }) {
   ) {
     displayName = window.displayData[lang][fileName];
   }
-  return html`
-    <span class="formatted-file-name" title="${fileName}">${displayName}</span>
-  `;
+
+  if (displayType == 'full') {
+    if (fileName != displayName) {
+      return html`
+        <span class="formatted-file-name">${fileName} - ${displayName}</span>
+      `;
+    } else {
+      return html`
+        <span class="formatted-file-name">${fileName}</span>
+      `;
+    }
+  }
+  if (displayType == 'short') {
+    return html`
+      <span class="formatted-file-name" title="${displayName}"
+        >${fileName}</span
+      >
+    `;
+  }
 }

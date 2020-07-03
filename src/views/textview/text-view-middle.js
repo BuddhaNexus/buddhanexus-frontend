@@ -18,9 +18,9 @@ export class TextViewMiddle extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: Object }) data;
+  @property({ type: Array }) limitCollection;
   @property({ type: String }) leftActiveSegment;
   @property({ type: Array }) selectedParallels;
-
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) fetchError;
 
@@ -41,6 +41,7 @@ export class TextViewMiddle extends LitElement {
           'data',
           'leftActiveSegment',
           'score',
+          'limitCollection',
           'cooccurance',
           'quoteLength',
         ].includes(propName)

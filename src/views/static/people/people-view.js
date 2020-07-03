@@ -33,15 +33,6 @@ export class PeopleView extends LitElement {
               Lars Wirnhier (web design)<br />
               Noriko Nakagami (logo)
             </p>
-            <h3>Photos</h3>
-            <p>
-              Chinese manuscript: © Research Institute for Old Japanese
-              Manuscripts at ICABS<br />
-              Tibetan woodblock: © Orna Almogi <br />
-              Sanskrit manuscript: Courtesy Nepal-German Manuscript Preservation
-              Project (NGMPP)<br />
-              Pāli manuscript.: Courtesy Fragile Palm Leaves Collection, Bangkok
-            </p>
           </div>
         </div>
       </div>

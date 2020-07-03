@@ -57,8 +57,7 @@ export default css`
   }
 
   .file-list ul {
-    margin: 0;
-    padding: 0 0 0 23px;
+    padding: 0 0 12px 28px;
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: var(--material-nav-left-lines);
@@ -70,6 +69,15 @@ export default css`
     color: var(--material-nav-left-color);
     font-family: var(--material-font-family);
     font-size: var(--material-button-font-size);
+    line-height: 1.5;
+    padding-bottom: 0;
+    display: block;
+    display: -webkit-box;
+    max-width: 200px;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .collection-list {

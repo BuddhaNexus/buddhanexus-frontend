@@ -10,6 +10,10 @@ export default css`
     flex: 1;
   }
 
+  vaadin-split-layout::part(handle) {
+    width: 10px;
+  }
+
   #text-view-search-header {
     padding-bottom: 16px;
     padding-top: 16px;

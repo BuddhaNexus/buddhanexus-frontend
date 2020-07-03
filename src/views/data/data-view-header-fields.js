@@ -198,10 +198,29 @@ export class DataViewHeaderFields extends LitElement {
         clear-button-visible
         label="${this.getMenuLabel(this.language)}"
         item-value-path="textname"
-        item-label-path="displayName"
+        item-label-path="search_field"
         .items="${this.menuData}"
         @value-changed="${e => this.updateFileName(e)}"
       >
+        <template>
+          <style>
+            .display-name {
+              color: var(--material-secondary-text-color);
+              font-size: 12px;
+              margin-left: -24px;
+              display: block;
+              display: -webkit-box;
+              max-width: 200px;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          </style>
+          <strong>[[item.textname]]</strong><br /><span class="display-name"
+            >[[item.displayName]]</span
+          >
+        </template>
       </vaadin-combo-box>
 
       ${this.shouldShowFolioBox()
