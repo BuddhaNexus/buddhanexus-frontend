@@ -98,6 +98,10 @@ export default css`
     z-index: 2;
   }
 
+  vaadin-app-layout::part(drawer) {
+    overflow: hidden;
+  }
+
   .content {
     margin-left: 24px;
   }

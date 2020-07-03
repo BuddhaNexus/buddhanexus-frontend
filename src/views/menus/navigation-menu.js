@@ -68,7 +68,7 @@ export class NavigationMenu extends LitElement {
             id="${file.filename}"
             @click="${this.openThisFile}"
           >
-            ${file.displayname}
+            <strong>${file.textname}</strong> ${file.displayname}
           </li>
         `
       );
