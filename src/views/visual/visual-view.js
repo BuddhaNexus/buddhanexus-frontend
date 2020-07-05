@@ -21,7 +21,6 @@ export class VisualView extends LitElement {
         }
 
         .visual-view-container {
-          display: flex;
           flex-direction: column;
           min-height: 200px;
           align-items: flex-start;
@@ -55,29 +54,33 @@ export class VisualView extends LitElement {
     this.colorScheme = colorScheme;
   };
 
+  setDisplay() {
+    return this.activeLanguage ? 'display: flex' : 'display: none';
+  }
+
   render() {
     return html`
-      ${this.activeLanguage
+      ${!this.activeLanguage
         ? html`
-            <div class="visual-view-container">
-              <visual-view-header
-                .setSelection="${this.setSelection}"
-                .setColorScheme="${this.setColorScheme}"
-                .activeLanguage="${this.activeLanguage}"
-              ></visual-view-header>
-
-              <visual-view-graph
-                .searchItem="${this.searchItem}"
-                .colorScheme="${this.colorScheme}"
-                .selectedCollections="${this.selectedCollections}"
-                .setSelection="${this.setSelection}"
-              >
-              </visual-view-graph>
-            </div>
-          `
-        : html`
             <visual-view-selection-box></visual-view-selection-box>
-          `}
+          `
+        : null}
+
+      <div class="visual-view-container" style="${this.setDisplay()}">
+        <visual-view-header
+          .setSelection="${this.setSelection}"
+          .setColorScheme="${this.setColorScheme}"
+          .activeLanguage="${this.activeLanguage}"
+        ></visual-view-header>
+
+        <visual-view-graph
+          .searchItem="${this.searchItem}"
+          .colorScheme="${this.colorScheme}"
+          .selectedCollections="${this.selectedCollections}"
+          .setSelection="${this.setSelection}"
+        >
+        </visual-view-graph>
+      </div>
     `;
   }
 }
