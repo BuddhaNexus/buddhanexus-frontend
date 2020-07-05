@@ -22,8 +22,6 @@ export class SideSheet extends LitElement {
         .side-sheet__content {
           height: 100%;
           max-height: calc(100vh - var(--header-height));
-
-          overflow-y: scroll;
           padding-left: 16px;
           padding-right: 16px;
         }
@@ -37,6 +35,7 @@ export class SideSheet extends LitElement {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin-top: 16px;
         }
 
         .side-sheet__close-icon {

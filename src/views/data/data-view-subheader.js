@@ -5,16 +5,12 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
-import '../utility/total-numbers';
+import { FormattedFileName } from '../utility/common-components';
 import { LANGUAGE_CODES } from '../utility/constants';
 
 @customElement('data-view-subheader')
 class DataViewSubheader extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Array }) limitCollection;
-  @property({ type: Number }) quoteLength;
-  @property({ type: Number }) cooccurance;
-  @property({ type: Number }) score;
   @property({ type: String }) infoModalContent;
   @property({ type: String }) language;
 
@@ -26,6 +22,7 @@ class DataViewSubheader extends LitElement {
         .data-view-subheader {
           display: flex;
           align-items: baseline;
+          font-weight: bold;
         }
 
         .info-button {
@@ -47,6 +44,14 @@ class DataViewSubheader extends LitElement {
           font-weight: bold;
           height: 32px;
         }
+
+        .text-name-label {
+          color: var(--color-text-secondary);
+          font-weight: 500;
+          font-size: 0.8em;
+          display: inline-flex;
+          padding-right: 12px;
+        }
       `,
     ];
   }
@@ -65,14 +70,8 @@ class DataViewSubheader extends LitElement {
     }
     return html`
       <div class="data-view-subheader">
-        <data-view-total-numbers
-          id="total-numbers"
-          .fileName="${this.fileName}"
-          .score="${this.score}"
-          .limitCollection="${this.limitCollection}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
-        ></data-view-total-numbers>
+        <div class="text-name-label">Inquiry Text:</div>
+        ${FormattedFileName({ fileName: this.fileName, displayType: 'full' })}
 
         <vaadin-dialog
           id="info-number-view"

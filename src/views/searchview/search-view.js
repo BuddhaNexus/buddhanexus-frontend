@@ -1,6 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
-import '../data/data-view-subheader';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import { getSearchDataFromBackend } from '../../api/actions';
 import './search-view-list.js';

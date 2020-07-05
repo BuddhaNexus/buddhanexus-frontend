@@ -90,10 +90,6 @@ export class NumbersView extends LitElement {
 
     return html`
       <data-view-subheader
-        .score="${this.score}"
-        .limitCollection="${this.limitCollection}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${NumbersViewInfoModalContent()}"

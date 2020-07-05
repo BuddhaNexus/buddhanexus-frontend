@@ -146,10 +146,6 @@ export class TableView extends LitElement {
         : null}
 
       <data-view-subheader
-        .score="${this.score}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
-        .limitCollection="${this.limitCollection}"
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
