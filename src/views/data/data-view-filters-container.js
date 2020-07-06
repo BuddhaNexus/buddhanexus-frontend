@@ -185,9 +185,7 @@ export class DataViewFiltersContainer extends LitElement {
       this.filterCategoriesDataLoading ||
       this.filterCategoriesDataLoading;
 
-    if (!this.shouldShowFilterDropdown()) {
-      return null;
-    } else if (loading) {
+    if (loading) {
       return html`
         <div class="loading-spinner-container">
           <bn-loading-spinner></bn-loading-spinner>
@@ -195,7 +193,10 @@ export class DataViewFiltersContainer extends LitElement {
       `;
     } else {
       return html`
-        <div class="filter-group">
+        <div
+          class="filter-group"
+          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}"
+        >
           ${this.renderMultiSelectBox(
             'Exclude collections:',
             'exclude-collection',
@@ -209,7 +210,10 @@ export class DataViewFiltersContainer extends LitElement {
             this.filterFilesData
           )}
         </div>
-        <div class="filter-group">
+        <div
+          class="filter-group"
+          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}"
+        >
           ${this.renderMultiSelectBox(
             'Limit to collections:',
             'filter-collection',
