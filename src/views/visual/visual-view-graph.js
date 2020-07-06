@@ -64,10 +64,10 @@ export class VisualViewGraph extends LitElement {
 
   changeColorScheme() {
     switch (this.colorScheme) {
-      case 'Source':
+      case 'Inquiry Collection':
         this.setOptions = getGoogleGraphOptionsSource;
         break;
-      case 'Target':
+      case 'Hit Collection':
         this.setOptions = getGoogleGraphOptionsTarget;
         break;
       default:

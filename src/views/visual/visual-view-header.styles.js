@@ -17,6 +17,12 @@ export default css`
     margin: 0 12px;
   }
 
+  vaadin-combo-box,
+  multiselect-combo-box {
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--bn-dark-red);
+  }
+
   #visual-back-button {
     color: var(--bn-dark-red);
     display: inline-flex;

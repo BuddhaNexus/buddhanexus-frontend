@@ -21,7 +21,6 @@ export class VisualView extends LitElement {
         }
 
         .visual-view-container {
-          display: flex;
           flex-direction: column;
           min-height: 200px;
           align-items: flex-start;
@@ -55,14 +54,19 @@ export class VisualView extends LitElement {
     this.colorScheme = colorScheme;
   };
 
+  setDisplay() {
+    return this.activeLanguage ? 'display: flex' : 'display: none';
+  }
+
   render() {
     return html`
-      ${this.activeLanguage
-        ? null
-        : html`
+      ${!this.activeLanguage
+        ? html`
             <visual-view-selection-box></visual-view-selection-box>
-          `}
-      <div class="visual-view-container">
+          `
+        : null}
+
+      <div class="visual-view-container" style="${this.setDisplay()}">
         <visual-view-header
           .setSelection="${this.setSelection}"
           .setColorScheme="${this.setColorScheme}"
