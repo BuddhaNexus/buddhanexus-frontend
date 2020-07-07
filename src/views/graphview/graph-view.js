@@ -70,7 +70,6 @@ export class GraphView extends LitElement {
       return;
     }
     this.fetchLoading = true;
-
     const { piegraphdata, histogramgraphdata, error } = await getDataForGraph({
       fileName: this.fileName,
       score: this.score,
@@ -107,10 +106,6 @@ export class GraphView extends LitElement {
         style="height: ${window.innerHeight * 1.7}px"
       >
         <data-view-subheader
-          .score="${this.score}"
-          .limitCollection="${this.targetCollection}"
-          .quoteLength="${this.quoteLength}"
-          .cooccurance="${this.cooccurance}"
           .fileName="${this.fileName}"
           .language="${this.lang}"
           .infoModalContent="${GraphViewInfoModalContent()}"

@@ -25,16 +25,20 @@ export class TotalNumbers extends LitElement {
           'limitCollection',
         ].includes(propName)
       ) {
-        this.updateParallelCount();
-        this.fetchLoading = true;
+        setTimeout(this.startLoading.bind(this), 2000);
       }
     });
   }
 
-  async updateParallelCount() {
-    if (this.fetchLoading) {
+  startLoading() {
+    if (this.fetchLoading || !this.fileName) {
       return;
     }
+    this.updateParallelCount();
+    this.fetchLoading = true;
+  }
+
+  async updateParallelCount() {
     const { parallel_count, error } = await getParallelCount({
       fileName: this.fileName,
       score: this.score,

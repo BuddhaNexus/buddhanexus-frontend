@@ -17,6 +17,8 @@ import './data-view-filters-container';
 import './data-view-view-selector';
 import './data-view-header';
 
+import '../utility/total-numbers';
+
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
@@ -30,6 +32,7 @@ export class DataView extends LitElement {
   @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
   @property({ type: Array }) limitCollection = [];
+  @property({ type: Array }) setLimitOrTargetCollection = [];
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
@@ -73,6 +76,14 @@ export class DataView extends LitElement {
         getMainLayout()
           .querySelector('navigation-menu')
           .setAttribute('language', this.language);
+      }
+      if (
+        ['limitCollection', 'targetCollection', 'viewMode'].includes(propName)
+      ) {
+        this.setLimitOrTargetCollection =
+          this.viewMode == 'graph'
+            ? this.targetCollection
+            : this.limitCollection;
       }
     });
   }
@@ -157,6 +168,8 @@ export class DataView extends LitElement {
     // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
     if (this.limitCollection.toString() !== limitCollection.toString()) {
       this.limitCollection = limitCollection;
+      this.setLimitOrTargetCollection =
+        this.viewMode == 'graph' ? this.targetCollection : this.limitCollection;
     }
     if (this.fileName) {
       this.applyFilter();
@@ -265,6 +278,15 @@ export class DataView extends LitElement {
             this.filterBarOpen = false;
           }}"
         >
+          <data-view-total-numbers
+            id="total-numbers"
+            .fileName="${this.fileName}"
+            .score="${this.score}"
+            .limitCollection="${this.setLimitOrTargetCollection}"
+            .quoteLength="${this.quoteLength}"
+            .cooccurance="${this.cooccurance}"
+          ></data-view-total-numbers>
+
           <data-view-filters-container
             .viewMode="${this.viewMode}"
             .score="${this.score}"

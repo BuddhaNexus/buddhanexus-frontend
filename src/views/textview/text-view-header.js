@@ -3,8 +3,6 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
-import '../utility/total-numbers';
-
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import { FormattedFileName } from '../utility/common-components';
 import TextViewInfoModalContent from './text-view-modal-content';
@@ -132,12 +130,6 @@ export class TextViewHeader extends LitElement {
           align-items: baseline;
           justify-content: space-between;
           text-transform: none;
-        }
-        #total-numbers {
-          display: flex;
-          text-transform: none;
-          float: middle;
-          clear: both;
         }
 
         .up-button {
