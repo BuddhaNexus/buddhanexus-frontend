@@ -16,16 +16,14 @@ export class TotalNumbers extends LitElement {
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
-      if (
-        [
-          'fileName',
-          'score',
-          'cooccurance',
-          'quoteLength',
-          'limitCollection',
-        ].includes(propName)
-      ) {
+      if (['fileName'].includes(propName)) {
         setTimeout(this.startLoading.bind(this), 2000);
+      } else if (
+        ['score', 'cooccurance', 'quoteLength', 'limitCollection'].includes(
+          propName
+        )
+      ) {
+        this.startLoading();
       }
     });
   }
