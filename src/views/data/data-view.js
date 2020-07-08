@@ -126,6 +126,7 @@ export class DataView extends LitElement {
 
   setSelectedView = viewName => {
     this.selectedView = viewName;
+    this.viewMode = viewName;
   };
 
   setFolio = folio => {
