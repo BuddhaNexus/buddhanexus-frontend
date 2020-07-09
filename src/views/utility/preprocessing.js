@@ -8,7 +8,6 @@ import {
   TibetanSegment,
 } from '../textview/TextSegment';
 import { getSegmentIdFromKey } from '../data/dataViewUtils';
-
 import { FormattedSegment } from './common-components';
 
 export const SEGMENT_COLORS = {
