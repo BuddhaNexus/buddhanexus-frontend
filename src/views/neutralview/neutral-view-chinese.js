@@ -16,7 +16,11 @@ export class NeutralViewChinese extends LitElement {
           <div class="main-content">
             <h2>Chinese</h2>
             <p>
-              <b>The Chinese data will be uploaded soon.</b>
+              <b
+                ><font size="+1"
+                  >The Chinese data will be uploaded soon.</font
+                ></b
+              >
             </p>
             <p>
               The textual corpus used in BuddhaNexus was obtained from the
