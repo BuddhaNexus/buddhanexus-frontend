@@ -16,10 +16,7 @@ export class NeutralViewSanskrit extends LitElement {
           <div class="main-content">
             <h2>Sanskrit</h2>
             <p>
-              <b
-                >The Sanskrit data has not been uploaded yet and is therefore
-                not visible in the database. It will be uploaded soon.</b
-              >
+              <b>The Sanskrit data will be uploaded soon.</b>
             </p>
             <p>
               The textual corpus used in BuddhaNexus was obtained from the

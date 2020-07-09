@@ -198,7 +198,7 @@ export class TextViewMiddle extends LitElement {
                 >Length: ${parallels[i].par_length}
               </span>
               <span class="co-occurance"
-                >Co-occurance: ${parallels[i]['co-occ']} </span
+                >Co-occurrence: ${parallels[i]['co-occ']} </span
               ><br />
               <div class="horizontal-divider"></div>
               ${segnrText}
