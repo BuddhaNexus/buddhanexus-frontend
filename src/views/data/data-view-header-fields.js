@@ -269,7 +269,7 @@ export class DataViewHeaderFields extends LitElement {
                   <vaadin-item value="position"
                     >By position in Inquiry Text</vaadin-item
                   >
-                  <vaadin-item value="quoted-text" disabled
+                  <vaadin-item value="quoted-text"
                     >By position in Hit Text(s)</vaadin-item
                   >
                   <vaadin-item value="length" disabled
