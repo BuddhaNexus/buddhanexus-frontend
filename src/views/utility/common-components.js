@@ -6,6 +6,7 @@ export function FormattedSegment({ segment, lang }) {
   const filename = segment.split(':')[0];
   const number = segment.split(':')[1];
   let displayName = filename;
+
   if (
     window.menuData &&
     window.menuData[lang] &&
@@ -14,7 +15,7 @@ export function FormattedSegment({ segment, lang }) {
     displayName = window.displayData[lang][filename];
   }
   return html`
-    <span title="${displayName}">${segment}:${number}</span>
+    <span title="${displayName}">${filename}:${number}</span>
   `;
 }
 
