@@ -100,9 +100,14 @@ export function TextSegment({
   rightMode = false,
 }) {
   if (colorValues.length <= 0) {
-    return lang.match(/tib|pli/)
-      ? TibetanSegment(inputData)
-      : inputData.split('').map(TextSegmentChineseWord);
+    if (lang.match(/tib|pli/)) {
+      return TibetanSegment(inputData);
+    } else if (lang.match(/chn/)) {
+      const returnSegment = inputData.split('').map(TextSegmentChineseWord);
+      return html`
+        ${returnSegment}<br />
+      `;
+    }
   } else {
     const words = TextSegmentWords(
       inputData,
@@ -113,6 +118,6 @@ export function TextSegment({
       rightMode
     );
     // prettier-ignore
-    return lang === LANGUAGE_CODES.SANSKRIT ? html`${words}<br />` : words;
+    return (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.CHINESE) ? html`${words}<br />` : words;
   }
 }

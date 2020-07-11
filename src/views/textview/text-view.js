@@ -8,7 +8,6 @@ import './text-view-middle';
 import './text-view-right';
 import './text-view-table';
 import { getLanguageFromFilename } from '../utility/views-common';
-import { LANGUAGE_CODES } from '../utility/constants';
 import { isObjectEmpty } from '../utility/utils';
 
 export const C_HIGHLIGHTED_SEGMENT = 'segment--highlighted';
@@ -79,21 +78,7 @@ export class TextView extends LitElement {
   }
 
   handleFolioChanged() {
-    let segment = '';
-    if (this.lang === LANGUAGE_CODES.CHINESE) {
-      const folio = parseInt(this.folio)
-        .toString()
-        .padStart(3, '0');
-      segment = `${this.fileName}:${folio}-1`;
-    } else if (this.lang === LANGUAGE_CODES.TIBETAN) {
-      segment = `${this.fileName}:${this.folio}-0`;
-    } else {
-      if (this.fileName.startsWith('dhp')) {
-        segment = `${this.folio}.0_0`;
-      } else {
-        segment = `${this.folio}.1.1_0`;
-      }
-    }
+    let segment = this.folio['segment_nr'];
     this.leftTextData = {
       selectedParallels: [segment],
       startoffset: 0,
