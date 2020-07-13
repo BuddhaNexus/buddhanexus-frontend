@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 
 import { objectMap } from '../utility/utils';
-import { getParCollectionNumber, getParSutta } from './numbersViewUtils';
+import { getParCollectionNumber } from './numbersViewUtils';
 import NumbersViewTableHeader from './numbers-view-table-header';
 import { getLinkForSegmentNumbers } from '../utility/preprocessing';
 
@@ -9,7 +9,6 @@ const NumbersViewTable = ({ fileName, collections, segments, language }) => {
   if (!segments || segments.length === 0) {
     return null;
   }
-
   let collectionslist = {};
   for (let key in collections[0]) {
     collectionslist = Object.assign(collectionslist, collections[0][key]);
@@ -27,7 +26,6 @@ const NumbersViewTableContent = (segments, collectionkeys, language) =>
   segments.map(segment => {
     const collections = objectMap(collectionkeys, () => []);
     const { parallels: segmentParallels, segmentnr } = segment;
-
     return TableRowContainer(
       segmentParallels ? segmentParallels : [],
       collections,
@@ -43,14 +41,10 @@ const TableRowContainer = (
   language
 ) =>
   segmentParallels.map((parallelArr, index) => {
-    const parSutta = getParSutta(
-      parallelArr[0],
-      parallelArr[parallelArr.length - 1]
-    );
-    const parCollection = getParCollectionNumber(parSutta);
-    const segmentlink = getLinkForSegmentNumbers(language, segmentnr);
+    const parCollection = getParCollectionNumber(parallelArr);
+    const segmentlink = getLinkForSegmentNumbers(language, [`${segmentnr}`]);
     if (collections[parCollection]) {
-      collections[parCollection].push(parSutta);
+      collections[parCollection].push(parallelArr);
       if (index === segmentParallels.length - 1) {
         return TableRow(segmentlink, collections, language);
       }
@@ -75,11 +69,7 @@ const TableRow = (segmentNr, collections, language) =>
 
 const getParallelsForCollection = (collection, language) =>
   collection.map(item => {
-    const segmentName =
-      item.length >= 3
-        ? `${item[0]}:${item[1]}:${item[item.length - 1]}`
-        : `${item[0]}:${item[item.length - 1]}`;
-    const segmentlink = getLinkForSegmentNumbers(language, segmentName);
+    const segmentlink = getLinkForSegmentNumbers(language, item);
     return html`
       <span class="segment-number">${segmentlink}</span><br />
     `;
