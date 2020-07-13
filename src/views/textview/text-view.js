@@ -169,17 +169,17 @@ export class TextView extends LitElement {
     }
   }
 
-  async handleParallelClicked(e) {
-    const [data, rightMode] = e.detail;
+    async handleParallelClicked(e) {
+	console.log("MIDDLE CLICK DETAIL",e.detail);
+	const [data, rightMode] = e.detail;
+
     const selectedParallels = data.getAttribute('parsegments').split(';');
     selectedParallels.pop();
     const startOffset = parseInt(data.getAttribute('paroffsetbegin'));
     const endOffset = parseInt(data.getAttribute('paroffsetend'));
 
     if (rightMode) {
-      this.fileName = selectedParallels[0]
-        .replace(/_[0-9][0-9][0-9]/, '')
-        .replace(/:.*/, '');
+	this.fileName = selectedParallels[0].replace(/_[0-9][0-9][0-9]/, '').replace(/:.*/, '');
       this.leftTextData = {
         selectedParallels,
         startoffset: startOffset,
@@ -187,9 +187,7 @@ export class TextView extends LitElement {
       };
     } else {
       this.renderSwitchButton = true;
-      this.rightFileName = selectedParallels[0]
-        .replace(/_[0-9][0-9][0-9]/, '')
-        .replace(/:.*/, '');
+      this.rightFileName = selectedParallels[0].replace(/_[0-9][0-9][0-9]/, '').replace(/:.*/, '');
       this.rightActiveSegment = selectedParallels[0];
       this.rightTextData = {
         selectedParallels: selectedParallels,

@@ -221,7 +221,7 @@ export class TextViewLeft extends LitElement {
       return;
     }
 
-    if (selectedSegment.classList.contains('chn-gatha')) {
+    if (selectedSegment.classList.contains('chinese-verse')) {
       selectedSegment = selectedSegment.parentElement;
     }
 
