@@ -56,7 +56,7 @@ function TextSegmentWords(
   rightMode
 ) {
   let segmentData = inputData;
-  if (lang.match(/tib|pli/)) {
+  if (lang.match(/tib/)) {
     // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
     segmentData = segmentData.replace(/\* \//, '*_/').split(' ');
   }
@@ -81,7 +81,7 @@ function TextSegmentWords(
         ? RIGHT_MODE_HIGHLIGHT_COLOR
         : getCooccuranceColor(currentColor),
     });
-    if (lang.match(/tib|pli/)) {
+    if (lang.match(/tib/)) {
       position += segmentData[i].length + 1;
     } else {
       position += segmentData[i].length;
@@ -100,7 +100,7 @@ export function TextSegment({
   rightMode = false,
 }) {
   if (colorValues.length <= 0) {
-    return lang.match(/tib|pli/)
+    return lang.match(/tib/)
       ? TibetanSegment(inputData)
       : inputData.split('').map(TextSegmentChineseWord);
   } else {
@@ -113,6 +113,6 @@ export function TextSegment({
       rightMode
     );
     // prettier-ignore
-    return lang === LANGUAGE_CODES.SANSKRIT ? html`${words}<br />` : words;
+    return (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) ? html`${words}<br />` : words;
   }
 }

@@ -8,14 +8,14 @@ export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
   parallels = parallels.filter(function(el) {
     return el != null;
   });
-  if (lang.match(/tib|pli/)) {
+  if (lang.match(/tib/)) {
     Words = mainSegment.split(' ');
   }
   for (let i = 0; i < Words.length; ++i) {
     WordList.push(position);
     colourValues.push(0);
     position += Words[i].length;
-    if (lang.match(/tib|pli/)) {
+    if (lang.match(/tib/)) {
       position += 1;
     }
   }
@@ -64,7 +64,7 @@ export function highlightActiveMainElement({
   let Wordlist = [];
   let position = 0;
   let colourValues = [];
-  if (lang.match(/tib|pli/)) {
+  if (lang.match(/tib/)) {
     Words = rootSegtext.split(' ');
     for (let i = 0; i < Words.length; ++i) {
       Wordlist.push(position);
@@ -72,7 +72,7 @@ export function highlightActiveMainElement({
       position += Words[i].length + 1;
     }
   }
-  if (lang.match(/chn|skt/)) {
+  if (lang.match(/chn|skt|pli/)) {
     for (let i = 0; i < Words.length; ++i) {
       Wordlist.push(i);
       colourValues.push(0);
