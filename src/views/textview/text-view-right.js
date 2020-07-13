@@ -251,7 +251,7 @@ export class TextViewRight extends LitElement {
         this.textRight,
         this.parallels,
         this.displayParallels,
-        this.rightTextData,
+        this.rightTextData
       )}
     `;
   }
@@ -261,7 +261,7 @@ const TextViewLayoutRight = (
   textRight,
   parallels,
   clickFunction,
-  rightTextData,
+  rightTextData
 ) => {
   if (!textRight || !parallels) {
     return null;
@@ -285,7 +285,7 @@ const TextViewLayoutRight = (
       current_parallels,
       number,
       clickFunction,
-      rightTextData,
+      rightTextData
     );
   });
 };
@@ -296,7 +296,7 @@ const rightSegmentContainer = (
   current_parallels,
   number,
   clickFunction,
-  rightTextData,
+  rightTextData
 ) => {
   if (!segmentNr) {
     return null;
@@ -330,18 +330,10 @@ const rightSegmentContainer = (
     highlightMode: rightSideHighlight,
     rightMode: 1,
   });
-  return rightSegment(
-    segmentNr,
-    segText,
-    number,
-  );
+  return rightSegment(segmentNr, segText, number);
 };
 
-const rightSegment = (
-  segmentNr,
-  segText,
-  number,
-) => {
-    return html`<span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
-  
+const rightSegment = (segmentNr, segText, number) => {
+  // prettier-ignore
+  return html`<span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
 };
