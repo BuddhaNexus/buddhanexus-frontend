@@ -3,10 +3,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 import { highlightTextByOffset } from '../utility/preprocessing';
 import { getLanguageFromFilename } from '../utility/views-common';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import {
-  createTextViewSegmentUrl,
-  getSegmentIdFromKey,
-} from '../data/dataViewUtils';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 import { TableViewTableRow } from './table-view-table-row';
 import './table-view-table-header';
 
@@ -36,7 +33,7 @@ export class TableViewTable extends LitElement {
 
         ${this.parallels.map(parallel =>
           TableViewTableRow({
-            rootSegmentId: getSegmentIdFromKey(parallel.root_segnr),
+            rootSegmentId: parallel.root_segnr,
             rootSegmentText: highlightTextByOffset({
               textArray: parallel.root_seg_text,
               startoffset: parallel.root_offset_beg,
@@ -49,7 +46,7 @@ export class TableViewTable extends LitElement {
               endoffset: parallel.par_offset_end,
               lang: getLanguageFromFilename(parallel.file_name),
             }),
-            parallelSegmentId: getSegmentIdFromKey(parallel.par_segnr),
+            parallelSegmentId: parallel.par_segnr,
             score: parallel.score,
             parLength: parallel.par_length,
             rootLength: parallel.root_length,

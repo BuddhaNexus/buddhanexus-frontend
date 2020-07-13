@@ -39,11 +39,6 @@ export default css`
     top: 100%;
   }
 
-  .chn-gatha {
-    margin: 0;
-    text-align: end;
-  }
-
   .score,
   .segment-length,
   .co-occurance {

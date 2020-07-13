@@ -35,6 +35,11 @@ export default css`
     margin-bottom: 0;
   }
 
+  .chinese-verse {
+    text-align: right;
+    max-width: 500px;
+  }
+
   .result-segment {
     background-color: rgb(244, 243, 242);
     margin-top: 0;

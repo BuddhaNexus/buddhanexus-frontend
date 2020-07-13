@@ -22,7 +22,7 @@ export const TableViewTableRow = ({
         <header class="table-view-table__cell-header">
           <span class="table-view-table__segment-id">
             ${getLinkForSegmentNumbers(
-              getLanguageFromFilename(rootSegmentId),
+              getLanguageFromFilename(rootSegmentId[0]),
               rootSegmentId
             )}
           </span>
@@ -41,7 +41,7 @@ export const TableViewTableRow = ({
         <div class="horizontal-divider"></div>
         <div
           class="table-view-table__text"
-          lang="${getLanguageFromFilename(rootSegmentId)}"
+          lang="${getLanguageFromFilename(rootSegmentId[0])}"
         >
           ${rootSegmentText}
         </div>
@@ -52,7 +52,7 @@ export const TableViewTableRow = ({
         <header class="table-view-table__cell-header">
           <span class="table-view-table__segment-id">
             ${getLinkForSegmentNumbers(
-              getLanguageFromFilename(parallelSegmentId),
+              getLanguageFromFilename(parallelSegmentId[0]),
               parallelSegmentId
             )}
           </span>
@@ -74,7 +74,7 @@ export const TableViewTableRow = ({
         <div class="horizontal-divider"></div>
         <div
           class="table-view-table__text"
-          lang="${getLanguageFromFilename(parallelSegmentId)}"
+          lang="${getLanguageFromFilename(parallelSegmentId[0])}"
         >
           ${parallelSegmentText}
         </div>
