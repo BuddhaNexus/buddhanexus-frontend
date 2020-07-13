@@ -103,7 +103,13 @@ export function TextSegment({
     if (lang.match(/tib|pli/)) {
       return TibetanSegment(inputData);
     } else if (lang.match(/chn/)) {
-      const returnSegment = inputData.split('').map(TextSegmentChineseWord);
+	const returnSegment = inputData.split('').map(TextSegmentChineseWord);
+	if(inputData.includes('　　')){
+	    return html`
+        <div class='chinese-verse'>${returnSegment}</div>
+      `;
+
+	}
       return html`
         ${returnSegment}<br />
       `;
@@ -117,7 +123,20 @@ export function TextSegment({
       onClick,
       rightMode
     );
+      if(lang.match(/chn/)){
+	  if(inputData.includes('　　')){
+	      return html`
+        <div class='chinese-verse'>${words}</div>
+      `;
+	  }
+	  else {
+	      return html`
+        ${words}<br />
+      `;
+	      
+	  }
+      }
     // prettier-ignore
-    return (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.CHINESE) ? html`${words}<br />` : words;
+    return (lang === LANGUAGE_CODES.SANSKRIT) ? html`${words}<br />` : words;
   }
 }
