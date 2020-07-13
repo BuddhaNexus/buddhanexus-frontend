@@ -6,8 +6,6 @@ export function FormattedSegment({ segment, lang }) {
   let filename = segment.split(':')[0];
   const number = segment.split(':')[1];
   let displayName = filename;
-  console.log('FORMATTED SEGMENT FILENAME', filename);
-  console.log('FORMATTED SEGMENT LANG', lang);
   if (lang == 'chn') {
     filename = filename.replace(/_[0-9]+/, '');
   }
