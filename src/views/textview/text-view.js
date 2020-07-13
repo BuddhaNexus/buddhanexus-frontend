@@ -177,7 +177,9 @@ export class TextView extends LitElement {
     const endOffset = parseInt(data.getAttribute('paroffsetend'));
 
     if (rightMode) {
-      this.fileName = selectedParallels[0].replace(/:.*/, '');
+      this.fileName = selectedParallels[0]
+        .replace(/_[0-9][0-9][0-9]/, '')
+        .replace(/:.*/, '');
       this.leftTextData = {
         selectedParallels,
         startoffset: startOffset,
@@ -185,7 +187,9 @@ export class TextView extends LitElement {
       };
     } else {
       this.renderSwitchButton = true;
-      this.rightFileName = selectedParallels[0].replace(/:.*/, '');
+      this.rightFileName = selectedParallels[0]
+        .replace(/_[0-9][0-9][0-9]/, '')
+        .replace(/:.*/, '');
       this.rightActiveSegment = selectedParallels[0];
       this.rightTextData = {
         selectedParallels: selectedParallels,
