@@ -7,6 +7,8 @@ import {
   TextSegmentChineseWord,
   TibetanSegment,
 } from '../textview/TextSegment';
+import { getSegmentIdFromKey } from '../data/dataViewUtils';
+import { FormattedSegment } from './common-components';
 
 export const SEGMENT_COLORS = {
   1: '#0CC0E8',
@@ -102,8 +104,11 @@ export function segmentArrayToString(segmentArray, lang) {
 }
 
 export function getLinkForSegmentNumbers(language, segmentnr) {
+  let formattedSegmentNr = segmentnr;
   let linkText = '';
   if (language === 'pli') {
+    formattedSegmentNr = segmentArrayToString(segmentnr, language);
+    segmentnr = getSegmentIdFromKey(segmentnr);
     let cleanedSegment = segmentnr
       .split(':')[1]
       .replace(/_[0-9]+/g, '')
@@ -127,17 +132,27 @@ export function getLinkForSegmentNumbers(language, segmentnr) {
       ? `https://www.tipitaka.org/romn/`
       : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
   } else if (language === 'chn') {
-    const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
+    formattedSegmentNr = FormattedSegment({
+      segment: segmentArrayToString(segmentnr, language),
+      lang: language,
+    });
+    const cleanedSegment = segmentnr[0].split(':')[0].replace(/_[TX]/, 'n');
     linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
+  } else if (language === 'tib') {
+    formattedSegmentNr = FormattedSegment({
+      segment: segmentArrayToString(segmentnr, language),
+      lang: language,
+    });
+  } else if (language === 'skt') {
+    formattedSegmentNr = segmentArrayToString(segmentnr, language);
   }
-
   return linkText
     ? html`
         <a target="_blanc" class="segment-link" href="${linkText}"
-          >${segmentnr}</a
+          >${formattedSegmentNr}</a
         >
       `
     : html`
-        ${segmentnr}
+        ${formattedSegmentNr}
       `;
 }

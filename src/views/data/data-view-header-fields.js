@@ -228,8 +228,8 @@ export class DataViewHeaderFields extends LitElement {
             <vaadin-combo-box
               id="folio-select-combo-box"
               label="${this.getFolioLabel(this.language)}"
-              item-value-path="folio"
-              item-label-path="folio"
+              item-value-path="segment_nr"
+              item-label-path="num"
               .items="${this.folioData}"
               @value-changed="${e => this.updateFolio(e)}"
             >

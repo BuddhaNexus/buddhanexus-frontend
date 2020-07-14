@@ -207,7 +207,7 @@ export class TextViewRight extends LitElement {
     });
     let selectedWord = e.target;
     let selectedSegment = e.target.parentElement;
-    if (selectedSegment.classList.contains('chn-gatha')) {
+    if (selectedSegment.classList.contains('chinese-verse')) {
       selectedSegment = selectedSegment.parentElement;
     }
     this.selectedParallel = selectedSegment;
@@ -251,9 +251,7 @@ export class TextViewRight extends LitElement {
         this.textRight,
         this.parallels,
         this.displayParallels,
-        this.rightTextData,
-        this.activeSegment,
-        this.currentPosition
+        this.rightTextData
       )}
     `;
   }
@@ -263,9 +261,7 @@ const TextViewLayoutRight = (
   textRight,
   parallels,
   clickFunction,
-  rightTextData,
-  currentSegment,
-  currentPosition
+  rightTextData
 ) => {
   if (!textRight || !parallels) {
     return null;
@@ -289,9 +285,7 @@ const TextViewLayoutRight = (
       current_parallels,
       number,
       clickFunction,
-      rightTextData,
-      currentSegment,
-      currentPosition
+      rightTextData
     );
   });
 };
@@ -302,9 +296,7 @@ const rightSegmentContainer = (
   current_parallels,
   number,
   clickFunction,
-  rightTextData,
-  currentSegment,
-  currentPosition
+  rightTextData
 ) => {
   if (!segmentNr) {
     return null;
@@ -338,32 +330,10 @@ const rightSegmentContainer = (
     highlightMode: rightSideHighlight,
     rightMode: 1,
   });
-  return rightSegment(
-    segmentNr,
-    segText,
-    number,
-    currentSegment,
-    currentPosition
-  );
+  return rightSegment(segmentNr, segText, number);
 };
 
-const rightSegment = (
-  segmentNr,
-  segText,
-  number,
-  currentSegment,
-  currentPosition
-) => {
-  if (
-    segmentNr == currentSegment &&
-    number > 10 &&
-    number < 180 &&
-    currentPosition < 100
-  ) {
-    // prettier-ignore
-    return html`<br /><span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
-  } else {
-    // prettier-ignore
-    return html`<span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
-  }
+const rightSegment = (segmentNr, segText, number) => {
+  // prettier-ignore
+  return html`<span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
 };

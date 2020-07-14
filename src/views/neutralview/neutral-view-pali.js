@@ -16,10 +16,7 @@ export class NeutralViewPali extends LitElement {
           <div class="main-content">
             <h2>Pāli</h2>
             <p>
-              <b
-                >The Pāli data has not been uploaded yet and is therefore not
-                visible in the database. It will be uploaded soon.</b
-              >
+              <b><font size="+1">The Pāli data will be uploaded soon.</font></b>
             </p>
             <p>
               The Pāli textual corpus used in BuddhaNexus was obtained from the
