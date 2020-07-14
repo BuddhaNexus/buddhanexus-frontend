@@ -112,6 +112,17 @@ export function TextSegment({
       onClick,
       rightMode
     );
+    if (lang.match(/chn/)) {
+      if (inputData.includes('　　')) {
+        return html`
+          <div class="chinese-verse">${words}</div>
+        `;
+      } else {
+        return html`
+          ${words}<br />
+        `;
+      }
+    }
     // prettier-ignore
     return (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) ? html`${words}<br />` : words;
   }

@@ -69,12 +69,15 @@ export class TextViewMiddle extends LitElement {
     this.fetchError = error;
     this.fetchLoading = false;
   }
-
   clickedParallel(e) {
     let target = e.target;
     if (!target.getAttribute('parsegments')) {
       target = target.parentElement;
     }
+    if (target.classList.contains('chinese-verse')) {
+      target = target.parentElement;
+    }
+
     this.dispatchEvent(
       new CustomEvent('click-parallel', {
         bubbles: true,
@@ -198,7 +201,7 @@ export class TextViewMiddle extends LitElement {
                 >Length: ${parallels[i].par_length}
               </span>
               <span class="co-occurance"
-                >Co-occurance: ${parallels[i]['co-occ']} </span
+                >Co-occurrence: ${parallels[i]['co-occ']} </span
               ><br />
               <div class="horizontal-divider"></div>
               ${segnrText}

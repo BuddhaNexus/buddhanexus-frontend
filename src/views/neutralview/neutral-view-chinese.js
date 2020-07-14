@@ -17,8 +17,9 @@ export class NeutralViewChinese extends LitElement {
             <h2>Chinese</h2>
             <p>
               <b
-                >The Chinese data has not been uploaded yet and is therefore not
-                visible in the database. It will be uploaded soon.</b
+                ><font size="+1"
+                  >The Chinese data will be uploaded soon.</font
+                ></b
               >
             </p>
             <p>
