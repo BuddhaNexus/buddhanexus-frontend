@@ -47,6 +47,18 @@ export const TibetanSegment = segment => {
   }
 };
 
+const ChineseSegment = (inputData, segment, lineBreak) => {
+  return inputData.includes('　　')
+    ? html`
+        <div class="chinese-verse">${segment}</div>
+      `
+    : lineBreak
+    ? html`
+        ${segment}<br />
+      `
+    : segment;
+};
+
 function TextSegmentWords(
   inputData,
   lang,
@@ -56,7 +68,7 @@ function TextSegmentWords(
   rightMode
 ) {
   let segmentData = inputData;
-  if (lang.match(/tib/)) {
+  if (lang === LANGUAGE_CODES.TIBETAN) {
     // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
     segmentData = segmentData.replace(/\* \//, '*_/').split(' ');
   }
@@ -81,7 +93,7 @@ function TextSegmentWords(
         ? RIGHT_MODE_HIGHLIGHT_COLOR
         : getCooccuranceColor(currentColor),
     });
-    if (lang.match(/tib/)) {
+    if (lang === LANGUAGE_CODES.TIBETAN) {
       position += segmentData[i].length + 1;
     } else {
       position += segmentData[i].length;
@@ -100,9 +112,19 @@ export function TextSegment({
   rightMode = false,
 }) {
   if (colorValues.length <= 0) {
-    return lang.match(/tib/)
-      ? TibetanSegment(inputData)
-      : inputData.split('').map(TextSegmentChineseWord);
+    let outputText;
+    if (lang === LANGUAGE_CODES.TIBETAN) {
+      outputText = TibetanSegment(inputData);
+    } else if (lang === LANGUAGE_CODES.CHINESE) {
+      outputText = ChineseSegment(
+        inputData,
+        inputData.split('').map(TextSegmentChineseWord),
+        false
+      );
+    } else {
+      outputText = `${inputData} `;
+    }
+    return outputText;
   } else {
     const words = TextSegmentWords(
       inputData,
@@ -112,18 +134,22 @@ export function TextSegment({
       onClick,
       rightMode
     );
-    if (lang.match(/chn/)) {
-      if (inputData.includes('　　')) {
-        return html`
-          <div class="chinese-verse">${words}</div>
-        `;
-      } else {
+    if (lang === LANGUAGE_CODES.CHINESE) {
+      return ChineseSegment(inputData, words, true);
+    }
+
+    if (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) {
+      if (['.', '?', '/', '|'].includes(inputData.slice(-1))) {
         return html`
           ${words}<br />
         `;
+      } else {
+        return html`
+          ${words}
+        `;
       }
+    } else {
+      return words;
     }
-    // prettier-ignore
-    return (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) ? html`${words}<br />` : words;
   }
 }
