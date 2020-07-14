@@ -59,6 +59,21 @@ const ChineseSegment = (inputData, segment, lineBreak) => {
     : segment;
 };
 
+const PaliSanskritSegment = (inputData, segment) => {
+  const strippedSegment = inputData.replace(/\//g, '|');
+  return strippedSegment.match(/^[0-9]/g)
+    ? html`
+        <br />${segment}<br />
+      `
+    : strippedSegment.match(/[.?|]$/g)
+    ? html`
+        ${segment}<br />
+      `
+    : html`
+        ${segment}
+      `;
+};
+
 function TextSegmentWords(
   inputData,
   lang,
@@ -122,7 +137,7 @@ export function TextSegment({
         false
       );
     } else {
-      outputText = `${inputData} `;
+      outputText = PaliSanskritSegment(inputData, inputData);
     }
     return outputText;
   } else {
@@ -137,17 +152,8 @@ export function TextSegment({
     if (lang === LANGUAGE_CODES.CHINESE) {
       return ChineseSegment(inputData, words, true);
     }
-
     if (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) {
-      if (['.', '?', '/', '|'].includes(inputData.slice(-1))) {
-        return html`
-          ${words}<br />
-        `;
-      } else {
-        return html`
-          ${words}
-        `;
-      }
+      return PaliSanskritSegment(inputData, words);
     } else {
       return words;
     }
