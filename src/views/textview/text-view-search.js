@@ -110,15 +110,16 @@ function ResultSegmentContainer({
 }) {
   let beg = segText.indexOf(searchString);
   let end = beg + searchString.length;
+  let lang = getLanguageFromFilename(segmentNr);
   segText = highlightTextByOffset({
     textArray: [segText],
     startoffset: beg,
     endoffset: end,
-    lang: getLanguageFromFilename(segmentNr),
+    lang: lang,
   });
   return html`
     <div
-      class="result-segment"
+      class="result-segment material-card"
       id="${segmentNr}"
       @click="${onSegmentClicked}"
       segment="${segmentNr}"
@@ -126,7 +127,7 @@ function ResultSegmentContainer({
       end="${end}"
     >
       <span class="result-segment-nr">${segmentNr}</span><br />
-      <span class="result-text">${segText}</span>
+      <span class="result-text" lang="${lang}">${segText}</span>
     </div>
   `;
 }

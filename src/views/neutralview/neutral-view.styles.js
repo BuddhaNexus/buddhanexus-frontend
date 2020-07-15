@@ -8,7 +8,7 @@ export default css`
   }
 
   .main-content {
-    background-color: #fff;
+    background-color: var(--material-nav-left-color);
     padding: 14px 40px;
     border-top: 8px solid #221f19;
   }

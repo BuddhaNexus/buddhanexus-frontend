@@ -2,7 +2,7 @@ import { css } from 'lit-element';
 
 export default css`
   vaadin-split-layout {
-    --_material-split-layout-splitter-background-color: #6d5f47;
+    --_material-split-layout-splitter-background-color: var(--bn-dark-red);
     height: calc(100vh - 410px);
   }
 
@@ -25,7 +25,7 @@ export default css`
   }
 
   .result-segment-nr {
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--color-text-secondary);
     font-size: 14px;
     white-space: nowrap;
     text-decoration: none;
@@ -41,7 +41,7 @@ export default css`
   }
 
   .result-segment {
-    background-color: rgb(244, 243, 242);
+    background-color: var(--color-light-grey);
     margin-top: 0;
     margin-bottom: 8px;
     padding: 10px;
@@ -49,12 +49,9 @@ export default css`
     cursor: pointer;
   }
 
-  .segment--highlighted {
-    background-color: #d3d3d3;
-  }
-
+  .segment--highlighted,
   .segment--selected {
-    background-color: #d3d3d3;
+    background-color: var(--color-dark-grey);
   }
 
   .highlight-parallel {

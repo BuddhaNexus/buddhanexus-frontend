@@ -28,6 +28,6 @@ export default css`
   }
 
   .element:hover:not(.active) {
-    background-color: #ddd;
+    background-color: var(--color-dark-grey);
   }
 `;

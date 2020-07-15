@@ -27,7 +27,7 @@ export default css`
 
   .segment-link {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--color-text-secondary);
   }
 
   .segment-header {
@@ -44,12 +44,12 @@ export default css`
   .co-occurance {
     font-size: 14px;
     padding-right: 12px;
-    color: #404040;
+    color: var(--color-text-secondary);
     text-transform: none;
   }
 
   .selected-parallel {
-    background-color: rgb(244, 243, 242);
+    background-color: var(--color-light-grey);
     margin-top: 0;
     z-index: 5;
     font-size: 1em;
@@ -61,7 +61,7 @@ export default css`
   }
 
   .selected-parallel-nr {
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--color-text-secondary);
     font-size: 14px;
     white-space: nowrap;
     text-decoration: none;
@@ -74,7 +74,7 @@ export default css`
   vaadin-item[name]:hover:after,
   .segment-header:hover:after {
     content: attr(name);
-    background-color: #002080;
+    background-color: var(--bn-dark-red);
     border-radius: 4px;
     box-shadow: 0 4px 8px #888888;
     color: var(--color-menu-items);
@@ -98,5 +98,10 @@ export default css`
     background-color: var(--color-divider);
     margin-top: 4px;
     margin-bottom: 4px;
+  }
+
+  .info-button {
+    padding: 24px;
+    cursor: help;
   }
 `;

@@ -3,13 +3,8 @@ import { css } from 'lit-element';
 export default css`
   .construction {
     text-align: left;
-    color: #000;
+    color: var(--color-text-primary);
     font-weight: 300;
-  }
-
-  .construction-sub {
-    text-align: center;
-    color: #000;
   }
 
   .backgroundpanel {
@@ -17,7 +12,7 @@ export default css`
     position: fixed;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--static-background-panel-color);
     z-index: 10;
     top: 0;
     left: 0;
@@ -63,12 +58,12 @@ export default css`
   }
 
   .static-page-container a.content-link {
-    color: #7d6f57;
+    color: var(--content-link-color);
     text-decoration: none;
   }
 
   .static-page-container a.content-link:hover {
-    color: #4d3f27;
+    color: var(--hover-link-color);
     text-decoration: underline;
   }
 
@@ -115,12 +110,13 @@ export default css`
     width: 50%;
     margin: 10px 0 20px 120px;
   }
+
   .partner img {
     width: 90%;
     text-align: center;
-    box-shadow: 4px 4px 20px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--partner-card-shadow);
     margin: 0 10px 20px 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--material-border-lines);
   }
 
   .lang-img {
@@ -150,7 +146,7 @@ export default css`
     }
 
     a active {
-      background-color: rgba(204, 17, 0, 30%);
+      background-color: var(--active-link-color);
     }
   }
 
@@ -174,12 +170,6 @@ export default css`
     .main-content {
       background-color: var(--material-nav-left-color);
       padding: 0.875em 1.875em;
-    }
-  }
-
-  @media screen and (min-width: 1000px) {
-    .construction-message {
-      display: none;
     }
   }
 

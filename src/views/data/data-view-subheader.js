@@ -27,9 +27,16 @@ class DataViewSubheader extends LitElement {
 
         .info-button {
           padding: 24px;
-          margin-left: 12px;
-          background-color: transparent;
-          cursor: pointer;
+          cursor: help;
+        }
+
+        .info-icon {
+          color: var(--color-text-secondary);
+        }
+
+        .formatted-file-name {
+          font-size: 1.05em;
+          margin-left: 8px;
         }
 
         @media screen and (max-width: 900px) {
@@ -39,8 +46,8 @@ class DataViewSubheader extends LitElement {
         }
 
         vaadin-button {
-          background-color: var(--bn-dark-red);
-          color: rgba(0, 0, 0, 0.54);
+          background-color: transparent;
+          color: var(--color-menu-items);
           font-weight: bold;
           height: 32px;
         }
@@ -50,7 +57,6 @@ class DataViewSubheader extends LitElement {
           font-weight: 500;
           font-size: 0.8em;
           display: inline-flex;
-          padding-right: 12px;
         }
       `,
     ];
