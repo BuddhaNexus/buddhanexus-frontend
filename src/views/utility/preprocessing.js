@@ -25,7 +25,7 @@ export const SEGMENT_COLORS = {
 
 export function getCleanedWord(lang, splitWords, i) {
   let cleanedWord = '';
-  if (lang.match(/tib|pli/)) {
+  if (lang.match(/tib/)) {
     cleanedWord = TibetanSegment(splitWords[i]);
   } else {
     cleanedWord = TextSegmentChineseWord(splitWords[i]);
@@ -41,7 +41,7 @@ export function highlightTextByOffset({
   lang,
 }) {
   let returnArray = [];
-  if (lang.match(/tib|pli/)) {
+  if (lang.match(/tib/)) {
     // the next two lines are a hack because there is a slight mismatch in the behaviour
     // of the Chinese and Tibetan offset values here; this should be ideally fixed already
     // in the JSON files. TODO for the future.
@@ -61,14 +61,14 @@ export function highlightTextByOffset({
         `
       );
     } else {
-      if (lang.match(/tib|pli/)) {
+      if (lang.match(/tib/)) {
         Words = textArray[i].split(' ');
       }
       for (let j = 0; j < Words.length; ++j) {
         wordList.push(position);
         let colourValue = 1;
         position += Words[j].length;
-        if (lang.match(/tib|pli/)) {
+        if (lang.match(/tib/)) {
           position += 1;
         }
         if (i === 0 && position <= startoffset) {
@@ -104,10 +104,12 @@ export function segmentArrayToString(segmentArray, lang) {
 }
 
 export function getLinkForSegmentNumbers(language, segmentnr) {
-  let formattedSegmentNr = segmentnr;
+  let formattedSegmentNr = FormattedSegment({
+    segment: segmentArrayToString(segmentnr, language),
+    lang: language,
+  });
   let linkText = '';
   if (language === 'pli') {
-    formattedSegmentNr = segmentArrayToString(segmentnr, language);
     segmentnr = getSegmentIdFromKey(segmentnr);
     let cleanedSegment = segmentnr
       .split(':')[1]
@@ -132,19 +134,8 @@ export function getLinkForSegmentNumbers(language, segmentnr) {
       ? `https://www.tipitaka.org/romn/`
       : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
   } else if (language === 'chn') {
-    formattedSegmentNr = FormattedSegment({
-      segment: segmentArrayToString(segmentnr, language),
-      lang: language,
-    });
     const cleanedSegment = segmentnr[0].split(':')[0].replace(/_[TX]/, 'n');
     linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
-  } else if (language === 'tib') {
-    formattedSegmentNr = FormattedSegment({
-      segment: segmentArrayToString(segmentnr, language),
-      lang: language,
-    });
-  } else if (language === 'skt') {
-    formattedSegmentNr = segmentArrayToString(segmentnr, language);
   }
   return linkText
     ? html`

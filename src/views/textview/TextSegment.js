@@ -47,6 +47,33 @@ export const TibetanSegment = segment => {
   }
 };
 
+const ChineseSegment = (inputData, segment, lineBreak) => {
+  return inputData.includes('　　')
+    ? html`
+        <div class="chinese-verse">${segment}</div>
+      `
+    : lineBreak
+    ? html`
+        ${segment}<br />
+      `
+    : segment;
+};
+
+const PaliSanskritSegment = (inputData, segment) => {
+  const strippedSegment = inputData.replace(/\//g, '|');
+  return strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g)
+    ? html`
+        <br />${segment}<br />
+      `
+    : strippedSegment.match(/[.?|)'vagga''vatthu''sutta']$/g)
+    ? html`
+        ${segment}<br />
+      `
+    : html`
+        ${segment}
+      `;
+};
+
 function TextSegmentWords(
   inputData,
   lang,
@@ -56,7 +83,7 @@ function TextSegmentWords(
   rightMode
 ) {
   let segmentData = inputData;
-  if (lang.match(/tib|pli/)) {
+  if (lang === LANGUAGE_CODES.TIBETAN) {
     // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
     segmentData = segmentData.replace(/\* \//, '*_/').split(' ');
   }
@@ -81,7 +108,7 @@ function TextSegmentWords(
         ? RIGHT_MODE_HIGHLIGHT_COLOR
         : getCooccuranceColor(currentColor),
     });
-    if (lang.match(/tib|pli/)) {
+    if (lang === LANGUAGE_CODES.TIBETAN || lang === LANGUAGE_CODES.PALI) {
       position += segmentData[i].length + 1;
     } else {
       position += segmentData[i].length;
@@ -100,19 +127,19 @@ export function TextSegment({
   rightMode = false,
 }) {
   if (colorValues.length <= 0) {
-    if (lang.match(/tib|pli/)) {
-      return TibetanSegment(inputData);
-    } else if (lang.match(/chn/)) {
-      const returnSegment = inputData.split('').map(TextSegmentChineseWord);
-      if (inputData.includes('　　')) {
-        return html`
-          <div class="chinese-verse">${returnSegment}</div>
-        `;
-      }
-      return html`
-        ${returnSegment}<br />
-      `;
+    let outputText;
+    if (lang === LANGUAGE_CODES.TIBETAN) {
+      outputText = TibetanSegment(inputData);
+    } else if (lang === LANGUAGE_CODES.CHINESE) {
+      outputText = ChineseSegment(
+        inputData,
+        inputData.split('').map(TextSegmentChineseWord),
+        false
+      );
+    } else {
+      outputText = PaliSanskritSegment(inputData, inputData);
     }
+    return outputText;
   } else {
     const words = TextSegmentWords(
       inputData,
@@ -122,18 +149,13 @@ export function TextSegment({
       onClick,
       rightMode
     );
-    if (lang.match(/chn/)) {
-      if (inputData.includes('　　')) {
-        return html`
-          <div class="chinese-verse">${words}</div>
-        `;
-      } else {
-        return html`
-          ${words}<br />
-        `;
-      }
+    if (lang === LANGUAGE_CODES.CHINESE) {
+      return ChineseSegment(inputData, words, true);
     }
-    // prettier-ignore
-    return (lang === LANGUAGE_CODES.SANSKRIT) ? html`${words}<br />` : words;
+    if (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) {
+      return PaliSanskritSegment(inputData, words);
+    } else {
+      return words;
+    }
   }
 }

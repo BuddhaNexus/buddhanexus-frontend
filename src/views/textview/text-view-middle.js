@@ -70,13 +70,13 @@ export class TextViewMiddle extends LitElement {
     this.fetchLoading = false;
   }
   clickedParallel(e) {
-      let target = e.target;
-      if (!target.getAttribute('parsegments')) {
+    let target = e.target;
+    if (!target.getAttribute('parsegments')) {
       target = target.parentElement;
-      }
-      if (target.classList.contains('chinese-verse')) {
+    }
+    if (target.classList.contains('chinese-verse')) {
       target = target.parentElement;
-      }
+    }
 
     this.dispatchEvent(
       new CustomEvent('click-parallel', {
