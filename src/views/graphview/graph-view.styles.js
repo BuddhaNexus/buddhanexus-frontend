@@ -24,13 +24,18 @@ export default css`
   }
 
   .info-button {
-    padding: 0;
-    min-width: 24px;
-    height: 24px;
-    margin-left: 12px;
+    padding: 24px;
+    cursor: help;
+  }
+
+  .info-icon {
+    color: var(--color-text-secondary);
+  }
+
+  vaadin-button {
     background-color: transparent;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--color-menu-items);
     font-weight: bold;
+    height: 32px;
   }
 `;

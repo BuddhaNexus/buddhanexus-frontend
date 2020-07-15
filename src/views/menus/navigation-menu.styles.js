@@ -99,6 +99,6 @@ export default css`
   }
 
   vaadin-details::part(summary) {
-    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    border-top: 1px solid var(--material-nav-left-lines);
   }
 `;

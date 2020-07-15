@@ -271,7 +271,6 @@ export class DataView extends LitElement {
         </div>
 
         <side-sheet
-          title="Filters"
           class="${this.filterBarOpen
             ? 'side-sheet--open'
             : 'side-sheet--closed'}"

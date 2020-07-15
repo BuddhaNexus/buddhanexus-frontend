@@ -45,13 +45,18 @@ export default css`
   }
 
   .info-button {
-    padding: 0;
-    min-width: 24px;
-    height: 24px;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.54);
-    font-weight: bold;
+    cursor: help;
+  }
+
+  .info-icon {
+    color: var(--color-text-secondary);
+  }
+
+  vaadin-button {
     background-color: transparent;
+    color: var(--color-menu-items);
+    font-weight: bold;
+    min-width: 24px;
   }
 
   #color-scheme-dropdown {

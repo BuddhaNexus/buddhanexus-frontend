@@ -134,7 +134,6 @@ export default css`
     overflow: scroll;
     padding-top: 100px;
     background: var(--color-sidebar-menu);
-    border-top: #0f0;
   }
 
   .search-icon {
@@ -146,7 +145,6 @@ export default css`
   footer {
     width: 100%;
     z-index: 100;
-    background: #777;
   }
 
   .footer-logo {

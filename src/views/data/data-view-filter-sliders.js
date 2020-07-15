@@ -33,7 +33,7 @@ export default class DataViewFilterSliders extends LitElement {
         }
 
         #slider-label {
-          color: rgb(115, 115, 115);
+          color: var(--color-text-secondary);
           font-size: 12px;
         }
 

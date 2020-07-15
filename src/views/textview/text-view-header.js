@@ -124,7 +124,6 @@ export class TextViewHeader extends LitElement {
       css`
         #text-view-header {
           padding-bottom: 16px;
-          padding-top: 16px;
           font-weight: bold;
           display: flex;
           align-items: baseline;
@@ -144,7 +143,7 @@ export class TextViewHeader extends LitElement {
         }
 
         .info-icon {
-          color: rgba(0, 0, 0, 0.54);
+          color: var(--color-text-secondary);
         }
 
         .text-name-label {
@@ -163,10 +162,6 @@ export class TextViewHeader extends LitElement {
         .swap-icon {
           color: var(--bn-dark-red);
           margin: 0;
-        }
-
-        .swap-icon:hover {
-          color: #0f0;
         }
 
         .swap-button {
@@ -188,7 +183,6 @@ export class TextViewHeader extends LitElement {
         @media screen and (max-width: 900px) {
           #text-view-header {
             padding-bottom: 8px;
-            padding-top: 8px;
           }
         }
       `,

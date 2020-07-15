@@ -43,7 +43,7 @@ export default css`
   }
 
   .segment-number {
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--color-text-secondary);
     font-size: 14px;
     white-space: nowrap;
   }
