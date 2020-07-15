@@ -61,11 +61,11 @@ const ChineseSegment = (inputData, segment, lineBreak) => {
 
 const PaliSanskritSegment = (inputData, segment) => {
   const strippedSegment = inputData.replace(/\//g, '|');
-  return strippedSegment.match(/^[0-9]/g)
+  return strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g)
     ? html`
         <br />${segment}<br />
       `
-    : strippedSegment.match(/[.?|)]$/g)
+    : strippedSegment.match(/[.?|)'vagga''vatthu''sutta']$/g)
     ? html`
         ${segment}<br />
       `
