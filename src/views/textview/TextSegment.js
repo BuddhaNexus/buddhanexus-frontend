@@ -65,7 +65,7 @@ const PaliSanskritSegment = (inputData, segment) => {
     ? html`
         <br />${segment}<br />
       `
-    : strippedSegment.match(/[.?|]$/g)
+    : strippedSegment.match(/[.?|)]$/g)
     ? html`
         ${segment}<br />
       `
