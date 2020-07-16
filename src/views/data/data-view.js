@@ -98,7 +98,8 @@ export class DataView extends LitElement {
       if (fileName !== this.fileName) {
         this.fileName = fileName;
       }
-      this.activeSegment = activeSegment;
+      // This to revert a previous hack because dots in the segmentnumber are not accepted in the routing.
+      this.activeSegment = activeSegment.replace(/@/g, '.');
     }
   }
 
