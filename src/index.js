@@ -93,7 +93,6 @@ export class AppLayout extends LitElement {
           <div class="footer-bar">
             <div class="footer-bar-content">
               <a href="/contact" class="link">CONTACT</a>
-              <a href="/imprint" class="link">IMPRINT</a>
             </div>
           </div>
           <div class="footer-color">
