@@ -36,12 +36,13 @@ function TextViewHeaderRightColumn({
       >
         <template>
           <div>
-            The currently selected parallel as well as other possible parallels
-            that have been detected between the text in the left and the text in
-            the right column are highlighted. When clicking on a highlighted
-            passage on the right hand side, the corresponding parallel is
-            displayed in the middle column and the main text on the left side is
-            automatically scrolled to the corresponding position.
+            The currently selected match as well as other matches that have been
+            detected between the Inquiry and the Hit Texts are coloured. The
+            selected match is highlighted. When clicking on a coloured passage
+            in the Hit Text, the corresponding parallel will be displayed in the
+            middle column. Upon clicking on it, the Inquiry Text is
+            automatically scrolled to the corresponding position in the Inquiry
+            Text.
           </div>
         </template>
       </vaadin-dialog>

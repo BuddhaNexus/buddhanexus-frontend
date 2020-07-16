@@ -6,9 +6,9 @@ export default function TextViewInfoModalContent() {
   return html`
     <div>
       <p>
-        The color coding of the syllables in the Inquiry Text on the left side
-        indicates how many approximate matches are to be encountered at a
-        certain syllable according to the current filter settings.
+        The color coding of the syllables in the Inquiry Text indicates how many
+        approximate matches are to be encountered at a certain syllable
+        according to the current filter settings.
       </p>
       <p><b>Color codes per number of matches:</b></p>
       <table style="width:100%; table-layout:fixed" align="center">

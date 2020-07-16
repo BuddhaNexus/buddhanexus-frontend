@@ -126,13 +126,12 @@ export class VisualViewHeader extends LitElement {
             @opened-changed="${this.setIsDialogOpen}"
           >
             <template>
-              <strong
-                >Sankey graph of all matches of the available
-                collections.</strong
-              ><br /><br />
-              Select the language, Inquiry and Hit Collections.<br />Click on
-              any collection on the left side in the chart to open it. More than
-              one Hit Collection can be selected.
+              Select the Inquiry and Hit Collections. More than one Hit
+              Collection can be selected. To reduce the view to a single
+              subsection, click on the pertinent coloured bar in the Inquiry
+              Collection (left). The view can be further reduced to a single
+              text. A click on a single text will open the text view where the
+              individual matches will be displayed.
             </template>
           </vaadin-dialog>
           <vaadin-button class="info-button" @click="${this.openDialog}">

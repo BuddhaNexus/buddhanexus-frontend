@@ -13,10 +13,10 @@ export class VisualViewSelectionBox extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <p>
-              The Visual Charts display the intertextuality between collections,
-              sections within collections, and single texts using a Sankey
-              diagram. A click on a single text leads you to Text View,
-              displaying the matches of the selected text (Inquiry Text).
+              The Sankey graph displays all matches between the collections
+              available in the same language that were detected by the default
+              setting. To view the graphs, first select the language of your
+              choice.
             </p>
             <p>Choose language for the visualization:</p>
           </div>

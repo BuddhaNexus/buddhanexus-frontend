@@ -11,9 +11,9 @@ function TableViewInfoModalContent() {
   return html`
     <div>
       <p>
-        Displays only the parallel numbers. It is possible to sort the parallels
-        according to their position in the main text, grouped by the text in
-        which they appear and by their length.
+        The matches can be sorted in three different ways: (1) by their position
+        in the Inquiry Text, (2) by their position in the Hit Text(s), and (3)
+        by the length of the match in the Hit Text.
       </p>
     </div>
   `;
