@@ -69,7 +69,7 @@ export class TextView extends LitElement {
       startoffset: 0,
       endoffset: 0,
     };
-    this.middleData = false;
+    this.middleData = {};
   }
 
   setMiddleData(e) {
