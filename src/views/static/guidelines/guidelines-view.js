@@ -76,8 +76,10 @@ export class GuidelinesView extends LitElement {
               <ul>
                 <li><b>Text View</b>: Upon selecting a file, the entire Inquiry Text with the passages for which matches are found is shown. 
                 The presence of matches in the Inquiry Text is indicated bv colours. To view the matches use the scrollbar, 
-                to go back to the beginning of the Inquiry Text click the ↑ (TODO: INSERT ARROW UP SYMBOL HERE) symbol, 
-                to display the Inquiry Text in a new tab, click the + (TODO: INSERT PLUS SYMBOL HERE) symbol. 
+                to go back to the beginning of the Inquiry Text click the 
+                <iron-icon class="info-icon" icon="vaadin:vaadin:arrow-circle-up-o"></iron-icon> symbol, 
+                to display the Inquiry Text in a new tab, click the 
+                <iron-icon class="info-icon" icon="vaadin:plus-circle-o"></iron-icon> symbol. 
                 Upon selecting (by clicking) any of the colored positions, the matches found in various Hit Texts for 
                 that position will be displayed in a new column. By clicking on any of these matches the respective Hit Text 
                 will be displayed in yet another column, with the match in question highlighted. All matches with the Inquiry Text 

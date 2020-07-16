@@ -177,4 +177,9 @@ export default css`
   p {
     line-height: 1.4em;
   }
+
+  iron-icon {
+    color: var(--bn-dark-red);
+    height: 16px;
+  }
 `;
