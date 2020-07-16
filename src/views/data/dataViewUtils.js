@@ -40,7 +40,8 @@ export const createTextViewSegmentUrl = segmentNr => {
   if (lang === 'chn') {
     textName = textName.replace(/_[0-9][0-9][0-9]/, '');
   }
-  return `../../${lang}/text/${textName}/${segmentNr}`;
+  // This is a hack because dots in the segmentnumber are not accepted in the routing.
+  return `../../${lang}/text/${textName}/${segmentNr.replace(/\./g, '@')}`;
 };
 
 export const getSegmentIdFromKey = segmentKey => {
