@@ -24,7 +24,7 @@ export default css`
     background-image: url('src/assets/img/background_welcome.jpg');
     background-size: cover;
     background-attachment: fixed;
-    height: 100vw;
+    height: auto;
   }
 
   .main-border {
@@ -176,5 +176,10 @@ export default css`
 
   p {
     line-height: 1.4em;
+  }
+
+  iron-icon {
+    color: var(--bn-dark-red);
+    height: 16px;
   }
 `;

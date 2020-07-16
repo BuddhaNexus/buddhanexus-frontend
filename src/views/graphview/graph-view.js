@@ -12,10 +12,10 @@ import styles from './graph-view.styles';
 const GraphViewInfoModalContent = () => html`
   <div>
     <p>
-      Displays a pie-chart of the distribution across collections of all the
-      parallels found with current filters.
+      The pie-chart displays the distribution of all the matches found with the
+      current filters across the various collections and their subsections.
     </p>
-    <p>The distribution is weighted by length of parallels found.</p>
+    <p>The distribution is weighted by length of matches found.</p>
   </div>
 `;
 
@@ -140,10 +140,9 @@ export class GraphView extends LitElement {
             @opened-changed="${this.setIsDialogOpen}"
           >
             <template>
-              The distribution of the top files that have matches with the
-              Inquiry Text is displayed based on the accumulated length of the
-              approximate matches.<br />
-              A maximum of 50 hit texts are shown.
+              The histogram displays the distribution of the top files that have
+              matches with the Inquiry Text based on the accumulated length of
+              the matches. A maximum of 50 Hit Texts are shown.
             </template>
           </vaadin-dialog>
           <vaadin-button class="info-button" @click="${this.openDialog}">

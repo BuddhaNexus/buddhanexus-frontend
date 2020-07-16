@@ -1,4 +1,5 @@
 import { customElement, html, LitElement } from 'lit-element';
+import '@vaadin/vaadin-icons/vaadin-icons.js';
 
 import styles from './../static-view.styles';
 
@@ -48,9 +49,11 @@ export class GuidelinesView extends LitElement {
             </p>
             <h3>Global Text Search</h3>
             <p>
-              The Global Text Search offers a search by a text passage. Upon typing in a text passage (max. length 150  
-              characters), a list with the pertinent hits will be displayed. A click on any of the results  will display 
-              the full text in the Text View modus.</p>
+              The Global Text Search offers a search by a text passage. Upon typing in a text passage (max. length 150 characters), 
+              a list with the pertinent hits will be displayed. A click on any of the results will display the full text in the 
+              Text View mode. The total number of possible search results is limited to 200 items. 
+              The Pāli data is currently not searchable with the Global Text Search.
+            </p>
             <h3>Filter Options</h3>
             <p>
               <ul>
@@ -71,14 +74,23 @@ export class GuidelinesView extends LitElement {
             <h3>View options</h3>
             <p>
               <ul>
-                <li><b>Text</b> View: Upon selecting a file, the entire Inquiry Text with the passages for which matches 
-                are found is shown. The presence of matches in the Inquiry Text is indicated bv colours. Upon selecting 
-                (by clicking) any of these positions , the matches found in various Hit Texts for that position will be displayed in a new column. By clicking on any of these matches the respective Hit Text will be displayed  in yet another column, with the match in question highlighted. All matches with the Inquiry Text found in the displayed Hit Text are coloured.  </li>
-                <li><b>Table</b> View: Displays a table of the matches found for the current  Inquiry Text.</li>
-                <li><b>Graph</b> View: Displays various graphs visualizing the (approximate) matches found for the Inquiry 
-                Text. The pie graph displays the distribution of the (approximate) matches according to the collection’s 
-                sections. The histogram shows the distribution of the top files that have matches with the Inquiry Text 
-                based on the accumulated length of the approximate matches. A maximum of 50 hit texts are shown.</li>
+                <li><b>Text View</b>: Upon selecting a file, the entire Inquiry Text with the passages for which matches are found is shown. 
+                The presence of matches in the Inquiry Text is indicated bv colours. To view the matches use the scrollbar, 
+                to go back to the beginning of the Inquiry Text click the 
+                <iron-icon class="info-icon" icon="vaadin:vaadin:arrow-circle-up-o"></iron-icon> symbol, 
+                to display the Inquiry Text in a new tab, click the 
+                <iron-icon class="info-icon" icon="vaadin:plus-circle-o"></iron-icon> symbol. 
+                Upon selecting (by clicking) any of the colored positions, the matches found in various Hit Texts for 
+                that position will be displayed in a new column. By clicking on any of these matches the respective Hit Text 
+                will be displayed in yet another column, with the match in question highlighted. All matches with the Inquiry Text 
+                found in the displayed Hit Text are coloured. To display the Hit Text in a new tab, click the + symbol.</li>
+                <li><b>Table View</b>: Displays a table of the matches found for the current Inquiry Text. The results can be sorted 
+                in three different ways: (1) by their position in the Inquiry Text, (2) by their position in the Hit Text(s), and (3) 
+                by the length of the match in the Hit Text. </li>
+                <li><b>Graph View</b>: Displays various graphs visualizing the (approximate) matches found for the Inquiry Text. 
+                The pie graph displays the distribution of the (approximate) matches according to the collection’s sections. 
+                The histogram shows the distribution of the top files that have matches with the Inquiry Text based on the 
+                accumulated length of the approximate matches. A maximum of 50 Hit Texts are shown.</li>
               </ul>
             </p>
             <h3>Visual Charts</h3>

@@ -13,7 +13,28 @@ export class ContactView extends LitElement {
       <div class="static-page-container">
         <div class="main-border">
           <div class="main-content">
-            <p class="construction">CONTACT PAGE</p>
+            <h1>Contact</h1>
+            <h2>BuddhaNexus</h2>
+            Universität Hamburg<br />
+            Asien-Afrika-Institut<br />
+            Abt. für Kultur und Geschichte Indiens und Tibets<br />
+
+            Khyentse Center for Tibetan Buddhist Textual Scholarship<br />
+            Alsterterrasse 1<br />
+            20354 Hamburg<br />
+            Germany<br />
+            <h3>Project Management</h3>
+
+            Dr. Orna Almogi<br />
+
+            Sebastian Nehrdich, MA (PhD candidate)<br />
+
+            Prof. Dr. Dorji Wangchuk<br />
+
+            Email:
+            <a href="mailto:buddhanexus.info@gmail.com"
+              >buddhanexus.info@gmail.com</a
+            >
           </div>
         </div>
       </div>

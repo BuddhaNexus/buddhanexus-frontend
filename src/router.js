@@ -14,7 +14,6 @@ import './views/static/events/events-view.js';
 import './views/static/projects/projects-view.js';
 import './views/static/presentations/presentations-view.js';
 import './views/static/publications/publications-view.js';
-import './views/static/imprint/imprint-view.js';
 import './views/static/contact/contact-view.js';
 import {
   getMainLayout,
@@ -153,15 +152,6 @@ const ROUTES = [
     path: '/contact',
     animate: true,
     component: 'contact-view',
-    action: () => {
-      switchNavbarLayout(false, true);
-      setNavigationDrawerVisibility(false);
-    },
-  },
-  {
-    path: '/imprint',
-    animate: true,
-    component: 'imprint-view',
     action: () => {
       switchNavbarLayout(false, true);
       setNavigationDrawerVisibility(false);
