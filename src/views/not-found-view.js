@@ -1,15 +1,22 @@
-import { customElement, html } from 'lit-element';
+import { customElement, html, LitElement } from 'lit-element';
 
-import { LightDOMElement } from './light-dom-element.js';
+import styles from './static/static-view.styles';
 
 @customElement('not-found-view')
-export class NotFoundView extends LightDOMElement {
+export class NotFoundView extends LitElement {
+  static get styles() {
+    return [styles];
+  }
+
   render() {
     return html`
-      <h1>View not found!</h1>
-      <p>
-        Please check your URL.
-      </p>
+      <div class="static-page-container">
+        <div class="main-border">
+          <div class="main-content">
+            <h1>PAGE NOT FOUND</h1>
+          </div>
+        </div>
+      </div>
     `;
   }
 }

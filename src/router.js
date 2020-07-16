@@ -37,7 +37,8 @@ const ROUTES = [
     animate: true,
     component: 'about-view',
     action: () => {
-      switchNavbarLayout(true, true);
+      switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -46,6 +47,7 @@ const ROUTES = [
     component: 'introduction-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -54,6 +56,7 @@ const ROUTES = [
     component: 'history-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -62,6 +65,7 @@ const ROUTES = [
     component: 'community-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -70,6 +74,7 @@ const ROUTES = [
     component: 'institutions-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -78,6 +83,7 @@ const ROUTES = [
     component: 'people-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -86,6 +92,7 @@ const ROUTES = [
     component: 'news-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -94,6 +101,7 @@ const ROUTES = [
     component: 'guidelines-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -102,6 +110,7 @@ const ROUTES = [
     component: 'activities-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -110,6 +119,7 @@ const ROUTES = [
     component: 'events-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -118,6 +128,7 @@ const ROUTES = [
     component: 'projects-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -126,6 +137,7 @@ const ROUTES = [
     component: 'presentations-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -134,6 +146,7 @@ const ROUTES = [
     component: 'publications-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -142,6 +155,7 @@ const ROUTES = [
     component: 'contact-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -150,6 +164,7 @@ const ROUTES = [
     component: 'imprint-view',
     action: () => {
       switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
     },
   },
   {
@@ -213,8 +228,8 @@ const ROUTES = [
     path: '(.*)',
     component: 'not-found-view',
     action: () => {
-      import('./views/not-found-view');
-      switchNavbarLayout(true, true);
+      import('./views/not-found-view.js');
+      switchNavbarLayout(false, true);
       setNavigationDrawerVisibility(false);
       setLogoSource('/src/assets/img/buddhanexus.jpg');
     },
