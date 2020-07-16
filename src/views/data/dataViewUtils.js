@@ -37,6 +37,9 @@ export const updateViewModeParamInBrowserLocation = (
 export const createTextViewSegmentUrl = segmentNr => {
   let lang = getLanguageFromFilename(segmentNr);
   let textName = segmentNr.split(':')[0];
+  if (lang === 'chn') {
+    textName = textName.replace(/_[0-9][0-9][0-9]/, '');
+  }
   return `../../${lang}/text/${textName}/${segmentNr}`;
 };
 
