@@ -19,7 +19,8 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) leftActiveSegment;
 
   // Local variables
-  @property({ type: String }) reachedEndOfText = false;
+  @property({ type: String }) veryShortText = false;
+  @property({ type: String }) reachedEndText = false;
   @property({ type: Array }) textLeft = [];
   @property({ type: Object }) parallels = {};
   @property({ type: String }) noEndlessScrolling = false;
@@ -110,7 +111,13 @@ export class TextViewLeft extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
     });
-    this.reachedEndOfText = textleft.length !== 800;
+    if (textleft.length !== 800) {
+      if (this.leftActiveSegment) {
+        this.reachedEndText = true;
+      } else {
+        this.veryShortText = true;
+      }
+    }
     this.textLeft = removeDuplicates(textleft, 'segnr');
     this.textLeftBySegNr = {};
     this.textLeft.forEach(
@@ -142,7 +149,7 @@ export class TextViewLeft extends LitElement {
     const rootElScroll = rootEl.scrollTop;
     activeSegment.scrollIntoView({
       // depends on direction of scrolling (downwards/upwards)
-      block: this.currentPosition > 200 ? 'end' : 'start',
+      block: this.currentPosition > 400 ? 'end' : 'start',
       inline: 'nearest',
     });
     rootEl.scrollTop = rootElScroll;
@@ -161,7 +168,7 @@ export class TextViewLeft extends LitElement {
     const targets = this.shadowRoot.querySelectorAll('.left-segment');
     if (
       targets.length === 0 ||
-      this.reachedEndOfText ||
+      this.veryShortText ||
       this.addedSegmentObservers
     ) {
       return;
@@ -192,9 +199,9 @@ export class TextViewLeft extends LitElement {
     ) {
       observer.observe(targets[0]);
     }
-    observer.observe(
-      targets[targets.length > 200 ? targets.length - 1 : targets.length]
-    );
+    if (!this.reachedEndText) {
+      observer.observe(targets[targets.length - 1]);
+    }
     this.addedSegmentObservers = true;
   }
 
