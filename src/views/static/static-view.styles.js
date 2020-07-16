@@ -24,7 +24,7 @@ export default css`
     background-image: url('src/assets/img/background_welcome.jpg');
     background-size: cover;
     background-attachment: fixed;
-    height: 100vw;
+    height: auto;
   }
 
   .main-border {
