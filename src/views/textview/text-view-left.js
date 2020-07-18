@@ -67,6 +67,7 @@ export class TextViewLeft extends LitElement {
       ].includes(propName);
 
       if (fileChanged && !this.fetchLoading) {
+        this.noEndlessScrolling = true;
         await this.fetchNewText();
       }
 
@@ -77,7 +78,6 @@ export class TextViewLeft extends LitElement {
       }
 
       if (propName === 'currentPage' && !this.fetchLoading) {
-        // todo: append text instead of replacing it.
         await this.fetchNewText();
         this.scrollAfterEndlessReload();
       }
