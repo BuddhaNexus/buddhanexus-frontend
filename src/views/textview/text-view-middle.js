@@ -58,7 +58,7 @@ export class TextViewMiddle extends LitElement {
   async fetchMiddleParallels() {
     this.fetchLoading = true;
     const { parallels, error } = await getFileTextParallelsMiddle({
-      segmentnr: this.leftActiveSegment,
+      segmentnr: this.data.activeSegment,
       file_name: this.fileName,
       score: this.score,
       par_length: this.quoteLength,
@@ -98,7 +98,7 @@ export class TextViewMiddle extends LitElement {
   }
 
   render() {
-    if (!this.leftActiveSegment) {
+    if (!this.data) {
       return html`
         <span lang="en"
           >Click on a syllable in the Inquiry Text to display the approximate

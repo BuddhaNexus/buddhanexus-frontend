@@ -108,7 +108,7 @@ function TextSegmentWords(
         ? RIGHT_MODE_HIGHLIGHT_COLOR
         : getCooccuranceColor(currentColor),
     });
-    if (lang === LANGUAGE_CODES.TIBETAN || lang === LANGUAGE_CODES.PALI) {
+    if (lang === LANGUAGE_CODES.TIBETAN) {
       position += segmentData[i].length + 1;
     } else {
       position += segmentData[i].length;
