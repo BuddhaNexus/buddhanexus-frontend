@@ -23,6 +23,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: Array }) targetCollection;
   @property({ type: Number }) score;
   @property({ type: Number }) quoteLength;
+  @property({ type: Boolean }) showSegmentNumbers;
 
   render() {
     if (
@@ -42,6 +43,7 @@ export class DataViewRouter extends LitElement {
           .searchString="${this.searchString}"
           .selectedView="${this.selectedView}"
           .setSelectedView="${this.setSelectedView}"
+          .showSegmentNumbers="${this.showSegmentNumbers}"
         ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {

@@ -64,6 +64,16 @@ export default css`
     display: inline;
   }
 
+  .segment-number[show-number='false'] {
+    display: none;
+  }
+
+  .segment-number {
+    color: var(--color-text-secondary);
+    font-size: 10px;
+    padding-right: 10px;
+  }
+
   vaadin-split-layout p {
     overflow-wrap: break-word;
   }

@@ -24,6 +24,7 @@
   "dependencies": {
     "@polymer/paper-input": "^3.2.1",
     "@polymer/paper-slider": "https://github.com/BuddhaNexus/paper-slider.git",
+    "@polymer/paper-toggle-button": "^3.0.1",
     "@vaadin/router": "^1.7.2",
     "@vaadin/vaadin-app-layout": "^2.0.4",
     "@vaadin/vaadin-button": "^2.2.2",
@@ -72,7 +73,7 @@
     "url-loader": "^3.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3",
+    "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"
   },
   "prettier": {

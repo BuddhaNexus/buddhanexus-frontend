@@ -17,6 +17,7 @@ export default class TextViewTable extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: String }) leftActiveSegment;
+  @property({ type: Boolean }) showSegmentNumbers;
 
   @property({ type: Function }) toggleMiddleData;
   @property({ type: Function }) highlightLeftAfterScrolling;
@@ -101,6 +102,7 @@ export default class TextViewTable extends LitElement {
               .quoteLength="${this.quoteLength}"
               .cooccurance="${this.cooccurance}"
               .leftActiveSegment="${this.leftActiveSegment}"
+              .showSegmentNumbers="${this.showSegmentNumbers}"
               @active-segment-changed="${this.toggleMiddleData}"
               @highlight-left-after-scrolling="${this
                 .highlightLeftAfterScrolling}"

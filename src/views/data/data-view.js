@@ -14,6 +14,7 @@ import '../components/card';
 import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 import './data-view-filters-container';
+import './data-view-settings-container';
 import './data-view-view-selector';
 import './data-view-header';
 
@@ -40,6 +41,8 @@ export class DataView extends LitElement {
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
   @property({ type: Boolean }) filterBarOpen;
+  @property({ type: Boolean }) settingsBarOpen;
+  @property({ type: Boolean }) showSegmentNumbers;
 
   static get styles() {
     return [dataViewStyles];
@@ -99,7 +102,9 @@ export class DataView extends LitElement {
         this.fileName = fileName;
       }
       // This to revert a previous hack because dots in the segmentnumber are not accepted in the routing.
-      this.activeSegment = activeSegment.replace(/@/g, '.');
+      if (activeSegment) {
+        this.activeSegment = activeSegment.replace(/@/g, '.');
+      }
     }
   }
 
@@ -235,6 +240,14 @@ export class DataView extends LitElement {
     this.filterBarOpen = !this.filterBarOpen;
   };
 
+  toggleSettingsBarOpen = () => {
+    this.settingsBarOpen = !this.settingsBarOpen;
+  };
+
+  toggleShowSegmentNumbers = e => {
+    this.showSegmentNumbers = e.detail.value;
+  };
+
   render() {
     return html`
       <div class="data-view" lang="${this.language}" view="${this.viewMode}">
@@ -248,7 +261,9 @@ export class DataView extends LitElement {
             .folio="${this.folio}"
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
+            .settingsBarOpen="${this.settingsBarOpen}"
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
+            .toggleSettingsBarOpen="${this.toggleSettingsBarOpen}"
             .updateSearch="${this.setSearch}"
             .updateSortMethod="${this.setSortMethod}"
           ></data-view-header>
@@ -268,6 +283,7 @@ export class DataView extends LitElement {
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
             .searchString="${this.searchString}"
+            .showSegmentNumbers="${this.showSegmentNumbers}"
           ></data-view-router>
         </div>
 
@@ -301,6 +317,19 @@ export class DataView extends LitElement {
             .updateSorting="${this.setSortMethod}"
             .language="${this.language}"
           ></data-view-filters-container>
+        </side-sheet>
+
+        <side-sheet
+          class="${this.settingsBarOpen
+            ? 'side-sheet--open'
+            : 'side-sheet--closed'}"
+          .handleClose="${() => {
+            this.settingsBarOpen = false;
+          }}"
+        >
+          <data-view-settings-container
+            .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
+          ></data-view-settings-container>
         </side-sheet>
       </div>
     `;
