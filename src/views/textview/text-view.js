@@ -32,6 +32,7 @@ export class TextView extends LitElement {
   @property({ type: Object }) leftTextData;
   @property({ type: String }) lang;
   @property({ type: Boolean }) showSegmentNumbers;
+  @property({ type: String }) segmentDisplaySide;
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
@@ -229,6 +230,7 @@ export class TextView extends LitElement {
         .rightFileName="${this.rightFileName}"
         .leftActiveSegment="${this.leftActiveSegment}"
         .showSegmentNumbers="${this.showSegmentNumbers}"
+        .segmentDisplaySide="${this.segmentDisplaySide}"
         .toggleMiddleData="${e => this.setMiddleData(e)}"
         .highlightLeftAfterScrolling="${e =>
           this.highlightLeftAfterScrolling(e)}"

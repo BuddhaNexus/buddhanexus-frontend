@@ -108,14 +108,19 @@ class DataViewHeader extends LitElement {
             >
               filters
             </iron-icon>
-            <iron-icon
-              icon="vaadin:cog"
-              @click="${this.toggleSettingsBarOpen}"
-              class="settings-bar-toggle-icon ${this.SettingsBarOpen &&
-                'settings-bar-toggle-icon--settings-bar-open'}"
-            >
-              settings
-            </iron-icon>
+
+            ${this.viewMode === 'text'
+              ? html`
+                  <iron-icon
+                    icon="vaadin:cog"
+                    @click="${this.toggleSettingsBarOpen}"
+                    class="settings-bar-toggle-icon ${this.SettingsBarOpen &&
+                      'settings-bar-toggle-icon--settings-bar-open'}"
+                  >
+                    settings
+                  </iron-icon>
+                `
+              : null}
           </bn-card>
         </div>
       </div>

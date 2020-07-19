@@ -43,6 +43,7 @@ export class DataView extends LitElement {
   @property({ type: Boolean }) filterBarOpen;
   @property({ type: Boolean }) settingsBarOpen;
   @property({ type: Boolean }) showSegmentNumbers;
+  @property({ type: String }) segmentDisplaySide;
 
   static get styles() {
     return [dataViewStyles];
@@ -248,6 +249,10 @@ export class DataView extends LitElement {
     this.showSegmentNumbers = e.detail.value;
   };
 
+  toggleSegmentDisplaySide = e => {
+    this.segmentDisplaySide = e.target.value;
+  };
+
   render() {
     return html`
       <div class="data-view" lang="${this.language}" view="${this.viewMode}">
@@ -284,10 +289,12 @@ export class DataView extends LitElement {
             .sortMethod="${this.sortMethod}"
             .searchString="${this.searchString}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
+            .segmentDisplaySide="${this.segmentDisplaySide}"
           ></data-view-router>
         </div>
 
         <side-sheet
+          id="filter-menu"
           class="${this.filterBarOpen
             ? 'side-sheet--open'
             : 'side-sheet--closed'}"
@@ -320,6 +327,7 @@ export class DataView extends LitElement {
         </side-sheet>
 
         <side-sheet
+          id="settings-menu"
           class="${this.settingsBarOpen
             ? 'side-sheet--open'
             : 'side-sheet--closed'}"
@@ -329,6 +337,7 @@ export class DataView extends LitElement {
         >
           <data-view-settings-container
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
+            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
           ></data-view-settings-container>
         </side-sheet>
       </div>
