@@ -21,6 +21,9 @@ export class TextViewRight extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: Object }) rightTextData;
+  @property({ type: Boolean }) showSegmentNumbers;
+  @property({ type: String }) segmentDisplaySide;
+
   // local variables
   @property({ type: String }) activeSegment = undefined;
   @property({ type: String }) endOfRightTextFlag = false;
@@ -251,7 +254,9 @@ export class TextViewRight extends LitElement {
         this.textRight,
         this.parallels,
         this.displayParallels,
-        this.rightTextData
+        this.rightTextData,
+        this.showSegmentNumbers,
+        this.segmentDisplaySide
       )}
     `;
   }
@@ -261,7 +266,9 @@ const TextViewLayoutRight = (
   textRight,
   parallels,
   clickFunction,
-  rightTextData
+  rightTextData,
+  showSegmentNumbers,
+  segmentDisplaySide
 ) => {
   if (!textRight || !parallels) {
     return null;
@@ -285,7 +292,9 @@ const TextViewLayoutRight = (
       current_parallels,
       number,
       clickFunction,
-      rightTextData
+      rightTextData,
+      showSegmentNumbers,
+      segmentDisplaySide
     );
   });
 };
@@ -296,7 +305,9 @@ const rightSegmentContainer = (
   current_parallels,
   number,
   clickFunction,
-  rightTextData
+  rightTextData,
+  showSegmentNumbers,
+  segmentDisplaySide
 ) => {
   if (!segmentNr) {
     return null;
@@ -330,10 +341,42 @@ const rightSegmentContainer = (
     highlightMode: rightSideHighlight,
     rightMode: 1,
   });
-  return rightSegment(segmentNr, segText, number);
+  return rightSegment(
+    segmentNr,
+    segText,
+    number,
+    showSegmentNumbers,
+    segmentDisplaySide
+  );
 };
 
-const rightSegment = (segmentNr, segText, number) => {
+const rightSegment = (
+  segmentNr,
+  segText,
+  number,
+  showSegmentNumbers,
+  segmentDisplaySide
+) => {
+  const displayNumber = `${segmentNr.split(':')[1].split('_')[0]}`;
+  let firstDisplayNumber =
+    segmentNr.split(':')[1].match('_') && !segmentNr.endsWith('_0')
+      ? false
+      : true;
   // prettier-ignore
-  return html`<span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
+  return html`<span 
+                class="right-segment"
+                id=${segmentNr}
+                title=${displayNumber}
+                number="${number}">
+                ${firstDisplayNumber
+                  ? html`
+                    <span
+                      class="segment-number"
+                      style="float: ${segmentDisplaySide}"
+                      show-number="${showSegmentNumbers}">
+                        ${displayNumber}
+                    </span>`
+                  : null
+                }
+                ${segText}</span>`;
 };

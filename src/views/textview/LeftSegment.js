@@ -45,6 +45,10 @@ export function LeftSegmentContainer({
   const leftSideSelected =
     leftTextData && leftTextData.selectedParallels.indexOf(segmentNr) > -1;
   const displayNumber = `${segmentNr.split(':')[1].split('_')[0]}`;
+  let firstDisplayNumber =
+    segmentNr.split(':')[1].match('_') && !segmentNr.endsWith('_0')
+      ? false
+      : true;
 
   const colorValues = getLeftSegmentColors(
     current_parallels,
@@ -66,8 +70,9 @@ export function LeftSegmentContainer({
     }),
     number: number,
     displayNumber,
-    showSegmentNumbers: showSegmentNumbers,
-    segmentDisplaySide: segmentDisplaySide,
+    firstDisplayNumber,
+    showSegmentNumbers,
+    segmentDisplaySide,
   });
 }
 
@@ -76,18 +81,24 @@ export function LeftSegment({
   segText,
   number,
   displayNumber,
+  firstDisplayNumber,
   showSegmentNumbers,
   segmentDisplaySide,
 }) {
   // prettier-ignore
-  return html`<span class="left-segment" 
-                title=${displayNumber} 
-                id=${segmentNr} 
+  return html`<span class="left-segment"
+                title=${displayNumber}
+                id=${segmentNr}
                 number="${number}">
-                <span 
-                  class="segment-number"
-                  style="float: ${segmentDisplaySide}" 
-                  show-number="${showSegmentNumbers}">
-                    ${displayNumber}
-                </span>${segText}</span>`
+                ${firstDisplayNumber
+                  ? html`
+                    <span
+                      class="segment-number"
+                      style="float: ${segmentDisplaySide}"
+                      show-number="${showSegmentNumbers}">
+                        ${displayNumber}
+                    </span>`
+                  : null
+                }
+                ${segText}</span>`
 }

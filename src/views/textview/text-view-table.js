@@ -76,6 +76,8 @@ export default class TextViewTable extends LitElement {
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
+          .showSegmentNumbers="${this.showSegmentNumbers}"
+          .segmentDisplaySide="${this.segmentDisplaySide}"
           @active-segment-changed="${this.toggleMiddleData}"
         ></text-view-right>
       </div>
