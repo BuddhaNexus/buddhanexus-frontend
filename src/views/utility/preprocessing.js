@@ -33,7 +33,6 @@ export function getCleanedWord(lang, splitWords, i) {
   return cleanedWord;
 }
 
-// this function is not yet revised or tested to work with the new refactored code.
 export function highlightTextByOffset({
   textArray,
   startoffset,

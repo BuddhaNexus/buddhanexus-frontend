@@ -75,7 +75,6 @@ export class TextView extends LitElement {
 
   setMiddleData(e) {
     this.middleData = e.detail;
-    this.leftActiveSegment = e.detail.activeSegment;
   }
 
   handleFolioChanged() {
@@ -124,7 +123,6 @@ export class TextView extends LitElement {
     if (!rootSegments) {
       return;
     }
-
     const textContainer = this.shadowRoot
       .getElementById('text-view-table')
       .shadowRoot.getElementById(
