@@ -42,7 +42,8 @@ function TextViewHeaderRightColumn({
             in the Hit Text, the corresponding parallel will be displayed in the
             middle column. Upon clicking on it, the Inquiry Text is
             automatically scrolled to the corresponding position in the Inquiry
-            Text.
+            Text. For the identity of the Hit Text place the cursor on its
+            catalogue number.
           </div>
         </template>
       </vaadin-dialog>
@@ -224,7 +225,7 @@ export class TextViewHeader extends LitElement {
       <div id="text-view-header">
         <div id="text-view-header-left">
           <span class="text-name-label">Inquiry Text: </span>
-          ${FormattedFileName({ fileName: this.fileName, displayType: 'full' })}
+          ${FormattedFileName({ fileName: this.fileName })}
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
