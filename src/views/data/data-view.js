@@ -100,7 +100,9 @@ export class DataView extends LitElement {
         this.language = getLanguageFromFilename(fileName);
       }
       // This to revert a previous hack because dots in the segmentnumber are not accepted in the routing.
-      this.activeSegment = activeSegment.replace(/@/g, '.');
+      if (activeSegment) {
+        this.activeSegment = activeSegment.replace(/@/g, '.');
+      }
     }
   }
 
