@@ -38,6 +38,7 @@ export class DataViewViewSelector extends LitElement {
         ${Object.values(DATA_VIEW_MODES).map(filter => {
           if (
             (filter !== 'numbers' || this.language !== 'tib') &&
+            (filter !== 'numbers' || this.language !== 'chn') &&
             filter !== 'neutral' &&
             filter !== 'text-search'
           ) {
