@@ -17,10 +17,9 @@ export default function SearchViewListItem({
         class="search-view-list__item-content search-view-list__item-content--segment material-card">
         <header class="search-view-list__item-header">
           <span class="search-view-list__segment-id">
-            ${getLinkForSegmentNumbers(
-              getLanguageFromFilename(SegmentId),
-              SegmentId
-            )}
+            ${getLinkForSegmentNumbers(getLanguageFromFilename(SegmentId), [
+              SegmentId,
+            ])}
           </span><span>Edit distance: ${distance}</span>
           <div class="search-view-list__parallel-details">
             <span class="search-view-list__parallel-details-badge"
