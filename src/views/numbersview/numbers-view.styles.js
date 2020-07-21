@@ -66,4 +66,12 @@ export default css`
     z-index: 99;
     font-weight: bold;
   }
+
+  .slow-loading {
+    text-align: center;
+    color: var(--color-text-primary);
+    font-family: var(--system-font-stack);
+    font-size: 24px;
+    font-weight: 400;
+  }
 `;
