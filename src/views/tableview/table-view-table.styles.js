@@ -5,8 +5,8 @@ export default css`
     display: flex;
     flex-direction: column;
     flex: 1;
-    overflow: hidden;
     margin-bottom: 2.25em;
+    height: calc(100vh - 410px);
   }
 
   .table-view-table__row {
