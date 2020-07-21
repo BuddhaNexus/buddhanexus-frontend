@@ -203,7 +203,8 @@ export class TextViewHeader extends LitElement {
 
   handleRightTextNewTabButtonClicked() {
     const win = window.open(
-      `./${this.rightFileName}/${this.rightSegmentName}`,
+      // This is a hack because dots in the segmentnumber are not accepted in the routing.
+      `./${this.rightFileName}/${this.rightSegmentName.replace(/\./g, '@')}`,
       '_blank'
     );
     win.focus();
