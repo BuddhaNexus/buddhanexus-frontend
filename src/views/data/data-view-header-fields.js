@@ -119,6 +119,7 @@ export class DataViewHeaderFields extends LitElement {
   }
 
   async fetchData() {
+    console.log('FETCHING DATA', this.language);
     if (!this.language) {
       return;
     }
