@@ -54,7 +54,7 @@ export class VisualViewGraph extends LitElement {
     // smaller collections are enlarged, resulting in a compression effect that makes
     // the rendering of smaller entities more readable. a value of ** 1 means nothing
     // is changed. The smaller the value is, the stronger the graph is 'compressed'.
-    value = value ** 0.2;
+    value = value ** 0.25;
     // we force this min. value of 2 for each connection in order to avoid elements in the graph that are too tiny to be visible.
     if (value < 2) {
       value = 2;
@@ -187,9 +187,9 @@ export class VisualViewGraph extends LitElement {
     let factor;
     let windowHeight = window.innerHeight - 200;
     if (rightPageSize > 25 && rightPageSize >= leftPageSize) {
-      factor = (windowHeight * rightPageSize) / 25;
+      factor = (windowHeight * rightPageSize) / 15;
     } else if (leftPageSize > 25) {
-      factor = (windowHeight * leftPageSize) / 25;
+      factor = (windowHeight * leftPageSize) / 15;
     } else {
       factor = windowHeight;
     }
