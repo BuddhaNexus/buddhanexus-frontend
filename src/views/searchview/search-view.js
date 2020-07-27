@@ -19,6 +19,12 @@ export class SearchView extends LitElement {
           padding: 48px;
         }
 
+        h1 {
+          font-size: 1.6em;
+          font-weight: bold;
+          font-family: var(--system-font-stack);
+        }
+
         .search-view-list {
           overflow: scroll;
           width: 100%;
