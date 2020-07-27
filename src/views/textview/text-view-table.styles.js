@@ -92,4 +92,7 @@ export default css`
     height: 100%;
     width: 100%;
   }
+  .material-card {
+    overflow-wrap: break-word;
+  }
 `;
