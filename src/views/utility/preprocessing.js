@@ -106,8 +106,7 @@ export function getLinkForSegmentNumbers(language, segmentnr) {
   let formattedSegmentNr = html`
     <formatted-segment
       .segmentnr="${segmentArrayToString(segmentnr, language)}"
-    ></formatted-segment
-    >｀
+    ></formatted-segment>
   `;
   let linkText = '';
   if (language === 'pli') {
