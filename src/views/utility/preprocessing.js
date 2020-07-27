@@ -8,7 +8,7 @@ import {
   TibetanSegment,
 } from '../textview/TextSegment';
 import { getSegmentIdFromKey } from '../data/dataViewUtils';
-import { FormattedSegment } from './common-components';
+import './formatted-segment';
 
 export const SEGMENT_COLORS = {
   1: '#0CC0E8',
@@ -103,10 +103,12 @@ export function segmentArrayToString(segmentArray, lang) {
 }
 
 export function getLinkForSegmentNumbers(language, segmentnr) {
-  let formattedSegmentNr = FormattedSegment({
-    segment: segmentArrayToString(segmentnr, language),
-    lang: language,
-  });
+  let formattedSegmentNr = html`
+    <formatted-segment
+      .segmentnr="${segmentArrayToString(segmentnr, language)}"
+    ></formatted-segment
+    >｀
+  `;
   let linkText = '';
   if (language === 'pli') {
     segmentnr = getSegmentIdFromKey(segmentnr);

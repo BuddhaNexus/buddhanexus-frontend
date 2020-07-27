@@ -5,7 +5,8 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
-import { FormattedFileName } from '../utility/common-components';
+import '../utility/formatted-segment';
+
 import { LANGUAGE_CODES } from '../utility/constants';
 
 @customElement('data-view-subheader')
@@ -77,8 +78,9 @@ class DataViewSubheader extends LitElement {
     return html`
       <div class="data-view-subheader">
         <div class="text-name-label">Inquiry Text:</div>
-        ${FormattedFileName({ fileName: this.fileName, displayType: 'full' })}
-
+        &nbsp;<formatted-filename
+          .filename="${this.fileName}"
+        ></formatted-filename>
         <vaadin-dialog
           id="info-number-view"
           aria-label="simple"

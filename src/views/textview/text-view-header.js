@@ -3,8 +3,10 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
+import '../utility/formatted-segment';
+
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import { FormattedFileName } from '../utility/common-components';
+
 import TextViewInfoModalContent from './text-view-modal-content';
 
 function TextViewHeaderRightColumn({
@@ -51,7 +53,7 @@ function TextViewHeaderRightColumn({
       <vaadin-button class="info-button" @click="${openDialogRight}">
         <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
       </vaadin-button>
-      Hit Text ${FormattedFileName({ fileName: rightFileName })}
+      <formatted-filename .filename="${rightFileName}"></formatted-filename>
     </div>
   `;
 }
@@ -226,7 +228,7 @@ export class TextViewHeader extends LitElement {
       <div id="text-view-header">
         <div id="text-view-header-left">
           <span class="text-name-label">Inquiry Text: </span>
-          ${FormattedFileName({ fileName: this.fileName })}
+          <formatted-filename .filename="${this.fileName}"></formatted-filename>
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
