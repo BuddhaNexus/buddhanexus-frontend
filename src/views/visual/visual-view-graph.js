@@ -183,13 +183,15 @@ export class VisualViewGraph extends LitElement {
     }
     let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
 
+    let cutoffFactor = this.language === 'pli' ? this.pageSize : 15;
+
     // calculating graphheight based on pagesize.
     let factor;
     let windowHeight = window.innerHeight - 200;
-    if (rightPageSize > 25 && rightPageSize >= leftPageSize) {
-      factor = (windowHeight * rightPageSize) / 15;
-    } else if (leftPageSize > 25) {
-      factor = (windowHeight * leftPageSize) / 15;
+    if (rightPageSize > cutoffFactor && rightPageSize >= leftPageSize) {
+      factor = (windowHeight * rightPageSize) / cutoffFactor;
+    } else if (leftPageSize > cutoffFactor) {
+      factor = (windowHeight * leftPageSize) / cutoffFactor;
     } else {
       factor = windowHeight;
     }
