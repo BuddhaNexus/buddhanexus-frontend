@@ -35,11 +35,6 @@ class DataViewSubheader extends LitElement {
           color: var(--color-text-secondary);
         }
 
-        .formatted-file-name {
-          font-size: 1.05em;
-          margin-left: 8px;
-        }
-
         @media screen and (max-width: 900px) {
           .info-button {
             padding: 12px;
@@ -78,9 +73,7 @@ class DataViewSubheader extends LitElement {
     return html`
       <div class="data-view-subheader">
         <div class="text-name-label">Inquiry Text:</div>
-        &nbsp;<formatted-filename
-          .filename="${this.fileName}"
-        ></formatted-filename>
+        <formatted-filename .filename="${this.fileName}"></formatted-filename>
         <vaadin-dialog
           id="info-number-view"
           aria-label="simple"

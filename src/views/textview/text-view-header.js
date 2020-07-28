@@ -179,11 +179,6 @@ export class TextViewHeader extends LitElement {
           cursor: pointer;
         }
 
-        .formatted-file-name {
-          font-size: 1.05em;
-          margin-left: 8px;
-        }
-
         @media screen and (max-width: 900px) {
           #text-view-header {
             padding-bottom: 8px;

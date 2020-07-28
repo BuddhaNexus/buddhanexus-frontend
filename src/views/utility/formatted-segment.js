@@ -1,6 +1,7 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import { getDisplayName } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
+import styles from './formatted-segment.styles';
 
 @customElement('formatted-segment')
 export class FormattedSegment extends LitElement {
@@ -12,6 +13,10 @@ export class FormattedSegment extends LitElement {
   @property({ type: Function }) showRKTS = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
+
+  static get styles() {
+    return [styles];
+  }
 
   firstUpdated() {
     this.fetchData();
@@ -33,14 +38,18 @@ export class FormattedSegment extends LitElement {
   }
 
   render() {
-    if (this.fetchLoading) {
+    if (this.fetchLoading || !this.displayName) {
       return html`
-        <span title="${this.filename}">${this.filename}:${this.number}</span>
+        <span class="formatted-segment" name="${this.filename}"
+          >${this.filename}:${this.number}</span
+        >
       `;
     }
 
     return html`
-      <span title="${this.displayName}">${this.filename}:${this.number}</span>
+      <span class="formatted-segment" name="${this.displayName}"
+        >${this.filename}:${this.number}</span
+      >
     `;
   }
 }
@@ -52,6 +61,10 @@ export class FormattedFileName extends LitElement {
   @property({ type: Function }) showRKTS = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
+
+  static get styles() {
+    return [styles];
+  }
 
   firstUpdated() {
     this.fetchData();
@@ -67,15 +80,15 @@ export class FormattedFileName extends LitElement {
   }
 
   render() {
-    if (this.fetchLoading) {
+    if (this.fetchLoading || !this.displayName) {
       return html`
-        <span class="formatted-file-name" title="${this.filename}"
+        <span class="formatted-file-name" name="${this.filename}"
           >${this.filename}</span
         >
       `;
     }
     return html`
-      <span class="formatted-file-name" title="${this.displayName}"
+      <span class="formatted-file-name" name="${this.displayName}"
         >${this.filename}</span
       >
     `;
