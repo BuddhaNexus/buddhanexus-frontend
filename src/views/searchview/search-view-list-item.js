@@ -11,7 +11,6 @@ export default function SearchViewListItem({
 }) {
   return html`
     <div class="search-view-list__item"
-          title="Click to open the text at this position"
           onclick="window.open('${rootUrl}','_self');">
       <div
         class="search-view-list__item-content search-view-list__item-content--segment material-card">
@@ -28,6 +27,7 @@ export default function SearchViewListItem({
         </header>
         <div class="horizontal-divider"></div>
         <div
+          title="Click to open the text at this position"
           class="search-view-list__text"
           lang="${getLanguageFromFilename(SegmentId)}">
           ${SegmentText}
