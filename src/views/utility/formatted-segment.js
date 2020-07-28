@@ -10,7 +10,6 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) lang;
   @property({ type: String }) number;
   @property({ type: String }) displayName = '';
-  @property({ type: Function }) showRKTS = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
 
@@ -32,7 +31,7 @@ export class FormattedSegment extends LitElement {
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
-    this.displayName = displayData;
+    this.displayName = displayData[0];
     this.fetchLoading = false;
     this.fetchError = error;
   }
@@ -58,7 +57,8 @@ export class FormattedSegment extends LitElement {
 export class FormattedFileName extends LitElement {
   @property({ type: String }) filename;
   @property({ type: String }) displayName = '';
-  @property({ type: Function }) showRKTS = false;
+  @property({ type: String }) textName = '';
+  @property({ type: String }) rightside;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
 
@@ -67,6 +67,7 @@ export class FormattedFileName extends LitElement {
   }
 
   firstUpdated() {
+    console.log(this.filename, this.rightside);
     this.fetchData();
   }
 
@@ -74,7 +75,8 @@ export class FormattedFileName extends LitElement {
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
-    this.displayName = displayData;
+    this.displayName = displayData[0];
+    this.textName = displayData[1];
     this.fetchLoading = false;
     this.fetchError = error;
   }
@@ -88,8 +90,10 @@ export class FormattedFileName extends LitElement {
       `;
     }
     return html`
-      <span class="formatted-file-name" name="${this.displayName}"
-        >${this.filename}</span
+      <span
+        class="formatted-file-name ${this.rightside}"
+        name="${this.displayName}"
+        >${this.textName}</span
       >
     `;
   }
