@@ -183,7 +183,6 @@ export default css`
   }
 
   .footer-corner {
-    content: ' ';
     background: var(--color-footer-bar);
   }
 

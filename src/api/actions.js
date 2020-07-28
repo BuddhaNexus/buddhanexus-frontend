@@ -231,3 +231,21 @@ export const getSearchDataFromBackend = async ({ query }) => {
     };
   }
 };
+
+export const getDisplayName = async ({ segmentnr }) => {
+  try {
+    const url = `${API_URL}/displayname/${segmentnr}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load displayName from server: ', e);
+    return {
+      error:
+        'Could not load displayName. Please check the console for details.',
+    };
+  }
+};
