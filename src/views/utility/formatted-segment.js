@@ -10,6 +10,7 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) lang;
   @property({ type: String }) number;
   @property({ type: String }) displayName = '';
+  @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
 
@@ -18,7 +19,25 @@ export class FormattedSegment extends LitElement {
   }
 
   firstUpdated() {
-    this.fetchData();
+    this.addObserver();
+  }
+
+  updated() {
+    if (this.allowFetching) {
+      this.fetchData();
+      this.allowFetching = false;
+    }
+  }
+  async addObserver() {
+    const targets = this.shadowRoot.querySelectorAll('.formatted-segment');
+    const observer = new IntersectionObserver(entries => {
+      let entry = entries[0];
+      if (entry.isIntersecting) {
+        this.allowFetching = true;
+        observer.unobserve(entry.target);
+      }
+    });
+    observer.observe(targets[0]);
   }
 
   async fetchData() {
@@ -33,6 +52,7 @@ export class FormattedSegment extends LitElement {
     });
     this.displayName = displayData[0];
     this.fetchLoading = false;
+    this.allowFetching = false;
     this.fetchError = error;
   }
 
@@ -59,6 +79,7 @@ export class FormattedFileName extends LitElement {
   @property({ type: String }) displayName = '';
   @property({ type: String }) textName = '';
   @property({ type: String }) rightside;
+  @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
 
@@ -67,8 +88,25 @@ export class FormattedFileName extends LitElement {
   }
 
   firstUpdated() {
-    console.log(this.filename, this.rightside);
-    this.fetchData();
+    this.addObserver();
+  }
+
+  updated() {
+    if (this.allowFetching) {
+      this.fetchData();
+      this.allowFetching = false;
+    }
+  }
+  async addObserver() {
+    const targets = this.shadowRoot.querySelectorAll('.formatted-file-name');
+    const observer = new IntersectionObserver(entries => {
+      let entry = entries[0];
+      if (entry.isIntersecting) {
+        this.allowFetching = true;
+        observer.unobserve(entry.target);
+      }
+    });
+    observer.observe(targets[0]);
   }
 
   async fetchData() {
