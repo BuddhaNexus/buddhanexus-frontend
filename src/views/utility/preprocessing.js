@@ -2,11 +2,7 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import {
-  TextSegment,
-  TextSegmentChineseWord,
-  TibetanSegment,
-} from '../textview/TextSegment';
+import { TextSegment } from '../textview/TextSegment';
 import { getSegmentIdFromKey } from '../data/dataViewUtils';
 import './formatted-segment';
 
@@ -22,16 +18,6 @@ export const SEGMENT_COLORS = {
   9: '#E85650',
   10: '#FF860D',
 };
-
-export function getCleanedWord(lang, splitWords, i) {
-  let cleanedWord = '';
-  if (lang.match(/tib/)) {
-    cleanedWord = TibetanSegment(splitWords[i]);
-  } else {
-    cleanedWord = TextSegmentChineseWord(splitWords[i]);
-  }
-  return cleanedWord;
-}
 
 export function highlightTextByOffset({
   textArray,
