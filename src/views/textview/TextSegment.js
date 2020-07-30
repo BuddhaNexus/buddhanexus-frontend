@@ -142,7 +142,7 @@ export function TextSegment({
       outputText = ChineseSegment(
         inputData,
         inputData.split('').map(TextSegmentChineseWord),
-        false
+        true
       );
     } else {
       outputText = PaliSanskritSegment(inputData, inputData);
