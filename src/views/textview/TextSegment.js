@@ -39,16 +39,14 @@ const TibetanSegment = segment => {
       html`${strippedSegment.replace('*_', '* ')}`;
 };
 
-const ChineseSegment = (inputData, segment, lineBreak) => {
+const ChineseSegment = (inputData, segment) => {
   return inputData.includes('　　')
     ? html`
         <div class="chinese-verse">${segment}</div>
       `
-    : lineBreak
-    ? html`
+    : html`
         ${segment}<br />
-      `
-    : segment;
+      `;
 };
 
 const PaliSanskritSegment = (inputData, segment) => {
@@ -141,8 +139,7 @@ export function TextSegment({
     } else if (lang === LANGUAGE_CODES.CHINESE) {
       outputText = ChineseSegment(
         inputData,
-        inputData.split('').map(TextSegmentChineseWord),
-        true
+        inputData.split('').map(TextSegmentChineseWord)
       );
     } else {
       outputText = PaliSanskritSegment(inputData, inputData);
@@ -158,7 +155,7 @@ export function TextSegment({
       rightMode
     );
     if (lang === LANGUAGE_CODES.CHINESE) {
-      return ChineseSegment(inputData, words, true);
+      return ChineseSegment(inputData, words);
     }
     if (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) {
       return PaliSanskritSegment(inputData, words);
