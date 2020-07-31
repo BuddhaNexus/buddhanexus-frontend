@@ -57,21 +57,12 @@ export class FormattedSegment extends LitElement {
   }
 
   render() {
-      if (this.fetchLoading || !this.displayName) {
-	  return html`<span class="formatted-segment" title="${this.filename}">${this.filename}:${this.number}</span>`
-      // return html`
-      //   <span class="formatted-segment" name="${this.filename}"
-      //     >${this.filename}:${this.number}</span
-      //   >
-      // `;
+    if (this.fetchLoading || !this.displayName) {
+      // prettier-ignore
+      return html`<span class="formatted-segment" name="${this.filename}">${this.filename}:${this.number}</span>`
     }
-
-    return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>`
-
-    //   <span class="formatted-segment" name="${this.displayName}"
-    //     >${this.filename}:${this.number}</span
-    //   >
-    // `;
+    // prettier-ignore
+    return html`<span class="formatted-segment" name="${this.displayName}">${this.filename}:${this.number}</span>`
   }
 }
 
@@ -90,42 +81,25 @@ export class FormattedFileName extends LitElement {
   }
 
   updated() {
-      {
-      this.fetchData();
-    }
+    this.fetchData();
   }
 
   async fetchData() {
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
-      console.log("DISPLAY DATA",displayData);
-      this.displayName = displayData[0];
-      console.log("DISPLAY NAME",this.displayName);
+    this.displayName = displayData[0];
     this.textName = displayData[1];
     this.fetchLoading = false;
     this.fetchError = error;
   }
 
   render() {
-      if (this.fetchLoading) {
-	  return html`<span class="formatted-file-name" title="${this.displayName}">${this.filename} ###</span>`
-
-      // return html`
-      //   <span class="formatted-file-name" name="${this.filename}"
-      //     >${this.filename}</span
-      //   >
-      // `;
-      }
-      return html`<span class="formatted-file-name" title="${this.displayName}">${this.textName} </span>`
-//      	  return html`<span class="formatted-file-name" ${this.rightside} title="${this.displayName}">${this.filename}</span>`
-
-    // return html`
-    //   <span
-    //     class="formatted-file-name ${this.rightside}"
-    //     name="${this.displayName}"
-    //     >${this.textName}</span
-    //   >
-    // `;
+    if (this.fetchLoading) {
+      // prettier-ignore
+      return html`<span class="formatted-file-name" name="${this.displayName}">${this.filename} ###</span>`
+    }
+    // prettier-ignore
+    return html`<span class="formatted-file-name ${this.rightside}" name="${this.displayName}">${this.textName} </span>`
   }
 }
