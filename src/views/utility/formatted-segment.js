@@ -59,10 +59,10 @@ export class FormattedSegment extends LitElement {
   render() {
     if (this.fetchLoading || !this.displayName) {
       // prettier-ignore
-      return html`<span class="formatted-segment" name="${this.filename}">${this.filename}:${this.number}</span>`
+      return html`<span class="formatted-segment" title="${this.filename}">${this.filename}:${this.number}</span>`
     }
     // prettier-ignore
-    return html`<span class="formatted-segment" name="${this.displayName}">${this.filename}:${this.number}</span>`
+    return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>`
   }
 }
 
