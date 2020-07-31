@@ -80,7 +80,7 @@ export class FormattedFileName extends LitElement {
   @property({ type: String }) filename;
   @property({ type: String }) displayName = '';
   @property({ type: String }) textName = '';
-  @property({ type: String }) rightside;
+  @property({ type: String }) rightside = '';
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -89,40 +89,27 @@ export class FormattedFileName extends LitElement {
     return [styles];
   }
 
-  firstUpdated() {
-    this.addObserver();
-  }
-
   updated() {
-    if (this.allowFetching) {
+      {
       this.fetchData();
     }
-  }
-  async addObserver() {
-    const targets = this.shadowRoot.querySelectorAll('.formatted-file-name');
-    const observer = new IntersectionObserver(entries => {
-      let entry = entries[0];
-      if (entry.isIntersecting) {
-        this.allowFetching = true;
-        observer.unobserve(entry.target);
-      }
-    });
-    observer.observe(targets[0]);
   }
 
   async fetchData() {
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
-    this.displayName = displayData[0];
+      console.log("DISPLAY DATA",displayData);
+      this.displayName = displayData[0];
+      console.log("DISPLAY NAME",this.displayName);
     this.textName = displayData[1];
     this.fetchLoading = false;
     this.fetchError = error;
   }
 
   render() {
-      if (this.fetchLoading || !this.displayName) {
-	  return html`<span class="formatted-file-name" title="${this.filename}">${this.filename}</span>`
+      if (this.fetchLoading) {
+	  return html`<span class="formatted-file-name" title="${this.displayName}">${this.filename} ###</span>`
 
       // return html`
       //   <span class="formatted-file-name" name="${this.filename}"
@@ -130,7 +117,8 @@ export class FormattedFileName extends LitElement {
       //   >
       // `;
       }
-      	  return html`<span class="formatted-file-name" ${this.rightside} title="${this.displayName}">${this.textName}</span>`
+      return html`<span class="formatted-file-name" title="${this.displayName}">${this.textName} </span>`
+//      	  return html`<span class="formatted-file-name" ${this.rightside} title="${this.displayName}">${this.filename}</span>`
 
     // return html`
     //   <span
