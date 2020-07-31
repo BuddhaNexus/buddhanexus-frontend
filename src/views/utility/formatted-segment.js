@@ -58,18 +58,11 @@ export class FormattedSegment extends LitElement {
 
   render() {
     if (this.fetchLoading || !this.displayName) {
-      return html`
-        <span class="formatted-segment" name="${this.filename}"
-          >${this.filename}:${this.number}</span
-        >
-      `;
+      // prettier-ignore
+      return html`<span class="formatted-segment" title="${this.filename}">${this.filename}:${this.number}</span>`
     }
-
-    return html`
-      <span class="formatted-segment" name="${this.displayName}"
-        >${this.filename}:${this.number}</span
-      >
-    `;
+    // prettier-ignore
+    return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>`
   }
 }
 
@@ -78,7 +71,7 @@ export class FormattedFileName extends LitElement {
   @property({ type: String }) filename;
   @property({ type: String }) displayName = '';
   @property({ type: String }) textName = '';
-  @property({ type: String }) rightside;
+  @property({ type: String }) rightside = '';
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -87,26 +80,8 @@ export class FormattedFileName extends LitElement {
     return [styles];
   }
 
-  firstUpdated() {
-    this.addObserver();
-  }
-
   updated() {
-    if (this.allowFetching) {
-      this.fetchData();
-      this.allowFetching = false;
-    }
-  }
-  async addObserver() {
-    const targets = this.shadowRoot.querySelectorAll('.formatted-file-name');
-    const observer = new IntersectionObserver(entries => {
-      let entry = entries[0];
-      if (entry.isIntersecting) {
-        this.allowFetching = true;
-        observer.unobserve(entry.target);
-      }
-    });
-    observer.observe(targets[0]);
+    this.fetchData();
   }
 
   async fetchData() {
@@ -120,19 +95,11 @@ export class FormattedFileName extends LitElement {
   }
 
   render() {
-    if (this.fetchLoading || !this.displayName) {
-      return html`
-        <span class="formatted-file-name" name="${this.filename}"
-          >${this.filename}</span
-        >
-      `;
+    if (this.fetchLoading) {
+      // prettier-ignore
+      return html`<span class="formatted-file-name" name="${this.displayName}">${this.filename} ###</span>`
     }
-    return html`
-      <span
-        class="formatted-file-name ${this.rightside}"
-        name="${this.displayName}"
-        >${this.textName}</span
-      >
-    `;
+    // prettier-ignore
+    return html`<span class="formatted-file-name ${this.rightside}" name="${this.displayName}">${this.textName} </span>`
   }
 }

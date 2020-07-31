@@ -1,7 +1,6 @@
 import { css } from 'lit-element';
 
 export default css`
-        .formatted-segment:hover:after,
         .formatted-file-name:hover:after {
           content: attr(name);
           background-color: var(--bn-dark-red);
