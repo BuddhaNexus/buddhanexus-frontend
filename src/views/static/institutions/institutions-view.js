@@ -9,6 +9,7 @@ export class InstitutionsView extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="static-page-container">
         <div class="main-border">
@@ -20,8 +21,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://www.kc-tbts.uni-hamburg.de/" target="blank">
                 <img
                   src="./src/assets/img/partner_khyentse_center.jpg"
-                  alt="Khyentse Center"
-                />
+                  alt="Khyentse Center" />
               </a>
             </div>
 
@@ -30,8 +30,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://www.uni-hamburg.de/" target="blank">
                 <img
                   src="./src/assets/img/partner_uni_hamburg.jpg"
-                  alt="UNI Hamburg"
-                />
+                  alt="UNI Hamburg" />
               </a>
             </div>
 
@@ -40,8 +39,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://suttacentral.net/" target="blank">
                 <img
                   src="./src/assets/img/partner_sutta_central.jpg"
-                  alt="Sutta Central"
-                />
+                  alt="Sutta Central" />
               </a>
             </div>
 
@@ -52,8 +50,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://www.dhii.jp/" target="blank">
                 <img
                   src="./src/assets/img/partner_digital_humanities.jpg"
-                  alt="Digital Humanities"
-                />
+                  alt="Digital Humanities" />
               </a>
             </div>
 
@@ -61,10 +58,7 @@ export class InstitutionsView extends LitElement {
               Resources for Kanjur & Tanjur Studies (rKTs)
             </div>
             <div class="partner">
-              <a
-                href="https://www.istb.univie.ac.at/kanjur/rktsneu/sub/index.php"
-                target="blank"
-              >
+              <a href="https://www.istb.univie.ac.at/kanjur/rktsneu/sub/index.php" target="blank">
                 <img src="./src/assets/img/partner_rkts.jpg" alt="rKTs" />
               </a>
             </div>
@@ -76,8 +70,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://www.univie.ac.at/" target="blank">
                 <img
                   src="./src/assets/img/partner_vienna.jpg"
-                  alt="UNI Vienna"
-                />
+                  alt="UNI Vienna" />
               </a>
             </div>
 
@@ -88,8 +81,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://tipitaka.org/" target="blank">
                 <img
                   src="./src/assets/img/partner_vipassana_research_institute.jpg"
-                  alt="VRI"
-                />
+                  alt="VRI" />
               </a>
             </div>
 
@@ -105,8 +97,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://www.tbrc.org/" target="blank">
                 <img
                   src="./src/assets/img/partner_buddhist_digital_resource_center.jpg"
-                  alt="Buddhist Digital Resource Center"
-                />
+                  alt="Buddhist Digital Resource Center" />
               </a>
             </div>
 
@@ -118,8 +109,7 @@ export class InstitutionsView extends LitElement {
               <a href="http://gretil.sub.uni-goettingen.de/" target="blank">
                 <img
                   src="./src/assets/img/partner_uni_goettingen.jpg"
-                  alt="UNI Göttingen"
-                />
+                  alt="UNI Göttingen" />
               </a>
             </div>
 
@@ -143,8 +133,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://www.kc-tbts.uni-hamburg.de/" target="blank">
                 <img
                   src="./src/assets/img/partner_khyentse_center.jpg"
-                  alt="Khyentse Center"
-                />
+                  alt="Khyentse Center" />
               </a>
             </div>
 
@@ -153,8 +142,7 @@ export class InstitutionsView extends LitElement {
               <a href="https://www.uni-hamburg.de/" target="blank">
                 <img
                   src="./src/assets/img/partner_uni_hamburg.jpg"
-                  alt="UNI Hamburg"
-                />
+                  alt="UNI Hamburg" />
               </a>
             </div>
           </div>

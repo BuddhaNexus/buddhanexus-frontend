@@ -64,12 +64,14 @@ class DataViewSubheader extends LitElement {
 
   render() {
     if (!this.fileName) {
+      //prettier-ignore
       return html`
         <div class="data-view-subheader">
           Please select a file or input a search query to continue.
         </div>
       `;
     }
+    //prettier-ignore
     return html`
       <div class="data-view-subheader">
         <div class="text-name-label">Inquiry Text:</div>
@@ -78,8 +80,7 @@ class DataViewSubheader extends LitElement {
           id="info-number-view"
           aria-label="simple"
           .opened="${this.isDialogOpen}"
-          @opened-changed="${this.setIsDialogOpen}"
-        >
+          @opened-changed="${this.setIsDialogOpen}">
           <template>
             ${this.infoModalContent}
             ${this.language === LANGUAGE_CODES.PALI

@@ -63,26 +63,24 @@ export default class DataViewFilterSliders extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="data-view-filter-sliders">
         <div
           id="slider-container"
-          name="set 100% for highest similarity, 0% to see all"
-        >
+          name="set 100% for highest similarity, 0% to see all">
           <div id="slider-label">Similarity Score:</div>
           <paper-slider
             id="score-cutoff"
             value="${this.score}"
             @change="${this.updateScore}"
             max="100"
-            editable
-          >
+            editable>
           </paper-slider>
         </div>
         <div
           id="slider-container"
-          name="set min. length of quoted segment in characters"
-        >
+          name="set min. length of quoted segment in characters">
           <div id="slider-label">Min. Match Length:</div>
           <paper-slider
             id="quote-length"
@@ -90,14 +88,12 @@ export default class DataViewFilterSliders extends LitElement {
             @change="${this.updateQuoteLength}"
             max="300"
             min="5"
-            editable
-          >
+            editable>
           </paper-slider>
         </div>
         <div
           id="slider-container"
-          name="set the number of times a parallel is contained within other parallels"
-        >
+          name="set the number of times a parallel is contained within other parallels">
           <div id="slider-label">Nr. co-occurences:</div>
           <paper-slider
             id="co-occurences"
@@ -105,8 +101,7 @@ export default class DataViewFilterSliders extends LitElement {
             @change="${this.updateCooccurance}"
             max="30"
             min="1"
-            editable
-          >
+            editable>
           </paper-slider>
         </div>
       </div>

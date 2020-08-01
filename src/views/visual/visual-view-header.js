@@ -116,6 +116,7 @@ export class VisualViewHeader extends LitElement {
   setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
 
   render() {
+    //prettier-ignore
     return html`
       <div class="selection-box">
         <bn-card>
@@ -123,8 +124,7 @@ export class VisualViewHeader extends LitElement {
             id="info-visual"
             aria-label="simple"
             .opened="${this.isDialogOpen}"
-            @opened-changed="${this.setIsDialogOpen}"
-          >
+            @opened-changed="${this.setIsDialogOpen}">
             <template>
               Select the Inquiry and Hit Collections. More than one Hit
               Collection can be selected. To reduce the view to a single
@@ -137,8 +137,8 @@ export class VisualViewHeader extends LitElement {
           <vaadin-button class="info-button" @click="${this.openDialog}">
             <iron-icon
               class="info-icon"
-              icon="vaadin:info-circle-o"
-            ></iron-icon>
+              icon="vaadin:info-circle-o">
+            </iron-icon>
           </vaadin-button>
 
           ${this.activeLanguage
@@ -150,12 +150,9 @@ export class VisualViewHeader extends LitElement {
                   item-value-path="collectionkey"
                   selected-item="${this.searchItem}"
                   @value-changed="${this.handleCollectionChanged}"
-                  .items="${this.limitCollectionData(this.collectionData)}"
-                >
+                  .items="${this.limitCollectionData(this.collectionData)}">
                   <template>
-                    <strong style="display: inline; margin-bottom: 4px;"
-                      >[[item.collectionname]]</strong
-                    >
+                    <strong style="display: inline; margin-bottom: 4px;">[[item.collectionname]]</strong>
                   </template>
                 </vaadin-combo-box>
 
@@ -168,8 +165,7 @@ export class VisualViewHeader extends LitElement {
                         @selected-items-changed="${this
                           .handleTargetCollectionChanged}"
                         .items="${this.targetCollectionData}"
-                        item-value-path="collectionkey"
-                      >
+                        item-value-path="collectionkey">
                       </multiselect-combo-box>
 
                       <vaadin-combo-box
@@ -177,22 +173,19 @@ export class VisualViewHeader extends LitElement {
                         label="Color Scheme"
                         selected-item="${this.colorScheme}"
                         .items="${this.colorSchemeValues}"
-                        @value-changed="${this.handleColorSchemeChanged}"
-                      >
+                        @value-changed="${this.handleColorSchemeChanged}">
                       </vaadin-combo-box>
 
                       <vaadin-button
                         id="visual-back-button"
                         theme="contrast primary small"
                         @click="${this.returnToMainCollection}"
-                        title="Return to top level"
-                      >
+                        title="Return to top level">
                         <iron-icon
                           id="visual-back-icon"
                           icon="vaadin:backwards"
-                          slot="prefix"
-                        ></iron-icon>
-                        Back
+                          slot="prefix">
+                        </iron-icon>
                       </vaadin-button>
                     `
                   : null}

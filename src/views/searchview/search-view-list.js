@@ -21,12 +21,13 @@ export class SearchViewList extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="list-container">
         <search-view-list-header
           .searchQuery="${this.searchQuery}"
-          .resultNumber="${this.searchResults.length}"
-        ></search-view-list-header>
+          .resultNumber="${this.searchResults.length}">
+        </search-view-list-header>
 
         ${this.searchResults.map(result =>
           SearchViewListItem({

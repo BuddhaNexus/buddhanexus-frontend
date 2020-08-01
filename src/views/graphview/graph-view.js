@@ -99,17 +99,16 @@ export class GraphView extends LitElement {
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }
-
+    //prettier-ignore
     return html`
       <div
         class="graph-container"
-        style="height: ${window.innerHeight * 1.7}px"
-      >
+        style="height: ${window.innerHeight * 1.7}px">
         <data-view-subheader
           .fileName="${this.fileName}"
           .language="${this.lang}"
-          .infoModalContent="${GraphViewInfoModalContent()}"
-        ></data-view-subheader>
+          .infoModalContent="${GraphViewInfoModalContent()}">
+        </data-view-subheader>
 
         <div id="pie-wrapper" style="height: ${this.graphHeight}">
           <google-chart
@@ -126,8 +125,7 @@ export class GraphView extends LitElement {
               chartArea: { left: 0, top: 0, width: '100%', height: '100%' },
               is3D: true,
               backgroundColor: '#ffeed4',
-            }}"
-          >
+            }}">
           </google-chart>
         </div>
 
@@ -137,8 +135,7 @@ export class GraphView extends LitElement {
             id="info-histogram"
             aria-label="simple"
             .opened="${this.isDialogOpen}"
-            @opened-changed="${this.setIsDialogOpen}"
-          >
+            @opened-changed="${this.setIsDialogOpen}">
             <template>
               The histogram displays the distribution of the top files that have
               matches with the Inquiry Text based on the accumulated length of
@@ -171,8 +168,7 @@ export class GraphView extends LitElement {
                   : window.innerHeight * 0.8,
               chartArea: { left: 0, top: 0, width: '100%', height: '90%' },
               backgroundColor: '#ffeed4',
-            }}"
-          >
+            }}">
           </google-chart>
         </div>
       </div>

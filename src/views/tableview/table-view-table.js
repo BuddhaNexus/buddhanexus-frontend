@@ -25,11 +25,12 @@ export class TableViewTable extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="table-container">
         <table-view-table-header
-          .fileName="${this.fileName}"
-        ></table-view-table-header>
+          .fileName="${this.fileName}">
+        </table-view-table-header>
 
         ${this.parallels.map(parallel =>
           TableViewTableRow({

@@ -192,11 +192,11 @@ export class DataViewFiltersContainer extends LitElement {
         </div>
       `;
     } else {
+      //prettier-ignore
       return html`
         <div
           class="filter-group"
-          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}"
-        >
+          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}">
           ${this.renderMultiSelectBox(
             'Exclude collections:',
             'exclude-collection',
@@ -212,8 +212,7 @@ export class DataViewFiltersContainer extends LitElement {
         </div>
         <div
           class="filter-group"
-          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}"
-        >
+          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}">
           ${this.renderMultiSelectBox(
             'Limit to collections:',
             'filter-collection',
@@ -232,6 +231,7 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`    
       <data-view-filter-sliders .score="${this.score}" 
       .updateScore="${this.updateScore}" 
@@ -250,8 +250,7 @@ export class DataViewFiltersContainer extends LitElement {
         class="input-field"
         @selected-items-changed="${this.handleTargetComboBoxChanged}"
         .items="${this.targetCollectionData}"
-        item-value-path="collectionkey"
-      >
+        item-value-path="collectionkey">
       </multiselect-combo-box>
 
       ${this.renderFilesCollectionFilters()}

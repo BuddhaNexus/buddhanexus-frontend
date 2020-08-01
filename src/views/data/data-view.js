@@ -239,6 +239,7 @@ export class DataView extends LitElement {
   };
 
   render() {
+    //prettier-ignore
     return html`
       <div class="data-view" lang="${this.language}" view="${this.viewMode}">
         <div class="data-view__main-container">
@@ -253,8 +254,8 @@ export class DataView extends LitElement {
             .filterBarOpen="${this.filterBarOpen}"
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
             .updateSearch="${this.setSearch}"
-            .updateSortMethod="${this.setSortMethod}"
-          ></data-view-header>
+            .updateSortMethod="${this.setSortMethod}">
+          </data-view-header>
 
           <data-view-router
             .selectedView="${this.selectedView}"
@@ -270,8 +271,8 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
-            .searchString="${this.searchString}"
-          ></data-view-router>
+            .searchString="${this.searchString}">
+          </data-view-router>
         </div>
 
         <side-sheet
@@ -280,16 +281,15 @@ export class DataView extends LitElement {
             : 'side-sheet--closed'}"
           .handleClose="${() => {
             this.filterBarOpen = false;
-          }}"
-        >
+          }}">
           <data-view-total-numbers
             id="total-numbers"
             .fileName="${this.fileName}"
             .score="${this.score}"
             .limitCollection="${this.setLimitOrTargetCollection}"
             .quoteLength="${this.quoteLength}"
-            .cooccurance="${this.cooccurance}"
-          ></data-view-total-numbers>
+            .cooccurance="${this.cooccurance}">
+          </data-view-total-numbers>
 
           <data-view-filters-container
             .viewMode="${this.viewMode}"
@@ -302,8 +302,8 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .updateCooccurance="${this.setCooccurance}"
             .updateSorting="${this.setSortMethod}"
-            .language="${this.language}"
-          ></data-view-filters-container>
+            .language="${this.language}">
+          </data-view-filters-container>
         </side-sheet>
       </div>
     `;

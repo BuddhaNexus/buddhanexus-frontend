@@ -9,6 +9,7 @@ export class CommunityView extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="static-page-container">
         <div class="main-border">
@@ -18,26 +19,22 @@ export class CommunityView extends LitElement {
             <div class="partner">
               <img
                 src="/src/assets/img/partner_uni_hamburg.jpg"
-                alt="UNI Hamburg"
-              />
+                alt="UNI Hamburg" />
             </div>
             <div class="partner">
               <img
                 src="/src/assets/img/partner_sutta_central.jpg"
-                alt="Sutta Central"
-              />
+                alt="Sutta Central" />
             </div>
             <div class="partner">
               <img
                 src="/src/assets/img/partner_khyentse_center.jpg"
-                alt="Khyentse Center"
-              />
+                alt="Khyentse Center" />
             </div>
             <div class="partner">
               <img
                 src="/src/assets/img/partner_digital_humanities.jpg"
-                alt="Digital Humanities"
-              />
+                alt="Digital Humanities" />
             </div>
           </div>
         </div>

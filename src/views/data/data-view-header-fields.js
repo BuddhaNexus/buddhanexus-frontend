@@ -230,8 +230,7 @@ export class DataViewHeaderFields extends LitElement {
               item-label-path="num"
               .items="${this.folioData}"
               @value-changed="${e => this.updateFolio(e)}">
-            </vaadin-combo-box>
-          `
+            </vaadin-combo-box>`
         : null}
       ${shouldShowTextSearchBox
         ? html`
@@ -249,8 +248,7 @@ export class DataViewHeaderFields extends LitElement {
               <div slot="prefix">
                 <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
               </div>
-            </paper-input>
-          `
+            </paper-input>`
         : null}
       ${shouldShowSortBox
         ? html`
@@ -267,8 +265,7 @@ export class DataViewHeaderFields extends LitElement {
                   <vaadin-item value="length2">Length of match in Hit Text (beginning with longest)</vaadin-item>
                 </vaadin-list-box>
               </template>
-            </vaadin-select>
-          `
+            </vaadin-select>`
         : null}
     `;
   }
