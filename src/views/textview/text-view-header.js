@@ -222,6 +222,7 @@ export class TextViewHeader extends LitElement {
     const renderSwitchButton =
       this.renderSwitchButton && this.rightFileName !== '';
 
+    //prettier-ignore
     return html`
       <div id="text-view-header">
         <div id="text-view-header-left">

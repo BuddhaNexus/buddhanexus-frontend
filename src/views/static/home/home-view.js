@@ -9,6 +9,7 @@ export class HomeView extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="static-page-container">
         <div class="main-border">
@@ -26,30 +27,30 @@ export class HomeView extends LitElement {
               <img
                 src="./src/assets/img/buddhanexus_pli.jpg"
                 class="lang-img"
-                alt="Buddha Nexus"
-              /><br /><span class="link-description">Pāli</span></a
-            >
-            <a href="/skt/neutral" class="link"
-              ><img
+                alt="Buddha Nexus" />
+                <br /><span class="link-description">Pāli</span>
+            </a>
+            <a href="/skt/neutral" class="link">
+              <img
                 src="./src/assets/img/buddhanexus_skt.jpg"
                 class="lang-img"
-                alt="Buddha Nexus"
-              /><br /><span class="link-description">Sanskrit</span></a
-            >
-            <a href="/tib/neutral" class="link"
-              ><img
+                alt="Buddha Nexus" />
+                <br /><span class="link-description">Sanskrit</span>
+            </a>
+            <a href="/tib/neutral" class="link">
+              <img
                 src="./src/assets/img/buddhanexus_tib.jpg"
                 class="lang-img"
-                alt="Buddha Nexus"
-              /><br /><span class="link-description">Tibetan</span></a
-            >
-            <a href="/chn/neutral" class="link"
-              ><img
+                alt="Buddha Nexus" />
+                <br /><span class="link-description">Tibetan</span>
+            </a>
+            <a href="/chn/neutral" class="link">
+              <img
                 src="./src/assets/img/buddhanexus_vio.jpg"
                 class="lang-img"
-                alt="Buddha Nexus"
-              /><br /><span class="link-description">Chinese</span></a
-            >
+                alt="Buddha Nexus" />
+                <br /><span class="link-description">Chinese</span>
+            </a>
           </div>
         </div>
 

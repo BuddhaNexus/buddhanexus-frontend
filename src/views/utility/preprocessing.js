@@ -39,6 +39,7 @@ export function highlightTextByOffset({
     let position = 0;
     let Words = textArray[i];
 
+    //prettier-ignore
     if (Words === '… this text has been truncated …') {
       returnArray.push(
         html`

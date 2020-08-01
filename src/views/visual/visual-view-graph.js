@@ -126,14 +126,12 @@ export class VisualViewGraph extends LitElement {
       if (i == this.currentPage) {
         currentClass += ' active';
       }
+      //prettier-ignore
       pages.push(
-        html`
-          <span class="${currentClass}" @click="${() => (this.currentPage = i)}"
-            >${i + 1}</span
-          >
-        `
+        html`<span class="${currentClass}" @click="${() => (this.currentPage = i)}">${i + 1}</span>`
       );
     }
+    //prettier-ignore
     return html`
       <div id="pages-display">
         <div id="inner-pages">

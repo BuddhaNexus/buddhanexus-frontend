@@ -99,13 +99,10 @@ export class TextViewMiddle extends LitElement {
 
   render() {
     if (!this.data) {
-      return html`
-        <span lang="en"
-          >Click on a syllable in the Inquiry Text to display the approximate
+      //prettier-ignore
+      return html`<span lang="en">Click on a syllable in the Inquiry Text to display the approximate
           matches. Only colored syllables have parallels. Black text has no
-          parallels with the current filter settings.</span
-        >
-      `;
+          parallels with the current filter settings.</span>`;
     }
 
     let selectedParallelsText = html``;
@@ -177,6 +174,7 @@ export class TextViewMiddle extends LitElement {
             lang: par_lang,
           });
 
+          //prettier-ignore
           selectedParallelsText = html`
             ${selectedParallelsText}
             <div
@@ -188,20 +186,14 @@ export class TextViewMiddle extends LitElement {
               parOffsetBegin="${parOffsetBegin}"
               parOffsetEnd="${parOffsetEnd}"
               @click="${this.clickedParallel}"
-              @mouseover="${this.mouseOverParallel}"
-            >
+              @mouseover="${this.mouseOverParallel}">
               <span class="selected-parallel-nr">
-                <formatted-segment
-                  .segmentnr="${parSegnr}"
-                ></formatted-segment></span
-              ><br />
+                <formatted-segment .segmentnr="${parSegnr}"></formatted-segment>
+              </span><br />
               <span class="score">Score: ${parallels[i].score} %</span>
-              <span class="segment-length"
-                >Length: ${parallels[i].par_length}
-              </span>
-              <span class="co-occurance"
-                >Co-occurrence: ${parallels[i]['co-occ']} </span
-              ><br />
+              <span class="segment-length">Length: ${parallels[i].par_length}</span>
+              <span class="co-occurance">Co-occurrence: ${parallels[i]['co-occ']} </span>
+              <br />
               <div class="horizontal-divider"></div>
               ${segnrText}
             </div>

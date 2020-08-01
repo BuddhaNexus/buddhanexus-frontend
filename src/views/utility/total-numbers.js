@@ -58,7 +58,7 @@ export class TotalNumbers extends LitElement {
         <strong>Loading ...</strong>
       `;
     }
-
+    //prettier-ignore
     return html`
       <span> <strong>${matchCount}</strong> matches </span>
     `;

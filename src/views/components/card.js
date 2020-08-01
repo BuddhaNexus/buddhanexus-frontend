@@ -44,12 +44,11 @@ export class Card extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
-      <div
-        class="card ${this.small ? 'card--small' : ''} ${this.header
+      <div class="card ${this.small ? 'card--small' : ''} ${this.header
           ? 'card--header'
-          : ''}${this.light ? 'card--light' : ''}"
-      >
+          : ''}${this.light ? 'card--light' : ''}">
         <slot></slot>
       </div>
     `;
