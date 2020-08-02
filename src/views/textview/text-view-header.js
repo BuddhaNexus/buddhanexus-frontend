@@ -3,8 +3,10 @@ import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
+import '../utility/formatted-segment';
+
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import { FormattedFileName } from '../utility/common-components';
+
 import TextViewInfoModalContent from './text-view-modal-content';
 
 function TextViewHeaderRightColumn({
@@ -42,7 +44,8 @@ function TextViewHeaderRightColumn({
             in the Hit Text, the corresponding parallel will be displayed in the
             middle column. Upon clicking on it, the Inquiry Text is
             automatically scrolled to the corresponding position in the Inquiry
-            Text.
+            Text. For the identity of the Hit Text place the cursor on its
+            catalogue number.
           </div>
         </template>
       </vaadin-dialog>
@@ -50,7 +53,10 @@ function TextViewHeaderRightColumn({
       <vaadin-button class="info-button" @click="${openDialogRight}">
         <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
       </vaadin-button>
-      Hit Text ${FormattedFileName({ fileName: rightFileName })}
+      <formatted-filename
+        .filename="${rightFileName}"
+        .rightside="${'right'}"
+      ></formatted-filename>
     </div>
   `;
 }
@@ -176,11 +182,6 @@ export class TextViewHeader extends LitElement {
           cursor: pointer;
         }
 
-        .formatted-file-name {
-          font-size: 1.05em;
-          margin-left: 8px;
-        }
-
         @media screen and (max-width: 900px) {
           #text-view-header {
             padding-bottom: 8px;
@@ -202,7 +203,8 @@ export class TextViewHeader extends LitElement {
 
   handleRightTextNewTabButtonClicked() {
     const win = window.open(
-      `./${this.rightFileName}/${this.rightSegmentName}`,
+      // This is a hack because dots in the segmentnumber are not accepted in the routing.
+      `./${this.rightFileName}/${this.rightSegmentName.replace(/\./g, '@')}`,
       '_blank'
     );
     win.focus();
@@ -224,7 +226,7 @@ export class TextViewHeader extends LitElement {
       <div id="text-view-header">
         <div id="text-view-header-left">
           <span class="text-name-label">Inquiry Text: </span>
-          ${FormattedFileName({ fileName: this.fileName, displayType: 'full' })}
+          <formatted-filename .filename="${this.fileName}"></formatted-filename>
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,

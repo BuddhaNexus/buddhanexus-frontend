@@ -57,6 +57,30 @@ export class InstitutionsView extends LitElement {
               </a>
             </div>
 
+            <div>
+              Resources for Kanjur & Tanjur Studies (rKTs)
+            </div>
+            <div class="partner">
+              <a
+                href="https://www.istb.univie.ac.at/kanjur/rktsneu/sub/index.php"
+                target="blank"
+              >
+                <img src="./src/assets/img/partner_rkts.jpg" alt="rKTs" />
+              </a>
+            </div>
+
+            <div>
+              Universität Wien
+            </div>
+            <div class="partner">
+              <a href="https://www.univie.ac.at/" target="blank">
+                <img
+                  src="./src/assets/img/partner_vienna.jpg"
+                  alt="UNI Vienna"
+                />
+              </a>
+            </div>
+
             <h2>RESOURCES PARTNERS</h2>
 
             <div>Vipassana Research Institute (VRI)</div>

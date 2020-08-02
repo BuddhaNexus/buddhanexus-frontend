@@ -84,6 +84,10 @@ export class NumbersView extends LitElement {
   render() {
     if (this.fetchLoading) {
       return html`
+        <p class="slow-loading">
+          Due to the large amount of data, loading might be very slow.
+        </p>
+        <p class="slow-loading">Please wait ...</p>
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }

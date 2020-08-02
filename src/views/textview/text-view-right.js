@@ -93,7 +93,7 @@ export class TextViewRight extends LitElement {
         let mainElement = document.querySelector('html');
         let mainElementScroll = mainElement.scrollTop;
         let activeElement = this.shadowRoot.getElementById(this.activeSegment);
-        if (this.currentPosition > 100) {
+        if (this.currentPosition > 400) {
           activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
         } else {
           activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
@@ -109,6 +109,7 @@ export class TextViewRight extends LitElement {
       this.fetchLoading = false;
       return;
     }
+
     this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.rightFileName,
@@ -118,7 +119,7 @@ export class TextViewRight extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.activeSegment,
     });
-    this.endOfRightTextFlag = textleft.length != 200 ? true : false;
+    this.endOfRightTextFlag = textleft.length != 800 ? true : false;
     this.textRight = textleft;
     this.textRight = removeDuplicates(this.textRight, 'segnr');
     this.textRightBySegNr = {};
@@ -141,6 +142,7 @@ export class TextViewRight extends LitElement {
   async scrollRightText() {
     if (
       !this.noScrolling &&
+      !this.fetchLoading &&
       this.shadowRoot.querySelector(`.${C_SELECTED_SEGMENT}`)
     ) {
       let parentWindow = this;

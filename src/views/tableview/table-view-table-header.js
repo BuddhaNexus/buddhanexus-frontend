@@ -2,7 +2,8 @@ import { customElement, LitElement, property, html, css } from 'lit-element';
 
 import styles from '../data/data-view.styles';
 import sharedStyles from '../data/data-view-shared.styles';
-import { FormattedFileName } from '../utility/common-components';
+
+import '../utility/formatted-segment';
 
 @customElement('table-view-table-header')
 class TableViewTableHeader extends LitElement {
@@ -37,7 +38,7 @@ class TableViewTableHeader extends LitElement {
     return html`
       <div class="table-header-container">
         <div class="start-segment segment-header material-card">
-          Segment in ${FormattedFileName({ fileName: this.fileName })}
+          <formatted-filename .filename="${this.fileName}"></formatted-filename>
         </div>
         <div class="segment-header material-card">
           Parallel segments and probabilities

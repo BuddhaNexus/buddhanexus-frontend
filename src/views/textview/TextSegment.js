@@ -1,6 +1,6 @@
 import { C_SELECTED_SEGMENT } from './text-view';
 import { html } from 'lit-element';
-import { getCleanedWord, SEGMENT_COLORS } from '../utility/preprocessing';
+import { SEGMENT_COLORS } from '../utility/preprocessing';
 import { LANGUAGE_CODES } from '../utility/constants';
 
 const RIGHT_MODE_HIGHLIGHT_COLOR = '#2ECC40';
@@ -9,7 +9,17 @@ function getCooccuranceColor(cooc) {
   return SEGMENT_COLORS[cooc > 10 ? 10 : cooc];
 }
 
-export function TextSegmentChineseWord(currentString) {
+function getCleanedWord(lang, splitWords, i) {
+  let cleanedWord = '';
+  if (lang === LANGUAGE_CODES.TIBETAN) {
+    cleanedWord = TibetanSegment(splitWords[i]);
+  } else {
+    cleanedWord = TextSegmentChineseWord(splitWords[i]);
+  }
+  return cleanedWord;
+}
+
+function TextSegmentChineseWord(currentString) {
   currentString = currentString.replace(/\//g, '|');
   if (currentString.includes('#')) {
     // prettier-ignore
@@ -18,45 +28,25 @@ export function TextSegmentChineseWord(currentString) {
   return currentString;
 }
 
-function TextSegmentWord({
-  selected,
-  currentColor,
-  highlightColor,
-  position,
-  onClick,
-  cleanedWord,
-}) {
-  if (!currentColor || currentColor === 0) {
-    return cleanedWord;
-  }
-
-  // prettier-ignore
-  return html`<span class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}" style="color:${highlightColor}" position="${position}" @click="${onClick}">${cleanedWord}</span>`;
-}
-
-export const TibetanSegment = segment => {
+const TibetanSegment = segment => {
   const strippedSegment = segment.replace(/\//g, '|') + ' ';
-  if (!strippedSegment.match(/\|\||[.?!:;]/g)) {
-    return strippedSegment;
-  } else if (!strippedSegment.includes('*')) {
-    // prettier-ignore
-    return html`${strippedSegment}<br />`;
-  } else {
-    // prettier-ignore
-    return html`${strippedSegment.replace('*_', '* ')}`;
-  }
+  return !strippedSegment.match(/\|\||[.?!:;]/g)
+    ? strippedSegment
+    : !strippedSegment.includes('*')
+    ? // prettier-ignore
+      html`${strippedSegment}<br />`
+    : // prettier-ignore
+      html`${strippedSegment.replace('*_', '* ')}`;
 };
 
-const ChineseSegment = (inputData, segment, lineBreak) => {
+const ChineseSegment = (inputData, segment) => {
   return inputData.includes('　　')
     ? html`
         <div class="chinese-verse">${segment}</div>
       `
-    : lineBreak
-    ? html`
+    : html`
         ${segment}<br />
-      `
-    : segment;
+      `;
 };
 
 const PaliSanskritSegment = (inputData, segment) => {
@@ -73,6 +63,22 @@ const PaliSanskritSegment = (inputData, segment) => {
         ${segment}
       `;
 };
+
+function TextSegmentWord({
+  selected,
+  currentColor,
+  highlightColor,
+  position,
+  onClick,
+  cleanedWord,
+}) {
+  if (!currentColor || currentColor === 0) {
+    return cleanedWord;
+  }
+
+  // prettier-ignore
+  return html`<span class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}" style="color:${highlightColor}" position="${position}" @click="${onClick}">${cleanedWord}</span>`;
+}
 
 function TextSegmentWords(
   inputData,
@@ -133,8 +139,7 @@ export function TextSegment({
     } else if (lang === LANGUAGE_CODES.CHINESE) {
       outputText = ChineseSegment(
         inputData,
-        inputData.split('').map(TextSegmentChineseWord),
-        false
+        inputData.split('').map(TextSegmentChineseWord)
       );
     } else {
       outputText = PaliSanskritSegment(inputData, inputData);
@@ -150,7 +155,7 @@ export function TextSegment({
       rightMode
     );
     if (lang === LANGUAGE_CODES.CHINESE) {
-      return ChineseSegment(inputData, words, true);
+      return ChineseSegment(inputData, words);
     }
     if (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) {
       return PaliSanskritSegment(inputData, words);

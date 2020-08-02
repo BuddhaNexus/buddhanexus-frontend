@@ -2,13 +2,9 @@
 // text strings coming from the database.
 import { html } from 'lit-element';
 
-import {
-  TextSegment,
-  TextSegmentChineseWord,
-  TibetanSegment,
-} from '../textview/TextSegment';
+import { TextSegment } from '../textview/TextSegment';
 import { getSegmentIdFromKey } from '../data/dataViewUtils';
-import { FormattedSegment } from './common-components';
+import './formatted-segment';
 
 export const SEGMENT_COLORS = {
   1: '#0CC0E8',
@@ -22,16 +18,6 @@ export const SEGMENT_COLORS = {
   9: '#E85650',
   10: '#FF860D',
 };
-
-export function getCleanedWord(lang, splitWords, i) {
-  let cleanedWord = '';
-  if (lang.match(/tib/)) {
-    cleanedWord = TibetanSegment(splitWords[i]);
-  } else {
-    cleanedWord = TextSegmentChineseWord(splitWords[i]);
-  }
-  return cleanedWord;
-}
 
 export function highlightTextByOffset({
   textArray,
@@ -103,10 +89,11 @@ export function segmentArrayToString(segmentArray, lang) {
 }
 
 export function getLinkForSegmentNumbers(language, segmentnr) {
-  let formattedSegmentNr = FormattedSegment({
-    segment: segmentArrayToString(segmentnr, language),
-    lang: language,
-  });
+  let formattedSegmentNr = html`
+    <formatted-segment
+      .segmentnr="${segmentArrayToString(segmentnr, language)}"
+    ></formatted-segment>
+  `;
   let linkText = '';
   if (language === 'pli') {
     segmentnr = getSegmentIdFromKey(segmentnr);

@@ -19,7 +19,7 @@ import './data-view-view-selector';
 import './data-view-header';
 
 import '../utility/total-numbers';
-
+import { getLanguageFromFilename } from '../utility/views-common';
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
@@ -28,8 +28,8 @@ import { DATA_VIEW_MODES } from './data-view-filters-container';
 export class DataView extends LitElement {
   @property({ type: String }) fileName = '';
   @property({ type: String }) language;
-  @property({ type: Number }) score = 60; // this default value is chosen due to the experience with the tibetan; possible a lower or higher value is needed for other languages
-  @property({ type: Number }) quoteLength = 12; // this also works well with the Tibetan, but might be very different in the case of other languages
+  @property({ type: Number }) score = 60;
+  @property({ type: Number }) quoteLength = 12;
   @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
   @property({ type: Array }) limitCollection = [];
@@ -100,6 +100,7 @@ export class DataView extends LitElement {
     if (fileName) {
       if (fileName !== this.fileName) {
         this.fileName = fileName;
+        this.language = getLanguageFromFilename(fileName);
       }
       // This to revert a previous hack because dots in the segmentnumber are not accepted in the routing.
       if (activeSegment) {

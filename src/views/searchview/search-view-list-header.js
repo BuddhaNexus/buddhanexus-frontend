@@ -1,8 +1,5 @@
 import { customElement, LitElement, property, html, css } from 'lit-element';
 
-import styles from '../data/data-view.styles';
-import sharedStyles from '../data/data-view-shared.styles';
-
 @customElement('search-view-list-header')
 class SearchViewListHeader extends LitElement {
   @property({ type: String }) searchQuery;
@@ -16,24 +13,24 @@ class SearchViewListHeader extends LitElement {
           flex: 1;
         }
 
-        .search-result-header {
-          background-color: var(--color-light-grey);
-          margin: 6px;
-          padding: 12px;
-          flex: 2;
+        #search-result-header {
+          padding-bottom: 16px;
+          padding-top: 16px;
+          font-weight: bold;
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          text-transform: none;
         }
       `,
-      styles,
-      sharedStyles,
     ];
   }
 
   render() {
     return html`
       <div class="list-header-container">
-        <div class="search-result-header material-card">
-          Showing <b>${this.resultNumber}</b> results for query
-          <b>${this.searchQuery}</b>:
+        <div id="search-result-header">
+          Showing ${this.resultNumber} results for query "${this.searchQuery}":
         </div>
       </div>
     `;

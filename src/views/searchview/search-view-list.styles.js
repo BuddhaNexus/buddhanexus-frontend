@@ -31,11 +31,10 @@ export default css`
     flex-wrap: wrap;
     align-items: center;
     color: var(--color-text-secondary);
+    font-size: 14px;
   }
 
   .search-view-list__segment-id {
-    color: var(--color-text-secondary);
-    font-size: 14px;
     margin-right: 16px;
   }
 
