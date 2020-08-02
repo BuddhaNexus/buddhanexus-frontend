@@ -16,6 +16,7 @@ export class DataViewSettingsContainer extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <paper-toggle-button @checked-changed="${this.toggleShowSegmentNumbers}">
         <span class="button-font">Show Segment Numbers</span>
@@ -24,8 +25,7 @@ export class DataViewSettingsContainer extends LitElement {
       <vaadin-radio-group
         class="segment-numbers-sides"
         value="${this.segmentSide}"
-        @value-changed="${this.toggleSegmentDisplaySide}"
-      >
+        @value-changed="${this.toggleSegmentDisplaySide}">
         <vaadin-radio-button value="left" checked>
           <span class="button-font">Left</span>
         </vaadin-radio-button>

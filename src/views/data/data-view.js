@@ -41,7 +41,6 @@ export class DataView extends LitElement {
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
   @property({ type: Boolean }) filterBarOpen;
-  @property({ type: Boolean }) settingsBarOpen;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
 
@@ -241,10 +240,6 @@ export class DataView extends LitElement {
     this.filterBarOpen = !this.filterBarOpen;
   };
 
-  toggleSettingsBarOpen = () => {
-    this.settingsBarOpen = !this.settingsBarOpen;
-  };
-
   toggleShowSegmentNumbers = e => {
     this.showSegmentNumbers = e.detail.value;
   };
@@ -254,6 +249,7 @@ export class DataView extends LitElement {
   };
 
   render() {
+    //prettier-ignore
     return html`
       <div class="data-view" lang="${this.language}" view="${this.viewMode}">
         <div class="data-view__main-container">
@@ -266,12 +262,10 @@ export class DataView extends LitElement {
             .folio="${this.folio}"
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
-            .settingsBarOpen="${this.settingsBarOpen}"
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
-            .toggleSettingsBarOpen="${this.toggleSettingsBarOpen}"
             .updateSearch="${this.setSearch}"
-            .updateSortMethod="${this.setSortMethod}"
-          ></data-view-header>
+            .updateSortMethod="${this.setSortMethod}">
+          </data-view-header>
 
           <data-view-router
             .selectedView="${this.selectedView}"
@@ -289,8 +283,8 @@ export class DataView extends LitElement {
             .sortMethod="${this.sortMethod}"
             .searchString="${this.searchString}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
-            .segmentDisplaySide="${this.segmentDisplaySide}"
-          ></data-view-router>
+            .segmentDisplaySide="${this.segmentDisplaySide}">
+          </data-view-router>
         </div>
 
         <side-sheet
@@ -300,16 +294,15 @@ export class DataView extends LitElement {
             : 'side-sheet--closed'}"
           .handleClose="${() => {
             this.filterBarOpen = false;
-          }}"
-        >
+          }}">
           <data-view-total-numbers
             id="total-numbers"
             .fileName="${this.fileName}"
             .score="${this.score}"
             .limitCollection="${this.setLimitOrTargetCollection}"
             .quoteLength="${this.quoteLength}"
-            .cooccurance="${this.cooccurance}"
-          ></data-view-total-numbers>
+            .cooccurance="${this.cooccurance}">
+          </data-view-total-numbers>
 
           <data-view-filters-container
             .viewMode="${this.viewMode}"
@@ -322,23 +315,16 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .updateCooccurance="${this.setCooccurance}"
             .updateSorting="${this.setSortMethod}"
-            .language="${this.language}"
-          ></data-view-filters-container>
-        </side-sheet>
+            .language="${this.language}">
+          </data-view-filters-container>
 
-        <side-sheet
-          id="settings-menu"
-          class="${this.settingsBarOpen
-            ? 'side-sheet--open'
-            : 'side-sheet--closed'}"
-          .handleClose="${() => {
-            this.settingsBarOpen = false;
-          }}"
-        >
           <data-view-settings-container
+            class="settings-menu"
+            lang="${this.language}"
+            view="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
-            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
-          ></data-view-settings-container>
+            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}">
+          </data-view-settings-container>
         </side-sheet>
       </div>
     `;

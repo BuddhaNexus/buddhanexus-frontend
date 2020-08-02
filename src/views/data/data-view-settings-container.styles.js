@@ -2,12 +2,11 @@ import { css } from 'lit-element';
 
 export default css`
   :host {
-    display: inline-flex;
+    display: none;
     align-items: baseline;
-    margin-top: 16px;
     flex-wrap: wrap;
     flex-direction: column;
-    padding-bottom: 48px;
+    padding: 0 0 24px 16px;
   }
 
   paper-toggle-button {

@@ -7,7 +7,6 @@ import './data-view-header-fields';
 @customElement('data-view-header')
 class DataViewHeader extends LitElement {
   @property({ type: Boolean }) filterBarOpen = true;
-  @property({ type: Boolean }) settingsBarOpen = true;
   @property({ type: String }) fileName = '';
   @property({ type: String }) language;
   @property({ type: String }) viewMode;
@@ -19,7 +18,6 @@ class DataViewHeader extends LitElement {
   @property({ type: Function }) setFolio;
   @property({ type: Function }) handleViewModeChanged;
   @property({ type: Function }) toggleFilterBarOpen;
-  @property({ type: Function }) toggleSettingsBarOpen;
 
   @property({ type: String }) searchString;
 
@@ -34,8 +32,7 @@ class DataViewHeader extends LitElement {
           width: 100%;
         }
 
-        .filter-bar-toggle-icon,
-        .settings-bar-toggle-icon {
+        .filter-bar-toggle-icon {
           margin-right: 2em;
           min-height: 22px;
           min-width: 22px;
@@ -50,14 +47,10 @@ class DataViewHeader extends LitElement {
           color: var(--material-secondary-text-color);
         }
 
-        .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open,
-        .settings-bar-toggle-icon.settings-bar-toggle-icon--settings-bar-open {
+        .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open {
           opacity: 0;
           pointer-events: none;
         }
-
-        .filter-bar-toggle-icon {
-          margin-right: 5em;
 
         vaadin-text-field {
           --material-primary-color: var(--bn-dark-red);
@@ -77,9 +70,7 @@ class DataViewHeader extends LitElement {
       <div class="data-view-header">
         <div
           class="data-view__header-container ${this.filterBarOpen &&
-            'data-view__header-container--filter-bar-open'} ${this
-            .settingsBarOpen &&
-            'data-view__header-container--settings-bar-open'}"
+            'data-view__header-container--filter-bar-open'}"
         >
           <bn-card header="true">
             <data-view-view-selector
@@ -108,19 +99,6 @@ class DataViewHeader extends LitElement {
             >
               filters
             </iron-icon>
-
-            ${this.viewMode === 'text'
-              ? html`
-                  <iron-icon
-                    icon="vaadin:cog"
-                    @click="${this.toggleSettingsBarOpen}"
-                    class="settings-bar-toggle-icon ${this.SettingsBarOpen &&
-                      'settings-bar-toggle-icon--settings-bar-open'}"
-                  >
-                    settings
-                  </iron-icon>
-                `
-              : null}
           </bn-card>
         </div>
       </div>
