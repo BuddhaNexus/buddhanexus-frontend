@@ -92,12 +92,9 @@ export function LeftSegment({
                 number="${number}">
                 ${firstDisplayNumber
                   ? html`
-                    <span
-                      class="segment-number"
+                    <span class="segment-number"
                       style="float: ${segmentDisplaySide}"
-                      show-number="${showSegmentNumbers}">
-                        ${displayNumber}
-                    </span>`
+                      show-number="${showSegmentNumbers}">${displayNumber}</span>`
                   : null
                 }
                 ${segText}</span>`
