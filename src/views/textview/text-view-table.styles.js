@@ -71,7 +71,16 @@ export default css`
   .segment-number {
     color: var(--color-text-secondary);
     font-size: 10px;
-    padding-right: 10px;
+  }
+
+  .segment-number.left {
+    float: left;
+    padding-right: 12px;
+  }
+
+  .segment-number.right {
+    float: right;
+    padding-left: 12px;
   }
 
   vaadin-split-layout p {
@@ -84,6 +93,7 @@ export default css`
     overflow-wrap: break-word;
     font-size: 1.1em;
     line-height: 1.5em;
+    padding-right: 12px;
   }
 
   .middle-text-column {
@@ -93,6 +103,7 @@ export default css`
   .right-text-column {
     overflow-wrap: break-word;
     padding-left: 12px;
+    padding-right: 12px;
     width: 30%;
   }
 
