@@ -192,6 +192,7 @@ export class DataViewHeaderFields extends LitElement {
       this.fileName;
     const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
 
+    //prettier-ignore
     return html`
       <vaadin-combo-box
         id="text-select-combo-box"
@@ -200,8 +201,7 @@ export class DataViewHeaderFields extends LitElement {
         item-value-path="textname"
         item-label-path="search_field"
         .items="${this.menuData}"
-        @value-changed="${e => this.updateFileName(e)}"
-      >
+        @value-changed="${e => this.updateFileName(e)}">
         <template>
           <style>
             .display-name {
@@ -217,9 +217,7 @@ export class DataViewHeaderFields extends LitElement {
               text-overflow: ellipsis;
             }
           </style>
-          <strong>[[item.textname]]</strong><br /><span class="display-name"
-            >[[item.displayName]]</span
-          >
+          <strong>[[item.textname]]</strong><br /><span class="display-name">[[item.displayName]]</span>
         </template>
       </vaadin-combo-box>
 
@@ -231,10 +229,8 @@ export class DataViewHeaderFields extends LitElement {
               item-value-path="segment_nr"
               item-label-path="num"
               .items="${this.folioData}"
-              @value-changed="${e => this.updateFolio(e)}"
-            >
-            </vaadin-combo-box>
-          `
+              @value-changed="${e => this.updateFolio(e)}">
+            </vaadin-combo-box>`
         : null}
       ${shouldShowTextSearchBox
         ? html`
@@ -248,13 +244,11 @@ export class DataViewHeaderFields extends LitElement {
                 if (e.code === 'Enter') {
                   this.updateSearch(e.target.value);
                 }
-              }}"
-            >
+              }}">
               <div slot="prefix">
                 <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
               </div>
-            </paper-input>
-          `
+            </paper-input>`
         : null}
       ${shouldShowSortBox
         ? html`
@@ -262,28 +256,16 @@ export class DataViewHeaderFields extends LitElement {
               @value-changed="${this.updateSortMethod}"
               Label="Sorting method:"
               class="input-field"
-              item-label-path="filename"
-            >
+              item-label-path="filename">
               <template>
                 <vaadin-list-box @value-changed="${this.updateSortMethod}">
-                  <vaadin-item value="position"
-                    >By position in Inquiry Text</vaadin-item
-                  >
-                  <vaadin-item value="quoted-text"
-                    >By position in Hit Text(s)</vaadin-item
-                  >
-                  <vaadin-item value="length" disabled
-                    >Length of match in Inquiry Text (beginning with
-                    longest)</vaadin-item
-                  >
-                  <vaadin-item value="length2"
-                    >Length of match in Hit Text (beginning with
-                    longest)</vaadin-item
-                  >
+                  <vaadin-item value="position">By position in Inquiry Text</vaadin-item>
+                  <vaadin-item value="quoted-text">By position in Hit Text(s)</vaadin-item>
+                  <vaadin-item value="length" disabled>Length of match in Inquiry Text (beginning with longest)</vaadin-item>
+                  <vaadin-item value="length2">Length of match in Hit Text (beginning with longest)</vaadin-item>
                 </vaadin-list-box>
               </template>
-            </vaadin-select>
-          `
+            </vaadin-select>`
         : null}
     `;
   }

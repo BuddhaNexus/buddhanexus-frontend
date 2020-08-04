@@ -9,20 +9,14 @@ export default function SearchViewListItem({
   distance,
   rootUrl,
 }) {
+  //prettier-ignore
   return html`
-    <div class="search-view-list__item"
-          onclick="window.open('${rootUrl}','_self');">
-      <div
-        class="search-view-list__item-content search-view-list__item-content--segment material-card">
+    <div class="search-view-list__item" onclick="window.open('${rootUrl}','_self');">
+      <div class="search-view-list__item-content search-view-list__item-content--segment material-card">
         <header class="search-view-list__item-header">
-          <span class="search-view-list__segment-id">
-            ${getLinkForSegmentNumbers(getLanguageFromFilename(SegmentId), [
-              SegmentId,
-            ])}
-          </span><span>Edit distance: ${distance}</span>
+          <span class="search-view-list__segment-id">${getLinkForSegmentNumbers(getLanguageFromFilename(SegmentId), [SegmentId,])}</span><span>Edit distance: ${distance}</span>
           <div class="search-view-list__parallel-details">
-            <span class="search-view-list__parallel-details-badge"
-              >
+            <span class="search-view-list__parallel-details-badge">
           </div>
         </header>
         <div class="horizontal-divider"></div>

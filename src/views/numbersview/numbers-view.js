@@ -91,13 +91,13 @@ export class NumbersView extends LitElement {
         <bn-loading-spinner></bn-loading-spinner>
       `;
     }
-
+    //prettier-ignore
     return html`
       <data-view-subheader
         .fileName="${this.fileName}"
         .language="${this.lang}"
-        .infoModalContent="${NumbersViewInfoModalContent()}"
-      ></data-view-subheader>
+        .infoModalContent="${NumbersViewInfoModalContent()}">
+      </data-view-subheader>
       <div class="table-wrapper">
         ${NumbersViewTable({
           fileName: this.fileName,

@@ -41,7 +41,8 @@ const TibetanSegment = segment => {
 
 const ChineseSegment = (inputData, segment) => {
   return inputData.includes('　　')
-    ? html`
+    ? //prettier-ignore
+      html`
         <div class="chinese-verse">${segment}</div>
       `
     : html`
