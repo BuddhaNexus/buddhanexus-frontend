@@ -16,26 +16,25 @@ function TextViewHeaderRightColumn({
   openDialogRight,
   rightFileName,
 }) {
+  //prettier-ignore
   return html`
     <div class="text-view-header-right">
       <vaadin-button
         class="swap-button"
         title="Display this text in a new tab"
-        @click="${clickedNewTabButton}"
-      >
+        @click="${clickedNewTabButton}">
         <iron-icon
           class="swap-icon"
           icon="vaadin:plus-circle-o"
-          slot="prefix"
-        ></iron-icon>
+          slot="prefix">
+        </iron-icon>
       </vaadin-button>
 
       <vaadin-dialog
         id="info-text-view-right"
         aria-label="simple"
         .opened="${isInfoDialogRightOpen}"
-        @opened-changed="${setIsInfoDialogRightOpen}"
-      >
+        @opened-changed="${setIsInfoDialogRightOpen}">
         <template>
           <div>
             The currently selected match as well as other matches that have been
@@ -53,10 +52,7 @@ function TextViewHeaderRightColumn({
       <vaadin-button class="info-button" @click="${openDialogRight}">
         <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
       </vaadin-button>
-      <formatted-filename
-        .filename="${rightFileName}"
-        .rightside="${'right'}"
-      ></formatted-filename>
+      <formatted-filename .filename="${rightFileName}" .rightside="${'right'}"></formatted-filename>
     </div>
   `;
 }
@@ -68,13 +64,13 @@ function TextViewHeaderLeftColumn({
   setIsInfoDialogLeftOpen,
   openDialogLeft,
 }) {
+  //prettier-ignore
   return html`
     <vaadin-dialog
       id="info-text-view-left"
       aria-label="simple"
       .opened="${isInfoDialogLeftOpen}"
-      @opened-changed="${setIsInfoDialogLeftOpen}"
-    >
+      @opened-changed="${setIsInfoDialogLeftOpen}">
       <template>
         ${TextViewInfoModalContent()}
       </template>
@@ -87,25 +83,23 @@ function TextViewHeaderLeftColumn({
     <vaadin-button
       class="up-button"
       title="Go back to the beginning of the Inquiry Text"
-      @click="${handleScrollUpButtonClicked}"
-    >
+      @click="${handleScrollUpButtonClicked}">
       <iron-icon
         class="swap-icon"
         icon="vaadin:arrow-circle-up-o"
-        slot="prefix"
-      ></iron-icon>
+        slot="prefix">
+      </iron-icon>
     </vaadin-button>
 
     <vaadin-button
       class="up-button"
       title="Display this text in a new tab"
-      @click="${handleNewTabButtonClicked}"
-    >
+      @click="${handleNewTabButtonClicked}">
       <iron-icon
         class="swap-icon"
         icon="vaadin:plus-circle-o"
-        slot="prefix"
-      ></iron-icon>
+        slot="prefix">
+      </iron-icon>
     </vaadin-button>
   `;
 }
@@ -222,6 +216,7 @@ export class TextViewHeader extends LitElement {
     const renderSwitchButton =
       this.renderSwitchButton && this.rightFileName !== '';
 
+    //prettier-ignore
     return html`
       <div id="text-view-header">
         <div id="text-view-header-left">

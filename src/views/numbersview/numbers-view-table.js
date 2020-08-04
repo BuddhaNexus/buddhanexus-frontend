@@ -52,6 +52,7 @@ const TableRowContainer = (
   });
 
 const TableRow = (segmentNr, collections, language) =>
+  //prettier-ignore
   html`
     <tr>
       <th>
@@ -70,6 +71,7 @@ const TableRow = (segmentNr, collections, language) =>
 const getParallelsForCollection = (collection, language) =>
   collection.map(item => {
     const segmentlink = getLinkForSegmentNumbers(language, item);
+    //prettier-ignore
     return html`
       <span class="segment-number">${segmentlink}</span><br />
     `;

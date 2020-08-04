@@ -76,17 +76,16 @@ export class TextViewSearch extends LitElement {
     }
 
     if (!this.resultSegments) {
+      //prettier-ignore
       return html`
         <span>No results.</span>
       `;
     }
-
+    //prettier-ignore
     return html`
       <div id="text-view-search-header">
-        <strong
-          >There are ${this.resultSegments.length} search results for
-          "${this.searchString}" in ${this.fileName.toUpperCase()}:</strong
-        >
+        <strong>There are ${this.resultSegments.length} search results for
+          "${this.searchString}" in ${this.fileName.toUpperCase()}:</strong>
       </div>
       <div id="text-view-search-content">
         ${this.resultSegments.map(segment =>
@@ -117,17 +116,16 @@ function ResultSegmentContainer({
     endoffset: end,
     lang: lang,
   });
+  //prettier-ignore
   return html`
-    <div
-      class="result-segment material-card"
+    <div class="result-segment material-card"
       id="${segmentNr}"
       @click="${onSegmentClicked}"
       segment="${segmentNr}"
       beg="${beg}"
-      end="${end}"
-    >
-      <span class="result-segment-nr">${segmentNr}</span><br />
-      <span class="result-text" lang="${lang}">${segText}</span>
+      end="${end}">
+        <span class="result-segment-nr">${segmentNr}</span><br />
+        <span class="result-text" lang="${lang}">${segText}</span>
     </div>
   `;
 }

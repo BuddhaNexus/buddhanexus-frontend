@@ -44,6 +44,7 @@ export class AppLayout extends LitElement {
   };
 
   render() {
+    // prettier-ignore
     return html`
       <vaadin-app-layout>
         <vaadin-drawer-toggle slot="navbar"></vaadin-drawer-toggle>
@@ -52,8 +53,7 @@ export class AppLayout extends LitElement {
           <img
             src="/src/assets/img/buddhanexus.jpg"
             class="logo-buddhanexus"
-            alt="Buddha Nexus"
-          />
+            alt="Buddha Nexus"/>
         </h1>
 
         <vaadin-menu-bar
@@ -61,16 +61,16 @@ export class AppLayout extends LitElement {
           .items="${navMenuDataMain}"
           slot="navbar"
           class="menu-tab main"
-          @item-selected="${e => this.handleMenuClick(e)}"
-        ></vaadin-menu-bar>
+          @item-selected="${e => this.handleMenuClick(e)}">
+        </vaadin-menu-bar>
 
         <vaadin-menu-bar
           open-on-hover
           .items="${navMenuDataSub}"
           slot="navbar"
           class="menu-tab sub"
-          @item-selected="${e => this.handleMenuClick(e)}"
-        ></vaadin-menu-bar>
+          @item-selected="${e => this.handleMenuClick(e)}">
+        </vaadin-menu-bar>
 
         <bn-card slot="navbar" small>
           <paper-input
@@ -79,8 +79,7 @@ export class AppLayout extends LitElement {
             type="search"
             @change="${this.navigateToSearch}"
             no-label-float
-            autosave="test"
-          >
+            autosave="test">
             <div slot="prefix">
               <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
             </div>
@@ -101,8 +100,7 @@ export class AppLayout extends LitElement {
               <img
                 src="/src/assets/img/tree.png"
                 alt="buddhanexus"
-                class="footer-logo"
-              />
+                class="footer-logo"/>
             </div>
           </div>
         </footer>

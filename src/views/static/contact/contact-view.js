@@ -9,6 +9,7 @@ export class ContactView extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="static-page-container">
         <div class="main-border">
@@ -32,9 +33,7 @@ export class ContactView extends LitElement {
             Prof. Dr. Dorji Wangchuk<br />
 
             Email:
-            <a href="mailto:buddhanexus.info@gmail.com"
-              >buddhanexus.info@gmail.com</a
-            >
+            <a href="mailto:buddhanexus.info@gmail.com">buddhanexus.info@gmail.com</a>
           </div>
         </div>
       </div>

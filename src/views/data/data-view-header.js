@@ -66,19 +66,18 @@ class DataViewHeader extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="data-view-header">
         <div
           class="data-view__header-container ${this.filterBarOpen &&
-            'data-view__header-container--filter-bar-open'}"
-        >
+            'data-view__header-container--filter-bar-open'}">
           <bn-card header="true">
             <data-view-view-selector
               .language="${this.language}"
               .viewMode="${this.viewMode}"
               .handleViewModeChanged="${viewMode =>
-                this.handleViewModeChanged(viewMode)}"
-            >
+                this.handleViewModeChanged(viewMode)}">
             </data-view-view-selector>
 
             <data-view-header-fields
@@ -88,16 +87,14 @@ class DataViewHeader extends LitElement {
               .setFolio="${this.setFolio}"
               .viewMode="${this.viewMode}"
               .updateSearch="${this.updateSearch}"
-              .updateSortMethod="${this.updateSortMethod}"
-            ></data-view-header-fields>
+              .updateSortMethod="${this.updateSortMethod}">
+            </data-view-header-fields>
 
             <iron-icon
               icon="vaadin:filter"
               @click="${this.toggleFilterBarOpen}"
               class="filter-bar-toggle-icon ${this.filterBarOpen &&
-                'filter-bar-toggle-icon--filter-bar-open'}"
-            >
-              filters
+                'filter-bar-toggle-icon--filter-bar-open'}">
             </iron-icon>
           </bn-card>
         </div>

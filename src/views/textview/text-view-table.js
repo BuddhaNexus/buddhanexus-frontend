@@ -36,6 +36,7 @@ export default class TextViewTable extends LitElement {
   }
 
   renderMiddleData() {
+    //prettier-ignore
     return html`
       <div class="middle-right-texts-container">
         <vaadin-split-layout>
@@ -51,8 +52,8 @@ export default class TextViewTable extends LitElement {
               .data="${this.middleData}"
               .leftActiveSegment="${this.leftActiveSegment}"
               @mouseover-parallel="${this.handleMouseOver}"
-              @click-parallel="${this.handleParallelClicked}"
-            ></text-view-middle>
+              @click-parallel="${this.handleParallelClicked}">
+            </text-view-middle>
           </div>
 
           ${this.rightFileName && this.renderRightData()}

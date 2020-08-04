@@ -72,6 +72,7 @@ export class SearchView extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <div class="search-view-container">
         <h1>Search Results:</h1>
@@ -83,8 +84,8 @@ export class SearchView extends LitElement {
 
         <search-view-list
           .searchQuery="${this.searchQuery}"
-          .searchResults="${this.searchResults}"
-        ></search-view-list>
+          .searchResults="${this.searchResults}">
+        </search-view-list>
       </div>
     `;
   }

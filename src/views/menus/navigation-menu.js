@@ -83,6 +83,7 @@ export class NavigationMenu extends LitElement {
   }
 
   addCategoryItems(collection) {
+    //prettier-ignore
     return collection.categories.map(
       category => html`
         <vaadin-details theme="reverse" class="file-list">

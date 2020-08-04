@@ -48,6 +48,7 @@ export class SideSheet extends LitElement {
   }
 
   render() {
+    //prettier-ignore
     return html`
       <aside class="side-sheet">
         <div class="side-sheet__content">
@@ -56,8 +57,8 @@ export class SideSheet extends LitElement {
             <iron-icon
               @click="${this.handleClose}"
               class="side-sheet__close-icon"
-              icon="vaadin:close-small"
-            ></iron-icon>
+              icon="vaadin:close-small">
+            </iron-icon>
           </div>
           <slot></slot>
         </div>
