@@ -20,7 +20,6 @@ export default css`
 
   .static-page-container {
     display: block;
-    height: 100%;
     background-image: url('src/assets/img/background_welcome.jpg');
     background-size: cover;
     background-attachment: fixed;

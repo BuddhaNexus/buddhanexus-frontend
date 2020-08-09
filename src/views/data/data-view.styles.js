@@ -9,7 +9,7 @@ export default css`
     position: relative;
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: calc(100vh - var(--header-height));
     max-width: 100vw;
     flex: 1;
   }
@@ -52,7 +52,6 @@ export default css`
 
   data-view-router {
     padding: 12px 48px 16px;
-    height: 100%;
   }
 
   @media screen and (max-width: 900px) {

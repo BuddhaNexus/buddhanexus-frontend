@@ -18,6 +18,7 @@ export class VisualView extends LitElement {
       css`
         :host {
           width: 100%;
+          height: calc(100vh - var(--header-height));
         }
 
         .visual-view-container {
