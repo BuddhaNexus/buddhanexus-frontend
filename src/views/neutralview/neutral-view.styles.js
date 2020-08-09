@@ -27,6 +27,7 @@ export default css`
     font-size: 1.2em;
     font-weight: bold;
   }
+
   .copyright {
     font-size: 0.8em;
     font-weight: 200;
