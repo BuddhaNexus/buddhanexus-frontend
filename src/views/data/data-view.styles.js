@@ -14,6 +14,11 @@ export default css`
     flex: 1;
   }
 
+  .settings-menu[view='text'][lang='pli'],
+  .settings-menu[view='text'][lang='chn'] {
+    display: inline-flex;
+  }
+
   .data-view[lang='pli'][view='neutral'] {
     background-image: url('/src/assets/img/background_content_pli.jpg');
     background-size: cover;

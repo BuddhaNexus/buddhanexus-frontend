@@ -14,6 +14,7 @@ import '../components/card';
 import { updateFileParamInBrowserLocation } from './dataViewUtils';
 import './data-view-router';
 import './data-view-filters-container';
+import './data-view-settings-container';
 import './data-view-view-selector';
 import './data-view-header';
 
@@ -40,6 +41,8 @@ export class DataView extends LitElement {
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
   @property({ type: Boolean }) filterBarOpen;
+  @property({ type: Boolean }) showSegmentNumbers;
+  @property({ type: String }) segmentDisplaySide;
 
   static get styles() {
     return [dataViewStyles];
@@ -238,6 +241,14 @@ export class DataView extends LitElement {
     this.filterBarOpen = !this.filterBarOpen;
   };
 
+  toggleShowSegmentNumbers = e => {
+    this.showSegmentNumbers = e.detail.value;
+  };
+
+  toggleSegmentDisplaySide = e => {
+    this.segmentDisplaySide = e.target.value;
+  };
+
   render() {
     //prettier-ignore
     return html`
@@ -271,11 +282,14 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
-            .searchString="${this.searchString}">
+            .searchString="${this.searchString}"
+            .showSegmentNumbers="${this.showSegmentNumbers}"
+            .segmentDisplaySide="${this.segmentDisplaySide}">
           </data-view-router>
         </div>
 
         <side-sheet
+          id="filter-menu"
           class="${this.filterBarOpen
             ? 'side-sheet--open'
             : 'side-sheet--closed'}"
@@ -304,6 +318,14 @@ export class DataView extends LitElement {
             .updateSorting="${this.setSortMethod}"
             .language="${this.language}">
           </data-view-filters-container>
+
+          <data-view-settings-container
+            class="settings-menu"
+            lang="${this.language}"
+            view="${this.viewMode}"
+            .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
+            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}">
+          </data-view-settings-container>
         </side-sheet>
       </div>
     `;

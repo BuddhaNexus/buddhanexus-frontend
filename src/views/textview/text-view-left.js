@@ -17,6 +17,8 @@ export class TextViewLeft extends LitElement {
   @property({ type: Object }) leftTextData;
   @property({ type: Number }) score;
   @property({ type: String }) leftActiveSegment;
+  @property({ type: Boolean }) showSegmentNumbers;
+  @property({ type: String }) segmentDisplaySide;
 
   // Local variables
   @property({ type: String }) veryShortText = false;
@@ -280,6 +282,8 @@ export class TextViewLeft extends LitElement {
           leftTextData: this.leftTextData,
           currentSegment: this.leftActiveSegment,
           currentPosition: this.currentPosition,
+          showSegmentNumbers: this.showSegmentNumbers,
+          segmentDisplaySide: this.segmentDisplaySide,
         })
       )}
     `;

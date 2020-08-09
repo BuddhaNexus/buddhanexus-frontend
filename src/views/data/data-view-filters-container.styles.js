@@ -7,7 +7,7 @@ export default css`
     margin-top: 16px;
     flex-wrap: wrap;
     flex-direction: column;
-    padding-bottom: 48px;
+    padding-bottom: 36px;
   }
 
   vaadin-radio-button,
