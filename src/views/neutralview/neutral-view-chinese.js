@@ -19,6 +19,9 @@ export class NeutralViewChinese extends LitElement {
               The textual corpus used in BuddhaNexus was obtained from the
               Chinese Buddhist Electronic Text Association (CBETA).
             </p>
+            <span class="copyright"
+              >Background image © The British Library Or.8210/S.3693</span
+            >
           </div>
         </div>
       </div>

@@ -38,6 +38,10 @@ export class NeutralViewSanskrit extends LitElement {
               has been used. This stemming algorithm is accessible as a
               standalone application <a href="/tools/sanskrit">here</a>.
             </p>
+            <span class="copyright"
+              >Background image Courtesy Nepal-German Manuscript Preservation
+              Project (NGMPP)</span
+            >
           </div>
         </div>
       </div>
