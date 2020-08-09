@@ -7,10 +7,6 @@ export class VisualViewSelectionBox extends LitElement {
     return [
       css`
         .visual-page-container {
-          display: block;
-          background-image: url('src/assets/img/background_welcome.jpg');
-          background-size: cover;
-          background-attachment: fixed;
           height: calc(100vh - var(--header-height));
         }
 
