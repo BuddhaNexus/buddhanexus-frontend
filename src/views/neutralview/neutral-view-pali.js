@@ -40,6 +40,10 @@ export class NeutralViewPali extends LitElement {
               For the calculation of the Pāli matches, SuttaCentral's
               hyphenation and stemming algorithms have been used.
             </p>
+            <span class="copyright"
+              >Background image Courtesy Fragile Palm Leaves Collection,
+              Bangkok</span
+            >
           </div>
         </div>
       </div>
