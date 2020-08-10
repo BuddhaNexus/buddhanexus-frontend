@@ -46,7 +46,9 @@ export class NeutralViewTibetan extends LitElement {
               between a pair of either a single or double stroke (shad) at the
               beginning and a double stroke at the end.
             </p>
-            <span class="copyright">Background image © Orna Almogi</span>
+            <span class="copyright"
+              >Background image with courtesy to Burkhard Quessel.</span
+            >
           </div>
         </div>
       </div>

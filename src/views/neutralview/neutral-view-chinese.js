@@ -20,7 +20,8 @@ export class NeutralViewChinese extends LitElement {
               Chinese Buddhist Electronic Text Association (CBETA).
             </p>
             <span class="copyright"
-              >Background image © The British Library Or.8210/S.3693</span
+              >Background image with courtesy to the ICABS, Tokyo(via Prof.
+              Ochiai).</span
             >
           </div>
         </div>

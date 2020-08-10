@@ -39,8 +39,8 @@ export class NeutralViewSanskrit extends LitElement {
               standalone application <a href="/tools/sanskrit">here</a>.
             </p>
             <span class="copyright"
-              >Background image Courtesy Nepal-German Manuscript Preservation
-              Project (NGMPP)</span
+              >Background image with courtesy to the Nepal-German Manuscript
+              Preservation Project (NGMPP).</span
             >
           </div>
         </div>
