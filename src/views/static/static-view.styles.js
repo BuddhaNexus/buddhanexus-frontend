@@ -18,13 +18,12 @@ export default css`
     left: 0;
   }
 
-  .static-page-container {
+  .static-page-container,
+  .visual-page-container {
     display: block;
-    height: 100%;
     background-image: url('src/assets/img/background_welcome.jpg');
     background-size: cover;
     background-attachment: fixed;
-    height: auto;
   }
 
   .main-border {
@@ -58,17 +57,20 @@ export default css`
     cursor: pointer;
   }
 
-  .static-page-container a.content-link {
+  .static-page-container a.content-link,
+  .visual-page-container a.content-link {
     color: var(--content-link-color);
     text-decoration: none;
   }
 
-  .static-page-container a.content-link:hover {
+  .static-page-container a.content-link:hover,
+  .visual-page-container a.content-link:hover {
     color: var(--hover-link-color);
     text-decoration: underline;
   }
 
-  .static-page-container a.link span.link-description {
+  .static-page-container a.link span.link-description,
+  .visual-page-container a.link span.link-description {
     padding-top: 0.4em;
     color: var(--material-nav-left-color);
   }

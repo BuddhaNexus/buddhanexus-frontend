@@ -1,16 +1,29 @@
-import { customElement, html, LitElement } from 'lit-element';
+import { customElement, html, css, LitElement } from 'lit-element';
 import styles from '../static/static-view.styles';
 
 @customElement('visual-view-selection-box')
 export class VisualViewSelectionBox extends LitElement {
   static get styles() {
-    return [styles];
+    return [
+      css`
+        .visual-page-container {
+          height: calc(100vh - var(--header-height));
+        }
+
+        @media screen and (max-width: 1100px) {
+          .visual-page-container {
+            height: calc(100vh - 50px);
+          }
+        }
+      `,
+      styles,
+    ];
   }
 
   render() {
     //prettier-ignore
     return html`
-      <div class="static-page-container">
+      <div class="visual-page-container">
         <div class="main-border">
           <div class="main-content">
             <p>
