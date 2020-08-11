@@ -95,11 +95,11 @@ export class FormattedFileName extends LitElement {
   }
 
   render() {
-    if (this.fetchLoading) {
+    if (this.fetchLoading || !this.displayName) {
       // prettier-ignore
-      return html`<span class="formatted-file-name" name="${this.displayName}">${this.filename} ###</span>`
+      return html`<span class="formatted-file-name" name="${this.displayName}">${this.filename}</span>`
     }
     // prettier-ignore
-    return html`<span class="formatted-file-name ${this.rightside}" name="${this.displayName}">${this.textName} </span>`
+    return html`<span class="formatted-file-name ${this.rightside}" name="${this.displayName}">${this.textName}</span>`
   }
 }
