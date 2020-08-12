@@ -109,7 +109,8 @@ export class TextViewMiddle extends LitElement {
     let positionFlag = 0;
     let parallelCounter = 0;
     let parallels = [...this.selectedParallels];
-
+    console.log('PARALLELS', parallels);
+    console.log('DATA POSITION', this.data.position);
     if (parallels) {
       parallels = sortByKey(parallels, 'score');
       parallels = parallels.reverse();

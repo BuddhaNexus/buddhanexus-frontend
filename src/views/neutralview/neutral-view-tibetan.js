@@ -47,7 +47,7 @@ export class NeutralViewTibetan extends LitElement {
               beginning and a double stroke at the end.
             </p>
             <span class="copyright"
-              >Background image with courtesy to Burkhard Quessel.</span
+              >Background image: Courtesy of Burkhard Quessel.</span
             >
           </div>
         </div>
