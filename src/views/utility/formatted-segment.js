@@ -22,7 +22,14 @@ export class FormattedSegment extends LitElement {
     this.addObserver();
   }
 
-  updated() {
+  updated(_changedProperties) {
+    _changedProperties.forEach(async (oldValue, propName) => {
+      if (propName === 'segmentnr') {
+        this.fetchData();
+        this.allowFetching == false;
+      }
+    });
+
     if (this.allowFetching) {
       this.fetchData();
       this.allowFetching = false;
