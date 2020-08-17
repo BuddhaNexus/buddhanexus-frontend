@@ -1,8 +1,9 @@
 import { html } from 'lit-element';
 
 import { SEGMENT_COLORS } from '../utility/preprocessing';
+import { minimumLengthText } from '../data/data-view-subheader';
 
-export default function TextViewInfoModalContent() {
+export default function TextViewInfoModalContent(language) {
   return html`
     <div>
       <p>
@@ -33,6 +34,8 @@ export default function TextViewInfoModalContent() {
           <th></th>
         </tr>
       </table>
+
+      ${minimumLengthText(language)}
     </div>
   `;
 }

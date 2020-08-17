@@ -5,10 +5,12 @@ import styles from './neutral-view.styles';
 
 @customElement('neutral-view-sanskrit')
 export class NeutralViewSanskrit extends LitElement {
-  @property({ type: String }) lang;
+  @property({ type: String }) minLengthText;
+
   static get styles() {
     return [styles, sharedDataViewStyles];
   }
+
   render() {
     return html`
       <div class="static-page-container lang_skt">
@@ -38,6 +40,7 @@ export class NeutralViewSanskrit extends LitElement {
               has been used. This stemming algorithm is accessible as a
               standalone application <a href="/tools/sanskrit">here</a>.
             </p>
+            ${this.minLengthText}
             <span class="copyright"
               >Background image with courtesy to the Nepal-German Manuscript
               Preservation Project (NGMPP).</span

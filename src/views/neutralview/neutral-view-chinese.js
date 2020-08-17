@@ -5,10 +5,12 @@ import styles from './neutral-view.styles';
 
 @customElement('neutral-view-chinese')
 export class NeutralViewChinese extends LitElement {
-  @property({ type: String }) lang;
+  @property({ type: String }) minLengthText;
+
   static get styles() {
     return [styles, sharedDataViewStyles];
   }
+
   render() {
     return html`
       <div class="static-page-container lang_chn">
@@ -27,6 +29,7 @@ export class NeutralViewChinese extends LitElement {
               five or more syllables, such instances have been filtered from the
               results.
             </p>
+            ${this.minLengthText}
             <span class="copyright"
               >Background image with courtesy to the ICABS, Tokyo(via Prof.
               Ochiai).</span

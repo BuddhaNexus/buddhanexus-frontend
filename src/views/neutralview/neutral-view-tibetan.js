@@ -5,10 +5,12 @@ import styles from './neutral-view.styles';
 
 @customElement('neutral-view-tibetan')
 export class NeutralViewTibetan extends LitElement {
-  @property({ type: String }) lang;
+  @property({ type: String }) minLengthText;
+
   static get styles() {
     return [styles, sharedDataViewStyles];
   }
+
   render() {
     return html`
       <div class="static-page-container lang_tib">
@@ -46,6 +48,7 @@ export class NeutralViewTibetan extends LitElement {
               between a pair of either a single or double stroke (shad) at the
               beginning and a double stroke at the end.
             </p>
+            ${this.minLengthText}
             <span class="copyright"
               >Background image with courtesy to Burkhard Quessel.</span
             >

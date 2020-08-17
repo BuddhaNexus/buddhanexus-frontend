@@ -23,13 +23,19 @@ import { getLanguageFromFilename } from '../utility/views-common';
 import dataViewStyles from './data-view.styles';
 import { getMainLayout } from '../utility/utils';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
+import {
+  LANGUAGE_CODES,
+  MIN_LENGTHS,
+  DEFAULT_SCORES,
+} from '../utility/constants';
 
 @customElement('data-view')
 export class DataView extends LitElement {
   @property({ type: String }) fileName = '';
   @property({ type: String }) language;
-  @property({ type: Number }) score = 60;
-  @property({ type: Number }) quoteLength = 12;
+  @property({ type: Number }) score;
+  @property({ type: Number }) quoteLength;
+  @property({ type: Number }) minLength;
   @property({ type: Number }) cooccurance = 2000; // just put it to a high value so it is practically disabled per default.
   @property({ type: Array }) targetCollection = [];
   @property({ type: Array }) limitCollection = [];
@@ -58,9 +64,28 @@ export class DataView extends LitElement {
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
     this.handleViewModeParamChanged();
-    this.cooccurance = this.language === 'pli' ? 15 : 2000;
-    this.quoteLength = this.language === 'chn' ? 7 : 12;
-    this.score = this.language === 'chn' ? 30 : 60;
+    switch (this.language) {
+      case LANGUAGE_CODES.TIBETAN:
+        this.quoteLength = MIN_LENGTHS.TIBETAN;
+        this.score = DEFAULT_SCORES.TIBETAN;
+        break;
+      case LANGUAGE_CODES.PALI:
+        this.quoteLength = MIN_LENGTHS.PALI;
+        this.score = DEFAULT_SCORES.PALI;
+        break;
+      case LANGUAGE_CODES.SANSKRIT:
+        this.quoteLength = MIN_LENGTHS.SANSKRIT;
+        this.score = DEFAULT_SCORES.SANSKRIT;
+        break;
+      case LANGUAGE_CODES.CHINESE:
+        this.quoteLength = MIN_LENGTHS.CHINESE;
+        this.score = DEFAULT_SCORES.CHINESE;
+        break;
+      default:
+        this.quoteLength = MIN_LENGTHS.TIBETAN;
+        this.score = DEFAULT_SCORES.TIBETAN;
+    }
+    this.minLength = this.quoteLength;
     this.checkSelectedView();
   }
 
@@ -310,6 +335,7 @@ export class DataView extends LitElement {
             .score="${this.score}"
             .updateScore="${this.setScore}"
             .quoteLength="${this.quoteLength}"
+            .minLength="${this.minLength}"
             .updateQuoteLength="${this.setQuoteLength}"
             .updateLimitCollection="${this.setLimitCollection}"
             .updateTargetCollection="${this.setTargetCollection}"

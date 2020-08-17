@@ -35,6 +35,7 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
   @property({ type: Number }) quoteLength;
+  @property({ type: Number }) minLength;
   @property({ type: Function }) updateQuoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Function }) updateCooccurance;
@@ -236,6 +237,7 @@ export class DataViewFiltersContainer extends LitElement {
       <data-view-filter-sliders .score="${this.score}" 
       .updateScore="${this.updateScore}" 
       .quoteLength="${this.quoteLength}" 
+      .minLength="${this.minLength}"
       .updateQuoteLength="${this.updateQuoteLength}" 
       .cooccurance="${this.cooccurance}" 
       .updateCooccurance="${this.updateCooccurance}">

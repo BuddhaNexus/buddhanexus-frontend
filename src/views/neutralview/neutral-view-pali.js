@@ -5,10 +5,12 @@ import styles from './neutral-view.styles';
 
 @customElement('neutral-view-pali')
 export class NeutralViewPali extends LitElement {
-  @property({ type: String }) lang;
+  @property({ type: String }) minLengthText;
+
   static get styles() {
     return [styles, sharedDataViewStyles];
   }
+
   render() {
     return html`
       <div class="static-page-container lang_pli">
@@ -40,6 +42,7 @@ export class NeutralViewPali extends LitElement {
               For the calculation of the Pāli matches, SuttaCentral's
               hyphenation and stemming algorithms have been used.
             </p>
+            ${this.minLengthText}
             <span class="copyright"
               >Background image with courtesy to the Fragile Palm Leaves
               Collection, Bangkok.</span

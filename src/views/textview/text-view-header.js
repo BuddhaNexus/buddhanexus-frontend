@@ -63,6 +63,7 @@ function TextViewHeaderLeftColumn({
   isInfoDialogLeftOpen,
   setIsInfoDialogLeftOpen,
   openDialogLeft,
+  language,
 }) {
   //prettier-ignore
   return html`
@@ -72,7 +73,7 @@ function TextViewHeaderLeftColumn({
       .opened="${isInfoDialogLeftOpen}"
       @opened-changed="${setIsInfoDialogLeftOpen}">
       <template>
-        ${TextViewInfoModalContent()}
+        ${TextViewInfoModalContent(language)}
       </template>
     </vaadin-dialog>
 
@@ -107,6 +108,7 @@ function TextViewHeaderLeftColumn({
 @customElement('text-view-header')
 export class TextViewHeader extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: String }) lang;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
@@ -228,6 +230,7 @@ export class TextViewHeader extends LitElement {
             isInfoDialogLeftOpen: this.isInfoDialogLeftOpen,
             setIsInfoDialogLeftOpen: this.setIsInfoDialogLeftOpen,
             openDialogLeft: this.openDialogLeft,
+            language: this.lang,
           })}
         </div>
 
