@@ -187,7 +187,7 @@ export class TextViewMiddle extends LitElement {
               parOffsetEnd="${parOffsetEnd}"
               @click="${this.clickedParallel}"
               @mouseover="${this.mouseOverParallel}">
-              <span class="selected-parallel-nr">
+              <span class="selected-parallel-nr">${parSegnr}
                 <formatted-segment .segmentnr="${parSegnr}"></formatted-segment>
               </span><br />
               <span class="score">Score: ${parallels[i].score} %</span>
