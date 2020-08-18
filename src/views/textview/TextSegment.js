@@ -143,7 +143,10 @@ export function TextSegment({
         inputData.split('').map(TextSegmentChineseWord)
       );
     } else {
-      outputText = PaliSanskritSegment(inputData, inputData);
+      outputText = PaliSanskritSegment(
+        inputData,
+        inputData.replace(/\//g, '|')
+      );
     }
     return outputText;
   } else {

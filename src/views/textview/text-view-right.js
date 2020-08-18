@@ -359,7 +359,11 @@ const rightSegment = (
   showSegmentNumbers,
   segmentDisplaySide
 ) => {
-  const displayNumber = `${segmentNr.split(':')[1].split('_')[0]}`;
+  let segmentNrList = segmentNr.split(':')[1].split('_');
+  const displayNumber =
+    segmentNrList.length >= 2
+      ? `${segmentNrList[segmentNrList.length - 2]}`
+      : `${segmentNrList[0]}`;
   let firstDisplayNumber =
     segmentNr.split(':')[1].match('_') && !segmentNr.endsWith('_0')
       ? false
