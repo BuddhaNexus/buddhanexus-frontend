@@ -15,7 +15,8 @@ export default css`
   }
 
   .settings-menu[view='text'][lang='pli'],
-  .settings-menu[view='text'][lang='chn'] {
+  .settings-menu[view='text'][lang='chn'],
+  .settings-menu[view='text'][lang='skt'] {
     display: inline-flex;
   }
 
