@@ -152,10 +152,16 @@ export class VisualViewGraph extends LitElement {
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
     this.pageSize = this.language === 'pli' ? 25 : 100;
-    let searchTerm = this.searchItem;
-    searchTerm = !searchTerm.includes('_H')
-      ? searchTerm.split('_')[1]
-      : searchTerm.replace('tib_', '');
+
+    let searchTermList = this.searchItem.split('_');
+    let searchTerm = searchTermList[1];
+    let listLength = searchTermList.length;
+    if (listLength >= 3) {
+      for (let i = 2; i < listLength; i++) {
+        searchTerm += '_' + searchTermList[i];
+      }
+    }
+
     let { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,
@@ -203,6 +209,7 @@ export class VisualViewGraph extends LitElement {
     if (!e.detail.chart.getSelection()[0]) {
       return;
     }
+
     let targetItem = e.detail.chart.getSelection()[0].name;
     if (!targetItem || targetItem.match(/_\(/)) {
       return;
