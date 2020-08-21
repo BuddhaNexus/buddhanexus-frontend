@@ -205,6 +205,9 @@ export class VisualViewGraph extends LitElement {
     }
 
     let targetItem = e.detail.chart.getSelection()[0].name;
+    if (targetItem.match(/ \[/)) {
+      targetItem = targetItem.split(' [')[0];
+    }
     if (!targetItem || targetItem.match(/_\(/)) {
       return;
     }
