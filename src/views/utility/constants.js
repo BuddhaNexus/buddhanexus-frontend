@@ -12,6 +12,13 @@ export const MIN_LENGTHS = {
   SANSKRIT: 25,
 };
 
+export const DEFAULT_LENGTHS = {
+  PALI: 40,
+  TIBETAN: 14,
+  CHINESE: 7,
+  SANSKRIT: 35,
+};
+
 export const LANGUAGE_NAMES = {
   PALI: 'Pāḷi',
   TIBETAN: 'Tibetan',
