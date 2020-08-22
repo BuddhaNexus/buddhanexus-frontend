@@ -205,20 +205,20 @@ export class VisualViewGraph extends LitElement {
     }
 
     let targetItem = e.detail.chart.getSelection()[0].name;
-    if (targetItem.match(/ \[/)) {
-      targetItem = targetItem.split(' [')[0];
-    }
     if (!targetItem || targetItem.match(/_\(/)) {
       return;
     }
     const selectedTarget = targetItem.match(/ \((.*?)\)/);
-    if (targetItem === this.targetItem && !selectedTarget) {
-      let win = window.open(`../${this.language}/text/${targetItem}`, '_blank');
+    const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
+    if (targetItem === this.targetItem) {
+      let win = window.open(
+        `../${this.language}/text/${setSelectionTarget}`,
+        '_blank'
+      );
       win.focus();
       return;
     }
     this.targetItem = targetItem;
-    const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
     this.setSelection(
       this.language + '_' + setSelectionTarget,
       this.selectedCollections
