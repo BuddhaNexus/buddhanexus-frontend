@@ -26,6 +26,7 @@ import { DATA_VIEW_MODES } from './data-view-filters-container';
 import {
   LANGUAGE_CODES,
   MIN_LENGTHS,
+  DEFAULT_LENGTHS,
   DEFAULT_SCORES,
 } from '../utility/constants';
 
@@ -66,26 +67,30 @@ export class DataView extends LitElement {
     this.handleViewModeParamChanged();
     switch (this.language) {
       case LANGUAGE_CODES.TIBETAN:
-        this.quoteLength = MIN_LENGTHS.TIBETAN;
+        this.minLength = MIN_LENGTHS.TIBETAN;
+        this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
         this.score = DEFAULT_SCORES.TIBETAN;
         break;
       case LANGUAGE_CODES.PALI:
-        this.quoteLength = MIN_LENGTHS.PALI;
+        this.minLength = MIN_LENGTHS.PALI;
+        this.quoteLength = DEFAULT_LENGTHS.PALI;
         this.score = DEFAULT_SCORES.PALI;
         break;
       case LANGUAGE_CODES.SANSKRIT:
-        this.quoteLength = MIN_LENGTHS.SANSKRIT;
+        this.minLength = MIN_LENGTHS.SANSKRIT;
+        this.quoteLength = DEFAULT_LENGTHS.SANSKRIT;
         this.score = DEFAULT_SCORES.SANSKRIT;
         break;
       case LANGUAGE_CODES.CHINESE:
-        this.quoteLength = MIN_LENGTHS.CHINESE;
+        this.minLength = MIN_LENGTHS.CHINESE;
+        this.quoteLength = DEFAULT_LENGTHS.CHINESE;
         this.score = DEFAULT_SCORES.CHINESE;
         break;
       default:
-        this.quoteLength = MIN_LENGTHS.TIBETAN;
+        this.minLength = MIN_LENGTHS.TIBETAN;
+        this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
         this.score = DEFAULT_SCORES.TIBETAN;
     }
-    this.minLength = this.quoteLength;
     this.checkSelectedView();
   }
 
