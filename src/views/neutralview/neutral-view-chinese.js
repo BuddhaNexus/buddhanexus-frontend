@@ -22,11 +22,9 @@ export class NeutralViewChinese extends LitElement {
             <p>
               The minimum length for a match has been set to six characters.
               However, five-character matches are occasionally also detected due
-              to our policy of "proximate matches" rather than exact ones.<br />
+              to our policy of "approximate matches" rather than exact ones.<br />
               Matches consisting to a large degree of frequent fixed terms have
-              been filtered from the results. Matches consisting to a large
-              degree of frequent fixed terms have been filtered from the
-              results.
+              been filtered out from the results.
             </p>
             <span class="copyright"
               >Background image: Courtesy of the International College for

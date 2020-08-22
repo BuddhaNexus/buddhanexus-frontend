@@ -44,7 +44,10 @@ export class NeutralViewTibetan extends LitElement {
               verse line consisting of a precise length of 7, 9, or 11
               syllables. The verse lines are only detected if they are placed
               between a pair of either a single or double stroke (shad) at the
-              beginning and a double stroke at the end.
+              beginning and a double stroke at the end. Matches that are longer
+              than 13 syllables but consist to a large degree of stop words,
+              grammatical particles, and the like have been filtered out from
+              the results.
             </p>
             <span class="copyright"
               >Background image: Courtesy of Burkhard Quessel.</span
