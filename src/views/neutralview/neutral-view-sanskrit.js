@@ -1,12 +1,10 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement } from 'lit-element';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './neutral-view.styles';
 
 @customElement('neutral-view-sanskrit')
 export class NeutralViewSanskrit extends LitElement {
-  @property({ type: String }) minLengthText;
-
   static get styles() {
     return [styles, sharedDataViewStyles];
   }
@@ -17,13 +15,6 @@ export class NeutralViewSanskrit extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <h2>Sanskrit</h2>
-            <p>
-              <b
-                ><font size="+1"
-                  >The Sanskrit data will be uploaded soon.</font
-                ></b
-              >
-            </p>
             <p>
               The textual corpus used in BuddhaNexus was obtained from the
               Göttingen Register of Electronic Texts in Indian Languages
@@ -40,7 +31,6 @@ export class NeutralViewSanskrit extends LitElement {
               has been used. This stemming algorithm is accessible as a
               standalone application <a href="/tools/sanskrit">here</a>.
             </p>
-            ${this.minLengthText}
             <span class="copyright"
               >Background image with courtesy to the Nepal-German Manuscript
               Preservation Project (NGMPP).</span

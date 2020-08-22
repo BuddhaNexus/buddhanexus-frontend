@@ -45,8 +45,8 @@ export const minimumLengthText = language => {
   }
   return html`
     <p>
-      <strong>NOTE</strong>: The minimum Match Length for ${languageFull} texts
-      has been set to ${minLength} ${charOrSyl}.
+      The minimum Match Length for ${languageFull} texts has been set to
+      ${minLength} ${charOrSyl}.
     </p>
   `;
 };

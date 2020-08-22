@@ -1,12 +1,10 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement } from 'lit-element';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './neutral-view.styles';
 
 @customElement('neutral-view-tibetan')
 export class NeutralViewTibetan extends LitElement {
-  @property({ type: String }) minLengthText;
-
   static get styles() {
     return [styles, sharedDataViewStyles];
   }
@@ -48,7 +46,6 @@ export class NeutralViewTibetan extends LitElement {
               between a pair of either a single or double stroke (shad) at the
               beginning and a double stroke at the end.
             </p>
-            ${this.minLengthText}
             <span class="copyright"
               >Background image with courtesy to Burkhard Quessel.</span
             >
