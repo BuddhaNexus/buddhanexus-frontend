@@ -209,13 +209,16 @@ export class VisualViewGraph extends LitElement {
       return;
     }
     const selectedTarget = targetItem.match(/ \((.*?)\)/);
-    if (targetItem === this.targetItem && !selectedTarget) {
-      let win = window.open(`../${this.language}/text/${targetItem}`, '_blank');
+    const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
+    if (targetItem === this.targetItem) {
+      let win = window.open(
+        `../${this.language}/text/${setSelectionTarget}`,
+        '_blank'
+      );
       win.focus();
       return;
     }
     this.targetItem = targetItem;
-    const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
     this.setSelection(
       this.language + '_' + setSelectionTarget,
       this.selectedCollections
