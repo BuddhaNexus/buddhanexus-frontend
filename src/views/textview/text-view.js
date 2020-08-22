@@ -204,6 +204,7 @@ export class TextView extends LitElement {
     return html`
       <text-view-header
         .fileName="${this.fileName}"
+        .lang="${this.lang}"
         .rightFileName="${this.rightFileName}"
         .rightSegmentName="${this.rightActiveSegment}"
         .score="${this.score}"

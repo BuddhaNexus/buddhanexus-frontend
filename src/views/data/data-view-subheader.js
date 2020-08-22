@@ -7,7 +7,49 @@ import '@vaadin/vaadin-icons/vaadin-icons.js';
 
 import '../utility/formatted-segment';
 
-import { LANGUAGE_CODES } from '../utility/constants';
+import {
+  LANGUAGE_CODES,
+  LANGUAGE_NAMES,
+  MIN_LENGTHS,
+} from '../utility/constants';
+
+export const minimumLengthText = language => {
+  let minLength;
+  let languageFull;
+  let charOrSyl;
+  switch (language) {
+    case LANGUAGE_CODES.TIBETAN:
+      minLength = MIN_LENGTHS.TIBETAN;
+      languageFull = LANGUAGE_NAMES.TIBETAN;
+      charOrSyl = 'syllables';
+      break;
+    case LANGUAGE_CODES.PALI:
+      minLength = MIN_LENGTHS.PALI;
+      languageFull = LANGUAGE_NAMES.PALI;
+      charOrSyl = 'letters';
+      break;
+    case LANGUAGE_CODES.SANSKRIT:
+      minLength = MIN_LENGTHS.SANSKRIT;
+      languageFull = LANGUAGE_NAMES.SANSKRIT;
+      charOrSyl = 'letters';
+      break;
+    case LANGUAGE_CODES.CHINESE:
+      minLength = MIN_LENGTHS.CHINESE;
+      languageFull = LANGUAGE_NAMES.CHINESE;
+      charOrSyl = 'characters';
+      break;
+    default:
+      minLength = MIN_LENGTHS.TIBETAN;
+      languageFull = LANGUAGE_NAMES.TIBETAN;
+      charOrSyl = 'syllables';
+  }
+  return html`
+    <p>
+      The minimum Match Length for ${languageFull} texts has been set to
+      ${minLength} ${charOrSyl}.
+    </p>
+  `;
+};
 
 @customElement('data-view-subheader')
 class DataViewSubheader extends LitElement {
@@ -83,14 +125,7 @@ class DataViewSubheader extends LitElement {
           @opened-changed="${this.setIsDialogOpen}">
           <template>
             ${this.infoModalContent}
-            ${this.language === LANGUAGE_CODES.PALI
-              ? html`
-                  <p>
-                    <strong>NOTE</strong>: For technical reasons, the
-                    co-occurances for Pāḷi texts are limited to maximum 50.
-                  </p>
-                `
-              : ''}
+            ${minimumLengthText(this.language)}
           </template>
         </vaadin-dialog>
 

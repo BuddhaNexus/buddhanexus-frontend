@@ -57,7 +57,7 @@ export class FormattedSegment extends LitElement {
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
-    this.displayName = displayData[0];
+    this.displayName = displayData ? displayData[0] : '';
     this.fetchLoading = false;
     this.allowFetching = false;
     this.fetchError = error;

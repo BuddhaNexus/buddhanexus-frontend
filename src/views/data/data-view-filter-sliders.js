@@ -5,6 +5,7 @@ export default class DataViewFilterSliders extends LitElement {
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
   @property({ type: Number }) quoteLength;
+  @property({ type: Number }) minLength;
   @property({ type: Function }) updateQuoteLength;
 
   static get styles() {
@@ -87,7 +88,7 @@ export default class DataViewFilterSliders extends LitElement {
             value="${this.quoteLength}"
             @change="${this.updateQuoteLength}"
             max="300"
-            min="5"
+            min="${this.minLength.toString()}"
             editable>
           </paper-slider>
         </div>
