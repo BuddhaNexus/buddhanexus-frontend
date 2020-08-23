@@ -37,7 +37,7 @@ export class DataViewViewSelector extends LitElement {
       >
         ${Object.values(DATA_VIEW_MODES).map(filter => {
           if (
-            filter !== 'numbers' &&
+            //            filter !== 'numbers' &&
             filter !== 'neutral' &&
             filter !== 'text-search'
           ) {

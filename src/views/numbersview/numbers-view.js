@@ -23,10 +23,10 @@ export class NumbersView extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
-
-  @property({ type: Array }) segmentsData;
+  @property({ type: Number }) pageNumber = 0;
+  @property({ type: Array }) segmentsData = [];
   @property({ type: String }) lang;
-  @property({ type: Array }) collectionsData;
+  @property({ type: Array }) collectionsData = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
 
@@ -36,13 +36,13 @@ export class NumbersView extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    this.fetchData();
+    await this.fetchData();
   }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
     this.lang = getLanguageFromFilename(this.fileName);
-    _changedProperties.forEach((oldValue, propName) => {
+    _changedProperties.forEach(async (oldValue, propName) => {
       if (
         [
           'score',
@@ -51,13 +51,38 @@ export class NumbersView extends LitElement {
           'quoteLength',
           'limitCollection',
           'fileName',
+          'pageNumber',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
-        this.fetchData();
+        await this.fetchData();
+      }
+      if (propName === 'collectionsData') {
+        // data fetched, add listener
+        this.addInfiniteScrollListener();
       }
     });
   }
+  updatePageNumber() {
+    this.pageNumber = this.pageNumber + 1;
+  }
+
+  addInfiniteScrollListener = async () => {
+    await this.updateComplete;
+    const tableRows = this.shadowRoot
+      .querySelector('.numbers-view-table')
+      .querySelectorAll('.numbers-view-table-row');
+    const observedRow = tableRows[tableRows.length - 1];
+    const observer = new IntersectionObserver(async entries => {
+      if (entries[0].isIntersecting) {
+        observer.unobserve(observedRow);
+        this.updatePageNumber();
+      }
+    });
+    if (tableRows.length > 0) {
+      observer.observe(observedRow);
+    }
+  };
 
   async fetchData() {
     if (!this.fileName) {
@@ -67,37 +92,33 @@ export class NumbersView extends LitElement {
     this.fetchLoading = true;
 
     const { segments, collections, error } = await getSegmentsForFile({
+      page: this.pageNumber,
       fileName: this.fileName,
       score: this.score,
       co_occ: this.cooccurance,
       par_length: this.quoteLength,
       limit_collection: this.limitCollection,
     });
-
-    this.segmentsData = segments;
-    this.collectionsData = collections;
+    this.segmentsData = [...this.segmentsData, ...segments];
+    this.collectionsData = [...this.collectionsData, ...collections];
     this.fetchError = error;
 
     this.fetchLoading = false;
   }
 
   render() {
-    if (this.fetchLoading) {
-      return html`
-        <p class="slow-loading">
-          Due to the large amount of data, loading might be very slow.
-        </p>
-        <p class="slow-loading">Please wait ...</p>
-        <bn-loading-spinner></bn-loading-spinner>
-      `;
-    }
-    //prettier-ignore
     return html`
+      ${this.fetchLoading
+        ? html`
+            <bn-loading-spinner></bn-loading-spinner>
+          `
+        : null}
+
       <data-view-subheader
         .fileName="${this.fileName}"
         .language="${this.lang}"
-        .infoModalContent="${NumbersViewInfoModalContent()}">
-      </data-view-subheader>
+        .infoModalContent="${NumbersViewInfoModalContent()}"
+      ></data-view-subheader>
       <div class="table-wrapper">
         ${NumbersViewTable({
           fileName: this.fileName,
