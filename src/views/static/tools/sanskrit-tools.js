@@ -3,7 +3,9 @@ import { customElement, property, html, css, LitElement } from 'lit-element';
 import '@vaadin/vaadin-text-field/theme/material/vaadin-text-area';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '../../utility/LoadingSpinner';
-// import { getOutputData } from '../../api/actions';
+import { getTaggedSanskrit } from '../../../api/actions';
+import { preprocessTaggedString } from "./sanskritToolsUtils";
+
 
 import styles from './../static-view.styles';
 
@@ -11,8 +13,10 @@ import styles from './../static-view.styles';
 export class SanskritTools extends LitElement {
   @property({ type: String }) fetchLoading = false;
   @property({ type: String }) hideForm = 'hidden';
-  @property({ type: String }) outputText;
+  @property({ type: String }) taggedSanskritText = "";
+  @property({ type: String }) fetchError;
 
+    
   static get styles() {
     return [
       styles,
@@ -38,7 +42,6 @@ export class SanskritTools extends LitElement {
       `,
     ];
   }
-
   submitFormInput() {
     let inputText = this.shadowRoot.querySelector('#input-stemmer').value;
     this.fetchData(inputText);
@@ -49,21 +52,17 @@ export class SanskritTools extends LitElement {
       this.hideForm = 'hidden';
       return;
     }
-    console.log(inputText);
 
     this.fetchLoading = true;
-
-    // const outputText = await getOutputData({
-    //   inputText: inputText,
-    // });
-    // this.outputText= outputText;
-
-    this.outputText = inputText;
-    if (this.outputText) {
-      this.hideForm = 'visible';
-    }
-
+    const { tagged, error } = await getTaggedSanskrit({
+      query: inputText,
+    });
     this.fetchLoading = false;
+      this.taggedSanskritText = tagged;
+      this.hideForm = "visible";
+      this.fetchLoading = false;
+      this.fetchError = error;
+
   }
 
   render() {
@@ -71,16 +70,17 @@ export class SanskritTools extends LitElement {
       <div class="static-page-container">
         <div class="main-border">
           <div class="main-content">
-            <h1>SANSKRIT</h1>
+            <h1>Sanskrit Language Tools</h1>
             <bn-card light id="input-form">
               <vaadin-text-area
-                label="Description"
-                placeholder="Write here ..."
+                label="Sanskrit Stemmer + Tagger"
+                maxlength=100
+                placeholder="Enter Sanskrit text here (max. 100 characters, unicode)..."
                 id="input-stemmer"
               >
               </vaadin-text-area>
               <vaadin-button id="submit-button" @click="${this.submitFormInput}"
-                >Submit</vaadin-button
+                >Run stemmer+tagger</vaadin-button
               >
             </bn-card>
 
@@ -94,8 +94,8 @@ export class SanskritTools extends LitElement {
               light
               id="output-form"
               style="visibility: ${this.hideForm}"
-            >
-              ${this.outputText}
+            ><b>Tagged Result:</b><br/>
+              ${preprocessTaggedString(this.taggedSanskritText)}
             </bn-card>
           </div>
         </div>
