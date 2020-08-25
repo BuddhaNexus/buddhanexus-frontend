@@ -234,13 +234,13 @@ export const getSearchDataFromBackend = async ({ query }) => {
 
 export const getTaggedSanskrit = async ({ query }) => {
   try {
-      const url = `${API_URL}/sanskrittagger/${query}`;
+    const url = `${API_URL}/sanskrittagger/${query}`;
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
-      return json;
+    return json;
   } catch (e) {
     console.error('Could not load search results from server: ', e);
     return {
@@ -249,8 +249,6 @@ export const getTaggedSanskrit = async ({ query }) => {
     };
   }
 };
-
-
 
 export const getDisplayName = async ({ segmentnr }) => {
   try {

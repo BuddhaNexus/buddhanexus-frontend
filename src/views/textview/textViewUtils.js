@@ -1,7 +1,6 @@
 import { getLanguageFromFilename } from '../utility/views-common';
 import { removeHighlightedNumbers } from '../utility/preprocessing';
 
-
 export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
   let WordList = [];
   let colourValues = [];
@@ -28,7 +27,7 @@ export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
       // TODO: refactor the below ifstatements
       if (
         parallels[i].root_segnr[0] === segmentName &&
-              position >= parallels[i].root_offset_beg	      
+        position >= parallels[i].root_offset_beg
       ) {
         if (parallels[i].root_segnr.slice(-1)[0] === segmentName) {
           if (position < parallels[i].root_offset_end) {
@@ -50,7 +49,7 @@ export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
       }
     }
   }
-    colourValues = removeHighlightedNumbers(mainSegment,colourValues);
+  colourValues = removeHighlightedNumbers(mainSegment, colourValues);
   return colourValues;
 }
 

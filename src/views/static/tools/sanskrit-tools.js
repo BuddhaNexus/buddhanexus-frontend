@@ -4,8 +4,7 @@ import '@vaadin/vaadin-text-field/theme/material/vaadin-text-area';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
 import '../../utility/LoadingSpinner';
 import { getTaggedSanskrit } from '../../../api/actions';
-import { preprocessTaggedString } from "./sanskritToolsUtils";
-
+import { preprocessTaggedString } from './sanskritToolsUtils';
 
 import styles from './../static-view.styles';
 
@@ -13,10 +12,9 @@ import styles from './../static-view.styles';
 export class SanskritTools extends LitElement {
   @property({ type: String }) fetchLoading = false;
   @property({ type: String }) hideForm = 'hidden';
-  @property({ type: String }) taggedSanskritText = "";
+  @property({ type: String }) taggedSanskritText = '';
   @property({ type: String }) fetchError;
 
-    
   static get styles() {
     return [
       styles,
@@ -58,11 +56,10 @@ export class SanskritTools extends LitElement {
       query: inputText,
     });
     this.fetchLoading = false;
-      this.taggedSanskritText = tagged;
-      this.hideForm = "visible";
-      this.fetchLoading = false;
-      this.fetchError = error;
-
+    this.taggedSanskritText = tagged;
+    this.hideForm = 'visible';
+    this.fetchLoading = false;
+    this.fetchError = error;
   }
 
   render() {
@@ -74,7 +71,7 @@ export class SanskritTools extends LitElement {
             <bn-card light id="input-form">
               <vaadin-text-area
                 label="Sanskrit Stemmer + Tagger"
-                maxlength=100
+                maxlength="100"
                 placeholder="Enter Sanskrit text here (max. 100 characters, unicode)..."
                 id="input-stemmer"
               >
@@ -90,11 +87,8 @@ export class SanskritTools extends LitElement {
                 `
               : null}
 
-            <bn-card
-              light
-              id="output-form"
-              style="visibility: ${this.hideForm}"
-            ><b>Tagged Result:</b><br/>
+            <bn-card light id="output-form" style="visibility: ${this.hideForm}"
+              ><h2>Tagged Result:</h2>
               ${preprocessTaggedString(this.taggedSanskritText)}
             </bn-card>
           </div>
