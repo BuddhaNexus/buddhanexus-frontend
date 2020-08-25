@@ -6,6 +6,7 @@ import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
 import '../utility/formatted-segment';
+import '../utility/gretil-link';
 
 import {
   LANGUAGE_CODES,
@@ -117,7 +118,8 @@ class DataViewSubheader extends LitElement {
     return html`
       <div class="data-view-subheader">
         <div class="text-name-label">Inquiry Text:</div>
-        <formatted-filename .filename="${this.fileName}"></formatted-filename>
+        <formatted-filename .filename="${this.fileName}"></formatted-filename>&#160;
+        <gretil-link .filename="${this.fileName}"></gretil-link>
         <vaadin-dialog
           id="info-number-view"
           aria-label="simple"

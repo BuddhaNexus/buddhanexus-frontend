@@ -249,3 +249,21 @@ export const getDisplayName = async ({ segmentnr }) => {
     };
   }
 };
+
+export const getGretilLink = async ({ fileName }) => {
+  try {
+    const url = `${API_URL}/gretillink/${fileName}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load gretil link from server: ', e);
+    return {
+      error:
+        'Could not load gretil link. Please check the console for details.',
+    };
+  }
+};
