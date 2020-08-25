@@ -15,7 +15,6 @@ export const getSegmentsForFile = async ({
 }) => {
   try {
     const url = getFileSegmentsUrl(fileName, limit_collection, queryParams);
-    console.log('NUMBERS URL', url);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {
