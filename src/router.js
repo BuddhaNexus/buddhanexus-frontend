@@ -15,6 +15,7 @@ import './views/static/projects/projects-view.js';
 import './views/static/presentations/presentations-view.js';
 import './views/static/publications/publications-view.js';
 import './views/static/contact/contact-view.js';
+import './views/static/tools/sanskrit-tools.js';
 import {
   getMainLayout,
   setLogoSource,
@@ -143,6 +144,15 @@ const ROUTES = [
     path: '/publications',
     animate: true,
     component: 'publications-view',
+    action: () => {
+      switchNavbarLayout(false, true);
+      setNavigationDrawerVisibility(false);
+    },
+  },
+  {
+    path: '/sanskrit-tools',
+    animate: true,
+    component: 'sanskrit-tools',
     action: () => {
       switchNavbarLayout(false, true);
       setNavigationDrawerVisibility(false);

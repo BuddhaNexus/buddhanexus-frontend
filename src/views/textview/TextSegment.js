@@ -50,7 +50,7 @@ const ChineseSegment = (inputData, segment) => {
       `;
 };
 
-const PaliSanskritSegment = (inputData, segment) => {
+const PaliSegment = (inputData, segment) => {
   const strippedSegment = inputData.replace(/\//g, '|');
   return strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g)
     ? html`
@@ -63,6 +63,12 @@ const PaliSanskritSegment = (inputData, segment) => {
     : html`
         ${segment}
       `;
+};
+
+const SanskritSegment = (inputData, segment) => {
+  return html`
+    ${segment}<br />
+  `;
 };
 
 function TextSegmentWord({
@@ -135,18 +141,24 @@ export function TextSegment({
 }) {
   if (colorValues.length <= 0) {
     let outputText;
-    if (lang === LANGUAGE_CODES.TIBETAN) {
-      outputText = TibetanSegment(inputData);
-    } else if (lang === LANGUAGE_CODES.CHINESE) {
-      outputText = ChineseSegment(
-        inputData,
-        inputData.split('').map(TextSegmentChineseWord)
-      );
-    } else {
-      outputText = PaliSanskritSegment(
-        inputData,
-        inputData.replace(/\//g, '|')
-      );
+    switch (lang) {
+      case LANGUAGE_CODES.TIBETAN:
+        outputText = TibetanSegment(inputData);
+        break;
+      case LANGUAGE_CODES.PALI:
+        outputText = PaliSegment(inputData, inputData.replace(/\//g, '|'));
+        break;
+      case LANGUAGE_CODES.SANSKRIT:
+        outputText = SanskritSegment(inputData, inputData.replace(/\//g, '|'));
+        break;
+      case LANGUAGE_CODES.CHINESE:
+        outputText = ChineseSegment(
+          inputData,
+          inputData.split('').map(TextSegmentChineseWord)
+        );
+        break;
+      default:
+        outputText = TibetanSegment(inputData);
     }
     return outputText;
   } else {
@@ -158,13 +170,23 @@ export function TextSegment({
       onClick,
       rightMode
     );
-    if (lang === LANGUAGE_CODES.CHINESE) {
-      return ChineseSegment(inputData, words);
+    let outputwords;
+    switch (lang) {
+      case LANGUAGE_CODES.TIBETAN:
+        outputwords = words;
+        break;
+      case LANGUAGE_CODES.PALI:
+        outputwords = PaliSegment(inputData, words);
+        break;
+      case LANGUAGE_CODES.SANSKRIT:
+        outputwords = SanskritSegment(inputData, words);
+        break;
+      case LANGUAGE_CODES.CHINESE:
+        outputwords = ChineseSegment(inputData, words);
+        break;
+      default:
+        outputwords = words;
     }
-    if (lang === LANGUAGE_CODES.SANSKRIT || lang === LANGUAGE_CODES.PALI) {
-      return PaliSanskritSegment(inputData, words);
-    } else {
-      return words;
-    }
+    return outputwords;
   }
 }

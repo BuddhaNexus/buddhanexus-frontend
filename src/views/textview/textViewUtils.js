@@ -1,4 +1,5 @@
 import { getLanguageFromFilename } from '../utility/views-common';
+import { removeHighlightedNumbers } from '../utility/preprocessing';
 
 export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
   let WordList = [];
@@ -48,6 +49,7 @@ export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
       }
     }
   }
+  colourValues = removeHighlightedNumbers(mainSegment, colourValues);
   return colourValues;
 }
 

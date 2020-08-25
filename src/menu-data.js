@@ -78,10 +78,18 @@ export const navMenuDataMain = [
       },
     ],
   },
-
   {
     text: 'Visual Charts',
     url: 'visual',
+  },
+  {
+    text: 'Tools',
+    children: [
+      {
+        text: 'Sanskrit',
+        url: 'sanskrit-tools',
+      },
+    ],
   },
 ];
 
