@@ -32,4 +32,14 @@ export default css`
     font-size: 0.8em;
     font-weight: 200;
   }
+
+  a.content-link {
+    color: var(--content-link-color);
+    text-decoration: none;
+  }
+
+  a.content-link:hover {
+    color: var(--hover-link-color);
+    text-decoration: underline;
+  }
 `;

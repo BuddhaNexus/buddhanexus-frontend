@@ -20,6 +20,8 @@ export class NeutralViewSanskrit extends LitElement {
               The textual corpus used in BuddhaNexus was obtained from the
               Göttingen Register of Electronic Texts in Indian Languages (<a
                 href="http://gretil.sub.uni-goettingen.de/gretil.html"
+                class="content-link"
+                target="blank"
                 >GRETIL</a
               >) for Sanskrit texts. Due to the huge amount of material, some
               texts from the GRETIL database have been omitted (cumulative pāda
@@ -34,9 +36,12 @@ export class NeutralViewSanskrit extends LitElement {
             <p>
               For the calculation of the Sanskrit matches and for the global
               search function, a stemming algorithm has been used. This stemming
-              algorithm is accessible as a standalone application
-              <a href="/sanskrit-tools">here</a>.
+              algorithm is accessible as a
+              <a href="/sanskrit-tools" class="content-link"
+                >standalone application</a
+              >.
             </p>
+            <p>The minimum length for a match has been set to 25 letters.</p>
             <span class="copyright"
               >Background image with courtesy to the Nepal-German Manuscript
               Preservation Project (NGMPP).</span
