@@ -4,7 +4,7 @@ import styles from '../data/data-view.styles';
 import sharedStyles from '../data/data-view-shared.styles';
 
 import '../utility/formatted-segment';
-import '../utility/gretil-link';
+
 
 @customElement('table-view-table-header')
 class TableViewTableHeader extends LitElement {
