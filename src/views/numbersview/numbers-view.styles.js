@@ -10,7 +10,7 @@ export default css`
     display: block;
     overflow: scroll;
     position: relative;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 260px);
     font-size: 14px;
     margin-top: 8px;
     min-height: 300px;
