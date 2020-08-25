@@ -26,5 +26,10 @@ export default css`
           font-size: 1.05em;
           margin-left: 8px;
         }
+
+        .segment-link {
+          text-decoration: none;
+          color: var(--color-text-secondary);
+        }
   }
 `;

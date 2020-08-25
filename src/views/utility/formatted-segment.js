@@ -10,6 +10,7 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) lang;
   @property({ type: String }) number;
   @property({ type: String }) displayName = '';
+  @property({ type: String }) displayLink = '';
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -58,6 +59,7 @@ export class FormattedSegment extends LitElement {
       segmentnr: this.filename,
     });
     this.displayName = displayData ? displayData[0] : '';
+    this.displayLink = displayData ? displayData[2] : '';
     this.fetchLoading = false;
     this.allowFetching = false;
     this.fetchError = error;
@@ -67,6 +69,12 @@ export class FormattedSegment extends LitElement {
     if (this.fetchLoading || !this.displayName) {
       // prettier-ignore
       return html`<span class="formatted-segment" title="${this.filename}">${this.filename}:${this.number}</span>`
+    }
+    if (this.displayLink) {
+      // prettier-ignore
+      return html`<a target="_blanc" class="segment-link" href="${this.displayLink}">
+        <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
+      </a>`
     }
     // prettier-ignore
     return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>`
