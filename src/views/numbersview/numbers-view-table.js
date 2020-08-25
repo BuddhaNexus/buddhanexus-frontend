@@ -54,7 +54,7 @@ const TableRowContainer = (
 const TableRow = (segmentNr, collections, language) =>
   //prettier-ignore
   html`
-    <tr>
+    <tr class="numbers-view-table-row">
       <th>
         <span class="segment-number">${segmentNr}</span>
       </th>

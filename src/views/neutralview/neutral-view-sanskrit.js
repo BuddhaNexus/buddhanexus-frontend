@@ -15,6 +15,7 @@ export class NeutralViewSanskrit extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <h2>Sanskrit</h2>
+            <p><b>The Sanskrit data will be uploaded soon.</b></p>
             <p>
               The textual corpus used in BuddhaNexus was obtained from the
               Göttingen Register of Electronic Texts in Indian Languages
