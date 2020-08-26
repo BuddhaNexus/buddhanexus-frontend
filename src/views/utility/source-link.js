@@ -3,9 +3,10 @@ import { customElement, html, css, LitElement, property } from 'lit-element';
 import { getGretilLink } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
 
-@customElement('gretil-link')
+@customElement('source-link')
 export class FormattedFileName extends LitElement {
   @property({ type: String }) filename;
+  @property({ type: String }) lang;
   @property({ type: String }) sourceLink = '';
   @property({ type: String }) buttonText = '';
   @property({ type: String }) titleText = '';
@@ -64,7 +65,6 @@ export class FormattedFileName extends LitElement {
     const { gretilLink, error } = await getGretilLink({
       fileName: this.filename,
     });
-    console.log(gretilLink, error);
     this.sourceLink = gretilLink;
     this.fetchLoading = false;
     this.fetchError = error;

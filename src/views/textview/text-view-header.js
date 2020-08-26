@@ -4,7 +4,7 @@ import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
 import '../utility/formatted-segment';
-import '../utility/gretil-link';
+import '../utility/source-link';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 
@@ -225,7 +225,7 @@ export class TextViewHeader extends LitElement {
         <div id="text-view-header-left">
           <span class="text-name-label">Inquiry Text: </span>
           <formatted-filename .filename="${this.fileName}"></formatted-filename>
-          <gretil-link .filename="${this.fileName}"></gretil-link>
+          <source-link .filename="${this.fileName}"></source-link>
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
