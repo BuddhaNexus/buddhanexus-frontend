@@ -6,6 +6,10 @@ export default css`
     height: calc(100vh - 410px);
   }
 
+  vaadin-split-layout.no-header {
+    height: calc(100vh - 260px);
+  }
+
   vaadin-split-layout div {
     flex: 1;
   }

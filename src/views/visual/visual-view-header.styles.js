@@ -52,6 +52,16 @@ export default css`
     color: var(--color-text-secondary);
   }
 
+  .nav-bar-toggle-icon {
+    cursor: row-resize;
+    min-height: 22px;
+    min-width: 22px;
+    pointer-events: auto;
+    opacity: 1;
+    transition: opacity var(--vaadin-app-layout-transition);
+    color: var(--material-secondary-text-color);
+  }
+
   vaadin-button {
     background-color: transparent;
     color: var(--color-menu-items);

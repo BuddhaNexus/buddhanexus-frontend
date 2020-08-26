@@ -196,4 +196,14 @@ export default css`
     font-family: var(--material-font-family);
     font-size: var(--material-button-font-size);
   }
+
+  .no-header {
+    top: 0px;
+    margin-top: -24px;
+    height: fit-content;
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    background-color: var(--color-background-light);
+  }
 `;

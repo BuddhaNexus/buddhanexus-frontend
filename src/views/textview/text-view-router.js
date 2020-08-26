@@ -33,6 +33,7 @@ export class TextViewRouter extends LitElement {
   @property({ type: Function }) setSelectedView;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
+  @property({ type: String }) headerVisibility;
 
   handleSearchResultClicked(e) {
     this.leftTextData = e.detail;
@@ -65,6 +66,7 @@ export class TextViewRouter extends LitElement {
         .searchString="${this.searchString}"
         .showSegmentNumbers="${this.showSegmentNumbers}"
         .segmentDisplaySide="${this.segmentDisplaySide}"
+        .headerVisibility="${this.headerVisibility}"
       ></text-view>
     `;
   }

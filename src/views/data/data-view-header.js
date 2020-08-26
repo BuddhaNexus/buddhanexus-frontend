@@ -11,7 +11,7 @@ class DataViewHeader extends LitElement {
   @property({ type: String }) language;
   @property({ type: String }) viewMode;
   @property({ type: String }) folio;
-
+  @property({ type: Function }) toggleNavBar;
   @property({ type: Function }) updateSearch;
   @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) setFileName;
@@ -32,19 +32,28 @@ class DataViewHeader extends LitElement {
           width: 100%;
         }
 
-        .filter-bar-toggle-icon {
+        .filter-bar-toggle-icon,
+        .nav-bar-toggle-icon {
           margin-right: 2em;
           min-height: 22px;
           min-width: 22px;
           position: absolute;
           top: 52px;
           padding: 12px;
-          right: 0;
-          cursor: pointer;
           pointer-events: auto;
           opacity: 1;
           transition: opacity var(--vaadin-app-layout-transition);
           color: var(--material-secondary-text-color);
+        }
+
+        .filter-bar-toggle-icon {
+          right: 0;
+          cursor: pointer;
+        }
+
+        .nav-bar-toggle-icon {
+          right: 40px;
+          cursor: row-resize;
         }
 
         .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open {
@@ -89,6 +98,13 @@ class DataViewHeader extends LitElement {
               .updateSearch="${this.updateSearch}"
               .updateSortMethod="${this.updateSortMethod}">
             </data-view-header-fields>
+
+            <iron-icon
+              icon="vaadin:desktop"
+              title="Toggle Full Screen Mode"
+              @click="${this.toggleNavBar}"
+              class="nav-bar-toggle-icon">
+            </iron-icon>
 
             <iron-icon
               icon="vaadin:filter"

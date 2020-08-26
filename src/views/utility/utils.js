@@ -86,6 +86,17 @@ function setNavbarFixed(isFixed) {
   }
 }
 
+function setNavbarVisibility(isVisible) {
+  const navbar = getMainLayout()
+    .querySelector('vaadin-app-layout')
+    .shadowRoot.querySelector('div');
+  if (isVisible) {
+    navbar.setAttribute('style', 'position: fixed; top: 80px;');
+  } else {
+    navbar.setAttribute('style', 'position: fixed; top: 0px;');
+  }
+}
+
 function toggleLargeNavbarLayoutClass(isLargeNavbar) {
   const layout = getMainLayout().querySelector('vaadin-app-layout');
   if (isLargeNavbar) {
@@ -109,8 +120,9 @@ export function switchNavbarLayout(isLargeNavbar, isVisibleFooter) {
   setFooterVisibility(isVisibleFooter);
   toggleLargeNavbarLayoutClass(isLargeNavbar);
 }
-/*
-export function setFooterVisible(isVisible) {
-//  setFooterVisibility(isVisible);
+
+export function switchNavbarVisibility(isVisibleNavbar) {
+  closeDrawer();
+  setLogoVisibility(isVisibleNavbar);
+  setNavbarVisibility(isVisibleNavbar);
 }
-*/

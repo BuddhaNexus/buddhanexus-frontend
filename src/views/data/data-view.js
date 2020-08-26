@@ -21,7 +21,7 @@ import './data-view-header';
 import '../utility/total-numbers';
 import { getLanguageFromFilename } from '../utility/views-common';
 import dataViewStyles from './data-view.styles';
-import { getMainLayout } from '../utility/utils';
+import { getMainLayout, switchNavbarVisibility } from '../utility/utils';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 import {
   LANGUAGE_CODES,
@@ -47,6 +47,7 @@ export class DataView extends LitElement {
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
+  @property({ type: String }) headerVisibility = '';
   @property({ type: Boolean }) filterBarOpen;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
@@ -271,6 +272,16 @@ export class DataView extends LitElement {
     this.filterBarOpen = !this.filterBarOpen;
   };
 
+  toggleNavBar = () => {
+    if (this.headerVisibility === '') {
+      this.headerVisibility = 'no-header';
+      switchNavbarVisibility(false);
+    } else {
+      this.headerVisibility = '';
+      switchNavbarVisibility(true);
+    }
+  };
+
   toggleShowSegmentNumbers = e => {
     this.showSegmentNumbers = e.detail.value;
   };
@@ -282,7 +293,7 @@ export class DataView extends LitElement {
   render() {
     //prettier-ignore
     return html`
-      <div class="data-view" lang="${this.language}" view="${this.viewMode}">
+      <div class="data-view ${this.headerVisibility}" lang="${this.language}" view="${this.viewMode}">
         <div class="data-view__main-container">
           <data-view-header
             .language="${this.language}"
@@ -294,6 +305,7 @@ export class DataView extends LitElement {
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
+            .toggleNavBar="${this.toggleNavBar}"
             .updateSearch="${this.setSearch}"
             .updateSortMethod="${this.setSortMethod}">
           </data-view-header>
@@ -313,6 +325,7 @@ export class DataView extends LitElement {
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
             .searchString="${this.searchString}"
+            .headerVisibility="${this.headerVisibility}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
             .segmentDisplaySide="${this.segmentDisplaySide}">
           </data-view-router>
