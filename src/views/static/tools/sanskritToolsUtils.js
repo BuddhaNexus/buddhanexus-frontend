@@ -90,17 +90,13 @@ const SanskritTaggerReplacements = {
 };
 
 export function preprocessTaggedString(taggedString) {
-  let count = 0;
   taggedString = taggedString.replace(/\|/g, ', ');
-
   SanskritTaggerOrder.forEach(result => {
-    while (taggedString.includes(result) && count < 1000) {
-      console.log('result');
+    while (taggedString.includes(result)) {
       taggedString = taggedString.replace(
         result,
         SanskritTaggerReplacements[result]
       );
-      count = count + 1;
     }
   });
 
