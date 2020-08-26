@@ -3,7 +3,7 @@ import { html } from 'lit-element';
 import { objectMap } from '../utility/utils';
 import { getParCollectionNumber } from './numbersViewUtils';
 import NumbersViewTableHeader from './numbers-view-table-header';
-import { getLinkForSegmentNumbers } from '../utility/preprocessing';
+import '../utility/formatted-segment';
 
 const NumbersViewTable = ({ fileName, collections, segments, language }) => {
   if (!segments || segments.length === 0) {
@@ -42,7 +42,12 @@ const TableRowContainer = (
 ) =>
   segmentParallels.map((parallelArr, index) => {
     const parCollection = getParCollectionNumber(parallelArr);
-    const segmentlink = getLinkForSegmentNumbers(language, [`${segmentnr}`]);
+    const segmentlink = html`
+      <formatted-segment
+        .segmentnr="${[`${segmentnr}`]}"
+        .lang="${language}"
+      ></formatted-segment>
+    `;
     if (collections[parCollection]) {
       collections[parCollection].push(parallelArr);
       if (index === segmentParallels.length - 1) {
@@ -70,7 +75,12 @@ const TableRow = (segmentNr, collections, language) =>
 
 const getParallelsForCollection = (collection, language) =>
   collection.map(item => {
-    const segmentlink = getLinkForSegmentNumbers(language, item);
+    const segmentlink = html`
+      <formatted-segment
+        .segmentnr="${item}"
+        .lang="${language}"
+      ></formatted-segment>
+    `;
     //prettier-ignore
     return html`
       <span class="segment-number">${segmentlink}</span><br />

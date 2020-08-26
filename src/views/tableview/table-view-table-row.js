@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 
 import { getLanguageFromFilename } from '../utility/views-common';
-import { getLinkForSegmentNumbers } from '../utility/preprocessing';
+import '../utility/formatted-segment';
 
 export const TableViewTableRow = ({
   rootSegmentId,
@@ -19,7 +19,12 @@ export const TableViewTableRow = ({
     <div class="table-view-table__row">
       <div class="table-view-table__cell table-view-table__cell-segment material-card">
         <header class="table-view-table__cell-header">
-          <span class="table-view-table__segment-id">${getLinkForSegmentNumbers(getLanguageFromFilename(rootSegmentId[0]), rootSegmentId)}</span>
+          <span class="table-view-table__segment-id">
+            <formatted-segment
+              .segmentnr="${rootSegmentId}"
+              .lang="${getLanguageFromFilename(rootSegmentId[0])}">
+            </formatted-segment>
+          </span>
           <div class="table-view-table__parallel-details">
             <span class="table-view-table__parallel-details-badge">Length: <b>${rootLength}</b></span>
           </div>
@@ -35,7 +40,12 @@ export const TableViewTableRow = ({
       </div>
       <div class="table-view-table__cell table-view-table__cell-parallel material-card">
         <header class="table-view-table__cell-header">
-          <span class="table-view-table__segment-id">${getLinkForSegmentNumbers(getLanguageFromFilename(parallelSegmentId[0]), parallelSegmentId)}</span>
+          <span class="table-view-table__segment-id">
+            <formatted-segment
+              .segmentnr="${parallelSegmentId}"
+              .lang="${getLanguageFromFilename(parallelSegmentId[0])}">
+            </formatted-segment>
+          </span>
           <div class="table-view-table__parallel-details">
             <span class="table-view-table__parallel-details-badge">Score: <b>${score}%</b></span>
             <span class="table-view-table__parallel-details-badge">Length: <b>${parLength}</b></span>

@@ -43,12 +43,3 @@ export const createTextViewSegmentUrl = segmentNr => {
   // This is a hack because dots in the segmentnumber are not accepted in the routing.
   return `../../${lang}/text/${textName}/${segmentNr.replace(/\./g, '@')}`;
 };
-
-export const getSegmentIdFromKey = segmentKey => {
-  let segmentLabel = segmentKey[0];
-  if (segmentKey.length > 1) {
-    const parallels = segmentKey[segmentKey.length - 1].split(':');
-    return segmentLabel + `–${parallels[parallels.length - 1]}`;
-  }
-  return segmentLabel;
-};
