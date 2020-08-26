@@ -40,7 +40,6 @@ class DataViewHeader extends LitElement {
           position: absolute;
           top: 52px;
           padding: 12px;
-          cursor: pointer;
           pointer-events: auto;
           opacity: 1;
           transition: opacity var(--vaadin-app-layout-transition);
@@ -49,10 +48,12 @@ class DataViewHeader extends LitElement {
 
         .filter-bar-toggle-icon {
           right: 0;
+          cursor: pointer;
         }
 
         .nav-bar-toggle-icon {
           right: 40px;
+          cursor: row-resize;
         }
 
         .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open {

@@ -32,6 +32,7 @@ export class VisualViewHeader extends LitElement {
   @property({ type: Array }) selectedCollections = [];
   @property({ type: Function }) setSelection;
   @property({ type: Function }) setColorScheme;
+  @property({ type: Function }) toggleNavBar;
   @property({ type: Boolean }) isDialogOpen;
   @property({ type: String }) fetchError;
 
@@ -134,6 +135,14 @@ export class VisualViewHeader extends LitElement {
               individual matches will be displayed.
             </template>
           </vaadin-dialog>
+
+          <iron-icon
+            icon="vaadin:desktop"
+            title="Toggle Full Screen Mode"
+            @click="${this.toggleNavBar}"
+            class="nav-bar-toggle-icon">
+          </iron-icon>
+
           <vaadin-button class="info-button" @click="${this.openDialog}">
             <iron-icon
               class="info-icon"

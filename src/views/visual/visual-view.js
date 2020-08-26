@@ -1,6 +1,7 @@
 import { customElement, html, css, LitElement, property } from 'lit-element';
 
 import '@google-web-components/google-chart/google-chart.js';
+import { switchNavbarVisibility } from '../utility/utils';
 
 import './visual-view-header';
 import './visual-view-graph';
@@ -12,6 +13,7 @@ export class VisualView extends LitElement {
   @property({ type: String }) colorScheme;
   @property({ type: String }) activeLanguage;
   @property({ type: Array }) selectedCollections;
+  @property({ type: String }) headerVisibility = '';
 
   static get styles() {
     return [
@@ -43,9 +45,11 @@ export class VisualView extends LitElement {
       `,
     ];
   }
+
   firstUpdated() {
     this.activeLanguage = this.location.params.lang;
   }
+
   setSelection = (searchItem, selectedCollections) => {
     this.searchItem = searchItem;
     this.selectedCollections = selectedCollections;
@@ -58,6 +62,18 @@ export class VisualView extends LitElement {
   setDisplay() {
     return this.activeLanguage ? 'display: flex' : 'display: none';
   }
+
+  toggleNavBar = () => {
+    if (this.headerVisibility === '') {
+      this.headerVisibility = 'no-header';
+      this.classList.add('no-header');
+      switchNavbarVisibility(false);
+    } else {
+      this.headerVisibility = '';
+      this.classList.remove('no-header');
+      switchNavbarVisibility(true);
+    }
+  };
 
   render() {
     //prettier-ignore
@@ -72,7 +88,8 @@ export class VisualView extends LitElement {
         <visual-view-header
           .setSelection="${this.setSelection}"
           .setColorScheme="${this.setColorScheme}"
-          .activeLanguage="${this.activeLanguage}">
+          .activeLanguage="${this.activeLanguage}"
+          .toggleNavBar="${this.toggleNavBar}">
         </visual-view-header>
 
         <visual-view-graph
