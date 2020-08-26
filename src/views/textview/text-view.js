@@ -33,6 +33,7 @@ export class TextView extends LitElement {
   @property({ type: String }) lang;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
+  @property({ type: String }) headerVisibility;
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
@@ -237,6 +238,7 @@ export class TextView extends LitElement {
           this.highlightLeftAfterScrolling(e)}"
         .handleMouseOver="${e => this.handleMouseOver(e)}"
         .handleParallelClicked="${e => this.handleParallelClicked(e)}"
+        .headerVisibility="${this.headerVisibility}"
       >
       </text-view-table>
     `;

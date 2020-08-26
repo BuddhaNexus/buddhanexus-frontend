@@ -14,6 +14,15 @@ export default css`
     flex: 1;
   }
 
+  .data-view.no-header {
+    top: 0px;
+    margin-top: -24px;
+    height: calc(100vh + 24px);
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+  }
+
   .settings-menu[view='text'][lang='pli'],
   .settings-menu[view='text'][lang='chn'],
   .settings-menu[view='text'][lang='skt'] {
@@ -49,6 +58,7 @@ export default css`
     flex-direction: column;
     overflow: auto;
     flex: 1;
+    background-color: var(--color-background-light);
   }
 
   data-view-router {

@@ -29,6 +29,7 @@ export class NumbersView extends LitElement {
   @property({ type: Array }) collectionsData = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
+  @property({ type: String }) headerVisibility;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -119,7 +120,7 @@ export class NumbersView extends LitElement {
         .language="${this.lang}"
         .infoModalContent="${NumbersViewInfoModalContent()}"
       ></data-view-subheader>
-      <div class="table-wrapper">
+      <div class="table-wrapper ${this.headerVisibility}">
         ${NumbersViewTable({
           fileName: this.fileName,
           collections: this.collectionsData,

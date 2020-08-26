@@ -24,6 +24,7 @@ export default class TextViewTable extends LitElement {
   @property({ type: Function }) highlightLeftAfterScrolling;
   @property({ type: Function }) handleMouseOver;
   @property({ type: Function }) handleParallelClicked;
+  @property({ type: String }) headerVisibility;
 
   static get styles() {
     return [
@@ -41,7 +42,7 @@ export default class TextViewTable extends LitElement {
     //prettier-ignore
     return html`
       <div class="middle-right-texts-container">
-        <vaadin-split-layout>
+        <vaadin-split-layout class="${this.headerVisibility}">
           <div class="middle-text-column">
             <text-view-middle
               id="text-view-middle"
@@ -94,7 +95,7 @@ export default class TextViewTable extends LitElement {
 
     return html`
       <bn-card light>
-        <vaadin-split-layout>
+        <vaadin-split-layout class="${this.headerVisibility}">
           <div class="left-text-column">
             <text-view-left
               id="text-view-left"

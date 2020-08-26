@@ -16,6 +16,10 @@ export default css`
     min-height: 300px;
   }
 
+  .table-wrapper.no-header {
+    height: calc(100vh - 190px);
+  }
+
   td,
   th {
     vertical-align: top;

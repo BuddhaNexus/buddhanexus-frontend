@@ -23,6 +23,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: Array }) targetCollection;
   @property({ type: Number }) score;
   @property({ type: Number }) quoteLength;
+  @property({ type: String }) headerVisibility;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
 
@@ -46,6 +47,7 @@ export class DataViewRouter extends LitElement {
           .setSelectedView="${this.setSelectedView}"
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
+          .headerVisibility="${this.headerVisibility}"
         ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
@@ -56,6 +58,7 @@ export class DataViewRouter extends LitElement {
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
           .score="${this.score}"
+          .headerVisibility="${this.headerVisibility}"
         ></numbers-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.GRAPH) {
