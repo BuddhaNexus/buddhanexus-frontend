@@ -3,7 +3,6 @@
 import { html } from 'lit-element';
 
 import { TextSegment } from '../textview/TextSegment';
-import { getSegmentIdFromKey } from '../data/dataViewUtils';
 import './formatted-segment';
 
 export const SEGMENT_COLORS = {
@@ -102,50 +101,4 @@ export function segmentArrayToString(segmentArray, lang) {
     }
   }
   return SegmentRef;
-}
-
-export function getLinkForSegmentNumbers(language, segmentnr) {
-  let formattedSegmentNr = html`
-    <formatted-segment
-      .segmentnr="${segmentArrayToString(segmentnr, language)}"
-    ></formatted-segment>
-  `;
-  let linkText = '';
-  if (language === 'pli') {
-    segmentnr = getSegmentIdFromKey(segmentnr);
-    let cleanedSegment = segmentnr
-      .split(':')[1]
-      .replace(/_[0-9]+/g, '')
-      .replace('–', '--');
-    let rootSegment = segmentnr.split(':')[0];
-    if (segmentnr.match(/^dhp/)) {
-      cleanedSegment = `${cleanedSegment.split('.', 1)}`;
-      rootSegment = 'dhp';
-    } else if (segmentnr.match(/^an[1-9]|^sn[1-9]/)) {
-      rootSegment = `${rootSegment}.${cleanedSegment.split('.', 1)}`;
-      const dotPosition = cleanedSegment.indexOf('.');
-      cleanedSegment = cleanedSegment.substring(dotPosition + 1);
-      if (cleanedSegment.match(/--/)) {
-        let [firstpart, secondpart] = cleanedSegment.split('--');
-        const secondDot = secondpart.indexOf('.');
-        secondpart = secondpart.substring(secondDot + 1);
-        cleanedSegment = `${firstpart}--${secondpart}`;
-      }
-    }
-    linkText = segmentnr.match(/^tika|^anya|^atk/)
-      ? `https://www.tipitaka.org/romn/`
-      : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
-  } else if (language === 'chn') {
-    const cleanedSegment = segmentnr[0].split(':')[0].replace(/_[TX]/, 'n');
-    linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
-  }
-  return linkText
-    ? html`
-        <a target="_blanc" class="segment-link" href="${linkText}"
-          >${formattedSegmentNr}</a
-        >
-      `
-    : html`
-        ${formattedSegmentNr}
-      `;
 }

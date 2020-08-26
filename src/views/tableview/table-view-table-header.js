@@ -5,6 +5,7 @@ import sharedStyles from '../data/data-view-shared.styles';
 
 import '../utility/formatted-segment';
 
+
 @customElement('table-view-table-header')
 class TableViewTableHeader extends LitElement {
   @property({ type: String }) fileName;

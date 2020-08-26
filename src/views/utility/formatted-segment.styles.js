@@ -10,7 +10,8 @@ export default css`
           opacity: 0.9;
           font-size: 14px;
           padding: 4px 8px;
-          margin-top: 24px;
+          margin-top: 36px;
+          left: 48px;
           position: absolute;
           z-index: 999;
           font-weight: bold;
@@ -24,6 +25,11 @@ export default css`
         .formatted-file-name {
           font-size: 1.05em;
           margin-left: 8px;
+        }
+
+        .segment-link {
+          text-decoration: none;
+          color: var(--color-text-secondary);
         }
   }
 `;

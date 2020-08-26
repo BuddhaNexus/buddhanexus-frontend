@@ -1,6 +1,9 @@
 import { customElement, html, LitElement, property } from 'lit-element';
+
 import { getDisplayName } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
+import { segmentArrayToString } from './preprocessing';
+
 import styles from './formatted-segment.styles';
 
 @customElement('formatted-segment')
@@ -10,6 +13,7 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) lang;
   @property({ type: String }) number;
   @property({ type: String }) displayName = '';
+  @property({ type: String }) displayLink = '';
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -35,6 +39,7 @@ export class FormattedSegment extends LitElement {
       this.allowFetching = false;
     }
   }
+
   async addObserver() {
     const targets = this.shadowRoot.querySelectorAll('.formatted-segment');
     const observer = new IntersectionObserver(entries => {
@@ -48,25 +53,73 @@ export class FormattedSegment extends LitElement {
   }
 
   async fetchData() {
-    this.lang = getLanguageFromFilename(this.segmentnr);
-    this.filename = this.segmentnr.split(':')[0];
-    this.number = this.segmentnr.split(':')[1];
-    if (this.lang == 'chn') {
+    let segmentnrString = segmentArrayToString(this.segmentnr);
+    this.lang = getLanguageFromFilename(segmentnrString);
+    this.filename = segmentnrString.split(':')[0];
+    this.number = segmentnrString.split(':')[1];
+    if (this.lang === 'chn') {
       this.filename = this.filename.replace(/_[0-9]+/, '');
     }
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
     this.displayName = displayData ? displayData[0] : '';
+    if (this.lang === 'skt') {
+      this.displayLink = displayData ? displayData[2] : '';
+    }
+    if (this.lang === 'chn' || this.lang === 'pli') {
+      this.displayLink = this.getLinkForSegmentNumbers(
+        this.lang,
+        segmentnrString
+      );
+    }
     this.fetchLoading = false;
     this.allowFetching = false;
     this.fetchError = error;
+  }
+
+  getLinkForSegmentNumbers(language, segmentnr) {
+    let linkText = '';
+    if (language === 'pli') {
+      let cleanedSegment = segmentnr
+        .split(':')[1]
+        .replace(/_[0-9]+/g, '')
+        .replace('–', '--');
+      let rootSegment = segmentnr.split(':')[0];
+      if (segmentnr.match(/^dhp/)) {
+        cleanedSegment = `${cleanedSegment.split('.', 1)}`;
+        rootSegment = 'dhp';
+      } else if (segmentnr.match(/^an[1-9]|^sn[1-9]/)) {
+        rootSegment = `${rootSegment}.${cleanedSegment.split('.', 1)}`;
+        const dotPosition = cleanedSegment.indexOf('.');
+        cleanedSegment = cleanedSegment.substring(dotPosition + 1);
+        if (cleanedSegment.match(/--/)) {
+          let [firstpart, secondpart] = cleanedSegment.split('--');
+          const secondDot = secondpart.indexOf('.');
+          secondpart = secondpart.substring(secondDot + 1);
+          cleanedSegment = `${firstpart}--${secondpart}`;
+        }
+      }
+      linkText = segmentnr.match(/^tika|^anya|^atk/)
+        ? `https://www.tipitaka.org/romn/`
+        : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
+    } else if (language === 'chn') {
+      const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
+      linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
+    }
+    return linkText;
   }
 
   render() {
     if (this.fetchLoading || !this.displayName) {
       // prettier-ignore
       return html`<span class="formatted-segment" title="${this.filename}">${this.filename}:${this.number}</span>`
+    }
+    if (this.displayLink) {
+      // prettier-ignore
+      return html`<a target="_blanc" class="segment-link" href="${this.displayLink}">
+        <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
+      </a>`
     }
     // prettier-ignore
     return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>`

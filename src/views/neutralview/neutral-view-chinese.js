@@ -17,7 +17,13 @@ export class NeutralViewChinese extends LitElement {
             <h2>Chinese</h2>
             <p>
               The textual corpus used in BuddhaNexus was obtained from the
-              Chinese Buddhist Electronic Text Association (CBETA).
+              <a
+                href="https://www.cbeta.org/"
+                class="content-link"
+                target="blank"
+              >
+                Chinese Buddhist Electronic Text Association (CBETA)</a
+              >.
             </p>
             <p>
               The minimum length for a match has been set to six characters,

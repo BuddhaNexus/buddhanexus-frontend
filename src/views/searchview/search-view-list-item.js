@@ -1,7 +1,7 @@
 import { html } from 'lit-element';
 
 import { getLanguageFromFilename } from '../utility/views-common';
-import { getLinkForSegmentNumbers } from '../utility/preprocessing';
+import '../utility/formatted-segment';
 
 export default function SearchViewListItem({
   SegmentId,
@@ -14,7 +14,12 @@ export default function SearchViewListItem({
     <div class="search-view-list__item" onclick="window.open('${rootUrl}','_self');">
       <div class="search-view-list__item-content search-view-list__item-content--segment material-card">
         <header class="search-view-list__item-header">
-          <span class="search-view-list__segment-id">${getLinkForSegmentNumbers(getLanguageFromFilename(SegmentId), [SegmentId,])}</span><span>Edit distance: ${distance}</span>
+          <span class="search-view-list__segment-id">
+            <formatted-segment
+              .segmentnr="${[SegmentId,]}"
+              .lang="${getLanguageFromFilename(SegmentId)}">
+            </formatted-segment>
+          </span><span>Edit distance: ${distance}</span>
           <div class="search-view-list__parallel-details">
             <span class="search-view-list__parallel-details-badge">
           </div>
