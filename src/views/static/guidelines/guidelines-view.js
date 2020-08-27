@@ -64,7 +64,7 @@ export class GuidelinesView extends LitElement {
                 characters, excluding punctuation signs. The default value varies from one language to another.</li>
                 <li><b>Number of Co-occurrences:</b> This score represents how many times a match is contained within other 
                 matches. A higher co-occurrence means that the pertinent passage is probably a standard phrase, which is thus 
-                ess likely to be a meaningful match. The default value is not to filter any matches based on co-occurrence.</li>
+                less likely to be a meaningful match. The default value is not to filter any matches based on co-occurrence.</li>
                 <li><b>Exclude Collections:</b> Does not display the matches found in the excluded collections (or sections).</li>
                 <li><b>Exclude Files:</b> Does not display the matches found in the excluded files.</li>
                 <li><b>Limit to Collections:</b> Displays the matches found only in the selected collections (or sections).</li>
