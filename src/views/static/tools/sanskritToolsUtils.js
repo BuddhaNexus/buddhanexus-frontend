@@ -45,7 +45,7 @@ const SanskritTaggerOrder = [
   '3',
 ];
 const SanskritTaggerReplacements = {
-  PPP: 'past passive participle (PPP) ',
+  PPP: 'past passive participle (ppp) ',
   NC: 'common noun ',
   CADP: 'preverb ',
   CAD: 'adverb ',
@@ -91,7 +91,6 @@ const SanskritTaggerReplacements = {
 
 export function preprocessTaggedString(taggedString) {
   taggedString = taggedString.replace(/\|/g, ', ');
-
   SanskritTaggerOrder.forEach(result => {
     while (taggedString.includes(result)) {
       taggedString = taggedString.replace(
