@@ -15,7 +15,6 @@ export class NeutralViewSanskrit extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <h2>Sanskrit</h2>
-            <p><b>The Sanskrit data will be uploaded soon.</b></p>
             <p>
               The textual corpus used in BuddhaNexus was obtained from the
               Göttingen Register of Electronic Texts in Indian Languages (<a
@@ -32,6 +31,15 @@ export class NeutralViewSanskrit extends LitElement {
               sake of standardization. In order to make the matching process
               feasible, some markup information of the original GRETIL files has
               been neglected.
+            </p>
+            <p>
+              The original structure of the GRETIL collection has been altered
+              to some degree. The folders <i>4_rellit/buddh</i> and
+              <i>6_sastra/3_phil/buddh/</i> have been merged into one folder.
+              This folder has been further divided into subfolders. Also a
+              numbering scheme was introduced for the different categories to
+              make their identification within the database easier. For example
+              "<b>GV01</b>" represents <b>G</b>RETIL <b>V</b>eda 1.
             </p>
             <p>
               For the calculation of the Sanskrit matches and for the global
