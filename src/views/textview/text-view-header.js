@@ -224,7 +224,7 @@ export class TextViewHeader extends LitElement {
       <div id="text-view-header">
         <div id="text-view-header-left">
           <span class="text-name-label">Inquiry Text: </span>
-          <formatted-filename .filename="${this.fileName}"></formatted-filename>
+          <formatted-filename .filename="${this.fileName}" .rightside="${'left'}"></formatted-filename>
           <source-link .filename="${this.fileName}"></source-link>
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,

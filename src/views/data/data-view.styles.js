@@ -58,6 +58,9 @@ export default css`
     flex-direction: column;
     overflow: auto;
     flex: 1;
+  }
+
+  .data-view.no-header[view='text'] .data-view__main-container {
     background-color: var(--color-background-light);
   }
 
