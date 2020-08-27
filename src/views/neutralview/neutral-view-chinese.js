@@ -26,16 +26,15 @@ export class NeutralViewChinese extends LitElement {
               >.
             </p>
             <p>
-              The minimum length for a match has been set to six characters,
-              even though due to the allowed variance of characters
-              five-syllable matches are detected occasionally as well. In order
-              to avoid the over-detection of frequent fixed terms consisting of
-              five or more syllables, such instances have been filtered from the
-              results.
+              The minimum length for a match has been set to six characters.
+              However, five-character matches are occasionally also detected due
+              to our policy of "approximate matches" rather than exact ones.<br />
+              Matches consisting to a large degree of frequent fixed terms have
+              been filtered out from the results.
             </p>
             <span class="copyright"
-              >Background image with courtesy to the ICABS, Tokyo(via Prof.
-              Ochiai).</span
+              >Background image: Courtesy of the International College for
+              Postgraduate Buddhist Studies (ICABS), Tokyo.</span
             >
           </div>
         </div>

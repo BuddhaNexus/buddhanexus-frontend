@@ -60,8 +60,8 @@ export class NeutralViewPali extends LitElement {
               parallels.
             </p>
             <span class="copyright"
-              >Background image with courtesy to the Fragile Palm Leaves
-              Collection, Bangkok.</span
+              >Background image: Courtesy of the Fragile Palm Leaves Collection,
+              Bangkok.</span
             >
           </div>
         </div>

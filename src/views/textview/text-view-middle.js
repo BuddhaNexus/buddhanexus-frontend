@@ -109,7 +109,6 @@ export class TextViewMiddle extends LitElement {
     let positionFlag = 0;
     let parallelCounter = 0;
     let parallels = [...this.selectedParallels];
-
     if (parallels) {
       parallels = sortByKey(parallels, 'score');
       parallels = parallels.reverse();

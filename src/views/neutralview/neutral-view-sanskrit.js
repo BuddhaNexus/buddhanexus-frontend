@@ -51,7 +51,7 @@ export class NeutralViewSanskrit extends LitElement {
             </p>
             <p>The minimum length for a match has been set to 25 letters.</p>
             <span class="copyright"
-              >Background image with courtesy to the Nepal-German Manuscript
+              >Background image: Courtesy of the Nepal-German Manuscript
               Preservation Project (NGMPP).</span
             >
           </div>
