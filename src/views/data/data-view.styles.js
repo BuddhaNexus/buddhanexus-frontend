@@ -60,7 +60,10 @@ export default css`
     flex: 1;
   }
 
-  .data-view.no-header[view='text'] .data-view__main-container {
+  .data-view.no-header[view='text'] .data-view__main-container,
+  .data-view.no-header[view='graph'] .data-view__main-container,
+  .data-view.no-header[view='numbers'] .data-view__main-container,
+  .data-view.no-header[view='table'] .data-view__main-container {
     background-color: var(--color-background-light);
   }
 
