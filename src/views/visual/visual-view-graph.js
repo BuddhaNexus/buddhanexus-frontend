@@ -166,6 +166,7 @@ export class VisualViewGraph extends LitElement {
     this.adjustChartHeight();
     this.fetchError = error;
     this.fetchLoading = false;
+    this.targetItem = '';
   }
 
   adjustChartHeight() {
