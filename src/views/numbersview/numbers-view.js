@@ -44,6 +44,9 @@ export class NumbersView extends LitElement {
     super.updated(_changedProperties);
     this.lang = getLanguageFromFilename(this.fileName);
     _changedProperties.forEach(async (oldValue, propName) => {
+      if (propName === 'pageNumber' && !this.fetchLoading) {
+        await this.fetchData();
+      }
       if (
         [
           'score',
@@ -52,10 +55,11 @@ export class NumbersView extends LitElement {
           'quoteLength',
           'limitCollection',
           'fileName',
-          'pageNumber',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
+        this.segmentsData = [];
+        this.collectionsData = [];
         await this.fetchData();
       }
       if (propName === 'collectionsData') {
@@ -64,6 +68,7 @@ export class NumbersView extends LitElement {
       }
     });
   }
+
   updatePageNumber() {
     this.pageNumber = this.pageNumber + 1;
   }
