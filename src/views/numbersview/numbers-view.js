@@ -85,7 +85,8 @@ export class NumbersView extends LitElement {
         this.updatePageNumber();
       }
     });
-    if (tableRows.length > 0) {
+
+    if (tableRows.length > 0 && tableRows.length > 49) {
       observer.observe(observedRow);
     }
   };
