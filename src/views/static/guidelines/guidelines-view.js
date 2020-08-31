@@ -87,8 +87,9 @@ export class GuidelinesView extends LitElement {
                 <li><b>Table View</b>: Displays a table of the matches found for the current Inquiry Text. The results can be sorted 
                 in three different ways: (1) by their position in the Inquiry Text, (2) by their position in the Hit Text(s), and (3) 
                 by the length of the match in the Hit Text. </li>
-                <li><b>Numbers View</b>: Displays a table of the segment numbers of the matches found for the current Inquiry Text. 
-                This view mode is only available for Pāli and Chinese texts where segment numbers represent the PTS and Taisho numbers resp.
+                <li><b>Numbers View:</b>: Displays a table with the segment numbers of the matches found for the current Inquiry Text. 
+                This view mode is only available for Pāli and Chinese texts, where the segment numbers represent the PTS and Taisho numbers,
+                respectively.</li>
                 <li><b>Graph View</b>: Displays various graphs visualizing the (approximate) matches found for the Inquiry Text. 
                 The pie graph displays the distribution of the (approximate) matches according to the collection’s sections. 
                 The histogram shows the distribution of the top files that have matches with the Inquiry Text based on the 
