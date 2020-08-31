@@ -33,7 +33,7 @@ export class ContactView extends LitElement {
             Prof. Dr. Dorji Wangchuk<br />
 
             Email:
-            <a href="mailto:buddhanexus.info@gmail.com">buddhanexus.info@gmail.com</a>
+            <a href="mailto:buddhanexus.info@gmail.com" class="content-link">buddhanexus.info@gmail.com</a>
           </div>
         </div>
       </div>
