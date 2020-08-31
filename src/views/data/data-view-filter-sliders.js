@@ -28,6 +28,7 @@ export default class DataViewFilterSliders extends LitElement {
           --paper-slider-container-color: var(--color-background);
           --paper-slider-active-color: var(--bn-dark-red);
           --paper-slider-knob-color: var(--bn-dark-red);
+          --paper-input-container-focus-color: var(--bn-dark-red);
           width: calc(var(--side-sheet-width) - 48px);
 
           flex: 1;
