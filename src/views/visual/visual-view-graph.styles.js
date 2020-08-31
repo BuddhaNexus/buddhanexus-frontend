@@ -23,8 +23,9 @@ export default css`
   }
 
   .active {
-    background-color: var(--color-background);
-    color: black;
+    background-color: var(--bn-dark-red);
+    border-radius: 20px;
+    opacity: 0.8;
   }
 
   .element:hover:not(.active) {
