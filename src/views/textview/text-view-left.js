@@ -96,6 +96,7 @@ export class TextViewLeft extends LitElement {
   }
 
   handleFilenameChanged() {
+    this.addedSegmentObservers = false;
     this.noEndlessScrolling = true;
     this.textLeft = [];
     this.parallels = {};
