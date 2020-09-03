@@ -136,6 +136,7 @@ export class TextViewLeft extends LitElement {
     }
     this.fetchError = error;
     this.fetchLoading = false;
+    this.addedSegmentObservers = false;
   }
 
   scrollAfterEndlessReload() {
