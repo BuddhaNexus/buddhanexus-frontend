@@ -160,25 +160,34 @@ export class DataViewHeaderFields extends LitElement {
   };
 
   getFolioLabel = language => {
-    switch (language) {
-      case LANGUAGE_CODES.TIBETAN:
-        return 'Folio';
-      case LANGUAGE_CODES.PALI:
-        return 'Sutta';
-      case LANGUAGE_CODES.CHINESE:
-        return 'Facsimile';
+    if (this.fileName.match('^(dhp|XXdhppat|S10udanav)')) {
+      return 'Verse';
     }
+    if (language === LANGUAGE_CODES.SANSKRIT) {
+      return 'Segment';
+    }
+    if (language === LANGUAGE_CODES.TIBETAN) {
+      return 'Folio';
+    }
+    if (language === LANGUAGE_CODES.CHINESE) {
+      return 'Facsimile';
+    }
+    if (language === LANGUAGE_CODES.PALI) {
+      if (this.fileName.match('([as]n[0-9])')) {
+        return 'Sutta';
+      } else if (this.fileName.match('^(anya|tika|atk)')) {
+        return 'Segment';
+      } else {
+        return 'PTS Section';
+      }
+    }
+    return 'Segment';
   };
 
   shouldShowFolioBox() {
-    if (this.language === LANGUAGE_CODES.SANSKRIT) {
-      return false;
-    }
     if (
-      (this.viewMode === DATA_VIEW_MODES.TEXT ||
-        this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH) &&
-      (this.language !== LANGUAGE_CODES.PALI ||
-        this.fileName.match('([as]n[0-9]|dhp)'))
+      this.viewMode === DATA_VIEW_MODES.TEXT ||
+      this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH
     ) {
       return true;
     }
