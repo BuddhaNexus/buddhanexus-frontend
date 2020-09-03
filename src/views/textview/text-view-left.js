@@ -96,6 +96,7 @@ export class TextViewLeft extends LitElement {
   }
 
   handleFilenameChanged() {
+    this.addedSegmentObservers = false;
     this.noEndlessScrolling = true;
     this.textLeft = [];
     this.parallels = {};
@@ -135,6 +136,7 @@ export class TextViewLeft extends LitElement {
     }
     this.fetchError = error;
     this.fetchLoading = false;
+    this.addedSegmentObservers = false;
   }
 
   scrollAfterEndlessReload() {
