@@ -164,7 +164,11 @@ export class DataViewHeaderFields extends LitElement {
       return 'Verse';
     }
     if (language === LANGUAGE_CODES.SANSKRIT) {
-      return 'Segment';
+      if (this.fileName.match('^(OT)')) {
+        return 'Section';
+      } else {
+        return 'Segment';
+      }
     }
     if (language === LANGUAGE_CODES.TIBETAN) {
       return 'Folio';
