@@ -19,6 +19,7 @@ const NumbersViewInfoModalContent = () => html`
 @customElement('numbers-view')
 export class NumbersView extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: String }) folio;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
@@ -61,6 +62,9 @@ export class NumbersView extends LitElement {
         this.segmentsData = [];
         this.collectionsData = [];
         await this.fetchData();
+      }
+      if (propName === 'folio') {
+        this.handleFolioChanged();
       }
       if (propName === 'collectionsData') {
         // data fetched, add listener

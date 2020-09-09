@@ -191,7 +191,8 @@ export class DataViewHeaderFields extends LitElement {
   shouldShowFolioBox() {
     if (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
-      this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH
+      this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH ||
+      this.viewMode === DATA_VIEW_MODES.NUMBERS
     ) {
       return true;
     }

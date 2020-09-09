@@ -54,6 +54,7 @@ export class DataViewRouter extends LitElement {
       return html`
         <numbers-view
           .fileName="${this.fileName}"
+          .folio="${this.folio}"
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"

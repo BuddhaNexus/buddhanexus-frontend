@@ -89,7 +89,7 @@ export class TableView extends LitElement {
       return;
     }
     this.fetchLoading = true;
-
+    console.log(this.sortMethod);
     const parallels = await getTableViewData({
       fileName: this.fileName,
       score: this.score,
