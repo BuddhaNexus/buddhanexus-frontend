@@ -19,7 +19,6 @@ const NumbersViewInfoModalContent = () => html`
 @customElement('numbers-view')
 export class NumbersView extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: String }) folio;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
@@ -59,18 +58,20 @@ export class NumbersView extends LitElement {
         ].includes(propName) &&
         !this.fetchLoading
       ) {
-        this.segmentsData = [];
-        this.collectionsData = [];
+        this.resetView();
         await this.fetchData();
-      }
-      if (propName === 'folio') {
-        this.handleFolioChanged();
       }
       if (propName === 'collectionsData') {
         // data fetched, add listener
         this.addInfiniteScrollListener();
       }
     });
+  }
+
+  resetView() {
+    this.segmentsData = [];
+    this.collectionsData = [];
+    this.pageNumber = 0;
   }
 
   updatePageNumber() {

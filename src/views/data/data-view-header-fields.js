@@ -192,7 +192,7 @@ export class DataViewHeaderFields extends LitElement {
     if (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
       this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH ||
-      this.viewMode === DATA_VIEW_MODES.NUMBERS
+      this.viewMode === DATA_VIEW_MODES.TABLE
     ) {
       return true;
     }
@@ -268,7 +268,7 @@ export class DataViewHeaderFields extends LitElement {
         ? html`
             <vaadin-select
               @value-changed="${this.updateSortMethod}"
-              Label="Sorting method:"
+              label="Sorting method:"
               class="input-field"
               item-label-path="filename">
               <template>

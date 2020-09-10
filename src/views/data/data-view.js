@@ -170,6 +170,7 @@ export class DataView extends LitElement {
   setFolio = folio => {
     if (this.folio !== folio) {
       this.folio = folio;
+      this.sortMethod = 'position';
     }
   };
 
@@ -201,7 +202,10 @@ export class DataView extends LitElement {
     }
   };
 
-  setSortMethod = e => (this.sortMethod = e.target.value);
+  setSortMethod = e => {
+    this.sortMethod = e.target.value;
+    this.folio = '';
+  };
 
   setLimitCollection = limitCollection => {
     // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
@@ -301,7 +305,6 @@ export class DataView extends LitElement {
             .setFileName="${this.setFileName}"
             .viewMode="${this.viewMode}"
             .handleViewModeChanged="${this.handleViewModeChanged}"
-            .folio="${this.folio}"
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"

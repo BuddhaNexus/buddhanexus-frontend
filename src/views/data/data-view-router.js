@@ -13,7 +13,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: Function }) setSelectedView;
   @property({ type: String }) fileName;
   @property({ type: Function }) setFileName;
-  @property({ type: Number }) folio;
+  @property({ type: String }) folio;
   @property({ type: String }) searchString;
   @property({ type: String }) activeSegment;
   @property({ type: String }) sortMethod;
@@ -54,7 +54,6 @@ export class DataViewRouter extends LitElement {
       return html`
         <numbers-view
           .fileName="${this.fileName}"
-          .folio="${this.folio}"
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
@@ -76,6 +75,7 @@ export class DataViewRouter extends LitElement {
       return html`
         <table-view
           .fileName="${this.fileName}"
+          .folio="${this.folio}"
           .limitCollection="${this.limitCollection}"
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"

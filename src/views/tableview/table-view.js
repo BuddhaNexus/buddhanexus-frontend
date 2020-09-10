@@ -22,6 +22,7 @@ function TableViewInfoModalContent() {
 @customElement('table-view')
 export class TableView extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: String }) folio;
   @property({ type: String }) score;
   @property({ type: Number }) probability;
   @property({ type: Number }) quoteLength;
@@ -57,6 +58,13 @@ export class TableView extends LitElement {
     super.updated(_changedProperties);
     this.lang = getLanguageFromFilename(this.fileName);
     _changedProperties.forEach(async (oldValue, propName) => {
+      if (propName === 'fileName' && !this.fetchLoading) {
+        if (this.folio) {
+          this.folio = '';
+        }
+        this.resetView();
+        await this.fetchData();
+      }
       if (
         [
           'score',
@@ -64,7 +72,7 @@ export class TableView extends LitElement {
           'sortMethod',
           'quoteLength',
           'limitCollection',
-          'fileName',
+          'folio',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
@@ -81,6 +89,7 @@ export class TableView extends LitElement {
   resetView = () => {
     this.parallelsData = [];
     this.endReached = false;
+    this.pageNumber = 0;
   };
 
   async fetchData(pageNumber) {
@@ -89,7 +98,10 @@ export class TableView extends LitElement {
       return;
     }
     this.fetchLoading = true;
-    console.log(this.sortMethod);
+    let folio = '';
+    if (this.folio) {
+      folio = this.folio.num;
+    }
     const parallels = await getTableViewData({
       fileName: this.fileName,
       score: this.score,
@@ -98,6 +110,7 @@ export class TableView extends LitElement {
       par_length: this.quoteLength,
       limit_collection: this.limitCollection,
       page: pageNumber,
+      folio: folio,
     });
 
     this.fetchLoading = false;
@@ -106,7 +119,6 @@ export class TableView extends LitElement {
       this.endReached = true;
       return;
     }
-
     this.parallelsData = [...this.parallelsData, ...parallels];
   }
 
