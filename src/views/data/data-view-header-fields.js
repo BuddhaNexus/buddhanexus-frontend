@@ -74,6 +74,8 @@ export class DataViewHeaderFields extends LitElement {
   updateFolio(e) {
     if (e.target.selectedItem && e.target.selectedItem !== 'Not available') {
       this.setFolio(e.target.selectedItem);
+    } else if (e.target) {
+      this.setFolio({ num: '', segment_nr: '' });
     }
   }
 
@@ -192,7 +194,8 @@ export class DataViewHeaderFields extends LitElement {
     if (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
       this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH ||
-      this.viewMode === DATA_VIEW_MODES.TABLE
+      this.viewMode === DATA_VIEW_MODES.TABLE ||
+      this.viewMode === DATA_VIEW_MODES.NUMBERS
     ) {
       return true;
     }
@@ -243,7 +246,8 @@ export class DataViewHeaderFields extends LitElement {
               item-value-path="segment_nr"
               item-label-path="num"
               .items="${this.folioData}"
-              @value-changed="${e => this.updateFolio(e)}">
+              clear-button-visible
+              @change="${e => this.updateFolio(e)}">
             </vaadin-combo-box>`
         : null}
       ${shouldShowTextSearchBox
