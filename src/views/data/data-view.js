@@ -170,7 +170,6 @@ export class DataView extends LitElement {
   setFolio = folio => {
     if (this.folio !== folio) {
       this.folio = folio;
-      this.sortMethod = 'position';
     }
   };
 
@@ -304,6 +303,7 @@ export class DataView extends LitElement {
             .fileName="${this.fileName}"
             .setFileName="${this.setFileName}"
             .viewMode="${this.viewMode}"
+            .sortMethod="${this.sortMethod}"
             .handleViewModeChanged="${this.handleViewModeChanged}"
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
@@ -362,7 +362,6 @@ export class DataView extends LitElement {
             .updateTargetCollection="${this.setTargetCollection}"
             .cooccurance="${this.cooccurance}"
             .updateCooccurance="${this.setCooccurance}"
-            .updateSorting="${this.setSortMethod}"
             .language="${this.language}">
           </data-view-filters-container>
 

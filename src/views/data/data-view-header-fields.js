@@ -14,6 +14,7 @@ export class DataViewHeaderFields extends LitElement {
   @property({ type: Array }) menuData;
   @property({ type: Array }) folioData;
   @property({ type: String }) fetchError;
+  @property({ type: String }) sortMethod;
 
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
@@ -55,6 +56,10 @@ export class DataViewHeaderFields extends LitElement {
           --material-primary-color: var(--bn-dark-red);
         }
 
+        #sort-box {
+          width: 250px;
+        }
+
         .search-icon {
           width: 1em;
           height: 1em;
@@ -63,20 +68,6 @@ export class DataViewHeaderFields extends LitElement {
         }
       `,
     ];
-  }
-
-  updateFileName(e) {
-    if (e.target.selectedItem) {
-      this.setFileName(e.target.selectedItem.filename);
-    }
-  }
-
-  updateFolio(e) {
-    if (e.target.selectedItem && e.target.selectedItem !== 'Not available') {
-      this.setFolio(e.target.selectedItem);
-    } else if (e.target) {
-      this.setFolio({ num: '', segment_nr: '' });
-    }
   }
 
   async firstUpdated(_changedProperties) {
@@ -92,7 +83,27 @@ export class DataViewHeaderFields extends LitElement {
           this.shadowRoot.querySelector('#folio-select-combo-box')._clear();
         }
       }
+      if (propName === 'sortMethod' && this.sortMethod !== 'position') {
+        if (this.shadowRoot.querySelector('#folio-select-combo-box')) {
+          this.shadowRoot.querySelector('#folio-select-combo-box')._clear();
+        }
+      }
     });
+  }
+
+  updateFileName(e) {
+    if (e.target.selectedItem) {
+      this.setFileName(e.target.selectedItem.filename);
+    }
+  }
+
+  updateFolio(e) {
+    if (e.target.selectedItem && e.target.selectedItem !== 'Not available') {
+      this.setFolio(e.target.selectedItem);
+      this.sortMethod = 'position';
+    } else if (e.target) {
+      this.setFolio({ num: '', segment_nr: '' });
+    }
   }
 
   async fetchFolioData() {
@@ -273,7 +284,9 @@ export class DataViewHeaderFields extends LitElement {
             <vaadin-select
               @value-changed="${this.updateSortMethod}"
               label="Sorting method:"
+              id="sort-box"
               class="input-field"
+              value="${this.sortMethod}"
               item-label-path="filename">
               <template>
                 <vaadin-list-box @value-changed="${this.updateSortMethod}">
