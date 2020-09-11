@@ -141,21 +141,6 @@ export class DataViewHeaderFields extends LitElement {
     });
 
     this.menuData = result;
-    if (!window.menuData) {
-      window.menuData = {};
-    }
-    if (!window.displayData) {
-      window.displayData = {};
-    }
-    // I am not sure if it is hacky to use global scope window here or not,
-    // but it works and we avoid having to fetch the data multiple times!
-    const [textNames, displayNames] = this.getTextAndDisplayNames(result);
-    if (!window.menuData[this.language]) {
-      window.menuData[this.language] = textNames;
-    }
-    if (!window.displayData[this.language]) {
-      window.displayData[this.language] = displayNames;
-    }
     this.fetchError = error;
   }
 
