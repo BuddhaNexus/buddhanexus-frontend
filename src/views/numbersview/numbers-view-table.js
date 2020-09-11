@@ -22,12 +22,18 @@ const NumbersViewTable = ({ fileName, collections, segments, language }) => {
   `;
 };
 
+function Comparator(a, b) {
+  if (a[0] < b[0]) return -1;
+  if (a[0] > b[0]) return 1;
+  return 0;
+}
+
 const NumbersViewTableContent = (segments, collectionkeys, language) =>
   segments.map(segment => {
     const collections = objectMap(collectionkeys, () => []);
     const { parallels: segmentParallels, segmentnr } = segment;
     return TableRowContainer(
-      segmentParallels ? segmentParallels : [],
+      segmentParallels ? segmentParallels.sort(Comparator) : [],
       collections,
       segmentnr,
       language
