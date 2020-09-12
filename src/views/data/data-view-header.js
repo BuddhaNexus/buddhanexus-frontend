@@ -10,7 +10,7 @@ class DataViewHeader extends LitElement {
   @property({ type: String }) fileName = '';
   @property({ type: String }) language;
   @property({ type: String }) viewMode;
-  @property({ type: String }) folio;
+  @property({ type: String }) sortMethod;
   @property({ type: Function }) toggleNavBar;
   @property({ type: Function }) updateSearch;
   @property({ type: Function }) updateSortMethod;
@@ -95,6 +95,7 @@ class DataViewHeader extends LitElement {
               .setFileName="${this.setFileName}"
               .setFolio="${this.setFolio}"
               .viewMode="${this.viewMode}"
+              .sortMethod="${this.sortMethod}"
               .updateSearch="${this.updateSearch}"
               .updateSortMethod="${this.updateSortMethod}">
             </data-view-header-fields>

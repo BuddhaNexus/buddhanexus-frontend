@@ -14,6 +14,7 @@ export class DataViewHeaderFields extends LitElement {
   @property({ type: Array }) menuData;
   @property({ type: Array }) folioData;
   @property({ type: String }) fetchError;
+  @property({ type: String }) sortMethod;
 
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
@@ -55,6 +56,10 @@ export class DataViewHeaderFields extends LitElement {
           --material-primary-color: var(--bn-dark-red);
         }
 
+        #sort-box {
+          width: 250px;
+        }
+
         .search-icon {
           width: 1em;
           height: 1em;
@@ -63,18 +68,6 @@ export class DataViewHeaderFields extends LitElement {
         }
       `,
     ];
-  }
-
-  updateFileName(e) {
-    if (e.target.selectedItem) {
-      this.setFileName(e.target.selectedItem.filename);
-    }
-  }
-
-  updateFolio(e) {
-    if (e.target.selectedItem && e.target.selectedItem !== 'Not available') {
-      this.setFolio(e.target.selectedItem);
-    }
   }
 
   async firstUpdated(_changedProperties) {
@@ -90,7 +83,27 @@ export class DataViewHeaderFields extends LitElement {
           this.shadowRoot.querySelector('#folio-select-combo-box')._clear();
         }
       }
+      if (propName === 'sortMethod' && this.sortMethod !== 'position') {
+        if (this.shadowRoot.querySelector('#folio-select-combo-box')) {
+          this.shadowRoot.querySelector('#folio-select-combo-box')._clear();
+        }
+      }
     });
+  }
+
+  updateFileName(e) {
+    if (e.target.selectedItem) {
+      this.setFileName(e.target.selectedItem.filename);
+    }
+  }
+
+  updateFolio(e) {
+    if (e.target.selectedItem && e.target.selectedItem !== 'Not available') {
+      this.setFolio(e.target.selectedItem);
+      this.sortMethod = 'position';
+    } else if (e.target) {
+      this.setFolio({ num: '', segment_nr: '' });
+    }
   }
 
   async fetchFolioData() {
@@ -128,21 +141,6 @@ export class DataViewHeaderFields extends LitElement {
     });
 
     this.menuData = result;
-    if (!window.menuData) {
-      window.menuData = {};
-    }
-    if (!window.displayData) {
-      window.displayData = {};
-    }
-    // I am not sure if it is hacky to use global scope window here or not,
-    // but it works and we avoid having to fetch the data multiple times!
-    const [textNames, displayNames] = this.getTextAndDisplayNames(result);
-    if (!window.menuData[this.language]) {
-      window.menuData[this.language] = textNames;
-    }
-    if (!window.displayData[this.language]) {
-      window.displayData[this.language] = displayNames;
-    }
     this.fetchError = error;
   }
 
@@ -191,7 +189,9 @@ export class DataViewHeaderFields extends LitElement {
   shouldShowFolioBox() {
     if (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
-      this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH
+      this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH ||
+      this.viewMode === DATA_VIEW_MODES.TABLE ||
+      this.viewMode === DATA_VIEW_MODES.NUMBERS
     ) {
       return true;
     }
@@ -242,7 +242,8 @@ export class DataViewHeaderFields extends LitElement {
               item-value-path="segment_nr"
               item-label-path="num"
               .items="${this.folioData}"
-              @value-changed="${e => this.updateFolio(e)}">
+              clear-button-visible
+              @change="${e => this.updateFolio(e)}">
             </vaadin-combo-box>`
         : null}
       ${shouldShowTextSearchBox
@@ -267,8 +268,10 @@ export class DataViewHeaderFields extends LitElement {
         ? html`
             <vaadin-select
               @value-changed="${this.updateSortMethod}"
-              Label="Sorting method:"
+              label="Sorting method:"
+              id="sort-box"
               class="input-field"
+              value="${this.sortMethod}"
               item-label-path="filename">
               <template>
                 <vaadin-list-box @value-changed="${this.updateSortMethod}">

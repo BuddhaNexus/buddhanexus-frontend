@@ -23,6 +23,7 @@ export class NumbersView extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
+  @property({ type: String }) folio;
   @property({ type: Number }) pageNumber = 0;
   @property({ type: Array }) segmentsData = [];
   @property({ type: String }) lang;
@@ -47,6 +48,13 @@ export class NumbersView extends LitElement {
       if (propName === 'pageNumber' && !this.fetchLoading) {
         await this.fetchData();
       }
+      if (propName === 'fileName' && !this.fetchLoading) {
+        if (this.folio) {
+          this.folio = '';
+        }
+        this.resetView();
+        await this.fetchData();
+      }
       if (
         [
           'score',
@@ -54,12 +62,11 @@ export class NumbersView extends LitElement {
           'sortMethod',
           'quoteLength',
           'limitCollection',
-          'fileName',
+          'folio',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
-        this.segmentsData = [];
-        this.collectionsData = [];
+        this.resetView();
         await this.fetchData();
       }
       if (propName === 'collectionsData') {
@@ -67,6 +74,12 @@ export class NumbersView extends LitElement {
         this.addInfiniteScrollListener();
       }
     });
+  }
+
+  resetView() {
+    this.segmentsData = [];
+    this.collectionsData = [];
+    this.pageNumber = 0;
   }
 
   updatePageNumber() {
@@ -97,6 +110,10 @@ export class NumbersView extends LitElement {
       return;
     }
     this.fetchLoading = true;
+    let folio = '';
+    if (this.folio) {
+      folio = this.folio.num;
+    }
 
     const { segments, collections, error } = await getSegmentsForFile({
       page: this.pageNumber,
@@ -105,6 +122,7 @@ export class NumbersView extends LitElement {
       co_occ: this.cooccurance,
       par_length: this.quoteLength,
       limit_collection: this.limitCollection,
+      folio: folio,
     });
     this.segmentsData = [...this.segmentsData, ...segments];
     this.collectionsData = [...this.collectionsData, ...collections];
