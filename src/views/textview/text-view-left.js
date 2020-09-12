@@ -92,6 +92,9 @@ export class TextViewLeft extends LitElement {
     this.parallels = {};
     this.textLeft = [];
     this.leftActiveSegment = this.leftTextData.selectedParallels[0];
+    this.currentPage = 0;
+    this.veryShortText = false;
+    this.reachedEndText = false;
     this.fetchNewText();
   }
 
@@ -101,6 +104,9 @@ export class TextViewLeft extends LitElement {
     this.textLeft = [];
     this.parallels = {};
     this.leftActiveSegment = undefined;
+    this.currentPage = 0;
+    this.veryShortText = false;
+    this.reachedEndText = false;
     this.fetchNewText();
   }
 
@@ -162,7 +168,6 @@ export class TextViewLeft extends LitElement {
 
   incrementPage() {
     this.currentPage = this.currentPage + 1;
-    //this.addedSegmentObservers = false;
   }
 
   async addSegmentObservers() {

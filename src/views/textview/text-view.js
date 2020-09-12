@@ -37,17 +37,17 @@ export class TextView extends LitElement {
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
-      if (['fileName'].includes(propName)) {
+      if (propName === 'fileName') {
         this.handleFileNameChanged();
       }
-      if (['folio'].includes(propName)) {
+      if (propName === 'folio') {
         this.handleFolioChanged();
       }
-
-      if (['limitCollection'].includes(propName)) {
-        if ('limitCollection' in this.middleData) {
-          this.middleData.limitCollection = this.limitCollection;
-        }
+      if (
+        propName === 'limitCollection' &&
+        'limitCollection' in this.middleData
+      ) {
+        this.middleData.limitCollection = this.limitCollection;
       }
     });
   }
