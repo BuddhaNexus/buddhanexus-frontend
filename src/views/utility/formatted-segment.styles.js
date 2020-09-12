@@ -33,5 +33,9 @@ export default css`
           text-decoration: none;
           color: var(--color-text-secondary);
         }
+
+        .copy-icon {
+          width: 10px;
+        }
   }
 `;
