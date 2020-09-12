@@ -124,7 +124,8 @@ export class NumbersView extends LitElement {
       limit_collection: this.limitCollection,
       folio: folio,
     });
-    // We only add the observer to trigger the reloading when new data was added to the current segments; otherwise we reached the end of the data and don't need to observe anymore.
+    // We only add the observer to trigger the reloading when new data was added to the current
+    // segments; otherwise we reached the end of the data and don't need to observe anymore.
     this.addObserverFlag = false;
     segments.map(segment => {
       if (!this.segmentsData.includes(segment)) {
