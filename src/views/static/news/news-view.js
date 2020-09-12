@@ -16,7 +16,7 @@ export class NewsView extends LitElement {
             <h2>August 31, 2020: Addition of the GRETIL Sanskrit data</h2>
             <p>
               We are happy to announce that the Sanskrit data from the GRETIL
-              collection is now available on the BuddhaNexus:
+              collection is now available on BuddhaNexus:
               <a
                 href="https://buddhanexus.net/skt/neutral"
                 class="content-link"
