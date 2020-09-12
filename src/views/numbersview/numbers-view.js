@@ -28,6 +28,7 @@ export class NumbersView extends LitElement {
   @property({ type: String }) lang;
   @property({ type: Array }) collectionsData = [];
   @property({ type: String }) fetchError;
+  @property({ type: String }) addObserverFlag = true;
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) headerVisibility;
 
@@ -58,6 +59,7 @@ export class NumbersView extends LitElement {
         ].includes(propName) &&
         !this.fetchLoading
       ) {
+        this.pageNumber = 0; // very important: after changing files/filtersettings, we have to reset the pageNumber!
         this.segmentsData = [];
         this.collectionsData = [];
         await this.fetchData();
@@ -85,8 +87,7 @@ export class NumbersView extends LitElement {
         this.updatePageNumber();
       }
     });
-
-    if (tableRows.length > 49) {
+    if (this.addObserverFlag) {
       observer.observe(observedRow);
     }
   };
@@ -105,6 +106,13 @@ export class NumbersView extends LitElement {
       co_occ: this.cooccurance,
       par_length: this.quoteLength,
       limit_collection: this.limitCollection,
+    });
+    // We only add the observer to trigger the reloading when new data was added to the current segments; otherwise we reached the end of the data and don't need to observe anymore.
+    this.addObserverFlag = false;
+    segments.map(segment => {
+      if (!this.segmentsData.includes(segment)) {
+        this.addObserverFlag = true;
+      }
     });
     this.segmentsData = [...this.segmentsData, ...segments];
     this.collectionsData = [...this.collectionsData, ...collections];
