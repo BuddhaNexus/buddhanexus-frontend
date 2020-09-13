@@ -110,6 +110,15 @@ export class FormattedSegment extends LitElement {
     return linkText;
   }
 
+  copyText() {
+    const el = document.createElement('textarea');
+    el.value = this.filename + ':' + this.number + ': ' + this.displayName;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  }
+
   render() {
     if (this.fetchLoading || !this.displayName) {
       // prettier-ignore
@@ -119,10 +128,22 @@ export class FormattedSegment extends LitElement {
       // prettier-ignore
       return html`<a target="_blanc" class="segment-link" href="${this.displayLink}">
         <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
-      </a>`
+        </a>
+        <iron-icon
+          class="copy-icon"
+          icon="vaadin:copy-o"
+          title="Copy to Clipboard"
+          @click="${this.copyText}">
+        </iron-icon>`
     }
     // prettier-ignore
-    return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>`
+    return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
+        <iron-icon
+          class="copy-icon"
+          icon="vaadin:copy-o"
+          title="Copy to Clipboard"
+          @click="${this.copyText}">
+        </iron-icon>`
   }
 }
 
@@ -154,12 +175,27 @@ export class FormattedFileName extends LitElement {
     this.fetchError = error;
   }
 
+  copyText() {
+    const el = document.createElement('textarea');
+    el.value = this.textName + ': ' + this.displayName;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  }
+
   render() {
     if (this.fetchLoading || !this.displayName) {
       // prettier-ignore
       return html`<span class="formatted-file-name" name="${this.displayName}">${this.filename}</span>`
     }
     // prettier-ignore
-    return html`<span class="formatted-file-name ${this.rightside}" name="${this.displayName}">${this.textName}</span>`
+    return html`<span class="formatted-file-name ${this.rightside}" name="${this.displayName}">${this.textName}</span>
+          <iron-icon
+            class="copy-icon"
+            icon="vaadin:copy-o"
+            title="Copy to Clipboard"
+            @click="${this.copyText}">
+          </iron-icon>`
   }
 }
