@@ -2,6 +2,7 @@ import { html } from 'lit-element';
 
 import { objectMap } from '../utility/utils';
 import { getParCollectionNumber } from './numbersViewUtils';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 import NumbersViewTableHeader from './numbers-view-table-header';
 import '../utility/formatted-segment';
 
@@ -57,17 +58,23 @@ const TableRowContainer = (
     if (collections[parCollection]) {
       collections[parCollection].push(parallelArr);
       if (index === segmentParallels.length - 1) {
-        return TableRow(segmentlink, collections, language);
+        const rootLink = createTextViewSegmentUrl(segmentnr);
+        return TableRow(segmentlink, collections, language, rootLink);
       }
     }
   });
 
-const TableRow = (segmentNr, collections, language) =>
+const TableRow = (segmentNr, collections, language, rootLink) =>
   //prettier-ignore
   html`
     <tr class="numbers-view-table-row">
       <th>
-        <span class="segment-number">${segmentNr}</span>
+        <span class="segment-number">${segmentNr}&nbsp;<iron-icon
+        class="open-link-icon"
+        icon="vaadin:external-browser"
+        title="Display this text in a new tab"
+        onclick="window.open('${rootLink}','_blank');">
+      </iron-icon></span>
       </th>
       ${Object.keys(collections).map(
         key => html`
@@ -81,6 +88,7 @@ const TableRow = (segmentNr, collections, language) =>
 
 const getParallelsForCollection = (collection, language) =>
   collection.map(item => {
+    const parLink = createTextViewSegmentUrl(item[0]);
     const segmentlink = html`
       <formatted-segment
         .segmentnr="${item}"
@@ -89,7 +97,12 @@ const getParallelsForCollection = (collection, language) =>
     `;
     //prettier-ignore
     return html`
-      <span class="segment-number">${segmentlink}</span><br />
+      <span class="segment-number">${segmentlink}&nbsp;<iron-icon
+        class="open-link-icon"
+        icon="vaadin:external-browser"
+        title="Display this text in a new tab"
+        onclick="window.open('${parLink}','_blank');">
+      </iron-icon></span><br />
     `;
   });
 
