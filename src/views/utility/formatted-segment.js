@@ -132,7 +132,7 @@ export class FormattedSegment extends LitElement {
         <iron-icon
           class="copy-icon"
           icon="vaadin:copy-o"
-          title="Copy segment"
+          title="Copy to Clipboard"
           @click="${this.copyText}">
         </iron-icon>`
     }
@@ -141,7 +141,7 @@ export class FormattedSegment extends LitElement {
         <iron-icon
           class="copy-icon"
           icon="vaadin:copy-o"
-          title="Copy segment"
+          title="Copy to Clipboard"
           @click="${this.copyText}">
         </iron-icon>`
   }
@@ -194,7 +194,7 @@ export class FormattedFileName extends LitElement {
           <iron-icon
             class="copy-icon"
             icon="vaadin:copy-o"
-            title="Copy name"
+            title="Copy to Clipboard"
             @click="${this.copyText}">
           </iron-icon>`
   }
