@@ -203,7 +203,9 @@ export class DataView extends LitElement {
 
   setSortMethod = e => {
     this.sortMethod = e.target.value;
-    this.folio = '';
+    if (this.sortMethod != 'position') {
+      this.folio = '';
+    }
   };
 
   setLimitCollection = limitCollection => {
