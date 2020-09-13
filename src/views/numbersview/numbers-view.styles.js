@@ -22,6 +22,7 @@ export default css`
 
   td,
   th {
+    z-index: 1;
     vertical-align: top;
     padding: 10px;
     border: 3px solid white;
@@ -43,7 +44,7 @@ export default css`
   }
 
   thead th {
-    z-index: 1;
+    z-index: 2;
   }
 
   .segment-number {
@@ -71,11 +72,9 @@ export default css`
     font-weight: bold;
   }
 
-  .slow-loading {
-    text-align: center;
-    color: var(--color-text-primary);
-    font-family: var(--system-font-stack);
-    font-size: 24px;
-    font-weight: 400;
+  .open-link-icon {
+    color: var(--color-text-secondary);
+    width: 10px;
+    cursor: pointer;
   }
 `;
