@@ -3,6 +3,7 @@ import { customElement, html, css, LitElement, property } from 'lit-element';
 import styles from './text-view-table.styles';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import { isObjectEmpty } from '../utility/utils';
+import { getLanguageFromFilename } from '../utility/views-common';
 
 @customElement('text-view-table')
 export default class TextViewTable extends LitElement {
@@ -46,7 +47,6 @@ export default class TextViewTable extends LitElement {
           <div class="middle-text-column">
             <text-view-middle
               id="text-view-middle"
-              lang="${this.lang}"
               .score="${this.score}"
               .fileName="${this.fileName}"
               .quoteLength="${this.quoteLength}"
@@ -70,7 +70,7 @@ export default class TextViewTable extends LitElement {
       <div class="right-text-column">
         <text-view-right
           id="text-view-right"
-          lang="${this.lang}"
+          lang="${getLanguageFromFilename(this.rightFileName)}"
           .fileName="${this.fileName}"
           .rightFileName="${this.rightFileName}"
           .rightTextData="${this.rightTextData}"

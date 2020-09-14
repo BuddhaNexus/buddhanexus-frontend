@@ -5,10 +5,10 @@ import '@vaadin/vaadin-icons/vaadin-icons.js';
 
 import '../utility/formatted-segment';
 import '../utility/source-link';
+import { getLanguageFromFilename } from '../utility/views-common';
+import TextViewInfoModalContent from './text-view-modal-content';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-
-import TextViewInfoModalContent from './text-view-modal-content';
 
 function TextViewHeaderRightColumn({
   clickedNewTabButton,
@@ -201,7 +201,8 @@ export class TextViewHeader extends LitElement {
   handleRightTextNewTabButtonClicked() {
     const win = window.open(
       // This is a hack because dots in the segmentnumber are not accepted in the routing.
-      `./${this.rightFileName}/${this.rightSegmentName.replace(/\./g, '@')}`,
+      //prettier-ignore
+      `../../${getLanguageFromFilename(this.rightFileName)}/text/${this.rightFileName}/${this.rightSegmentName.replace(/\./g, '@')}`,
       '_blank'
     );
     win.focus();
