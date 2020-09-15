@@ -53,6 +53,7 @@ function TextViewHeaderRightColumn({
       <vaadin-button class="info-button" @click="${openDialogRight}">
         <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
       </vaadin-button>
+      <span class="text-name-label">Hit Text: </span>
       <formatted-filename .filename="${rightFileName}" .rightside="${'right'}"></formatted-filename>
     </div>
   `;
