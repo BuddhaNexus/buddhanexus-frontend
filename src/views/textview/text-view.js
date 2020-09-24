@@ -50,9 +50,6 @@ export class TextView extends LitElement {
       ) {
         this.middleData.limitCollection = this.limitCollection;
       }
-      if (propName === 'multiLingualMode') {
-        console.log('multiLingualMode = ', this.multiLingualMode);
-      }
     });
   }
 
