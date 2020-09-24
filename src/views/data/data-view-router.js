@@ -17,6 +17,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: String }) activeSegment;
   @property({ type: String }) sortMethod;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: String }) lang;
   @property({ type: Number }) cooccurance;
   @property({ type: Array }) limitCollection;
@@ -42,6 +43,7 @@ export class DataViewRouter extends LitElement {
           .quoteLength="${this.quoteLength}"
           .cooccurance="${this.cooccurance}"
           .score="${this.score}"
+          .multiLingualMode="${this.multiLingualMode}"
           .searchString="${this.searchString}"
           .selectedView="${this.selectedView}"
           .setSelectedView="${this.setSelectedView}"

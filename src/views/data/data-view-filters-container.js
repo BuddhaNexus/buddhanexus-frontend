@@ -1,7 +1,6 @@
 import { customElement, html, css, LitElement, property } from 'lit-element';
 
-import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-button';
-import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-group';
+import '@vaadin/vaadin-checkbox/theme/material/vaadin-checkbox';
 import '@vaadin/vaadin-details/theme/material/vaadin-details';
 import '@vaadin/vaadin-select/theme/material/vaadin-select';
 import '@polymer/paper-slider/paper-slider';
@@ -16,6 +15,7 @@ import {
   getCollectionsForVisual,
 } from '../menus/actions';
 import './data-view-filter-sliders';
+import { LANGUAGE_CODES } from '../utility/constants';
 
 import styles from './data-view-filters-container.styles';
 
@@ -39,7 +39,7 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: Function }) updateQuoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Function }) updateCooccurance;
-
+  @property({ type: Function }) updateMultiLingualMode;
   @property({ type: Function }) updateLimitCollection;
   @property({ type: Function }) updateTargetCollection;
   @property({ type: String }) language;
@@ -113,6 +113,19 @@ export class DataViewFiltersContainer extends LitElement {
     this.filterTargetCollectionDataError = error;
   }
 
+  findLanguageName(language) {
+    switch (language) {
+      case LANGUAGE_CODES.TIBETAN:
+        return 'Tibetan';
+      case LANGUAGE_CODES.PALI:
+        return 'Pāḷi';
+      case LANGUAGE_CODES.CHINESE:
+        return 'Chinese';
+      case LANGUAGE_CODES.SANSKRIT:
+        return 'Sanskrit';
+    }
+  }
+
   handleFilesComboBoxChanged = e => {
     this.selectedFilenames = e.detail.value.map(item => item.filename);
     this.updateFilters();
@@ -159,6 +172,16 @@ export class DataViewFiltersContainer extends LitElement {
 
   shouldShowTargetDropdown() {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
+  }
+
+  shouldShowMultiLingual() {
+    if (
+      this.viewMode === DATA_VIEW_MODES.TEXT &&
+      (this.language == 'tib' || this.language == 'skt')
+    ) {
+      return true;
+    }
+    return false;
   }
 
   renderMultiSelectBox(label, id, changefunction, itempath) {
@@ -233,7 +256,20 @@ export class DataViewFiltersContainer extends LitElement {
 
   render() {
     //prettier-ignore
-    return html`    
+    return html`
+
+      <div id="multi-lingual-label">Choose Match Languages:</div>
+      <div
+        id="multi-lingual"
+        style="display: ${
+          this.shouldShowMultiLingual() ? 'inline-flex' : 'none'
+        }">
+        <vaadin-checkbox value="pli" disabled>Pāḷi</vaadin-checkbox>
+        <vaadin-checkbox value="skt" @checked-changed="${this.updateMultiLingualMode}" checked>Sanskrit</vaadin-checkbox>
+        <vaadin-checkbox value="tib" @checked-changed="${this.updateMultiLingualMode}" checked>Tibetan</vaadin-checkbox>
+        <vaadin-checkbox value="chn" disabled>Chinese</vaadin-checkbox>
+      </div>
+
       <data-view-filter-sliders .score="${this.score}" 
       .updateScore="${this.updateScore}" 
       .quoteLength="${this.quoteLength}" 

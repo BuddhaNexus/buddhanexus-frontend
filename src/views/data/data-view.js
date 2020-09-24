@@ -44,6 +44,7 @@ export class DataView extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
+  @property({ type: Array }) multiLingualMode = [];
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
@@ -102,7 +103,13 @@ export class DataView extends LitElement {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
       }
       if (
-        ['score', 'cooccurance', 'sortMethod', 'quoteLength'].includes(propName)
+        [
+          'score',
+          'cooccurance',
+          'sortMethod',
+          'quoteLength',
+          'multiLingualMode',
+        ].includes(propName)
       ) {
         this.applyFilter();
       }
@@ -295,6 +302,19 @@ export class DataView extends LitElement {
     this.segmentDisplaySide = e.target.value;
   };
 
+  setMultiLingualMode = e => {
+    if (e.target.checked) {
+      this.multiLingualMode.push(e.target.value);
+    } else if (
+      this.multiLingualMode !== [] &&
+      this.multiLingualMode.includes(e.target.value)
+    ) {
+      let index = this.multiLingualMode.indexOf(e.target.value);
+      this.multiLingualMode.splice(index, 1);
+    }
+    console.log(this.multiLingualMode);
+  };
+
   render() {
     //prettier-ignore
     return html`
@@ -329,6 +349,7 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
+            .multiLingualMode="${this.multiLingualMode}"
             .searchString="${this.searchString}"
             .headerVisibility="${this.headerVisibility}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
@@ -362,6 +383,7 @@ export class DataView extends LitElement {
             .updateQuoteLength="${this.setQuoteLength}"
             .updateLimitCollection="${this.setLimitCollection}"
             .updateTargetCollection="${this.setTargetCollection}"
+            .updateMultiLingualMode="${this.setMultiLingualMode}"
             .cooccurance="${this.cooccurance}"
             .updateCooccurance="${this.setCooccurance}"
             .language="${this.language}">

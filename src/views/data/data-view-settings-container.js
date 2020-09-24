@@ -24,7 +24,6 @@ export class DataViewSettingsContainer extends LitElement {
 
       <vaadin-radio-group
         class="segment-numbers-sides"
-        value="${this.segmentSide}"
         @value-changed="${this.toggleSegmentDisplaySide}">
         <vaadin-radio-button value="left" checked>
           <span class="button-font">Left</span>

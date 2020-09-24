@@ -99,6 +99,7 @@ export default css`
     overflow-x: hidden;
     transition: width var(--vaadin-app-layout-transition),
       min-width var(--vaadin-app-layout-transition);
+    background-color: white;
   }
 
   side-sheet.side-sheet--open {

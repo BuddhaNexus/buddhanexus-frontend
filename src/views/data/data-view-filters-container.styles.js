@@ -14,6 +14,7 @@ export default css`
   vaadin-select,
   vaadin-combo-box,
   multiselect-combo-box,
+  vaadin-checkbox,
   vaadin-text-field {
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);
@@ -39,5 +40,17 @@ export default css`
   .filter-group {
     margin-top: 16px;
     margin-bottom: 16px;
+  }
+
+  #multi-lingual {
+    flex-wrap: wrap;
+    padding-bottom: 8px;
+  }
+
+  #multi-lingual-label {
+    padding-bottom: 8px;
+    font-size: 12px;
+    opacity: 0.8;
+    display: block;
   }
 `;
