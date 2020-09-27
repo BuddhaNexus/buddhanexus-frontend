@@ -25,12 +25,19 @@ class SearchViewListHeader extends LitElement {
       `,
     ];
   }
-
+  maxMessage() {
+    if (this.resultNumber == 200) {
+      return html`
+        (max. possible number of 200 results reached)
+      `;
+    }
+  }
   render() {
     return html`
       <div class="list-header-container">
         <div id="search-result-header">
-          Showing ${this.resultNumber} results for query "${this.searchQuery}":
+          Showing ${this.resultNumber} results for query "${this.searchQuery}"
+          ${this.maxMessage()}:
         </div>
       </div>
     `;
