@@ -100,6 +100,7 @@ export class DataView extends LitElement {
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
+        this.checkSearchSelectedText();
       }
       if (
         ['score', 'cooccurance', 'sortMethod', 'quoteLength'].includes(propName)
@@ -147,6 +148,13 @@ export class DataView extends LitElement {
       const newUrl = this.location.pathname.replace('neutral', 'text');
       this.location.pathname = newUrl;
       history.replaceState({}, null, newUrl);
+    }
+  }
+  // handles the case that a new text was selected while browsing the search-results in local-search-view.
+  checkSearchSelectedText() {
+    if (this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH && this.fileName) {
+      this.selectedView = DATA_VIEW_MODES.TEXT;
+      this.viewMode = DATA_VIEW_MODES.TEXT;
     }
   }
 
