@@ -95,6 +95,7 @@ export const getDataForVisual = async ({
 export const getFileTextAndParallels = async ({
   fileName,
   limit_collection,
+  multi_lingual,
   ...queryParams
 }) => {
   try {
@@ -102,6 +103,7 @@ export const getFileTextAndParallels = async ({
     const url = getFileTextAndParallelsUrl(
       fileName,
       limit_collection,
+      multi_lingual,
       queryParams
     );
     const response = await fetch(url);
@@ -145,6 +147,7 @@ export const getFileTextParallelsMiddle = async ({
   par_length,
   co_occ,
   limit_collection,
+  multi_lingual,
 }) => {
   try {
     let data = {
@@ -154,6 +157,7 @@ export const getFileTextParallelsMiddle = async ({
       par_length: par_length,
       co_occ: co_occ,
       limit_collection: limit_collection,
+      multi_lingual: multi_lingual,
     };
     const url = `${API_URL}/parallels-for-middle/`;
     const request = {

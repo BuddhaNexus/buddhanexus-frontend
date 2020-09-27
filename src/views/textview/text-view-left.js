@@ -62,10 +62,6 @@ export class TextViewLeft extends LitElement {
         this.noEndlessScrolling = false;
       }
 
-      if (propName === 'multiLingualMode') {
-        console.log('multiLingualMode = ', this.multiLingualMode);
-      }
-
       const fileChanged = [
         'score',
         'cooccurance',
@@ -127,6 +123,7 @@ export class TextViewLeft extends LitElement {
       par_length: this.quoteLength,
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
+      multi_lingual: this.multiLingualMode,
     });
     if (textleft.length !== 800) {
       if (this.leftActiveSegment) {

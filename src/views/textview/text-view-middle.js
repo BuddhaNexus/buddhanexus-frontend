@@ -54,13 +54,11 @@ export class TextViewMiddle extends LitElement {
         await this.fetchMiddleParallels();
         this.fetchLoading = false;
       }
-      if (propName === 'multiLingualMode') {
-        console.log('multiLingualMode = ', this.multiLingualMode);
-      }
     });
   }
 
   async fetchMiddleParallels() {
+    console.log(this.multiLingualMode);
     this.fetchLoading = true;
     const { parallels, error } = await getFileTextParallelsMiddle({
       segmentnr: this.data.activeSegment,
@@ -69,6 +67,7 @@ export class TextViewMiddle extends LitElement {
       par_length: this.quoteLength,
       limit_collection: this.data.limitCollection,
       co_occ: this.cooccurance,
+      multi_lingual: this.multiLingualMode,
     });
     this.selectedParallels = parallels;
     this.fetchError = error;
