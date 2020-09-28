@@ -15,6 +15,7 @@ import {
   getCollectionsForVisual,
 } from '../menus/actions';
 import './data-view-filter-sliders';
+import './data-view-filters-multilingual';
 import { LANGUAGE_CODES } from '../utility/constants';
 
 import styles from './data-view-filters-container.styles';
@@ -32,6 +33,7 @@ export const DATA_VIEW_MODES = {
 export class DataViewFiltersContainer extends LitElement {
   // Filter sliders:
   @property({ type: String }) viewMode;
+  @property({ type: String }) fileName;
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
   @property({ type: Number }) quoteLength;
@@ -175,10 +177,7 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   shouldShowMultiLingual() {
-    if (
-      this.viewMode === DATA_VIEW_MODES.TEXT &&
-      (this.language == 'tib' || this.language == 'skt')
-    ) {
+    if (this.viewMode === DATA_VIEW_MODES.TEXT) {
       return true;
     }
     return false;
@@ -253,23 +252,16 @@ export class DataViewFiltersContainer extends LitElement {
       `;
     }
   }
-
   render() {
     //prettier-ignore
     return html`
-
-      <div id="multi-lingual-label">Choose Match Languages:</div>
-      <div
-        id="multi-lingual"
-        style="display: ${
-          this.shouldShowMultiLingual() ? 'inline-flex' : 'none'
-        }">
-        <vaadin-checkbox value="pli" disabled>Pāḷi</vaadin-checkbox>
-        <vaadin-checkbox value="skt" @checked-changed="${this.updateMultiLingualMode}" checked>Sanskrit</vaadin-checkbox>
-        <vaadin-checkbox value="tib" @checked-changed="${this.updateMultiLingualMode}" checked>Tibetan</vaadin-checkbox>
-        <vaadin-checkbox value="chn" disabled>Chinese</vaadin-checkbox>
-      </div>
-
+      <data-view-filters-multilingual 
+      .fileName="${this.fileName}"
+      .mainLang="${this.language}"
+      .shouldShowMultiLingual="${this.shouldShowMultiLingual}"
+      .updateMultiLingualMode="${this.updateMultiLingualMode}"
+      >
+      </data-view-filters-multilingual>
       <data-view-filter-sliders .score="${this.score}" 
       .updateScore="${this.updateScore}" 
       .quoteLength="${this.quoteLength}" 

@@ -289,3 +289,21 @@ export const getGretilLink = async ({ fileName }) => {
     };
   }
 };
+
+export const getMultilingualData = async ({ fileName }) => {
+  try {
+    const url = `${API_URL}/multilingual/${fileName}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load multilingual languages from server: ', e);
+    return {
+      error:
+        'Could not load multilingual languages. Please check the console for details.',
+    };
+  }
+};

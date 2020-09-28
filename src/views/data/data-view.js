@@ -72,22 +72,27 @@ export class DataView extends LitElement {
         this.minLength = MIN_LENGTHS.TIBETAN;
         this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
         this.score = DEFAULT_SCORES.TIBETAN;
+        this.multiLingualMode = [LANGUAGE_CODES.TIBETAN];
         break;
       case LANGUAGE_CODES.PALI:
         this.minLength = MIN_LENGTHS.PALI;
         this.quoteLength = DEFAULT_LENGTHS.PALI;
         this.score = DEFAULT_SCORES.PALI;
+        this.multiLingualMode = [LANGUAGE_CODES.PALI];
         break;
       case LANGUAGE_CODES.SANSKRIT:
         this.minLength = MIN_LENGTHS.SANSKRIT;
         this.quoteLength = DEFAULT_LENGTHS.SANSKRIT;
         this.score = DEFAULT_SCORES.SANSKRIT;
+        this.multiLingualMode = [LANGUAGE_CODES.SANSKRIT];
         break;
       case LANGUAGE_CODES.CHINESE:
         this.minLength = MIN_LENGTHS.CHINESE;
         this.quoteLength = DEFAULT_LENGTHS.CHINESE;
         this.score = DEFAULT_SCORES.CHINESE;
+        this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
+      // Question: DO we need this default value?
       default:
         this.minLength = MIN_LENGTHS.TIBETAN;
         this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
@@ -316,6 +321,8 @@ export class DataView extends LitElement {
     // For some reason it does not render when this.multiLingualMode is updated but it does
     // when another filter is updated.
     this.cooccurance += 1;
+    // we have to remove duplicate items from the multiLingualMode
+    this.multiLingualMode = [...new Set(this.multiLingualMode)];
   };
 
   render() {
@@ -378,6 +385,7 @@ export class DataView extends LitElement {
           </data-view-total-numbers>
 
           <data-view-filters-container
+            .fileName="${this.fileName}"
             .viewMode="${this.viewMode}"
             .score="${this.score}"
             .updateScore="${this.setScore}"
