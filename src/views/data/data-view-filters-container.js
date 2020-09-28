@@ -10,7 +10,6 @@ import {
 } from '../menus/actions';
 import './data-view-filter-sliders';
 import './data-view-filters-multilingual';
-import { LANGUAGE_CODES } from '../utility/constants';
 
 import styles from './data-view-filters-container.styles';
 
@@ -107,19 +106,6 @@ export class DataViewFiltersContainer extends LitElement {
     });
     this.targetCollectionData = targetCollectionData;
     this.filterTargetCollectionDataError = error;
-  }
-
-  findLanguageName(language) {
-    switch (language) {
-      case LANGUAGE_CODES.TIBETAN:
-        return 'Tibetan';
-      case LANGUAGE_CODES.PALI:
-        return 'Pāḷi';
-      case LANGUAGE_CODES.CHINESE:
-        return 'Chinese';
-      case LANGUAGE_CODES.SANSKRIT:
-        return 'Sanskrit';
-    }
   }
 
   handleFilesComboBoxChanged = e => {
