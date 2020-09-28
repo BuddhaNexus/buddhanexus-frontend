@@ -113,7 +113,6 @@ export class TextViewLeft extends LitElement {
   }
 
   async fetchNewText() {
-    console.log(this.multiLingualMode);
     this.fetchLoading = true;
 
     const { textleft, parallels, error } = await getFileTextAndParallels({

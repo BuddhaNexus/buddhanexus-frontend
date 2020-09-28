@@ -317,10 +317,6 @@ export class DataView extends LitElement {
       let index = this.multiLingualMode.indexOf(e.target.value);
       this.multiLingualMode.splice(index, 1);
     }
-    // This is a complete hack but for now it works. Something needs to be done about it.
-    // For some reason it does not render when this.multiLingualMode is updated but it does
-    // when another filter is updated.
-    this.cooccurance += 1;
     // we have to remove duplicate items from the multiLingualMode
     this.multiLingualMode = [...new Set(this.multiLingualMode)];
   };

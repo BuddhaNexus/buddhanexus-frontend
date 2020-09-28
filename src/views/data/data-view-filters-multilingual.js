@@ -5,27 +5,34 @@ import '@vaadin/vaadin-checkbox/theme/material/vaadin-checkbox';
 import { getMultilingualData } from '../../api/actions';
 import { LANGUAGE_CODES } from '../utility/constants';
 
-import styles from './data-view-filters-container.styles';
-
 @customElement('data-view-filters-multilingual')
 export class DataViewFiltersMultilingual extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: Array }) multiLangList;
   @property({ type: Array }) mainLang;
   @property({ type: Function }) updateMultiLingualMode;
-  @property({ type: Boolean }) dataLoading = true;
+  @property({ type: Boolean }) dataLoading = false;
   @property({ type: Boolean }) shouldShowMultiLingual = false;
   @property({ type: String }) dataLoadError = false;
 
   static get styles() {
     return [
-      styles,
       css`
-        .loading-spinner-container {
-          width: 100%;
-          height: 100%;
-          margin-top: 5em;
-          position: relative;
+        vaadin-checkbox {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+        }
+
+        #multi-lingual {
+          flex-wrap: wrap;
+          padding-bottom: 8px;
+        }
+
+        #multi-lingual-label {
+          padding-bottom: 8px;
+          font-size: 12px;
+          opacity: 0.8;
+          display: block;
         }
       `,
     ];
@@ -44,6 +51,9 @@ export class DataViewFiltersMultilingual extends LitElement {
   }
 
   async fetchMultilingualData() {
+    if (!this.fileName) {
+      return;
+    }
     this.dataLoading = true;
     const { langList, error } = await getMultilingualData({
       fileName: this.fileName,
@@ -142,16 +152,16 @@ export class DataViewFiltersMultilingual extends LitElement {
 
   render() {
     //prettier-ignore
-    if(!this.dataLoading && this.shouldShowMultiLingual){
-    return html`
-      <div id="multi-lingual-label">Choose Match Languages:</div>
-      <div>
-        ${this.renderPali()}
-        ${this.renderSanskrit()}
-        ${this.renderTibetan()}
-        ${this.renderChinese()}
-      </div>
-    `;
+    if(!this.dataLoading && this.shouldShowMultiLingual && this.multiLangList) {
+      return html`
+        <div id="multi-lingual-label">Choose Match Languages:</div>
+        <div id="multi-lingual">
+          ${this.renderPali()}
+          ${this.renderSanskrit()}
+          ${this.renderTibetan()}
+          ${this.renderChinese()}
+        </div>
+      `;
       }
   }
 }

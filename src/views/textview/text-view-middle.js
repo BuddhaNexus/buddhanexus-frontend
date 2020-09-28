@@ -58,7 +58,6 @@ export class TextViewMiddle extends LitElement {
   }
 
   async fetchMiddleParallels() {
-    console.log(this.multiLingualMode);
     this.fetchLoading = true;
     const { parallels, error } = await getFileTextParallelsMiddle({
       segmentnr: this.data.activeSegment,
