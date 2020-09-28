@@ -177,10 +177,7 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   shouldShowMultiLingual() {
-    if (this.viewMode === DATA_VIEW_MODES.TEXT) {
-      return true;
-    }
-    return false;
+    return this.viewMode === DATA_VIEW_MODES.TEXT;
   }
 
   renderMultiSelectBox(label, id, changefunction, itempath) {
@@ -255,20 +252,23 @@ export class DataViewFiltersContainer extends LitElement {
   render() {
     //prettier-ignore
     return html`
-      <data-view-filters-multilingual 
-      .fileName="${this.fileName}"
-      .mainLang="${this.language}"
-      .shouldShowMultiLingual="${this.shouldShowMultiLingual}"
-      .updateMultiLingualMode="${this.updateMultiLingualMode}"
-      >
+      <data-view-filters-multilingual
+        style="display: ${
+          this.shouldShowMultiLingual() ? 'block' : 'none'
+        }"
+        .fileName="${this.fileName}"
+        .mainLang="${this.language}"
+        .updateMultiLingualMode="${this.updateMultiLingualMode}">
       </data-view-filters-multilingual>
-      <data-view-filter-sliders .score="${this.score}" 
-      .updateScore="${this.updateScore}" 
-      .quoteLength="${this.quoteLength}" 
-      .minLength="${this.minLength}"
-      .updateQuoteLength="${this.updateQuoteLength}" 
-      .cooccurance="${this.cooccurance}" 
-      .updateCooccurance="${this.updateCooccurance}">
+
+      <data-view-filter-sliders
+        .score="${this.score}"
+        .updateScore="${this.updateScore}"
+        .quoteLength="${this.quoteLength}"
+        .minLength="${this.minLength}"
+        .updateQuoteLength="${this.updateQuoteLength}"
+        .cooccurance="${this.cooccurance}"
+        .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
       
       <multiselect-combo-box

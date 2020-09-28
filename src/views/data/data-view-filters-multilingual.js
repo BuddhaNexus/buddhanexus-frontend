@@ -12,7 +12,6 @@ export class DataViewFiltersMultilingual extends LitElement {
   @property({ type: Array }) mainLang;
   @property({ type: Function }) updateMultiLingualMode;
   @property({ type: Boolean }) dataLoading = false;
-  @property({ type: Boolean }) shouldShowMultiLingual = false;
   @property({ type: String }) dataLoadError = false;
 
   static get styles() {
@@ -153,7 +152,7 @@ export class DataViewFiltersMultilingual extends LitElement {
 
   render() {
     //prettier-ignore
-    if(!this.dataLoading && this.shouldShowMultiLingual && this.multiLangList) {
+    if(!this.dataLoading && this.multiLangList) {
       return html`
         <div id="multi-lingual-label">Choose Match Languages:</div>
         <div id="multi-lingual">
