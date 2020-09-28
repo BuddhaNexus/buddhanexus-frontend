@@ -1,12 +1,6 @@
 import { customElement, html, css, LitElement, property } from 'lit-element';
 
-import '@vaadin/vaadin-checkbox/theme/material/vaadin-checkbox';
-import '@vaadin/vaadin-details/theme/material/vaadin-details';
-import '@vaadin/vaadin-select/theme/material/vaadin-select';
-import '@polymer/paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
-import '@vaadin/vaadin-button/theme/material/vaadin-button';
-import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
 
 import '../utility/LoadingSpinner';
 import {
