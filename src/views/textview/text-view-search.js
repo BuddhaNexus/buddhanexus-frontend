@@ -68,6 +68,14 @@ export class TextViewSearch extends LitElement {
     this.dispatchEvent(searchResultClickedEvent);
   }
 
+  handleReturnButtonClicked() {
+    const returnButtonClickedEvent = new CustomEvent('click-return', {
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(returnButtonClickedEvent);
+  }
+
   render() {
     if (this.fetchLoading) {
       return html`
@@ -75,10 +83,10 @@ export class TextViewSearch extends LitElement {
       `;
     }
 
-    if (!this.resultSegments) {
+    if (this.resultSegments.length == 0) {
       //prettier-ignore
       return html`
-        <span>No results.</span>
+        <span>No results. <span class="return-link" @click="${this.handleReturnButtonClicked}">Return to text-view.</span> </span>
       `;
     }
     //prettier-ignore

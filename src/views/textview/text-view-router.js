@@ -40,6 +40,10 @@ export class TextViewRouter extends LitElement {
     this.setSelectedView(DATA_VIEW_MODES.TEXT);
   }
 
+  handleReturnButtonClicked() {
+    this.setSelectedView(DATA_VIEW_MODES.TEXT);
+  }
+
   render() {
     if (this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH) {
       return html`
@@ -48,6 +52,7 @@ export class TextViewRouter extends LitElement {
           .fileName="${this.fileName}"
           .searchString="${this.searchString}"
           @click-result="${this.handleSearchResultClicked}"
+          @click-return="${this.handleReturnButtonClicked}"
         ></text-view-search>
       `;
     }

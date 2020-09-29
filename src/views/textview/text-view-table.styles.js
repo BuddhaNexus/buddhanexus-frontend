@@ -39,6 +39,15 @@ export default css`
     margin-bottom: 0;
   }
 
+  .return-link {
+    cursor: pointer;
+    color: var(--content-link-color);
+  }
+  .return-link:hover {
+    color: var(--hover-link-color);
+    text-decoration: underline;
+  }
+
   .chinese-verse {
     text-align: right;
     max-width: 500px;
