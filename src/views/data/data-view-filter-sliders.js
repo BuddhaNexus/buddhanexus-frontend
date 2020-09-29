@@ -1,5 +1,7 @@
 import { LitElement, html, css, customElement, property } from 'lit-element';
 
+import '@polymer/paper-slider/paper-slider';
+
 @customElement('data-view-filter-sliders')
 export default class DataViewFilterSliders extends LitElement {
   @property({ type: Number }) score;

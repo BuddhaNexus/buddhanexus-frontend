@@ -95,6 +95,7 @@ export const getDataForVisual = async ({
 export const getFileTextAndParallels = async ({
   fileName,
   limit_collection,
+  multi_lingual,
   ...queryParams
 }) => {
   try {
@@ -102,6 +103,7 @@ export const getFileTextAndParallels = async ({
     const url = getFileTextAndParallelsUrl(
       fileName,
       limit_collection,
+      multi_lingual,
       queryParams
     );
     const response = await fetch(url);
@@ -145,6 +147,7 @@ export const getFileTextParallelsMiddle = async ({
   par_length,
   co_occ,
   limit_collection,
+  multi_lingual,
 }) => {
   try {
     let data = {
@@ -154,6 +157,7 @@ export const getFileTextParallelsMiddle = async ({
       par_length: par_length,
       co_occ: co_occ,
       limit_collection: limit_collection,
+      multi_lingual: multi_lingual,
     };
     const url = `${API_URL}/parallels-for-middle/`;
     const request = {
@@ -282,6 +286,24 @@ export const getGretilLink = async ({ fileName }) => {
     return {
       error:
         'Could not load gretil link. Please check the console for details.',
+    };
+  }
+};
+
+export const getMultilingualData = async ({ fileName }) => {
+  try {
+    const url = `${API_URL}/multilingual/${fileName}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load multilingual languages from server: ', e);
+    return {
+      error:
+        'Could not load multilingual languages. Please check the console for details.',
     };
   }
 };

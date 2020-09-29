@@ -23,6 +23,7 @@ export class TextViewRouter extends LitElement {
   @property({ type: String }) activeSegment;
   @property({ type: Number }) score;
   @property({ type: String }) searchString;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Function }) setFileName;
   @property({ type: String }) rightFileName = '';
   @property({ type: Object }) rightTextData;
@@ -68,6 +69,7 @@ export class TextViewRouter extends LitElement {
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
         .score="${this.score}"
+        .multiLingualMode="${this.multiLingualMode}"
         .searchString="${this.searchString}"
         .showSegmentNumbers="${this.showSegmentNumbers}"
         .segmentDisplaySide="${this.segmentDisplaySide}"

@@ -44,6 +44,7 @@ export class DataView extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
+  @property({ type: Array }) multiLingualMode = [];
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
@@ -71,22 +72,27 @@ export class DataView extends LitElement {
         this.minLength = MIN_LENGTHS.TIBETAN;
         this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
         this.score = DEFAULT_SCORES.TIBETAN;
+        this.multiLingualMode = [LANGUAGE_CODES.TIBETAN];
         break;
       case LANGUAGE_CODES.PALI:
         this.minLength = MIN_LENGTHS.PALI;
         this.quoteLength = DEFAULT_LENGTHS.PALI;
         this.score = DEFAULT_SCORES.PALI;
+        this.multiLingualMode = [LANGUAGE_CODES.PALI];
         break;
       case LANGUAGE_CODES.SANSKRIT:
         this.minLength = MIN_LENGTHS.SANSKRIT;
         this.quoteLength = DEFAULT_LENGTHS.SANSKRIT;
         this.score = DEFAULT_SCORES.SANSKRIT;
+        this.multiLingualMode = [LANGUAGE_CODES.SANSKRIT];
         break;
       case LANGUAGE_CODES.CHINESE:
         this.minLength = MIN_LENGTHS.CHINESE;
         this.quoteLength = DEFAULT_LENGTHS.CHINESE;
         this.score = DEFAULT_SCORES.CHINESE;
+        this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
+      // Question: DO we need this default value?
       default:
         this.minLength = MIN_LENGTHS.TIBETAN;
         this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
@@ -103,7 +109,13 @@ export class DataView extends LitElement {
         this.checkSearchSelectedText();
       }
       if (
-        ['score', 'cooccurance', 'sortMethod', 'quoteLength'].includes(propName)
+        [
+          'score',
+          'cooccurance',
+          'sortMethod',
+          'quoteLength',
+          'multiLingualMode',
+        ].includes(propName)
       ) {
         this.applyFilter();
       }
@@ -303,6 +315,20 @@ export class DataView extends LitElement {
     this.segmentDisplaySide = e.target.value;
   };
 
+  setMultiLingualMode = e => {
+    if (e.target.checked) {
+      this.multiLingualMode.push(e.target.value);
+    } else if (
+      this.multiLingualMode !== [] &&
+      this.multiLingualMode.includes(e.target.value)
+    ) {
+      let index = this.multiLingualMode.indexOf(e.target.value);
+      this.multiLingualMode.splice(index, 1);
+    }
+    // we have to remove duplicate items from the multiLingualMode
+    this.multiLingualMode = [...new Set(this.multiLingualMode)];
+  };
+
   render() {
     //prettier-ignore
     return html`
@@ -337,6 +363,7 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
+            .multiLingualMode="${this.multiLingualMode}"
             .searchString="${this.searchString}"
             .headerVisibility="${this.headerVisibility}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
@@ -362,6 +389,7 @@ export class DataView extends LitElement {
           </data-view-total-numbers>
 
           <data-view-filters-container
+            .fileName="${this.fileName}"
             .viewMode="${this.viewMode}"
             .score="${this.score}"
             .updateScore="${this.setScore}"
@@ -370,6 +398,7 @@ export class DataView extends LitElement {
             .updateQuoteLength="${this.setQuoteLength}"
             .updateLimitCollection="${this.setLimitCollection}"
             .updateTargetCollection="${this.setTargetCollection}"
+            .updateMultiLingualMode="${this.setMultiLingualMode}"
             .cooccurance="${this.cooccurance}"
             .updateCooccurance="${this.setCooccurance}"
             .language="${this.language}">

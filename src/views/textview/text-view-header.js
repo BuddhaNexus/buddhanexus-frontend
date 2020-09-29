@@ -111,10 +111,6 @@ function TextViewHeaderLeftColumn({
 export class TextViewHeader extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) lang;
-  @property({ type: Array }) limitCollection;
-  @property({ type: Number }) quoteLength;
-  @property({ type: Number }) cooccurance;
-  @property({ type: Number }) score;
 
   @property({ type: String }) rightFileName;
   @property({ type: Object }) rightSegmentName;

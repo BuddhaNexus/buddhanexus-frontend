@@ -1,13 +1,6 @@
 import { customElement, html, css, LitElement, property } from 'lit-element';
 
-import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-button';
-import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-group';
-import '@vaadin/vaadin-details/theme/material/vaadin-details';
-import '@vaadin/vaadin-select/theme/material/vaadin-select';
-import '@polymer/paper-slider/paper-slider';
 import 'multiselect-combo-box/theme/material/multiselect-combo-box';
-import '@vaadin/vaadin-button/theme/material/vaadin-button';
-import '@vaadin/vaadin-list-box/theme/material/vaadin-list-box';
 
 import '../utility/LoadingSpinner';
 import {
@@ -16,6 +9,7 @@ import {
   getCollectionsForVisual,
 } from '../menus/actions';
 import './data-view-filter-sliders';
+import './data-view-filters-multilingual';
 
 import styles from './data-view-filters-container.styles';
 
@@ -32,6 +26,7 @@ export const DATA_VIEW_MODES = {
 export class DataViewFiltersContainer extends LitElement {
   // Filter sliders:
   @property({ type: String }) viewMode;
+  @property({ type: String }) fileName;
   @property({ type: Number }) score;
   @property({ type: Function }) updateScore;
   @property({ type: Number }) quoteLength;
@@ -39,7 +34,7 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: Function }) updateQuoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Function }) updateCooccurance;
-
+  @property({ type: Function }) updateMultiLingualMode;
   @property({ type: Function }) updateLimitCollection;
   @property({ type: Function }) updateTargetCollection;
   @property({ type: String }) language;
@@ -161,6 +156,10 @@ export class DataViewFiltersContainer extends LitElement {
     return this.viewMode === DATA_VIEW_MODES.GRAPH;
   }
 
+  shouldShowMultiLingual() {
+    return this.viewMode === DATA_VIEW_MODES.TEXT;
+  }
+
   renderMultiSelectBox(label, id, changefunction, itempath) {
     return html`
       <multiselect-combo-box
@@ -230,17 +229,26 @@ export class DataViewFiltersContainer extends LitElement {
       `;
     }
   }
-
   render() {
     //prettier-ignore
-    return html`    
-      <data-view-filter-sliders .score="${this.score}" 
-      .updateScore="${this.updateScore}" 
-      .quoteLength="${this.quoteLength}" 
-      .minLength="${this.minLength}"
-      .updateQuoteLength="${this.updateQuoteLength}" 
-      .cooccurance="${this.cooccurance}" 
-      .updateCooccurance="${this.updateCooccurance}">
+    return html`
+      <data-view-filters-multilingual
+        style="display: ${
+          this.shouldShowMultiLingual() ? 'block' : 'none'
+        }"
+        .fileName="${this.fileName}"
+        .mainLang="${this.language}"
+        .updateMultiLingualMode="${this.updateMultiLingualMode}">
+      </data-view-filters-multilingual>
+
+      <data-view-filter-sliders
+        .score="${this.score}"
+        .updateScore="${this.updateScore}"
+        .quoteLength="${this.quoteLength}"
+        .minLength="${this.minLength}"
+        .updateQuoteLength="${this.updateQuoteLength}"
+        .cooccurance="${this.cooccurance}"
+        .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
       
       <multiselect-combo-box

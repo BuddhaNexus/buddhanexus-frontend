@@ -17,6 +17,7 @@ export class TextViewMiddle extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Object }) data;
   @property({ type: Array }) limitCollection;
   @property({ type: String }) leftActiveSegment;
@@ -44,6 +45,7 @@ export class TextViewMiddle extends LitElement {
           'limitCollection',
           'cooccurance',
           'quoteLength',
+          'multiLingualMode',
         ].includes(propName)
       ) {
         if (this.fetchLoading) {
@@ -64,6 +66,7 @@ export class TextViewMiddle extends LitElement {
       par_length: this.quoteLength,
       limit_collection: this.data.limitCollection,
       co_occ: this.cooccurance,
+      multi_lingual: this.multiLingualMode,
     });
     this.selectedParallels = parallels;
     this.fetchError = error;

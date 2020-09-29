@@ -23,6 +23,7 @@ export class TextView extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Boolean }) rightMode;
   @property({ type: String }) searchString;
   @property({ type: Function }) setFileName;
@@ -208,10 +209,6 @@ export class TextView extends LitElement {
         .lang="${this.lang}"
         .rightFileName="${this.rightFileName}"
         .rightSegmentName="${this.rightActiveSegment}"
-        .score="${this.score}"
-        .limitCollection="${this.limitCollection}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
         .renderSwitchButton="${this.renderSwitchButton}"
         .renderMiddleTextLabel="${!isObjectEmpty(this.middleData)}"
         @switch-texts="${this.switchTexts}"
@@ -229,6 +226,7 @@ export class TextView extends LitElement {
         .limitCollection="${this.limitCollection}"
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"
+        .multiLingualMode="${this.multiLingualMode}"
         .rightFileName="${this.rightFileName}"
         .leftActiveSegment="${this.leftActiveSegment}"
         .showSegmentNumbers="${this.showSegmentNumbers}"

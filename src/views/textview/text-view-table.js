@@ -17,6 +17,7 @@ export default class TextViewTable extends LitElement {
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: String }) leftActiveSegment;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
@@ -52,6 +53,7 @@ export default class TextViewTable extends LitElement {
               .quoteLength="${this.quoteLength}"
               .limitCollection="${this.limitCollection}"
               .cooccurance="${this.cooccurance}"
+              .multiLingualMode="${this.multiLingualMode}"
               .data="${this.middleData}"
               .leftActiveSegment="${this.leftActiveSegment}"
               @mouseover-parallel="${this.handleMouseOver}"
@@ -104,6 +106,7 @@ export default class TextViewTable extends LitElement {
               .leftTextData="${this.leftTextData}"
               .score="${this.score}"
               .limitCollection="${this.limitCollection}"
+              .multiLingualMode="${this.multiLingualMode}"
               .quoteLength="${this.quoteLength}"
               .cooccurance="${this.cooccurance}"
               .leftActiveSegment="${this.leftActiveSegment}"

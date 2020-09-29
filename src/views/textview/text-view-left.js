@@ -16,6 +16,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: Number }) currentPosition = 0;
   @property({ type: Object }) leftTextData;
   @property({ type: Number }) score;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: String }) leftActiveSegment;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
@@ -66,6 +67,7 @@ export class TextViewLeft extends LitElement {
         'cooccurance',
         'quoteLength',
         'limitCollection',
+        'multiLingualMode',
       ].includes(propName);
 
       if (fileChanged && !this.fetchLoading) {
@@ -112,6 +114,7 @@ export class TextViewLeft extends LitElement {
 
   async fetchNewText() {
     this.fetchLoading = true;
+
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,
       limit_collection: this.limitCollection,
@@ -119,6 +122,7 @@ export class TextViewLeft extends LitElement {
       par_length: this.quoteLength,
       co_occ: this.cooccurance,
       active_segment: this.leftActiveSegment,
+      multi_lingual: this.multiLingualMode,
     });
     if (textleft.length !== 800) {
       if (this.leftActiveSegment) {

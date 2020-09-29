@@ -14,6 +14,7 @@ export default css`
   vaadin-select,
   vaadin-combo-box,
   multiselect-combo-box,
+  vaadin-checkbox,
   vaadin-text-field {
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);
