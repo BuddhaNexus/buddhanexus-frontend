@@ -38,6 +38,7 @@ export default css`
   .result-text {
     margin-bottom: 0;
   }
+
   .return-link {
     cursor: pointer;
     color: var(--content-link-color);
