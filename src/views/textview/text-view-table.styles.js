@@ -39,13 +39,19 @@ export default css`
     margin-bottom: 0;
   }
 
-  .return-link {
+  #return-link {
+    display: flex;
     cursor: pointer;
     color: var(--content-link-color);
   }
-  .return-link:hover {
+
+  #return-link:hover {
     color: var(--hover-link-color);
-    text-decoration: underline;
+  }
+
+  #return-link-arrow {
+    width: 20px;
+    padding-right: 8px;
   }
 
   .chinese-verse {
