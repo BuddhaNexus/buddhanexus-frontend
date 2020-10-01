@@ -1,5 +1,7 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
+import '@vaadin/vaadin-icons/vaadin-icons.js';
+
 import { getLanguageFromFilename } from '../utility/views-common';
 import { highlightTextByOffset } from '../utility/preprocessing';
 import { searchFileTextSegments } from '../../api/actions';
@@ -86,7 +88,16 @@ export class TextViewSearch extends LitElement {
     if (this.resultSegments.length == 0) {
       //prettier-ignore
       return html`
-        <span>No results. <span class="return-link" @click="${this.handleReturnButtonClicked}">Return to text-view.</span> </span>
+        <div id="text-view-search-header">
+          <strong>No results</strong>
+        </div>
+        <div id="return-link" @click="${this.handleReturnButtonClicked}">
+          <iron-icon
+            id="return-link-arrow"
+            icon="vaadin:arrow-left"
+            slot="prefix">
+          </iron-icon>
+        <strong>Return to text-view</strong></div>
       `;
     }
     //prettier-ignore

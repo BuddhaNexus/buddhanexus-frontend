@@ -33,6 +33,13 @@ class SearchViewListHeader extends LitElement {
     }
   }
   render() {
+    if (this.resultNumber == 0) {
+      //prettier-ignore
+      return html`
+        <div id="search-result-header">
+          No results found
+        </div>`;
+    }
     return html`
       <div class="list-header-container">
         <div id="search-result-header">
