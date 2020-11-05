@@ -13,6 +13,23 @@ export class NewsView extends LitElement {
       <div class="static-page-container">
         <div class="main-border">
           <div class="main-content">
+            <h2>
+              November 5, 2020: The BuddhaNexus in
+              <i>The Digital Orientalist</i>
+            </h2>
+            <p>
+              Matthew Hayes, editor for Buddhist Studies at
+              <i>The Digital Orientalist</i> introduces readers to the
+              BuddhaNexus project in his online article "<a
+                href="https://digitalorientalist.com/2020/11/03/text-matching-at-the-canonical-crossroads-an-introduction-to-buddhanexus-part-i/"
+                class="content-link"
+                target="blank"
+                >Text-Matching at the Canonical Crossroads: An Introduction to
+                BuddhaNexus (Part I)</a
+              >". The contribution includes interview material with one of the
+              project's directors Orna Almogi.
+            </p>
+
             <h2>August 31, 2020: Addition of the GRETIL Sanskrit data</h2>
             <p>
               We are happy to announce that the Sanskrit data from the GRETIL
