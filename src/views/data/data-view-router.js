@@ -3,6 +3,7 @@ import { property, html, customElement, LitElement } from 'lit-element';
 import '../numbersview/numbers-view';
 import '../graphview/graph-view';
 import '../tableview/table-view';
+import '../tableview/table-view-multilang';
 import '../textview/text-view-router';
 import '../neutralview/neutral-view';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
@@ -15,6 +16,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: Function }) setFileName;
   @property({ type: String }) folio;
   @property({ type: String }) searchString;
+  @property({ type: String }) multiSearchString;
   @property({ type: String }) activeSegment;
   @property({ type: String }) sortMethod;
   @property({ type: Array }) multiLingualMode;
@@ -86,6 +88,14 @@ export class DataViewRouter extends LitElement {
           .score="${this.score}"
           .searchString="${this.searchString}"
         ></table-view>
+      `;
+    } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {
+      return html`
+        <table-view-multilang
+          .fileName="${this.fileName}"
+          .multiSearchString="${this.multiSearchString}"
+          .multiLingualMode="${this.multiLingualMode}"
+        ></table-view-multilang>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
       return html`

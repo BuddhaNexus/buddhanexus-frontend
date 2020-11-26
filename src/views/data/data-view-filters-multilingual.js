@@ -10,6 +10,7 @@ export class DataViewFiltersMultilingual extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: Array }) multiLangList;
   @property({ type: Array }) mainLang;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Function }) updateMultiLingualMode;
   @property({ type: Boolean }) dataLoading = false;
   @property({ type: String }) dataLoadError = false;
@@ -48,6 +49,17 @@ export class DataViewFiltersMultilingual extends LitElement {
       }
     });
   }
+  updateMultiLingualEvent = e => {
+    if (!e.target.checked) {
+      this.multiLingualMode = this.multiLingualMode.filter(
+        x => x !== e.target.value
+      );
+    } else {
+      this.multiLingualMode.push(e.target.value);
+    }
+    this.multiLingualMode = [...new Set(this.multiLingualMode)];
+    this.updateMultiLingualMode(this.multiLingualMode);
+  };
 
   async fetchMultilingualData() {
     if (!this.fileName) {
@@ -57,9 +69,12 @@ export class DataViewFiltersMultilingual extends LitElement {
     const { langList, error } = await getMultilingualData({
       fileName: this.fileName,
     });
+    langList.push(this.mainLang);
     this.multiLangList = langList;
+    this.multiLingualMode = langList;
     this.dataLoadError = error;
     this.dataLoading = false;
+    this.updateMultiLingualMode(this.multiLangList);
   }
 
   renderPali() {
@@ -67,7 +82,7 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="pli"
-          @checked-changed="${this.updateMultiLingualMode}"
+          @checked-changed="${this.updateMultiLingualEvent}"
           checked
           >Pāḷi</vaadin-checkbox
         >
@@ -76,8 +91,8 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="pli"
-          @checked-changed="${this.updateMultiLingualMode}"
-          unchecked
+          @checked-changed="${this.updateMultiLingualEvent}"
+          checked
           >Pāḷi</vaadin-checkbox
         >
       `;
@@ -89,7 +104,7 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="skt"
-          @checked-changed="${this.updateMultiLingualMode}"
+          @checked-changed="${this.updateMultiLingualEvent}"
           checked
           >Sanskrit</vaadin-checkbox
         >
@@ -98,8 +113,8 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="skt"
-          @checked-changed="${this.updateMultiLingualMode}"
-          unchecked
+          @checked-changed="${this.updateMultiLingualEvent}"
+          checked
           >Sanskrit</vaadin-checkbox
         >
       `;
@@ -111,7 +126,7 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="tib"
-          @checked-changed="${this.updateMultiLingualMode}"
+          @checked-changed="${this.updateMultiLingualEvent}"
           checked
           >Tibetan</vaadin-checkbox
         >
@@ -120,8 +135,8 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="tib"
-          @checked-changed="${this.updateMultiLingualMode}"
-          unchecked
+          @checked-changed="${this.updateMultiLingualEvent}"
+          checked
           >Tibetan</vaadin-checkbox
         >
       `;
@@ -133,7 +148,7 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="chn"
-          @checked-changed="${this.updateMultiLingualMode}"
+          @checked-changed="${this.updateMultiLingualEvent}"
           checked
           >Chinese</vaadin-checkbox
         >
@@ -142,8 +157,8 @@ export class DataViewFiltersMultilingual extends LitElement {
       return html`
         <vaadin-checkbox
           value="chn"
-          @checked-changed="${this.updateMultiLingualMode}"
-          unchecked
+          @checked-changed="${this.updateMultiLingualEvent}"
+          checked
           >Chinese</vaadin-checkbox
         >
       `;
@@ -154,7 +169,7 @@ export class DataViewFiltersMultilingual extends LitElement {
     //prettier-ignore
     if(!this.dataLoading && this.multiLangList) {
       return html`
-        <div id="multi-lingual-label">Choose Match Languages:</div>
+        <div id="multi-lingual-label">Choose Languages:</div>
         <div id="multi-lingual">
           ${this.renderPali()}
           ${this.renderSanskrit()}

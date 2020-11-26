@@ -3,6 +3,7 @@ import {
   getFileSegmentsUrl,
   getGraphDataUrl,
   getTableViewUrl,
+  getTableViewMultiUrl,
   getDataForVisualUrl,
   getFileTextAndParallelsUrl,
   getParallelCountUrl,
@@ -36,6 +37,27 @@ export const getTableViewData = async ({
 }) => {
   try {
     const url = getTableViewUrl(fileName, limit_collection, queryParams);
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load segments from server: ', e);
+    return {
+      error: 'Could not load segments. Please check the console for details.',
+    };
+  }
+};
+
+export const getTableViewMultiData = async ({
+  fileName,
+  multi_lingual,
+  ...queryParams
+}) => {
+  try {
+    const url = getTableViewMultiUrl(fileName, multi_lingual, queryParams);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {

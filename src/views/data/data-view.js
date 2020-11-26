@@ -42,9 +42,15 @@ export class DataView extends LitElement {
   @property({ type: Array }) limitCollection = [];
   @property({ type: Array }) setLimitOrTargetCollection = [];
   @property({ type: String }) searchString;
+  @property({ type: String }) multiSearchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
-  @property({ type: Array }) multiLingualMode = [];
+  @property({ type: Array }) multiLingualMode = [
+    LANGUAGE_CODES.PALI,
+    LANGUAGE_CODES.SANSKRIT,
+    LANGUAGE_CODES.TIBETAN,
+    LANGUAGE_CODES.CHINESE,
+  ];
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
@@ -84,7 +90,7 @@ export class DataView extends LitElement {
         this.minLength = MIN_LENGTHS.SANSKRIT;
         this.quoteLength = DEFAULT_LENGTHS.SANSKRIT;
         this.score = DEFAULT_SCORES.SANSKRIT;
-        this.multiLingualMode = [LANGUAGE_CODES.SANSKRIT];
+        //this.multiLingualMode = [LANGUAGE_CODES.SANSKRIT];
         break;
       case LANGUAGE_CODES.CHINESE:
         this.minLength = MIN_LENGTHS.CHINESE;
@@ -205,6 +211,10 @@ export class DataView extends LitElement {
     this.selectedView = DATA_VIEW_MODES.TEXT_SEARCH;
   };
 
+  setMultiLangSearch = searchString => {
+    this.multiSearchString = searchString;
+  };
+
   setQuoteLength = e => {
     if (e.target.value !== this.quoteLength) {
       this.quoteLength = e.target.value;
@@ -315,18 +325,8 @@ export class DataView extends LitElement {
     this.segmentDisplaySide = e.target.value;
   };
 
-  setMultiLingualMode = e => {
-    if (e.target.checked) {
-      this.multiLingualMode.push(e.target.value);
-    } else if (
-      this.multiLingualMode !== [] &&
-      this.multiLingualMode.includes(e.target.value)
-    ) {
-      let index = this.multiLingualMode.indexOf(e.target.value);
-      this.multiLingualMode.splice(index, 1);
-    }
-    // we have to remove duplicate items from the multiLingualMode
-    this.multiLingualMode = [...new Set(this.multiLingualMode)];
+  setMultiLingualMode = multiLingualList => {
+    this.multiLingualMode = multiLingualList;
   };
 
   render() {
@@ -346,6 +346,8 @@ export class DataView extends LitElement {
             .toggleFilterBarOpen="${this.toggleFilterBarOpen}"
             .toggleNavBar="${this.toggleNavBar}"
             .updateSearch="${this.setSearch}"
+            .multiLingualMode="${this.multiLingualMode}"
+            .updateMultiLangSearch="${this.setMultiLangSearch}"
             .updateSortMethod="${this.setSortMethod}">
           </data-view-header>
 
@@ -363,8 +365,9 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
-            .multiLingualMode="${this.multiLingualMode}"
             .searchString="${this.searchString}"
+            .multiLingualMode="${this.multiLingualMode}"
+            .multiSearchString="${this.multiSearchString}"
             .headerVisibility="${this.headerVisibility}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
             .segmentDisplaySide="${this.segmentDisplaySide}">
@@ -399,6 +402,7 @@ export class DataView extends LitElement {
             .updateLimitCollection="${this.setLimitCollection}"
             .updateTargetCollection="${this.setTargetCollection}"
             .updateMultiLingualMode="${this.setMultiLingualMode}"
+            .multiLingualMode="${this.multiLingualMode}"
             .cooccurance="${this.cooccurance}"
             .updateCooccurance="${this.setCooccurance}"
             .language="${this.language}">

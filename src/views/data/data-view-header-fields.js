@@ -15,10 +15,10 @@ export class DataViewHeaderFields extends LitElement {
   @property({ type: Array }) folioData;
   @property({ type: String }) fetchError;
   @property({ type: String }) sortMethod;
-
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
   @property({ type: Function }) updateSearch;
+  @property({ type: Function }) updateMultiLangSearch;
   @property({ type: Function }) updateSortMethod;
 
   static get styles() {
@@ -204,6 +204,8 @@ export class DataViewHeaderFields extends LitElement {
         this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH) &&
       this.fileName;
     const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
+    const shouldShowMultiLangSearchBox =
+      this.viewMode === DATA_VIEW_MODES.MULTILANG;
 
     //prettier-ignore
     return html`
@@ -264,6 +266,25 @@ export class DataViewHeaderFields extends LitElement {
               </div>
             </paper-input>`
         : null}
+      ${shouldShowMultiLangSearchBox
+        ? html`
+            <paper-input
+              placeholder="Search"
+              class="search-box"
+              type="search"
+              no-label-float
+              @change="${e => this.updateMultiLangSearch(e.target.value)}"
+              @keydown="${e => {
+                if (e.code === 'Enter') {
+                  this.updateMultiLangSearch(e.target.value);
+                }
+              }}">
+              <div slot="prefix">
+                <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
+              </div>
+            </paper-input>`
+        : null}
+
       ${shouldShowSortBox
         ? html`
             <vaadin-select

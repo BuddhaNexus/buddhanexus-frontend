@@ -25,6 +25,23 @@ export class FormattedSegment extends LitElement {
   firstUpdated() {
     this.addObserver();
   }
+  getIcon(par_lang) {
+    let title;
+    if (par_lang == 'tib') {
+      title = 'Tibetan';
+    }
+    if (par_lang == 'skt') {
+      title = 'Sanskrit';
+    }
+    if (par_lang == 'pli') {
+      title = 'Pali';
+    }
+    if (par_lang == 'chn') {
+      title = 'Chinese';
+    }
+
+    return html`<img title='${title}' width="16px" src="../../src/assets/icons/favicon-${par_lang}-16x16.png"></img>`;
+  }
 
   updated(_changedProperties) {
     _changedProperties.forEach(async (oldValue, propName) => {
@@ -126,7 +143,7 @@ export class FormattedSegment extends LitElement {
     }
     if (this.displayLink) {
       // prettier-ignore
-      return html`<a target="_blanc" class="segment-link" href="${this.displayLink}">
+      return html`${this.getIcon(this.lang)} <a target="_blanc" class="segment-link" href="${this.displayLink}">
         <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
         </a>
         <iron-icon
@@ -137,7 +154,7 @@ export class FormattedSegment extends LitElement {
         </iron-icon>`
     }
     // prettier-ignore
-    return html`<span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
+    return html`${this.getIcon(this.lang)} <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
         <iron-icon
           class="copy-icon"
           icon="vaadin:copy-o"

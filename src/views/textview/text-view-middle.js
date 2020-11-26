@@ -100,6 +100,20 @@ export class TextViewMiddle extends LitElement {
     );
   }
 
+    createTransmessage(par_lang) {
+	let transMessage;
+	if(par_lang == "tib")
+	{
+	transMessage = html`Tibetan translation`;
+	}
+	if(par_lang == "chn")
+	{
+	transMessage = html`Chinese translation`;
+	}
+	return transMessage;
+    }
+
+    
   render() {
     if (!this.data) {
       //prettier-ignore
@@ -151,7 +165,8 @@ export class TextViewMiddle extends LitElement {
           let segnrText = parallels[i].par_segtext;
           segnrText = truncateSegnrText(segnrText);
 
-          const par_lang = getLanguageFromFilename(parallels[i].par_segnr[0]);
+        const par_lang = getLanguageFromFilename(parallels[i].par_segnr[0]);
+	const src_lang = getLanguageFromFilename(parallels[i].root_segnr[0]);
           let parSegnr = segmentArrayToString(parallels[i].par_segnr, par_lang);
           parallelCounter += 1;
           let rootOffsetBegin = parallels[i].root_offset_beg;
@@ -175,7 +190,10 @@ export class TextViewMiddle extends LitElement {
             endoffset: parOffsetEnd,
             lang: par_lang,
           });
-
+	let transMessage = `Match`;
+	if(src_lang != par_lang) {
+	transMessage = this.createTransmessage(par_lang);
+	}
           //prettier-ignore
           selectedParallelsText = html`
             ${selectedParallelsText}
@@ -192,7 +210,7 @@ export class TextViewMiddle extends LitElement {
               @mouseover="${this.mouseOverParallel}">
               <span class="selected-parallel-nr">
                 <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}"></formatted-segment>
-              </span><br />
+             <span class="trans-message">${transMessage}</span> <br /> </span> 
               <span class="score">Score: ${parallels[i].score} %</span>
               <span class="segment-length">Length: ${parallels[i].par_length}</span>
               <span class="co-occurance">Co-occurrence: ${parallels[i]['co-occ']} </span>
