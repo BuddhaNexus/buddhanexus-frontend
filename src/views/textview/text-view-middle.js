@@ -100,20 +100,27 @@ export class TextViewMiddle extends LitElement {
     );
   }
 
-    createTransmessage(par_lang) {
-	let transMessage;
-	if(par_lang == "tib")
-	{
-	transMessage = html`Tibetan translation`;
-	}
-	if(par_lang == "chn")
-	{
-	transMessage = html`Chinese translation`;
-	}
-	return transMessage;
+  createTransmessage(par_lang) {
+    let transMessage;
+    if (par_lang == 'tib') {
+      transMessage = html`
+        Tibetan translation
+      `;
+    }
+    if (par_lang == 'skt') {
+      transMessage = html`
+        Sanskrit version
+      `;
     }
 
-    
+    if (par_lang == 'chn') {
+      transMessage = html`
+        Chinese translation
+      `;
+    }
+    return transMessage;
+  }
+
   render() {
     if (!this.data) {
       //prettier-ignore
@@ -165,8 +172,8 @@ export class TextViewMiddle extends LitElement {
           let segnrText = parallels[i].par_segtext;
           segnrText = truncateSegnrText(segnrText);
 
-        const par_lang = getLanguageFromFilename(parallels[i].par_segnr[0]);
-	const src_lang = getLanguageFromFilename(parallels[i].root_segnr[0]);
+          const par_lang = getLanguageFromFilename(parallels[i].par_segnr[0]);
+          const src_lang = getLanguageFromFilename(parallels[i].root_segnr[0]);
           let parSegnr = segmentArrayToString(parallels[i].par_segnr, par_lang);
           parallelCounter += 1;
           let rootOffsetBegin = parallels[i].root_offset_beg;
@@ -190,10 +197,10 @@ export class TextViewMiddle extends LitElement {
             endoffset: parOffsetEnd,
             lang: par_lang,
           });
-	let transMessage = `Match`;
-	if(src_lang != par_lang) {
-	transMessage = this.createTransmessage(par_lang);
-	}
+          let transMessage = `Match`;
+          if (src_lang != par_lang) {
+            transMessage = this.createTransmessage(par_lang);
+          }
           //prettier-ignore
           selectedParallelsText = html`
             ${selectedParallelsText}
