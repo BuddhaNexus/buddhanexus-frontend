@@ -186,6 +186,12 @@ export class DataView extends LitElement {
     if (this.fileName !== fileName) {
       this.fileName = fileName;
     }
+    this.multiLingualMode = [
+      LANGUAGE_CODES.PALI,
+      LANGUAGE_CODES.SANSKRIT,
+      LANGUAGE_CODES.TIBETAN,
+      LANGUAGE_CODES.CHINESE,
+    ];
   };
 
   setSelectedView = viewName => {

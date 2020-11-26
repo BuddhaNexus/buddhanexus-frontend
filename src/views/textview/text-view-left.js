@@ -69,7 +69,6 @@ export class TextViewLeft extends LitElement {
         'limitCollection',
         'multiLingualMode',
       ].includes(propName);
-
       if (fileChanged && !this.fetchLoading) {
         this.noEndlessScrolling = true;
         await this.fetchNewText();
@@ -114,7 +113,6 @@ export class TextViewLeft extends LitElement {
 
   async fetchNewText() {
     this.fetchLoading = true;
-
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.fileName,
       limit_collection: this.limitCollection,
