@@ -101,7 +101,7 @@ export class TextViewMiddle extends LitElement {
   }
 
   createTransmessage(par_lang) {
-    let transMessage;
+    let transMessage = 'Match';
     if (par_lang == 'tib') {
       transMessage = html`
         Tibetan translation
