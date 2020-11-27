@@ -158,6 +158,7 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   shouldShowTargetDropdown() {
+    console.log('CHECK VIEW MODE', this.viewMode);
     return (
       this.viewMode !== DATA_VIEW_MODES.GRAPH &&
       this.viewMode !== DATA_VIEW_MODES.MULTILANG
@@ -174,6 +175,7 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   renderMultiSelectBox(label, id, changefunction, itempath) {
+    console.log('RENDERING FILTER SELECTOR');
     return html`
       <multiselect-combo-box
         Label="${label}"
@@ -209,7 +211,7 @@ export class DataViewFiltersContainer extends LitElement {
       return html`
         <div
           class="filter-group"
-          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}">
+          style="display: ${this.shouldShowTargetDropdown() ? 'block' : 'none'}">
           ${this.renderMultiSelectBox(
             'Exclude collections:',
             'exclude-collection',
@@ -225,7 +227,7 @@ export class DataViewFiltersContainer extends LitElement {
         </div>
         <div
           class="filter-group"
-          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}">
+          style="display: ${this.shouldShowTargetDropdown() ? 'block' : 'none'}">
           ${this.renderMultiSelectBox(
             'Limit to collections:',
             'filter-collection',
