@@ -6,9 +6,9 @@ export const sortByKey = (array, key) =>
 export function getLanguageFromFilename(filename) {
   if (filename.match('[DH][0-9][0-9][0-9]|NG|NK')) {
     return LANGUAGE_CODES.TIBETAN;
-  } else if (filename.match('(u$|u:|^Y)')) {
+  } else if (filename.match('(u$|u:|^Y|^XX)')) {
     return LANGUAGE_CODES.SANSKRIT;
-  } else if (filename.match('([TX]+[0-9]*n[0-9])')) {
+  } else if (filename.match('([TX][0-9]*n[0-9])')) {
     return LANGUAGE_CODES.CHINESE;
   } else {
     return LANGUAGE_CODES.PALI;
