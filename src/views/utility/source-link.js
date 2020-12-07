@@ -1,6 +1,6 @@
 import { customElement, html, css, LitElement, property } from 'lit-element';
 
-import { getGretilLink } from '../../api/actions';
+import { getExternalLink } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
 
 @customElement('source-link')
@@ -8,6 +8,7 @@ export class FormattedFileName extends LitElement {
   @property({ type: String }) filename;
   @property({ type: String }) lang;
   @property({ type: String }) sourceLink = '';
+  @property({ type: String }) imgLink = '';
   @property({ type: String }) buttonText = '';
   @property({ type: String }) titleText = '';
   @property({ type: Function }) allowFetching = false;
@@ -46,6 +47,13 @@ export class FormattedFileName extends LitElement {
       this.buttonText = 'GRETIL';
       this.titleText =
         'Click to go to the original file in GRETIL (includes full header information).';
+    }
+    if (this.lang === 'tib') {
+      this.fetchData();
+      this.buttonText = 'BDRC';
+      this.imgLink = '../../src/assets/icons/bdrc_logo.png';
+      this.titleText =
+        'Click to visit the file in the Buddhist Digital Resource Center.';
     } else if (this.lang === 'pli') {
       this.titleText = this.fetchTitleText(this.filename);
       this.buttonText = this.fetchButtonText(this.filename);
@@ -62,10 +70,10 @@ export class FormattedFileName extends LitElement {
   }
 
   async fetchData() {
-    const { gretilLink, error } = await getGretilLink({
+    const { link, error } = await getExternalLink({
       fileName: this.filename,
     });
-    this.sourceLink = gretilLink;
+    this.sourceLink = link;
     this.fetchLoading = false;
     this.fetchError = error;
   }
@@ -87,12 +95,11 @@ export class FormattedFileName extends LitElement {
   }
 
   render() {
-    if (this.fetchLoading || this.lang === 'tib') {
+    if (this.fetchLoading) {
       return;
     }
     // prettier-ignore
     return html`<span class="source-link" title="${this.titleText}">
-                  <a href="${this.sourceLink}" target="blank">${this.buttonText}</a>
-                </span>`
+                  <a href="${this.sourceLink}" target="blank">${this.buttonText} <img width="40" src="${this.imgLink}"></img></a>`
   }
 }

@@ -158,24 +158,20 @@ export class DataViewFiltersContainer extends LitElement {
   }
 
   shouldShowTargetDropdown() {
-    console.log('CHECK VIEW MODE', this.viewMode);
-    return (
-      this.viewMode !== DATA_VIEW_MODES.GRAPH &&
-      this.viewMode !== DATA_VIEW_MODES.MULTILANG
-    );
+    return this.viewMode == DATA_VIEW_MODES.GRAPH;
   }
 
   shouldShowMultiLingual() {
-    if (
+    return (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
       this.viewMode === DATA_VIEW_MODES.MULTILANG
-    ) {
-      return true;
-    }
+    );
+  }
+  shouldShowSliders() {
+    return this.viewMode !== DATA_VIEW_MODES.MULTILANG;
   }
 
   renderMultiSelectBox(label, id, changefunction, itempath) {
-    console.log('RENDERING FILTER SELECTOR');
     return html`
       <multiselect-combo-box
         Label="${label}"
@@ -211,7 +207,7 @@ export class DataViewFiltersContainer extends LitElement {
       return html`
         <div
           class="filter-group"
-          style="display: ${this.shouldShowTargetDropdown() ? 'block' : 'none'}">
+          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}">
           ${this.renderMultiSelectBox(
             'Exclude collections:',
             'exclude-collection',
@@ -227,7 +223,7 @@ export class DataViewFiltersContainer extends LitElement {
         </div>
         <div
           class="filter-group"
-          style="display: ${this.shouldShowTargetDropdown() ? 'block' : 'none'}">
+          style="display: ${this.shouldShowTargetDropdown() ? 'none' : 'block'}">
           ${this.renderMultiSelectBox(
             'Limit to collections:',
             'filter-collection',
@@ -258,6 +254,9 @@ export class DataViewFiltersContainer extends LitElement {
       </data-view-filters-multilingual>
 
       <data-view-filter-sliders
+        style="display: ${
+          this.shouldShowSliders() ? 'block' : 'none'
+        }"
         .score="${this.score}"
         .updateScore="${this.updateScore}"
         .quoteLength="${this.quoteLength}"
