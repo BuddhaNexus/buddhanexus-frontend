@@ -40,6 +40,7 @@ export default css`
   }
 
   .score,
+  .trans-message,
   .segment-length,
   .co-occurance {
     font-size: 14px;

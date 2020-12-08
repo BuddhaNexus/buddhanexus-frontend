@@ -18,6 +18,7 @@ export const DATA_VIEW_MODES = {
   TEXT_SEARCH: 'text-search',
   TABLE: 'table',
   NUMBERS: 'numbers',
+  MULTILANG: 'multilang',
   GRAPH: 'graph',
   NEUTRAL: 'neutral',
 };
@@ -36,6 +37,7 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: Function }) updateCooccurance;
   @property({ type: Function }) updateMultiLingualMode;
   @property({ type: Function }) updateLimitCollection;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Function }) updateTargetCollection;
   @property({ type: String }) language;
 
@@ -149,15 +151,24 @@ export class DataViewFiltersContainer extends LitElement {
   };
 
   shouldShowFilterDropdown() {
-    return this.viewMode !== DATA_VIEW_MODES.GRAPH;
+    return (
+      this.viewMode !== DATA_VIEW_MODES.GRAPH &&
+      this.viewMode !== DATA_VIEW_MODES.MULTILANG
+    );
   }
 
   shouldShowTargetDropdown() {
-    return this.viewMode === DATA_VIEW_MODES.GRAPH;
+    return this.viewMode == DATA_VIEW_MODES.GRAPH;
   }
 
   shouldShowMultiLingual() {
-    return this.viewMode === DATA_VIEW_MODES.TEXT;
+    return (
+      this.viewMode === DATA_VIEW_MODES.TEXT ||
+      this.viewMode === DATA_VIEW_MODES.MULTILANG
+    );
+  }
+  shouldShowSliders() {
+    return this.viewMode !== DATA_VIEW_MODES.MULTILANG;
   }
 
   renderMultiSelectBox(label, id, changefunction, itempath) {
@@ -238,10 +249,14 @@ export class DataViewFiltersContainer extends LitElement {
         }"
         .fileName="${this.fileName}"
         .mainLang="${this.language}"
+        .multiLingualMode="${this.multiLingualMode}"
         .updateMultiLingualMode="${this.updateMultiLingualMode}">
       </data-view-filters-multilingual>
 
       <data-view-filter-sliders
+        style="display: ${
+          this.shouldShowSliders() ? 'block' : 'none'
+        }"
         .score="${this.score}"
         .updateScore="${this.updateScore}"
         .quoteLength="${this.quoteLength}"

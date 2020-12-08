@@ -5,6 +5,7 @@ import { DATA_VIEW_MODES } from './data-view-filters-container';
 export class DataViewViewSelector extends LitElement {
   @property({ type: String }) viewMode;
   @property({ type: String }) language;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Function }) handleViewModeChanged;
 
   static get styles() {
@@ -40,6 +41,7 @@ export class DataViewViewSelector extends LitElement {
             (filter !== 'numbers' || this.language !== 'tib') &&
             (filter !== 'numbers' || this.language !== 'skt') &&
             filter !== 'neutral' &&
+            (filter !== 'multilang' || this.multiLingualMode.length > 1) &&
             filter !== 'text-search'
           ) {
             return html`

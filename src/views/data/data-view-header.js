@@ -13,6 +13,8 @@ class DataViewHeader extends LitElement {
   @property({ type: String }) sortMethod;
   @property({ type: Function }) toggleNavBar;
   @property({ type: Function }) updateSearch;
+  @property({ type: Function }) updateMultiLangSearch;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
@@ -85,6 +87,7 @@ class DataViewHeader extends LitElement {
             <data-view-view-selector
               .language="${this.language}"
               .viewMode="${this.viewMode}"
+              .multiLingualMode="${this.multiLingualMode}"
               .handleViewModeChanged="${viewMode =>
                 this.handleViewModeChanged(viewMode)}">
             </data-view-view-selector>
@@ -97,6 +100,8 @@ class DataViewHeader extends LitElement {
               .viewMode="${this.viewMode}"
               .sortMethod="${this.sortMethod}"
               .updateSearch="${this.updateSearch}"
+              .multiLingualMode="${this.multiLingualMode}"
+              .updateMultiLangSearch="${this.updateMultiLangSearch}"
               .updateSortMethod="${this.updateSortMethod}">
             </data-view-header-fields>
 
