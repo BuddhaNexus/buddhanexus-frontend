@@ -223,7 +223,6 @@ export class TextViewHeader extends LitElement {
         <div id="text-view-header-left">
           <span class="text-name-label">Inquiry Text: </span>
           <formatted-filename .filename="${this.fileName}" .rightside="${'left'}"></formatted-filename>
-          <source-link .filename="${this.fileName}"></source-link>
           ${TextViewHeaderLeftColumn({
             handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             handleNewTabButtonClicked: this.handleNewTabButtonClicked,
@@ -232,6 +231,7 @@ export class TextViewHeader extends LitElement {
             openDialogLeft: this.openDialogLeft,
             language: this.lang,
           })}
+          <source-link .filename="${this.fileName}"></source-link>
         </div>
 
         ${this.renderMiddleTextLabel
