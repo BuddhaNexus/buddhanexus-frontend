@@ -34,7 +34,14 @@ export class FormattedFileName extends LitElement {
 
         a:hover {
           color: var(--hover-link-color);
-          text-decoration: underline;
+          text-decoration: none;
+        }
+
+        .image-link {
+          height: 30px;
+          vertical-align: middle;
+          padding-bottom: 6px;
+          padding-left: 6px;
         }
       `,
     ];
@@ -45,6 +52,7 @@ export class FormattedFileName extends LitElement {
     if (this.lang === 'skt') {
       this.fetchData();
       this.buttonText = 'GRETIL';
+      this.imgLink = '../../src/assets/icons/gretil_logo.png';
       this.titleText =
         'Click to go to the original file in GRETIL (includes full header information).';
     }
@@ -56,10 +64,12 @@ export class FormattedFileName extends LitElement {
         'Click to visit the file in the Buddhist Digital Resource Center.';
     } else if (this.lang === 'pli') {
       this.titleText = this.fetchTitleText(this.filename);
+      this.imgLink = this.fetchImageLink(this.filename);
       this.buttonText = this.fetchButtonText(this.filename);
       this.sourceLink = this.fetchPaliSource(this.filename);
     } else if (this.lang === 'chn') {
       this.buttonText = 'CBETA';
+      this.imgLink = '../../src/assets/icons/cbeta_logo.gif';
       this.titleText =
         'Click to go to the original file in CBETA (includes additional information).';
       this.sourceLink = `http://tripitaka.cbeta.org/${this.filename.replace(
@@ -88,6 +98,12 @@ export class FormattedFileName extends LitElement {
       : `Click to go to the original text(s) in SuttaCentral (includes translations and parallels).`;
   }
 
+  fetchImageLink(filename) {
+    return filename.match(/^tika|^anya|^atk/)
+      ? '../../src/assets/icons/vri_logo.gif'
+      : '../../src/assets/icons/sc_logo.png';
+  }
+
   fetchPaliSource(filename) {
     return filename.match(/^tika|^anya|^atk/)
       ? `https://www.tipitaka.org/romn/`
@@ -100,6 +116,6 @@ export class FormattedFileName extends LitElement {
     }
     // prettier-ignore
     return html`<span class="source-link" title="${this.titleText}">
-                  <a href="${this.sourceLink}" target="blank">${this.buttonText} <img width="40" src="${this.imgLink}"></img></a>`
+                  <a href="${this.sourceLink}" target="blank">${this.buttonText} <img class="image-link" target="_blank" src="${this.imgLink}"/></a>`
   }
 }
