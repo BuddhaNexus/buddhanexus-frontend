@@ -30,18 +30,18 @@ export class FormattedFileName extends LitElement {
         a {
           color: var(--content-link-color);
           text-decoration: none;
+          padding-left: 4px;
         }
 
         a:hover {
           color: var(--hover-link-color);
-          text-decoration: none;
         }
 
         .image-link {
           height: 30px;
           vertical-align: middle;
           padding-bottom: 6px;
-          padding-left: 6px;
+          padding-left: 4px;
         }
       `,
     ];
