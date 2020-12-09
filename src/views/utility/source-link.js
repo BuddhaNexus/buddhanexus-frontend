@@ -30,18 +30,18 @@ export class FormattedFileName extends LitElement {
         a {
           color: var(--content-link-color);
           text-decoration: none;
+          padding-left: 4px;
         }
 
         a:hover {
           color: var(--hover-link-color);
-          text-decoration: none;
         }
 
         .image-link {
           height: 30px;
           vertical-align: middle;
           padding-bottom: 6px;
-          padding-left: 6px;
+          padding-left: 4px;
         }
       `,
     ];
@@ -58,7 +58,7 @@ export class FormattedFileName extends LitElement {
     }
     if (this.lang === 'tib') {
       this.fetchData();
-      this.buttonText = 'BDRC';
+      this.buttonText = '';
       this.imgLink = '../../src/assets/icons/bdrc_logo.png';
       this.titleText =
         'Click to visit the file in the Buddhist Digital Resource Center.';
@@ -115,7 +115,7 @@ export class FormattedFileName extends LitElement {
       return;
     }
     // prettier-ignore
-    return html`<span class="source-link" title="${this.titleText}">
+    return html`<span class="source-link" title="${this.titleText}">Links: 
                   <a href="${this.sourceLink}" target="blank">${this.buttonText} <img class="image-link" target="_blank" src="${this.imgLink}"/></a>`
   }
 }
