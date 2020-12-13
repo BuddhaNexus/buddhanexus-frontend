@@ -197,7 +197,7 @@ export class TextViewMiddle extends LitElement {
             endoffset: parOffsetEnd,
             lang: par_lang,
           });
-          let transMessage = `Match`;
+          let transMessage = ``;
           if (src_lang != par_lang) {
             transMessage = this.createTransmessage(par_lang);
           }
@@ -217,14 +217,13 @@ export class TextViewMiddle extends LitElement {
               @mouseover="${this.mouseOverParallel}">
               <span class="selected-parallel-nr">
                 <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}"></formatted-segment>
-             <span class="trans-message">${transMessage}</span> <br /> </span> 
+              <span class="trans-message">${transMessage}</span> <br /> </span> 
               <span class="score">Score: ${parallels[i].score} %</span>
               <span class="segment-length">Length: ${parallels[i].par_length}</span>
               <span class="co-occurance">Co-occurrence: ${parallels[i]['co-occ']} </span>
               <br />
               <div class="horizontal-divider"></div>
-              ${segnrText}
-            </div>
+              ${segnrText}</div>
           `;
         }
       }
