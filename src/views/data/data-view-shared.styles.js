@@ -40,13 +40,19 @@ export default css`
   }
 
   .score,
-  .trans-message,
   .segment-length,
   .co-occurance {
     font-size: 14px;
     padding-right: 12px;
     color: var(--color-text-secondary);
     text-transform: none;
+  }
+
+  .trans-message {
+    font-size: 14px;
+    padding-left: 12px;
+    color: var(--bn-dark-red);
+    text-transform: uppercase;
   }
 
   .selected-parallel {

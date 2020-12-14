@@ -2,9 +2,11 @@ import { customElement, html, LitElement, property } from 'lit-element';
 
 import '@vaadin/vaadin-icons/vaadin-icons.js';
 
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 import { getLanguageFromFilename } from '../utility/views-common';
 import { highlightTextByOffset } from '../utility/preprocessing';
 import { searchFileTextSegments } from '../../api/actions';
+import '../utility/formatted-segment';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
@@ -43,31 +45,6 @@ export class TextViewSearch extends LitElement {
     this.resultSegments = result;
     this.fetchLoading = false;
     this.fetchError = error;
-  }
-
-  handleSearchResultClicked(e) {
-    let target = e.target;
-    if (!target.getAttribute('segment')) {
-      target = target.parentElement;
-      if (!target.getAttribute('segment')) {
-        target = target.parentElement;
-      }
-    }
-    const segment = target.getAttribute('segment');
-    const beg = parseInt(target.getAttribute('beg'));
-    const end = parseInt(target.getAttribute('end'));
-    const searchResultClickedEvent = new CustomEvent('click-result', {
-      bubbles: true,
-      composed: true,
-      // pass leftTextData from clicked segment.
-      // TODO: refactor so that this would navigates to a URL instead of firing an event
-      detail: {
-        selectedParallels: [segment],
-        startoffset: beg,
-        endoffset: end,
-      },
-    });
-    this.dispatchEvent(searchResultClickedEvent);
   }
 
   handleReturnButtonClicked() {
@@ -112,7 +89,7 @@ export class TextViewSearch extends LitElement {
             segmentNr: segment.segnr,
             segText: segment.segtext,
             searchString: this.searchString,
-            onSegmentClicked: this.handleSearchResultClicked,
+            rootUrl: createTextViewSegmentUrl(segment.segnr),
           })
         )}
       </div>
@@ -120,12 +97,7 @@ export class TextViewSearch extends LitElement {
   }
 }
 
-function ResultSegmentContainer({
-  segmentNr,
-  segText,
-  searchString,
-  onSegmentClicked,
-}) {
+function ResultSegmentContainer({ segmentNr, segText, searchString, rootUrl }) {
   let beg = segText.indexOf(searchString);
   let end = beg + searchString.length;
   let lang = getLanguageFromFilename(segmentNr);
@@ -139,12 +111,19 @@ function ResultSegmentContainer({
   return html`
     <div class="result-segment material-card"
       id="${segmentNr}"
-      @click="${onSegmentClicked}"
       segment="${segmentNr}"
       beg="${beg}"
       end="${end}">
-        <span class="result-segment-nr">${segmentNr}</span><br />
-        <span class="result-text" lang="${lang}">${segText}</span>
+        <header class="result-segment-list__item-header">
+          <formatted-segment
+            .segmentnr="${[segmentNr,]}"
+            .lang="${getLanguageFromFilename(segmentNr)}">
+          </formatted-segment>
+        </header>
+        <div class="horizontal-divider"></div>
+        <div class="result-text" lang="${lang}"
+        onclick="window.open('${rootUrl}','_blanc');"
+        title="Click to open the text at this position">${segText}</div>
     </div>
   `;
 }

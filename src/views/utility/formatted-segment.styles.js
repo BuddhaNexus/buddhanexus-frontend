@@ -37,7 +37,7 @@ export default css`
         .copy-icon {
           width: 10px;
           color: var(--color-text-secondary);
-          cursor: pointer;
+          cursor: copy;
         }
   }
 `;

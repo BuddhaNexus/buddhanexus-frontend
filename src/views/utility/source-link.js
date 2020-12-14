@@ -69,7 +69,7 @@ export class FormattedFileName extends LitElement {
       this.sourceLink = this.fetchPaliSource(this.filename);
     } else if (this.lang === 'chn') {
       this.buttonText = 'CBETA';
-      this.imgLink = '../../src/assets/icons/cbeta_logo.gif';
+      this.imgLink = '../../src/assets/icons/cbeta_logo.png';
       this.titleText =
         'Click to go to the original file in CBETA (includes additional information).';
       this.sourceLink = `http://tripitaka.cbeta.org/${this.filename.replace(
