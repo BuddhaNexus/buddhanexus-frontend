@@ -104,11 +104,6 @@ export class DataView extends LitElement {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
         this.checkSearchSelectedText();
       }
-      if (
-        ['score', 'cooccurance', 'sortMethod', 'quoteLength'].includes(propName)
-      ) {
-        this.applyFilter();
-      }
       if (propName === 'language') {
         getMainLayout()
           .querySelector('navigation-menu')
