@@ -121,7 +121,9 @@ function ResultSegmentContainer({ segmentNr, segText, searchString, rootUrl }) {
           </formatted-segment>
         </header>
         <div class="horizontal-divider"></div>
-        <div class="result-text" lang="${lang}" onclick="window.open('${rootUrl}','_blanc');">${segText}</div>
+        <div class="result-text" lang="${lang}"
+        onclick="window.open('${rootUrl}','_blanc');"
+        title="Click to open the text at this position">${segText}</div>
     </div>
   `;
 }
