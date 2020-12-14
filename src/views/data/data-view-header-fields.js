@@ -1,6 +1,7 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 
 import '@vaadin/vaadin-combo-box/theme/material/vaadin-combo-box';
+import '@vaadin/vaadin-select/theme/material/vaadin-select';
 
 import { LANGUAGE_CODES } from '../utility/constants';
 import { getFilesForMainMenu, getFoliosForFile } from '../menus/actions';
