@@ -56,11 +56,6 @@ export default css`
     -ms-word-break: break-all;
     word-break: break-all;
     word-break: break-word;
-  }
-
-  .open-link-icon {
-    float: right;
-    width: 18px;
     cursor: pointer;
   }
 `;
