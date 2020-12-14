@@ -35,8 +35,15 @@ export default css`
     text-decoration: none;
   }
 
+  .result-segment-list__item-header {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+  }
+
   .result-text {
     margin-bottom: 0;
+    cursor: pointer;
+    margin-top: 8px;
   }
 
   #return-link {
@@ -64,8 +71,6 @@ export default css`
     margin-top: 0;
     margin-bottom: 8px;
     padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
   }
 
   .segment--highlighted,
