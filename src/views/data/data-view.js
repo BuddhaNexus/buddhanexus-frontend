@@ -45,7 +45,12 @@ export class DataView extends LitElement {
   @property({ type: String }) multiSearchString;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
-  @property({ type: Array }) multiLingualMode;
+  @property({ type: Array }) multiLingualMode = [
+    LANGUAGE_CODES.PALI,
+    LANGUAGE_CODES.SANSKRIT,
+    LANGUAGE_CODES.TIBETAN,
+    LANGUAGE_CODES.CHINESE,
+  ];
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
   @property({ type: String }) selectedView;
@@ -73,25 +78,21 @@ export class DataView extends LitElement {
         this.minLength = MIN_LENGTHS.TIBETAN;
         this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
         this.score = DEFAULT_SCORES.TIBETAN;
-        this.multiLingualMode = [LANGUAGE_CODES.TIBETAN];
         break;
       case LANGUAGE_CODES.PALI:
         this.minLength = MIN_LENGTHS.PALI;
         this.quoteLength = DEFAULT_LENGTHS.PALI;
         this.score = DEFAULT_SCORES.PALI;
-        this.multiLingualMode = [LANGUAGE_CODES.PALI];
         break;
       case LANGUAGE_CODES.SANSKRIT:
         this.minLength = MIN_LENGTHS.SANSKRIT;
         this.quoteLength = DEFAULT_LENGTHS.SANSKRIT;
         this.score = DEFAULT_SCORES.SANSKRIT;
-        this.multiLingualMode = [LANGUAGE_CODES.SANSKRIT];
         break;
       case LANGUAGE_CODES.CHINESE:
         this.minLength = MIN_LENGTHS.CHINESE;
         this.quoteLength = DEFAULT_LENGTHS.CHINESE;
         this.score = DEFAULT_SCORES.CHINESE;
-        this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
     }
     this.checkSelectedView();
@@ -103,6 +104,11 @@ export class DataView extends LitElement {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
         this.checkSearchSelectedText();
+      }
+      if (
+        ['score', 'cooccurance', 'sortMethod', 'quoteLength'].includes(propName)
+      ) {
+        this.applyFilter();
       }
       if (propName === 'language') {
         getMainLayout()
