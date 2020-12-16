@@ -120,33 +120,36 @@ export class DataViewHeaderFields extends LitElement {
     }
   }
 
-    preprocessMenuData(menuData) {
-	// this function has a bit of spaghetti-style; maybe we can refactor it at some point.
-	return menuData.map(menuEntry => {
-	    menuEntry.imgStringPLI = '';
-	    menuEntry.imgStringSKT = '';
-	    menuEntry.imgStringTIB = '';
-	    menuEntry.imgStringCHN = '';
-	    if(menuEntry.available_lang.length > 0 ) {
-		menuEntry.available_lang.forEach(langItem => {
-		    if(langItem == "pli") {
-			menuEntry.imgStringPLI = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-		    }
-		    if(langItem == "skt") {
-			menuEntry.imgStringSKT = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-		    }
-		    if(langItem == "tib") {
-			menuEntry.imgStringTIB = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-		    }
-		    if(langItem == "chn") {
-			menuEntry.imgStringCHN = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-		    }
-		});
-	    }
-	    return menuEntry;
-	});
-	return menuData;
-    }
+  preprocessMenuData(menuData) {
+    // this function has a bit of spaghetti-style; maybe we can refactor it at some point.
+    return menuData.map(menuEntry => {
+      menuEntry.imgStringPLI = '';
+      menuEntry.imgStringSKT = '';
+      menuEntry.imgStringTIB = '';
+      menuEntry.imgStringCHN = '';
+      if (menuEntry.available_lang) {
+        menuEntry.available_lang.forEach(langItem => {
+          if (langItem == 'pli') {
+            menuEntry.imgStringPLI =
+              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+          }
+          if (langItem == 'skt') {
+            menuEntry.imgStringSKT =
+              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+          }
+          if (langItem == 'tib') {
+            menuEntry.imgStringTIB =
+              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+          }
+          if (langItem == 'chn') {
+            menuEntry.imgStringCHN =
+              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+          }
+        });
+      }
+      return menuEntry;
+    });
+  }
 
   getTextAndDisplayNames(results) {
     const textNameDic = {};
@@ -169,7 +172,7 @@ export class DataViewHeaderFields extends LitElement {
       language: this.language,
     });
 
-      this.menuData = this.preprocessMenuData(result);
+    this.menuData = this.preprocessMenuData(result);
 
     this.fetchError = error;
   }
@@ -186,7 +189,6 @@ export class DataViewHeaderFields extends LitElement {
         return 'Find Sanskrit texts...';
       case LANGUAGE_CODES.MULTILANG:
         return 'Find Multilingual texts...';
-
     }
   };
 
