@@ -37,6 +37,6 @@ export class NeutralView extends LitElement {
       return html`
         <neutral-view-multilang></neutral-view-multilang>
       `;
-    }     
+    }
   }
 }

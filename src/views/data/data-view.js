@@ -154,8 +154,7 @@ export class DataView extends LitElement {
 	      newUrl = this.location.pathname.replace('neutral', 'multi');
 	  }
 	  this.location.pathname = newUrl;
-	  history.replaceState({}, null, newUrl);
-	      
+	  history.replaceState({}, null, newUrl);     
     }
   }
   // handles the case that a new text was selected while browsing the search-results in local-search-view.

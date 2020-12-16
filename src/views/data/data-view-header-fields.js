@@ -121,12 +121,12 @@ export class DataViewHeaderFields extends LitElement {
   }
 
     preprocessMenuData(menuData) {
-	// this function has a bit of spaghetti-style; maybe we can refactor it at some point. 
+	// this function has a bit of spaghetti-style; maybe we can refactor it at some point.
 	return menuData.map(menuEntry => {
 	    menuEntry.imgStringPLI = '';
 	    menuEntry.imgStringSKT = '';
 	    menuEntry.imgStringTIB = '';
-	    menuEntry.imgStringCHN = '';	    
+	    menuEntry.imgStringCHN = '';
 	    if(menuEntry.available_lang.length > 0 ) {
 		menuEntry.available_lang.forEach(langItem => {
 		    if(langItem == "pli") {
@@ -265,14 +265,13 @@ export class DataViewHeaderFields extends LitElement {
             }
           </style>
          <paper-icon-item>
-          
           <paper-item-body two-line>
             <div>
-              <strong>[[item.textname]]</strong> 
-              <img src="[[item.imgStringPLI]]" item-icon> 
-              <img src="[[item.imgStringSKT]]" item-icon> 
-              <img src="[[item.imgStringTIB]]" item-icon> 
-              <img src="[[item.imgStringCHN]]" item-icon> 
+              <strong>[[item.textname]]</strong>
+              <img src="[[item.imgStringPLI]]" item-icon>
+              <img src="[[item.imgStringSKT]]" item-icon>
+              <img src="[[item.imgStringTIB]]" item-icon>
+              <img src="[[item.imgStringCHN]]" item-icon>
             </div>
             <div secondary><span class="display-name">[[item.displayName]]</span></div>
           </paper-item-body>

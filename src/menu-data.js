@@ -80,7 +80,6 @@ export const navMenuDataMain = [
         text: 'Multilingual',
         url: 'multi/neutral',
       },
-	
     ],
   },
   {
