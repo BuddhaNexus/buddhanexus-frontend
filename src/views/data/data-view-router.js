@@ -98,10 +98,12 @@ export class DataViewRouter extends LitElement {
         ></table-view-multilang>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
+
       return html`
         <neutral-view .lang="${this.lang}"></neutral-view>
       `;
     } else {
+	console.log("FAILED VIEWMODE",this.selectedView);
       return html`
         <h2>Select the view mode.</h2>
       `;

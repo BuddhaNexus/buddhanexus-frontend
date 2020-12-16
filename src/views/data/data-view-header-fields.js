@@ -120,6 +120,34 @@ export class DataViewHeaderFields extends LitElement {
     }
   }
 
+    preprocessMenuData(menuData) {
+	// this function has a bit of spaghetti-style; maybe we can refactor it at some point. 
+	return menuData.map(menuEntry => {
+	    menuEntry.imgStringPLI = '';
+	    menuEntry.imgStringSKT = '';
+	    menuEntry.imgStringTIB = '';
+	    menuEntry.imgStringCHN = '';	    
+	    if(menuEntry.available_lang.length > 0 ) {
+		menuEntry.available_lang.forEach(langItem => {
+		    if(langItem == "pli") {
+			menuEntry.imgStringPLI = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+		    }
+		    if(langItem == "skt") {
+			menuEntry.imgStringSKT = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+		    }
+		    if(langItem == "tib") {
+			menuEntry.imgStringTIB = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+		    }
+		    if(langItem == "chn") {
+			menuEntry.imgStringCHN = '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+		    }
+		});
+	    }
+	    return menuEntry;
+	});
+	return menuData;
+    }
+
   getTextAndDisplayNames(results) {
     const textNameDic = {};
     const displayNameDic = {};
@@ -141,7 +169,8 @@ export class DataViewHeaderFields extends LitElement {
       language: this.language,
     });
 
-    this.menuData = result;
+      this.menuData = this.preprocessMenuData(result);
+
     this.fetchError = error;
   }
 
@@ -155,6 +184,9 @@ export class DataViewHeaderFields extends LitElement {
         return 'Find Chinese texts...';
       case LANGUAGE_CODES.SANSKRIT:
         return 'Find Sanskrit texts...';
+      case LANGUAGE_CODES.MULTILANG:
+        return 'Find Multilingual texts...';
+
     }
   };
 
@@ -229,11 +261,22 @@ export class DataViewHeaderFields extends LitElement {
               max-width: 200px;
               -webkit-line-clamp: 2;
               -webkit-box-orient: vertical;
-              overflow: hidden;
-              text-overflow: ellipsis;
+
             }
           </style>
-          <strong>[[item.textname]]</strong><br /><span class="display-name">[[item.displayName]]</span>
+         <paper-icon-item>
+          
+          <paper-item-body two-line>
+            <div>
+              <strong>[[item.textname]]</strong> 
+              <img src="[[item.imgStringPLI]]" item-icon> 
+              <img src="[[item.imgStringSKT]]" item-icon> 
+              <img src="[[item.imgStringTIB]]" item-icon> 
+              <img src="[[item.imgStringCHN]]" item-icon> 
+            </div>
+            <div secondary><span class="display-name">[[item.displayName]]</span></div>
+          </paper-item-body>
+        </paper-icon-item>
         </template>
       </vaadin-combo-box>
 

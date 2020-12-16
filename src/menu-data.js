@@ -76,6 +76,11 @@ export const navMenuDataMain = [
         text: 'Chinese',
         url: 'chn/neutral',
       },
+      {
+        text: 'Multilingual',
+        url: 'multi/neutral',
+      },
+	
     ],
   },
   {

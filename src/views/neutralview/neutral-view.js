@@ -4,6 +4,7 @@ import './neutral-view-sanskrit';
 import './neutral-view-tibetan';
 import './neutral-view-chinese';
 import './neutral-view-pali';
+import './neutral-view-multilang';
 
 import { LANGUAGE_CODES } from '../utility/constants';
 
@@ -32,5 +33,10 @@ export class NeutralView extends LitElement {
         <neutral-view-pali></neutral-view-pali>
       `;
     }
+   if (this.lang == LANGUAGE_CODES.MULTILANG) {
+      return html`
+        <neutral-view-multilang></neutral-view-multilang>
+      `;
+    }     
   }
 }
