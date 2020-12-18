@@ -3,6 +3,8 @@ export const LANGUAGE_CODES = {
   TIBETAN: 'tib',
   CHINESE: 'chn',
   SANSKRIT: 'skt',
+  MULTILANG: 'multi',
+
 };
 
 export const MIN_LENGTHS = {
@@ -24,6 +26,7 @@ export const LANGUAGE_NAMES = {
   TIBETAN: 'Tibetan',
   CHINESE: 'Chinese',
   SANSKRIT: 'Sanskrit',
+  MULTILANG: 'Multilingual',
 };
 
 export const DEFAULT_SCORES = {

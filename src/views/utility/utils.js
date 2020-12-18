@@ -126,3 +126,34 @@ export function switchNavbarVisibility(isVisibleNavbar) {
   setLogoVisibility(isVisibleNavbar);
   setNavbarVisibility(isVisibleNavbar);
 }
+
+export function preprocessMenuData(menuData) {
+  // this function has a bit of spaghetti-style; maybe we can refactor it at some point.
+  return menuData.map(menuEntry => {
+    menuEntry.imgStringPLI = '';
+    menuEntry.imgStringSKT = '';
+    menuEntry.imgStringTIB = '';
+    menuEntry.imgStringCHN = '';
+    if (menuEntry.available_lang) {
+      menuEntry.available_lang.forEach(langItem => {
+        if (langItem == 'pli') {
+          menuEntry.imgStringPLI =
+            '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+        }
+        if (langItem == 'skt') {
+          menuEntry.imgStringSKT =
+            '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+        }
+        if (langItem == 'tib') {
+          menuEntry.imgStringTIB =
+            '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+        }
+        if (langItem == 'chn') {
+          menuEntry.imgStringCHN =
+            '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
+        }
+      });
+    }
+    return menuEntry;
+  });
+}

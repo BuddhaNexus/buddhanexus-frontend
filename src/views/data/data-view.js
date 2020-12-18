@@ -3,7 +3,6 @@
  *
  * @todo:
  * - pass filter values inside an object instead of separately in order to simplify code.
- * - get rid of one of this.selectedView/this.viewMode
  */
 
 import { customElement, html, LitElement, property } from 'lit-element';
@@ -53,7 +52,6 @@ export class DataView extends LitElement {
   ];
   @property({ type: String }) activeSegment;
   @property({ type: String }) folio;
-  @property({ type: String }) selectedView;
   @property({ type: String }) headerVisibility = '';
   @property({ type: Boolean }) filterBarOpen;
   @property({ type: Boolean }) showSegmentNumbers;
@@ -98,11 +96,6 @@ export class DataView extends LitElement {
         this.score = DEFAULT_SCORES.CHINESE;
         this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
-      // Question: DO we need this default value?
-      default:
-        this.minLength = MIN_LENGTHS.TIBETAN;
-        this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
-        this.score = DEFAULT_SCORES.TIBETAN;
     }
     this.checkSelectedView();
   }
@@ -114,17 +107,7 @@ export class DataView extends LitElement {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
         this.checkSearchSelectedText();
       }
-      if (
-        [
-          'score',
-          'cooccurance',
-          'sortMethod',
-          'quoteLength',
-          'multiLingualMode',
-        ].includes(propName)
-      ) {
-        this.applyFilter();
-      }
+
       if (propName === 'language') {
         getMainLayout()
           .querySelector('navigation-menu')
@@ -160,18 +143,22 @@ export class DataView extends LitElement {
   }
 
   checkSelectedView() {
-    if (this.selectedView === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
-      this.selectedView = DATA_VIEW_MODES.TEXT;
-      this.viewMode = DATA_VIEW_MODES.TEXT;
-      const newUrl = this.location.pathname.replace('neutral', 'text');
+    if (this.viewMode === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
+      let newUrl;
+      if (this.language != LANGUAGE_CODES.MULTILANG) {
+        this.viewMode = DATA_VIEW_MODES.TEXT;
+        newUrl = this.location.pathname.replace('neutral', 'text');
+      } else {
+        this.viewMode = DATA_VIEW_MODES.MULTILANG;
+        newUrl = this.location.pathname.replace('neutral', 'multi');
+      }
       this.location.pathname = newUrl;
       history.replaceState({}, null, newUrl);
     }
   }
   // handles the case that a new text was selected while browsing the search-results in local-search-view.
   checkSearchSelectedText() {
-    if (this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH && this.fileName) {
-      this.selectedView = DATA_VIEW_MODES.TEXT;
+    if (this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH && this.fileName) {
       this.viewMode = DATA_VIEW_MODES.TEXT;
     }
   }
@@ -195,7 +182,6 @@ export class DataView extends LitElement {
   };
 
   setSelectedView = viewName => {
-    this.selectedView = viewName;
     this.viewMode = viewName;
   };
 
@@ -214,7 +200,6 @@ export class DataView extends LitElement {
   setSearch = searchString => {
     this.searchString = searchString;
     this.viewMode = DATA_VIEW_MODES.TEXT_SEARCH;
-    this.selectedView = DATA_VIEW_MODES.TEXT_SEARCH;
   };
 
   setMultiLangSearch = searchString => {
@@ -251,16 +236,10 @@ export class DataView extends LitElement {
       this.setLimitOrTargetCollection =
         this.viewMode == 'graph' ? this.targetCollection : this.limitCollection;
     }
-    if (this.fileName) {
-      this.applyFilter();
-    }
   };
 
   setTargetCollection = targetCollection => {
     this.targetCollection = targetCollection;
-    if (this.fileName) {
-      this.applyFilter();
-    }
   };
 
   updateFileNameParamInUrl(fileName, activeSegment) {
@@ -298,16 +277,7 @@ export class DataView extends LitElement {
     }
     this.updateViewModeParamInUrl(newViewMode);
     this.viewMode = newViewMode;
-    this.selectedView = newViewMode;
-
-    if (this.fileName) {
-      this.applyFilter();
-    }
   };
-
-  applyFilter() {
-    this.selectedView = this.viewMode;
-  }
 
   toggleFilterBarOpen = () => {
     this.filterBarOpen = !this.filterBarOpen;
@@ -358,7 +328,7 @@ export class DataView extends LitElement {
           </data-view-header>
 
           <data-view-router
-            .selectedView="${this.selectedView}"
+            .selectedView="${this.viewMode}"
             .setSelectedView="${this.setSelectedView}"
             .lang="${this.language}"
             .setFileName="${this.setFileName}"

@@ -205,6 +205,16 @@ const ROUTES = [
     },
   },
   {
+    path: '/multi/:viewMode?/:fileName?/:activeSegment?',
+    component: 'data-view',
+    action: () => {
+      import('./views/data/data-view.js');
+      switchNavbarLayout(false, false);
+      setLogoSource('/src/assets/img/buddhanexus.jpg');
+    },
+  },
+
+   {
     path: '/visual/:lang?',
     component: 'visual-view',
     action: () => {

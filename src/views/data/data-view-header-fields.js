@@ -6,6 +6,7 @@ import '@vaadin/vaadin-select/theme/material/vaadin-select';
 import { LANGUAGE_CODES } from '../utility/constants';
 import { getFilesForMainMenu, getFoliosForFile } from '../menus/actions';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
+import { preprocessMenuData } from '../utility/utils';
 
 @customElement('data-view-header-fields')
 export class DataViewHeaderFields extends LitElement {
@@ -141,7 +142,8 @@ export class DataViewHeaderFields extends LitElement {
       language: this.language,
     });
 
-    this.menuData = result;
+    this.menuData = preprocessMenuData(result);
+
     this.fetchError = error;
   }
 
@@ -155,6 +157,8 @@ export class DataViewHeaderFields extends LitElement {
         return 'Find Chinese texts...';
       case LANGUAGE_CODES.SANSKRIT:
         return 'Find Sanskrit texts...';
+      case LANGUAGE_CODES.MULTILANG:
+        return 'Find Multilingual texts...';
     }
   };
 
@@ -229,11 +233,17 @@ export class DataViewHeaderFields extends LitElement {
               max-width: 200px;
               -webkit-line-clamp: 2;
               -webkit-box-orient: vertical;
-              overflow: hidden;
-              text-overflow: ellipsis;
+
             }
           </style>
-          <strong>[[item.textname]]</strong><br /><span class="display-name">[[item.displayName]]</span>
+          <div>
+            <strong>[[item.textname]]</strong>
+            <img src="[[item.imgStringPLI]]" item-icon>
+            <img src="[[item.imgStringSKT]]" item-icon>
+            <img src="[[item.imgStringTIB]]" item-icon>
+            <img src="[[item.imgStringCHN]]" item-icon>
+          </div>
+          <div secondary><span class="display-name">[[item.displayName]]</span></div>
         </template>
       </vaadin-combo-box>
 
