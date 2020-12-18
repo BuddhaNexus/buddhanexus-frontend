@@ -142,19 +142,18 @@ export class DataView extends LitElement {
     }
   }
 
-  checkSelectedView() { 
-      if (this.viewMode === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
-	  let newUrl;
-	  if (this.language != LANGUAGE_CODES.MULTILANG) {
-	      this.viewMode = DATA_VIEW_MODES.TEXT;
-	      newUrl = this.location.pathname.replace('neutral', 'text');
-	  }
-	  else {
-	      this.viewMode = DATA_VIEW_MODES.MULTILANG;
-	      newUrl = this.location.pathname.replace('neutral', 'multi');
-	  }
-	  this.location.pathname = newUrl;
-	  history.replaceState({}, null, newUrl);     
+  checkSelectedView() {
+    if (this.viewMode === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
+      let newUrl;
+      if (this.language != LANGUAGE_CODES.MULTILANG) {
+        this.viewMode = DATA_VIEW_MODES.TEXT;
+        newUrl = this.location.pathname.replace('neutral', 'text');
+      } else {
+        this.viewMode = DATA_VIEW_MODES.MULTILANG;
+        newUrl = this.location.pathname.replace('neutral', 'multi');
+      }
+      this.location.pathname = newUrl;
+      history.replaceState({}, null, newUrl);
     }
   }
   // handles the case that a new text was selected while browsing the search-results in local-search-view.
@@ -237,12 +236,10 @@ export class DataView extends LitElement {
       this.setLimitOrTargetCollection =
         this.viewMode == 'graph' ? this.targetCollection : this.limitCollection;
     }
-
   };
 
   setTargetCollection = targetCollection => {
     this.targetCollection = targetCollection;
-
   };
 
   updateFileNameParamInUrl(fileName, activeSegment) {
@@ -281,8 +278,6 @@ export class DataView extends LitElement {
     this.updateViewModeParamInUrl(newViewMode);
     this.viewMode = newViewMode;
   };
-
-
 
   toggleFilterBarOpen = () => {
     this.filterBarOpen = !this.filterBarOpen;
