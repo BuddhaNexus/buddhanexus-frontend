@@ -6,6 +6,7 @@ import '@vaadin/vaadin-select/theme/material/vaadin-select';
 import { LANGUAGE_CODES } from '../utility/constants';
 import { getFilesForMainMenu, getFoliosForFile } from '../menus/actions';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
+import { preprocessMenuData } from '../utility/utils';
 
 @customElement('data-view-header-fields')
 export class DataViewHeaderFields extends LitElement {
@@ -120,37 +121,6 @@ export class DataViewHeaderFields extends LitElement {
     }
   }
 
-  preprocessMenuData(menuData) {
-    // this function has a bit of spaghetti-style; maybe we can refactor it at some point.
-    return menuData.map(menuEntry => {
-      menuEntry.imgStringPLI = '';
-      menuEntry.imgStringSKT = '';
-      menuEntry.imgStringTIB = '';
-      menuEntry.imgStringCHN = '';
-      if (menuEntry.available_lang) {
-        menuEntry.available_lang.forEach(langItem => {
-          if (langItem == 'pli') {
-            menuEntry.imgStringPLI =
-              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-          }
-          if (langItem == 'skt') {
-            menuEntry.imgStringSKT =
-              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-          }
-          if (langItem == 'tib') {
-            menuEntry.imgStringTIB =
-              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-          }
-          if (langItem == 'chn') {
-            menuEntry.imgStringCHN =
-              '../../src/assets/icons/favicon-' + langItem + '-16x16.png';
-          }
-        });
-      }
-      return menuEntry;
-    });
-  }
-
   getTextAndDisplayNames(results) {
     const textNameDic = {};
     const displayNameDic = {};
@@ -172,7 +142,7 @@ export class DataViewHeaderFields extends LitElement {
       language: this.language,
     });
 
-    this.menuData = this.preprocessMenuData(result);
+    this.menuData = preprocessMenuData(result);
 
     this.fetchError = error;
   }
@@ -266,18 +236,14 @@ export class DataViewHeaderFields extends LitElement {
 
             }
           </style>
-         <paper-icon-item>
-          <paper-item-body two-line>
-            <div>
-              <strong>[[item.textname]]</strong>
-              <img src="[[item.imgStringPLI]]" item-icon>
-              <img src="[[item.imgStringSKT]]" item-icon>
-              <img src="[[item.imgStringTIB]]" item-icon>
-              <img src="[[item.imgStringCHN]]" item-icon>
-            </div>
-            <div secondary><span class="display-name">[[item.displayName]]</span></div>
-          </paper-item-body>
-        </paper-icon-item>
+          <div>
+            <strong>[[item.textname]]</strong>
+            <img src="[[item.imgStringPLI]]" item-icon>
+            <img src="[[item.imgStringSKT]]" item-icon>
+            <img src="[[item.imgStringTIB]]" item-icon>
+            <img src="[[item.imgStringCHN]]" item-icon>
+          </div>
+          <div secondary><span class="display-name">[[item.displayName]]</span></div>
         </template>
       </vaadin-combo-box>
 
