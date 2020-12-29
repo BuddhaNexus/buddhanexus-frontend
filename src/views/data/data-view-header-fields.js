@@ -309,7 +309,6 @@ export class DataViewHeaderFields extends LitElement {
                 <vaadin-list-box @value-changed="${this.updateSortMethod}">
                   <vaadin-item value="position">By position in Inquiry Text</vaadin-item>
                   <vaadin-item value="quoted-text">By position in Hit Text(s)</vaadin-item>
-                  <vaadin-item value="length" disabled>Length of match in Inquiry Text (beginning with longest)</vaadin-item>
                   <vaadin-item value="length2">Length of match in Hit Text (beginning with longest)</vaadin-item>
                 </vaadin-list-box>
               </template>
