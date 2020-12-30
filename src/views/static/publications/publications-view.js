@@ -17,6 +17,10 @@ export class PublicationsView extends LitElement {
           <p>
             <table class="activity">
               <tr>
+                <td>2020</td><td>Sebastian Nehrdich. "<a href="https://www.jstage.jst.go.jp/article/jjadh/5/2/5_6/_article/-char/en" class="content-link">A Method for the Calculation of Parallel Passages for Buddhist Chinese Sources Based on Million-scale Nearest Neighbor Search</a>", in Marcus Bingenheimer, Christian Wittern, Jinhua Chen (eds.), Journal of the Japanese Association for Digital Humanities, Volume 5, Issue 2. Special Issue: Buddhism and Technology, 132-153.</td>
+              </tr>
+
+              <tr>
                 <td>2019</td><td>Orna Almogi. “The Human behind the Divine: An Investigation into the Evolution of Scriptures with Special Reference to the Ancient Tantras of Tibetan Buddhism.” In Volker Caumanns, Marta Sernesi, Nikolai Solmsdorf (eds.), Unearthing Himalayan Treasures: Festschrift for Franz-Karl Ehrhard. Indica et Tibetica 59. Marburg: Indica et Tibetica Verlag, 1–26. </td>
               </tr>
               <tr>
