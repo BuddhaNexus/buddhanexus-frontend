@@ -54,8 +54,18 @@ export class InstitutionsView extends LitElement {
               </a>
             </div>
 
+            <div>Buddhist Digital Resource Center (BDRC)</div>
+            <div class="partner">
+              <a href="https://www.tbrc.org/" target="blank">
+                <img
+                  src="./src/assets/img/partner_buddhist_digital_resource_center.jpg"
+                  alt="Buddhist Digital Resource Center" />
+              </a>
+            </div>
+
+
             <div>
-              Resources for Kanjur & Tanjur Studies (rKTs)
+              Resources for Kanjur & Tanjur Studies (rKTs, Universität Wien)
             </div>
             <div class="partner">
               <a href="https://www.istb.univie.ac.at/kanjur/rktsneu/sub/index.php" target="blank">
@@ -63,9 +73,6 @@ export class InstitutionsView extends LitElement {
               </a>
             </div>
 
-            <div>
-              Universität Wien
-            </div>
             <div class="partner">
               <a href="https://www.univie.ac.at/" target="blank">
                 <img
@@ -73,6 +80,8 @@ export class InstitutionsView extends LitElement {
                   alt="UNI Vienna" />
               </a>
             </div>
+
+
 
             <h2>RESOURCES PARTNERS</h2>
 
@@ -103,7 +112,7 @@ export class InstitutionsView extends LitElement {
 
             <div>
               Göttingen Register of Electronic Texts in Indian Languages
-              (GRETIL)
+              (GRETIL, Georg-August-Universität Göttingen)
             </div>
             <div class="partner">
               <a href="http://gretil.sub.uni-goettingen.de/" target="blank">
@@ -118,6 +127,24 @@ export class InstitutionsView extends LitElement {
                 <img src="./src/assets/img/partner_sub.jpg" alt="SUB" />
               </a>
             </div>
+
+            <div>Digital Sanskrit Buddhist Canon (DSBC, University of the West)</div>
+            <div class="partner">
+              <a href="https://www.dsbcproject.org/" target="blank">
+                <img
+                  src="./src/assets/img/partner_dsbc.jpg"
+                  alt="Digital Sanskrit Buddhist Canon" />
+              </a>
+            </div>
+
+            <div class="partner">
+              <a href="https://www.uwest.edu/" target="blank">
+                <img
+                  src="./src/assets/img/partner_uwest.jpg"
+                  alt="University of the West" />
+              </a>
+            </div>
+
 
             <div>Chinese Buddhist Electronic Text Association (CBETA)</div>
             <div class="partner">

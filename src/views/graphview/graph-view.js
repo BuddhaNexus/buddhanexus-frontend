@@ -1,6 +1,6 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
-import '@google-web-components/google-chart/google-chart-loader.js';
+import '@google-web-components/google-chart/loader.js';
 import '@google-web-components/google-chart/google-chart.js';
 
 import { getDataForGraph } from '../../api/actions';
