@@ -71,7 +71,11 @@ export class DataView extends LitElement {
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
     this.handleViewModeParamChanged();
-    switch (this.language) {
+      this.initializeFilterValues(this.language);
+    this.checkSelectedView();
+  }
+    initializeFilterValues(lang) {
+    switch (lang) {
       case LANGUAGE_CODES.TIBETAN:
         this.minLength = MIN_LENGTHS.TIBETAN;
         this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
@@ -97,16 +101,21 @@ export class DataView extends LitElement {
         this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
     }
-    this.checkSelectedView();
-  }
-
-  updated(_changedProperties) {
+    }
+    
+    updated(_changedProperties) {
+	console.log("VIEW MODE",this.viewMode);
+	console.log("LANG",this.language);
     this.checkSelectedView();
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
         this.checkSearchSelectedText();
       }
+	if (propName === 'viewMode' && this.score == null) { // when the viewMode is changed and the filter-values are not set yet, we have to initialize them
+	    const tempLang = getLanguageFromFilename(this.fileName);
+	    this.initializeFilterValues(tempLang);
+	}
 
       if (propName === 'language') {
         getMainLayout()

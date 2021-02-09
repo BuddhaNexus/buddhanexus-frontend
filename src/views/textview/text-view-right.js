@@ -117,7 +117,8 @@ export class TextViewRight extends LitElement {
       score: this.score,
       par_length: this.quoteLength,
       co_occ: this.cooccurance,
-      active_segment: this.activeSegment,
+	active_segment: this.activeSegment,
+	multi_lingual: [getLanguageFromFilename(this.fileName)]
     });
     this.endOfRightTextFlag = textleft.length != 800 ? true : false;
     this.textRight = textleft;
@@ -135,6 +136,7 @@ export class TextViewRight extends LitElement {
         }
       }
     }
+      console.log("PARALLELS",this.parallels);
     this.fetchError = error;
     this.fetchLoading = false;
   }

@@ -100,25 +100,28 @@ export class TextViewMiddle extends LitElement {
     );
   }
 
-  createTransmessage(par_lang) {
-    let transMessage = 'Match';
+  createTransMessage(par_lang) {
     if (par_lang == 'tib') {
-      transMessage = html`
+      return html`
         Tibetan translation
       `;
     }
     if (par_lang == 'skt') {
-      transMessage = html`
+      return html`
         Sanskrit version
+      `;
+    }
+    if (par_lang == 'pli') {
+      return html`
+        Pāli version
       `;
     }
 
     if (par_lang == 'chn') {
-      transMessage = html`
+      return html`
         Chinese translation
       `;
     }
-    return transMessage;
   }
 
   render() {
@@ -197,9 +200,9 @@ export class TextViewMiddle extends LitElement {
             endoffset: parOffsetEnd,
             lang: par_lang,
           });
-          let transMessage = ``;
+          let transMessage = `Match`;
           if (src_lang != par_lang) {
-            transMessage = this.createTransmessage(par_lang);
+            transMessage = this.createTransMessage(par_lang);
           }
           //prettier-ignore
           selectedParallelsText = html`

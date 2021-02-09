@@ -11,7 +11,8 @@ export class DataViewFiltersMultilingual extends LitElement {
   @property({ type: Array }) multiLangTotalList;
   @property({ type: Array }) mainLang;
   @property({ type: Array }) multiLingualMode = [];
-  @property({ type: Function }) multiLingualBlockList = [];
+  @property({ type: Array }) multiLingualBlockList = [];
+    @property({ type: Function }) updateMultiLingualMode;
   @property({ type: Boolean }) dataLoading = false;
   @property({ type: String }) dataLoadError = false;
 
@@ -57,9 +58,13 @@ export class DataViewFiltersMultilingual extends LitElement {
     } else {
       this.multiLingualBlockList.push(e.target.value);
     }
+      console.log("BLOCKLIST",this.multiLingualBlockList);
+      
     this.multiLingualMode = this.multiLangTotalList.filter(
       x => !this.multiLingualBlockList.includes(x)
     );
+      this.multiLingualMode = [...new Set(this.multiLingualMode)];
+      this.multiLingualMode = this.multiLingualMode.filter(Boolean);
     this.updateMultiLingualMode(this.multiLingualMode);
   };
 

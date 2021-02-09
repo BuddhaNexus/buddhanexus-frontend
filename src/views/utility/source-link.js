@@ -9,6 +9,7 @@ export class FormattedFileName extends LitElement {
   @property({ type: String }) lang;
   @property({ type: String }) sourceLink = '';
   @property({ type: String }) imgLink = '';
+  @property({ type: String }) imgLink2 = '';
   @property({ type: String }) buttonText = '';
   @property({ type: String }) titleText = '';
   @property({ type: Function }) allowFetching = false;
@@ -56,12 +57,16 @@ export class FormattedFileName extends LitElement {
       this.titleText =
         'Click to go to the original file in GRETIL (includes full header information).';
     }
-    if (this.lang === 'tib') {
+      if (this.lang === 'tib'){
       this.fetchData();
-      this.buttonText = '';
-      this.imgLink = '../../src/assets/icons/bdrc_logo.png';
-      this.titleText =
+	this.buttonText = 'Click to visit the file in the Buddhist Digital Resource Center.';
+	this.buttonText2 = 'Click to visit the file at Resources for Kanjur & Tanjur Studies .';
+	this.imgLink = '../../src/assets/icons/bdrc_logo.png';
+	this.imgLink2 = '../../src/assets/icons/rkts_logo.png';
+	
+      this.titleText2 =
         'Click to visit the file in the Buddhist Digital Resource Center.';
+	
     } else if (this.lang === 'pli') {
       this.titleText = this.fetchTitleText(this.filename);
       this.imgLink = this.fetchImageLink(this.filename);
@@ -83,7 +88,11 @@ export class FormattedFileName extends LitElement {
     const { link, error } = await getExternalLink({
       fileName: this.filename,
     });
-    this.sourceLink = link;
+      this.sourceLink = link;
+      if(this.lang == "tib") {
+	  this.sourceLink2 = link.replace("http://purl.bdrc.io/resource/WA0RK","http://purl.rkts.eu/resource/WKT")
+ 	  this.sourceLink2 = this.sourceLink2.replace("http://purl.bdrc.io/resource/WA0RT","https://www.istb.univie.ac.at/kanjur/rktsneu/verif/verif3.php?id=")
+      }
     this.fetchLoading = false;
     this.fetchError = error;
   }
@@ -114,8 +123,17 @@ export class FormattedFileName extends LitElement {
     if (this.fetchLoading) {
       return;
     }
-    // prettier-ignore
+      // prettier-ignore
+      if(this.lang != "tib"){
     return html`<span class="source-link" title="${this.titleText}">Links: 
                   <a href="${this.sourceLink}" target="blank">${this.buttonText} <img class="image-link" target="_blank" src="${this.imgLink}"/></a>`
+      }
+      else {
+	  if(!this.filename.includes("N")) { // for the time being, exclude NG/NK files from linking
+    return html`<span class="source-link" ">Links: 
+                  <a href="${this.sourceLink}" title="${this.buttonText}" target="blank"><img class="image-link" target="_blank" src="${this.imgLink}"/></a>
+                  <a href="${this.sourceLink2}" title="${this.buttonText2}" target="blank"><img class="image-link" target="_blank" src="${this.imgLink2}"/></a>`
+	  }
+      }
   }
 }

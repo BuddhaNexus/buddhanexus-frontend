@@ -27,8 +27,12 @@ export class DataViewViewSelector extends LitElement {
       `,
     ];
   }
+    updated() {
+	console.log("MULTILANG MODE", this.multiLingualMode)
+    }
+	
+    render() {
 
-  render() {
     return html`
       <vaadin-radio-group
         label="Choose view:"
