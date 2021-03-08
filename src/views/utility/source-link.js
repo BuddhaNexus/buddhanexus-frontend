@@ -77,10 +77,10 @@ export class FormattedFileName extends LitElement {
       this.imgLink = '../../src/assets/icons/cbeta_logo.png';
       this.titleText =
         'Click to go to the original file in CBETA (includes additional information).';
-      this.sourceLink = `http://tripitaka.cbeta.org/${this.filename.replace(
+      this.sourceLink = `https://cbetaonline.dila.edu.tw/${this.filename.replace(
         /_[TX]/,
         'n'
-      )}`;
+      )}_001`;
     }
   }
 

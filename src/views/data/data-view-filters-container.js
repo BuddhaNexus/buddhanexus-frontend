@@ -167,9 +167,6 @@ export class DataViewFiltersContainer extends LitElement {
       this.viewMode === DATA_VIEW_MODES.MULTILANG
     );
   }
-  shouldShowSliders() {
-    return this.viewMode !== DATA_VIEW_MODES.MULTILANG;
-  }
 
   renderMultiSelectBox(label, id, changefunction, itempath) {
     return html`
@@ -254,9 +251,7 @@ export class DataViewFiltersContainer extends LitElement {
       </data-view-filters-multilingual>
 
       <data-view-filter-sliders
-        style="display: ${
-          this.shouldShowSliders() ? 'block' : 'none'
-        }"
+        .viewMode="${this.viewMode}"
         .score="${this.score}"
         .updateScore="${this.updateScore}"
         .quoteLength="${this.quoteLength}"

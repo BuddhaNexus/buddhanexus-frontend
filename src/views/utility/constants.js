@@ -31,7 +31,7 @@ export const LANGUAGE_NAMES = {
 
 export const DEFAULT_SCORES = {
   PALI: 30,
-  TIBETAN: 60,
+  TIBETAN: 30,
   CHINESE: 30,
   SANSKRIT: 30,
 };

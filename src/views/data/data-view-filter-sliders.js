@@ -5,6 +5,7 @@ import '@polymer/paper-slider/paper-slider';
 @customElement('data-view-filter-sliders')
 export default class DataViewFilterSliders extends LitElement {
   @property({ type: Number }) score;
+  @property({ type: String }) viewMode;
   @property({ type: Function }) updateScore;
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) minLength;
@@ -65,6 +66,9 @@ export default class DataViewFilterSliders extends LitElement {
       `,
     ];
   }
+    shouldShowAll(){
+	return this.viewMode != 'multilang';
+    }
 
   render() {
     //prettier-ignore
@@ -83,6 +87,9 @@ export default class DataViewFilterSliders extends LitElement {
           </paper-slider>
         </div>
         <div
+          style="display: ${
+            this.shouldShowAll() ? 'block' : 'none'
+          }"
           id="slider-container"
           name="set min. length of quoted segment in characters">
           <div id="slider-label">Min. Match Length:</div>
@@ -96,6 +103,9 @@ export default class DataViewFilterSliders extends LitElement {
           </paper-slider>
         </div>
         <div
+          style="display: ${
+            this.shouldShowAll() ? 'block' : 'none'
+          }"
           id="slider-container"
           name="set the number of times a parallel is contained within other parallels">
           <div id="slider-label">Nr. co-occurences:</div>

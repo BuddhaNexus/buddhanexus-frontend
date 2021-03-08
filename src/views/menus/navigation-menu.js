@@ -49,7 +49,8 @@ export class NavigationMenu extends LitElement {
       language: this.language,
     });
     this.navigationMenuData = navigationmenudata;
-    this.fetchError = error;
+      this.fetchError = error;
+      console.log("NAVIGATION MENU DATA",this.navigationMenuData)
 
     this.fetchLoading = false;
   }

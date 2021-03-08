@@ -7,7 +7,6 @@ export default css`
   }
 
   [lang='tib'] {
-    text-transform: uppercase;
     font-family: var(--system-font-stack);
   }
 

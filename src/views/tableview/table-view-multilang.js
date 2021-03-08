@@ -66,9 +66,10 @@ export class TableViewMultiLang extends LitElement {
         await this.fetchData();
       }
       if (
-        ['multiSearchString', 'folio'].includes(propName) &&
+          ['multiSearchString', 'folio','score'].includes(propName) &&
         !this.fetchLoading
       ) {
+	  console.log("UPDATED SIMILARITY SCORE");
         this.resetView();
         await this.fetchData();
       }
@@ -97,7 +98,8 @@ export class TableViewMultiLang extends LitElement {
     }
     const parallels = await getTableViewMultiData({
       fileName: this.fileName,
-      multi_lingual: this.multiLingualMode,
+	multi_lingual: this.multiLingualMode,
+	score:this.score,
       folio: folio,
       page: pageNumber,
       search_string: this.multiSearchString,

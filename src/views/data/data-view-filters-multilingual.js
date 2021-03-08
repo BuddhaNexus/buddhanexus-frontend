@@ -58,8 +58,6 @@ export class DataViewFiltersMultilingual extends LitElement {
     } else {
       this.multiLingualBlockList.push(e.target.value);
     }
-      console.log("BLOCKLIST",this.multiLingualBlockList);
-      
     this.multiLingualMode = this.multiLangTotalList.filter(
       x => !this.multiLingualBlockList.includes(x)
     );

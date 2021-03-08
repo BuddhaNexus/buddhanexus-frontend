@@ -93,6 +93,7 @@ export class DataViewRouter extends LitElement {
       return html`
         <table-view-multilang
           .fileName="${this.fileName}"
+          .score="${this.score}"
           .multiSearchString="${this.multiSearchString}"
           .multiLingualMode="${this.multiLingualMode}"
         ></table-view-multilang>
