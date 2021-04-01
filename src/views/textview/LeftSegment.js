@@ -39,7 +39,8 @@ export function LeftSegmentContainer({
   onClick,
   leftTextData,
   showSegmentNumbers,
-  segmentDisplaySide,
+    segmentDisplaySide,
+    transMethod,
 }) {
   const lang = getLanguageFromFilename(segmentNr);
   const leftSideSelected =
@@ -70,7 +71,8 @@ export function LeftSegmentContainer({
       colorValues,
       onClick,
       inputData: segText,
-      highlightMode: leftSideSelected ? 1 : 0,
+	highlightMode: leftSideSelected ? 1 : 0,
+	transMethod: transMethod, 
     }),
     number: number,
     displayNumber,
@@ -87,7 +89,7 @@ export function LeftSegment({
   displayNumber,
   firstDisplayNumber,
   showSegmentNumbers,
-  segmentDisplaySide,
+    segmentDisplaySide,
 }) {
   // prettier-ignore
   return html`<span class="left-segment"

@@ -29,8 +29,9 @@ export class DataViewRouter extends LitElement {
   @property({ type: String }) headerVisibility;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
-
-  render() {
+  @property({ type: String }) transMethod;
+    render() {
+	console.log("DATA VIEW ROUTER TRANS SCHEME",this.transMethod,this.lang,this.sortMethod);
     if (
       this.selectedView === DATA_VIEW_MODES.TEXT ||
       this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH
@@ -52,6 +53,7 @@ export class DataViewRouter extends LitElement {
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
           .headerVisibility="${this.headerVisibility}"
+          .transMethod="${this.transMethod}">
         ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
@@ -87,6 +89,7 @@ export class DataViewRouter extends LitElement {
           .sortMethod="${this.sortMethod}"
           .score="${this.score}"
           .searchString="${this.searchString}"
+          .transliterationScheme="${this.transliterationScheme}">
         ></table-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {

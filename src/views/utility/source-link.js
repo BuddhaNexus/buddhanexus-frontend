@@ -50,12 +50,22 @@ export class FormattedFileName extends LitElement {
 
   updated() {
     this.lang = getLanguageFromFilename(this.filename);
-    if (this.lang === 'skt') {
-      this.fetchData();
-      this.buttonText = 'GRETIL';
-      this.imgLink = '../../src/assets/icons/gretil_logo.png';
-      this.titleText =
-        'Click to go to the original file in GRETIL (includes full header information).';
+      if (this.lang === 'skt') {	  
+	  this.fetchData();
+	  if(this.filename.match(/[X0-9]n[0-9]/)){
+	      this.buttonText = 'DSBC';
+	      this.imgLink = '../../src/assets/icons/dsbc_logo.png';
+	      this.titleText =
+		  'Click to go to the original file in the Digital Sanskrit Buddhist Canon (includes full header information).';	      	      
+	  }
+	  else
+	  {
+	      this.buttonText = 'GRETIL';
+	      this.imgLink = '../../src/assets/icons/gretil_logo.png';
+	      this.titleText =
+		  'Click to go to the original file in GRETIL (includes full header information).';	      
+	  }
+
     }
       if (this.lang === 'tib'){
       this.fetchData();

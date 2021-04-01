@@ -37,6 +37,7 @@ export function highlightTextByOffset({
   startoffset,
   endoffset,
   lang,
+  transMethod
 }) {
   let returnArray = [];
   if (lang.match(/tib/)) {
@@ -78,12 +79,15 @@ export function highlightTextByOffset({
         }
         colourValues.push(colourValue);
       }
-	colourValues = removeHighlightedNumbers(textArray[i],colourValues);
+	if(lang.match(/skt/)){
+	    colourValues = removeHighlightedNumbers(textArray[i],colourValues);
+	}
       returnArray.push(
         TextSegment({
           inputData: textArray[i],
           lang: lang,
-          colorValues: colourValues,
+            colorValues: colourValues,
+	    transMethod
         })
       );
     }

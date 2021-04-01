@@ -24,6 +24,7 @@ export class TextViewMiddle extends LitElement {
   @property({ type: Array }) selectedParallels;
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) fetchError;
+  @property({ type: String }) transMethod;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -198,7 +199,8 @@ export class TextViewMiddle extends LitElement {
             textArray: segnrText,
             startoffset: parOffsetBegin,
             endoffset: parOffsetEnd,
-            lang: par_lang,
+              lang: par_lang,
+	      transMethod: this.transMethod
           });
           let transMessage = `Match`;
           if (src_lang != par_lang) {

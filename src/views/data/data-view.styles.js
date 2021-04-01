@@ -23,9 +23,7 @@ export default css`
     width: 100%;
   }
 
-  .settings-menu[view='text'][lang='pli'],
-  .settings-menu[view='text'][lang='chn'],
-  .settings-menu[view='text'][lang='skt'] {
+  .settings-menu {
     display: inline-flex;
   }
 
@@ -112,3 +110,4 @@ export default css`
     width: 0;
   }
 `;
+

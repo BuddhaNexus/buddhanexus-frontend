@@ -303,6 +303,7 @@ export const getExternalLink = async ({ fileName }) => {
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
+      console.log("RETURN JSON",json)
     return json;
   } catch (e) {
     console.error('Could not load external link from server: ', e);

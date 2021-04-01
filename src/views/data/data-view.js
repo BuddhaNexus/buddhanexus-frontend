@@ -42,6 +42,7 @@ export class DataView extends LitElement {
   @property({ type: Array }) setLimitOrTargetCollection = [];
   @property({ type: String }) searchString;
   @property({ type: String }) multiSearchString;
+  @property({ type: String }) transMethod = 'wylie';
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
   @property({ type: Array }) multiLingualMode = [
@@ -54,7 +55,7 @@ export class DataView extends LitElement {
   @property({ type: String }) folio;
   @property({ type: String }) headerVisibility = '';
   @property({ type: Boolean }) filterBarOpen;
-  @property({ type: Boolean }) showSegmentNumbers;
+  @property({ type: Boolean }) showSegmentNumbers = false;
   @property({ type: String }) segmentDisplaySide;
 
   static get styles() {
@@ -104,8 +105,7 @@ export class DataView extends LitElement {
     }
     
     updated(_changedProperties) {
-	console.log("VIEW MODE",this.viewMode);
-	console.log("LANG",this.language);
+	console.log("TRANS SCHEME DATA VIEW",this.transMethod);
     this.checkSelectedView();
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
@@ -231,6 +231,10 @@ export class DataView extends LitElement {
     }
   };
 
+  toggleTransMode = e => {
+	console.log("TOGGLED TRANS MODE",e.target.value);
+	this.transMethod = e.target.value;
+    };
   setSortMethod = e => {
     this.sortMethod = e.target.value;
     if (this.sortMethod != 'position') {
@@ -350,12 +354,14 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
+            .transMethod="${this.transMethod}"
             .searchString="${this.searchString}"
             .multiLingualMode="${this.multiLingualMode}"
             .multiSearchString="${this.multiSearchString}"
             .headerVisibility="${this.headerVisibility}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
             .segmentDisplaySide="${this.segmentDisplaySide}">
+
           </data-view-router>
         </div>
 
@@ -397,8 +403,11 @@ export class DataView extends LitElement {
             class="settings-menu"
             lang="${this.language}"
             view="${this.viewMode}"
+            .toggleTransMode="${this.toggleTransMode}">
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}">
+
+
           </data-view-settings-container>
         </side-sheet>
       </div>

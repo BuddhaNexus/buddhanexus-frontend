@@ -20,7 +20,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) leftActiveSegment;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
-
+  @property({ type: String }) transMethod;
   // Local variables
   @property({ type: String }) veryShortText = false;
   @property({ type: String }) reachedEndText = false;
@@ -47,7 +47,7 @@ export class TextViewLeft extends LitElement {
     }
   }
 
-  updated(_changedProperties) {
+    updated(_changedProperties) {
     _changedProperties.forEach(async (oldValue, propName) => {
       if (propName === 'fileName' && !this.fetchLoading) {
         if (!('leftTextData' in _changedProperties)) {
@@ -134,6 +134,7 @@ export class TextViewLeft extends LitElement {
     this.textLeft.forEach(
       ({ segnr, parallel_ids }) => (this.textLeftBySegNr[segnr] = parallel_ids)
     );
+      console.log("TEXT VIEW LEFT LEFTTEXT",this.textLeft)
     this.parallels = {};
     if (parallels.length >= 1) {
       for (let i = 0; i <= parallels.length; i++) {
@@ -293,6 +294,7 @@ export class TextViewLeft extends LitElement {
           currentPosition: this.currentPosition,
           showSegmentNumbers: this.showSegmentNumbers,
           segmentDisplaySide: this.segmentDisplaySide,
+          transMethod: this.transMethod,
         })
       )}
     `;

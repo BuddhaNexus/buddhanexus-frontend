@@ -9,13 +9,34 @@ import styles from './data-view-settings-container.styles';
 @customElement('data-view-settings-container')
 export class DataViewSettingsContainer extends LitElement {
   @property({ type: Function }) toggleShowSegmentNumbers;
+  @property({ type: String }) lang;
   @property({ type: Function }) toggleSegmentDisplaySide;
+  @property({ type: Function }) toggleTransMode;
 
   static get styles() {
     return [styles];
   }
 
-  render() {
+
+    render() {
+	console.log(this.toggleTransMode)
+	if (this.lang == "tib")
+	{
+	    return html`
+        <span class="button-font">Display text as:</span>
+      <vaadin-radio-group
+        class="toggle-transliteration-scheme"
+        @value-changed="${this.toggleTransMode}">
+        <vaadin-radio-button value="wylie" checked>
+          <span class="button-font">Wylie</span>
+        </vaadin-radio-button>
+        <vaadin-radio-button value="uni">
+          <span class="button-font">Unicode</span>
+        </vaadin-radio-button>
+      </vaadin-radio-group>
+`
+	}
+	else{
     //prettier-ignore
     return html`
       <paper-toggle-button @checked-changed="${this.toggleShowSegmentNumbers}">
@@ -32,6 +53,6 @@ export class DataViewSettingsContainer extends LitElement {
           <span class="button-font">Right</span>
         </vaadin-radio-button>
       </vaadin-radio-group>
-    `;
+    `;}
   }
 }
