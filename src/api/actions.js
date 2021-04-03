@@ -181,7 +181,6 @@ export const getFileTextParallelsMiddle = async ({
       limit_collection: limit_collection,
       multi_lingual: multi_lingual,
     };
-      console.log("MIDDLE DATA",data);
     const url = `${API_URL}/parallels-for-middle/`;
     const request = {
       headers: { 'Content-Type': 'application/json' },
@@ -303,7 +302,6 @@ export const getExternalLink = async ({ fileName }) => {
     if (!response.ok) {
       throw Error(json.detail.errorMessage);
     }
-      console.log("RETURN JSON",json)
     return json;
   } catch (e) {
     console.error('Could not load external link from server: ', e);

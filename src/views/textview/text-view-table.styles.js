@@ -84,8 +84,13 @@ export default css`
   }
 
   .left-segment,
-  .right-segment {
+  .right-segment,
+  .source-segment {
     display: inline;
+  }
+
+  .source-segment {
+    font-weight: 550;
   }
 
   .segment-number[show-number='false'] {

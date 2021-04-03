@@ -17,28 +17,25 @@ export class DataViewSettingsContainer extends LitElement {
     return [styles];
   }
 
-
-    render() {
-	console.log(this.toggleTransMode)
-	if (this.lang == "tib")
-	{
-	    return html`
+  render() {
+    if (this.lang == 'tib') {
+      return html`
         <span class="button-font">Display text as:</span>
-      <vaadin-radio-group
-        class="toggle-transliteration-scheme"
-        @value-changed="${this.toggleTransMode}">
-        <vaadin-radio-button value="wylie" checked>
-          <span class="button-font">Wylie</span>
-        </vaadin-radio-button>
-        <vaadin-radio-button value="uni">
-          <span class="button-font">Unicode</span>
-        </vaadin-radio-button>
-      </vaadin-radio-group>
-`
-	}
-	else{
-    //prettier-ignore
-    return html`
+        <vaadin-radio-group
+          class="toggle-transliteration-scheme"
+          @value-changed="${this.toggleTransMode}"
+        >
+          <vaadin-radio-button value="wylie" checked>
+            <span class="button-font">Wylie</span>
+          </vaadin-radio-button>
+          <vaadin-radio-button value="uni">
+            <span class="button-font">Unicode</span>
+          </vaadin-radio-button>
+        </vaadin-radio-group>
+      `;
+    } else {
+      //prettier-ignore
+      return html`
       <paper-toggle-button @checked-changed="${this.toggleShowSegmentNumbers}">
         <span class="button-font">Show Segment Numbers</span>
       </paper-toggle-button>
@@ -53,6 +50,7 @@ export class DataViewSettingsContainer extends LitElement {
           <span class="button-font">Right</span>
         </vaadin-radio-button>
       </vaadin-radio-group>
-    `;}
+    `;
+    }
   }
 }

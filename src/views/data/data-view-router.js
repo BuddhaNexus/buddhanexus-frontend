@@ -30,8 +30,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) transMethod;
-    render() {
-	console.log("DATA VIEW ROUTER TRANS SCHEME",this.transMethod,this.lang,this.sortMethod);
+  render() {
     if (
       this.selectedView === DATA_VIEW_MODES.TEXT ||
       this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH
@@ -53,8 +52,10 @@ export class DataViewRouter extends LitElement {
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
           .headerVisibility="${this.headerVisibility}"
-          .transMethod="${this.transMethod}">
-        ></text-view-router>
+          .transMethod="${this.transMethod}"
+        >
+          ></text-view-router
+        >
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
       return html`
@@ -89,8 +90,10 @@ export class DataViewRouter extends LitElement {
           .sortMethod="${this.sortMethod}"
           .score="${this.score}"
           .searchString="${this.searchString}"
-          .transliterationScheme="${this.transliterationScheme}">
-        ></table-view>
+          .transliterationScheme="${this.transliterationScheme}"
+        >
+          ></table-view
+        >
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {
       return html`
@@ -102,12 +105,10 @@ export class DataViewRouter extends LitElement {
         ></table-view-multilang>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
-
       return html`
         <neutral-view .lang="${this.lang}"></neutral-view>
       `;
     } else {
-	console.log("FAILED VIEWMODE",this.selectedView);
       return html`
         <h2>Select the view mode.</h2>
       `;

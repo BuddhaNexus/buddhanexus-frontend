@@ -13,6 +13,7 @@ export class DataViewHeaderFields extends LitElement {
   @property({ type: String }) language;
   @property({ type: String }) viewMode;
   @property({ type: String }) fileName;
+  @property({ type: Number }) score;
   @property({ type: Array }) menuData;
   @property({ type: Array }) folioData;
   @property({ type: String }) fetchError;
@@ -205,6 +206,13 @@ export class DataViewHeaderFields extends LitElement {
     return false;
   }
 
+  shouldShowMultiLangMessage() {
+    if (this.viewMode === DATA_VIEW_MODES.MULTILANG && this.score > 0) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const shouldShowTextSearchBox =
       (this.viewMode === DATA_VIEW_MODES.TEXT ||
@@ -297,7 +305,6 @@ export class DataViewHeaderFields extends LitElement {
               </div>
             </paper-input>`
         : null}
-
       ${shouldShowSortBox
         ? html`
             <vaadin-select

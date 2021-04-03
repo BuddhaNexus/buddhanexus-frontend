@@ -53,6 +53,20 @@ export class TableViewMultiLang extends LitElement {
     super.connectedCallback();
     await this.fetchData();
   }
+  multiLangMessage() {
+    if (this.score > 0) {
+      return html`
+        <span
+          ><br /><b
+            >Currently Only well-aligned matching translation passages are
+            shown. In order to show all aligned passages, please set the
+            "similarity Score" filter in the filter menu on the right side to
+            zero.</b
+          ><br
+        /></span>
+      `;
+    }
+  }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
@@ -66,10 +80,9 @@ export class TableViewMultiLang extends LitElement {
         await this.fetchData();
       }
       if (
-          ['multiSearchString', 'folio','score'].includes(propName) &&
+        ['multiSearchString', 'folio', 'score'].includes(propName) &&
         !this.fetchLoading
       ) {
-	  console.log("UPDATED SIMILARITY SCORE");
         this.resetView();
         await this.fetchData();
       }
@@ -98,8 +111,8 @@ export class TableViewMultiLang extends LitElement {
     }
     const parallels = await getTableViewMultiData({
       fileName: this.fileName,
-	multi_lingual: this.multiLingualMode,
-	score:this.score,
+      multi_lingual: this.multiLingualMode,
+      score: this.score,
       folio: folio,
       page: pageNumber,
       search_string: this.multiSearchString,
@@ -153,6 +166,7 @@ export class TableViewMultiLang extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
+        .extraMessage="${this.multiLangMessage()}"
       ></data-view-subheader>
 
       <table-view-table

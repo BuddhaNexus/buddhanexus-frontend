@@ -72,10 +72,10 @@ export class DataView extends LitElement {
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
     this.handleViewModeParamChanged();
-      this.initializeFilterValues(this.language);
+    this.initializeFilterValues(this.language);
     this.checkSelectedView();
   }
-    initializeFilterValues(lang) {
+  initializeFilterValues(lang) {
     switch (lang) {
       case LANGUAGE_CODES.TIBETAN:
         this.minLength = MIN_LENGTHS.TIBETAN;
@@ -101,21 +101,26 @@ export class DataView extends LitElement {
         this.score = DEFAULT_SCORES.CHINESE;
         this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
+      case LANGUAGE_CODES.MULTILANG:
+        this.score = DEFAULT_SCORES.MULTILANG;
+        this.minLength = MIN_LENGTHS.MULTILANG;
+        this.quoteLength = DEFAULT_LENGTHS.MULTILANG;
+        break;
     }
-    }
-    
-    updated(_changedProperties) {
-	console.log("TRANS SCHEME DATA VIEW",this.transMethod);
+  }
+
+  updated(_changedProperties) {
     this.checkSelectedView();
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
         this.checkSearchSelectedText();
       }
-	if (propName === 'viewMode' && this.score == null) { // when the viewMode is changed and the filter-values are not set yet, we have to initialize them
-	    const tempLang = getLanguageFromFilename(this.fileName);
-	    this.initializeFilterValues(tempLang);
-	}
+      if (propName === 'viewMode' && this.score == null) {
+        // when the viewMode is changed and the filter-values are not set yet, we have to initialize them
+        const tempLang = getLanguageFromFilename(this.fileName);
+        this.initializeFilterValues(tempLang);
+      }
 
       if (propName === 'language') {
         getMainLayout()
@@ -232,9 +237,8 @@ export class DataView extends LitElement {
   };
 
   toggleTransMode = e => {
-	console.log("TOGGLED TRANS MODE",e.target.value);
-	this.transMethod = e.target.value;
-    };
+    this.transMethod = e.target.value;
+  };
   setSortMethod = e => {
     this.sortMethod = e.target.value;
     if (this.sortMethod != 'position') {
@@ -329,6 +333,7 @@ export class DataView extends LitElement {
             .setFileName="${this.setFileName}"
             .viewMode="${this.viewMode}"
             .sortMethod="${this.sortMethod}"
+            .score="${this.score}"
             .handleViewModeChanged="${this.handleViewModeChanged}"
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"

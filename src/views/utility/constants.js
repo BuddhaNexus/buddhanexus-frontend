@@ -4,7 +4,6 @@ export const LANGUAGE_CODES = {
   CHINESE: 'chn',
   SANSKRIT: 'skt',
   MULTILANG: 'multi',
-
 };
 
 export const MIN_LENGTHS = {
@@ -12,6 +11,7 @@ export const MIN_LENGTHS = {
   TIBETAN: 7,
   CHINESE: 5,
   SANSKRIT: 25,
+  MULTILANG: 5,
 };
 
 export const DEFAULT_LENGTHS = {
@@ -19,6 +19,7 @@ export const DEFAULT_LENGTHS = {
   TIBETAN: 14,
   CHINESE: 7,
   SANSKRIT: 35,
+  MULTILANG: 10,
 };
 
 export const LANGUAGE_NAMES = {
@@ -34,4 +35,5 @@ export const DEFAULT_SCORES = {
   TIBETAN: 30,
   CHINESE: 30,
   SANSKRIT: 30,
+  MULTILANG: 55,
 };

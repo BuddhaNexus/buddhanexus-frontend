@@ -118,8 +118,8 @@ export class TextViewRight extends LitElement {
       score: this.score,
       par_length: this.quoteLength,
       co_occ: this.cooccurance,
-	active_segment: this.activeSegment,
-	multi_lingual: [getLanguageFromFilename(this.fileName)]
+      active_segment: this.activeSegment,
+      multi_lingual: [getLanguageFromFilename(this.fileName)],
     });
     this.endOfRightTextFlag = textleft.length != 800 ? true : false;
     this.textRight = textleft;
@@ -137,7 +137,6 @@ export class TextViewRight extends LitElement {
         }
       }
     }
-      console.log("PARALLELS",this.parallels);
     this.fetchError = error;
     this.fetchLoading = false;
   }
@@ -274,8 +273,8 @@ const TextViewLayoutRight = (
   clickFunction,
   rightTextData,
   showSegmentNumbers,
-    segmentDisplaySide,
-    transMethod
+  segmentDisplaySide,
+  transMethod
 ) => {
   if (!textRight || !parallels) {
     return null;
@@ -301,8 +300,8 @@ const TextViewLayoutRight = (
       clickFunction,
       rightTextData,
       showSegmentNumbers,
-	segmentDisplaySide,
-	transMethod
+      segmentDisplaySide,
+      transMethod
     );
   });
 };
@@ -315,9 +314,8 @@ const rightSegmentContainer = (
   clickFunction,
   rightTextData,
   showSegmentNumbers,
-    segmentDisplaySide,
-    transMethod
-   
+  segmentDisplaySide,
+  transMethod
 ) => {
   if (!segmentNr) {
     return null;
@@ -348,8 +346,8 @@ const rightSegmentContainer = (
     lang: lang,
     colorValues: colorValues,
     onClick: clickFunction,
-      highlightMode: rightSideHighlight,
-      transMethod: transMethod,
+    highlightMode: rightSideHighlight,
+    transMethod: transMethod,
     rightMode: 1,
   });
   return rightSegment(
@@ -357,8 +355,8 @@ const rightSegmentContainer = (
     segText,
     number,
     showSegmentNumbers,
-      segmentDisplaySide,
-      transMethod
+    segmentDisplaySide,
+    transMethod
   );
 };
 
