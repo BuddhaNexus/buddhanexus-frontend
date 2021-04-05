@@ -13,13 +13,12 @@ function getCooccuranceColor(cooc) {
 function getCleanedWord(lang, splitWords, i,transMethod) {
   let cleanedWord = '';
     if (lang === LANGUAGE_CODES.TIBETAN) {
-	if(transMethod=="uni"){
-	    cleanedWord = TibetanSegmentUnicode(splitWords[i]);
-	}
-	else{
-	    cleanedWord = TibetanSegmentWylie(splitWords[i]);
-	}
-
+      if(transMethod == "uni") {
+          cleanedWord = TibetanSegmentUnicode(splitWords[i]);
+      }
+      else {
+          cleanedWord = TibetanSegmentWylie(splitWords[i]);
+      }
     } else {
       cleanedWord = TextSegmentChineseWord(splitWords[i]);
   }
@@ -36,7 +35,7 @@ function TextSegmentChineseWord(currentString) {
 }
 
 const TibetanSegmentWylie = (segment) => {
-    var strippedSegment = segment.replace(/\//g, '|') + ' ';
+  var strippedSegment = segment.replace(/\//g, '|') + ' ';
   return !strippedSegment.match(/\|\||[.?!:;]/g)
     ? strippedSegment
     : !strippedSegment.includes('*')
@@ -46,19 +45,18 @@ const TibetanSegmentWylie = (segment) => {
       html`${strippedSegment.replace('*_', '* ')}`;
 };
 
-// possibly we have to do a few more changes to the method of preprocessing in case of unicode, so having it as a separate function might be 
+// possibly we have to do a few more changes to the method of 
+// preprocessing in case of unicode, so having it as a separate function might be 
 const TibetanSegmentUnicode = (segment) => {
-    var strippedSegment = segment.replace(/\//g, '|') + ' ';
+  var strippedSegment = segment.replace(/\//g, '|') + ' ';
   return !strippedSegment.match(/\|\||[.?!:;]/g)
-	? fromWylie(strippedSegment)
+    ? fromWylie(strippedSegment)
     : !strippedSegment.includes('*')
     ? // prettier-ignore
       html`${fromWylie(strippedSegment)}<br />`
     : // prettier-ignore
       html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
 };
-
-
 
 const ChineseSegment = (inputData, segment) => {
   return inputData.includes('　　')
@@ -105,7 +103,11 @@ function TextSegmentWord({
   }
 
   // prettier-ignore
-  return html`<span class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}" style="color:${highlightColor}" position="${position}" @click="${onClick}">${cleanedWord}</span>`;
+  return html`<span 
+              class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}"
+              style="color:${highlightColor}"
+              position="${position}"
+              @click="${onClick}">${cleanedWord}</span>`;
 }
 
 function TextSegmentWords(
@@ -117,7 +119,7 @@ function TextSegmentWords(
   rightMode,
   transMethod
 ) {
-    let segmentData = inputData;
+  let segmentData = inputData;
   if (lang === LANGUAGE_CODES.TIBETAN) {
     // this is a small hack to avoid line breaks when a * || combination occurs in ACIP
       segmentData = segmentData.replace(/\* \//, '*_/').split(' ');
@@ -138,7 +140,7 @@ function TextSegmentWords(
       currentColor,
       position,
       onClick,
-	cleanedWord: getCleanedWord(lang, segmentData, i,transMethod),
+      cleanedWord: getCleanedWord(lang, segmentData, i, transMethod),
       highlightColor: rightMode
         ? RIGHT_MODE_HIGHLIGHT_COLOR
         : getCooccuranceColor(currentColor),
@@ -158,8 +160,8 @@ export function TextSegment({
   colorValues,
   onClick = 0,
   highlightMode = 0,
-    rightMode = false,
-    transMethod,
+  rightMode = false,
+  transMethod,
 }) {
   if (colorValues.length <= 0) {
     let outputText;
@@ -176,13 +178,13 @@ export function TextSegment({
           inputData.split('').map(TextSegmentChineseWord)
         );
         break;
-    default:
-	if(transMethod == "uni"){
-            outputText = TibetanSegmentUnicode(inputData);
-	}
-	else{
-	    outputText = TibetanSegmentWylie(inputData);
-	}
+      default:
+        if (transMethod == "uni") {
+                outputText = TibetanSegmentUnicode(inputData);
+        }
+        else {
+            outputText = TibetanSegmentWylie(inputData);
+        }
     }
     return outputText;
   } else {
@@ -197,21 +199,21 @@ export function TextSegment({
     );
     let outputwords;
     switch (lang) {
-    case LANGUAGE_CODES.TIBETAN:
-        outputwords = words;
-        break;
-      case LANGUAGE_CODES.PALI:
-        outputwords = PaliSegment(inputData, words);
-        break;
-      case LANGUAGE_CODES.SANSKRIT:
-        outputwords = SanskritSegment(inputData, words);
-        break;
-      case LANGUAGE_CODES.CHINESE:
-        outputwords = ChineseSegment(inputData, words);
-        break;
-      default:
-        outputwords = words;
-    }
+      case LANGUAGE_CODES.TIBETAN:
+          outputwords = words;
+          break;
+        case LANGUAGE_CODES.PALI:
+          outputwords = PaliSegment(inputData, words);
+          break;
+        case LANGUAGE_CODES.SANSKRIT:
+          outputwords = SanskritSegment(inputData, words);
+          break;
+        case LANGUAGE_CODES.CHINESE:
+          outputwords = ChineseSegment(inputData, words);
+          break;
+        default:
+          outputwords = words;
+      }
     return outputwords;
   }
 }

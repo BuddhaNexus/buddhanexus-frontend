@@ -199,8 +199,8 @@ export class TextViewMiddle extends LitElement {
             textArray: segnrText,
             startoffset: parOffsetBegin,
             endoffset: parOffsetEnd,
-              lang: par_lang,
-	      transMethod: this.transMethod
+            lang: par_lang,
+            transMethod: this.transMethod
           });
           let transMessage = `Match`;
           if (src_lang != par_lang) {
