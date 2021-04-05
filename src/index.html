@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
       * {
         box-sizing: border-box;
       }
@@ -9,19 +11,28 @@
       html {
         --color-text-primary: #2a3443;
         --color-text-secondary: #5e6673;
-        --color-background: #db960a;
+        --color-background: #221f18;
         --color-light-grey: #f4f3f2;
+        --color-dark-grey: #d3d3d3;
+        --color-light-chartbar: #fdf7ed;
 
         --color-background-all: #6d5f47;
         --color-background-light: #ffeed4;
+        --color-background-lighter: #fffcf6;
         --color-footer-bar: #221f19;
         --color-footer-bar-content: #302f2c;
 
-        --color-sidebar-menu: #a79570;
+        --color-sidebar-menu: #988868;
+        --color-sidebar-submenu: #8b7955;
+        --color-sidebar-subsubmenu: #6d5f47;
         --color-menu-items: #f8f8ff;
-        --bn-dark-red: #7C3A00;
+        --bn-dark-red: #7c3a00;
 
         --color-divider: rgba(0, 0, 0, 0.12);
+
+        --header-height: 130px;
+        --footer-height: 90px;
+        --side-sheet-width: 360px;
 
         /* https://material.io/components/cards/cards.html#usage */
         --material-card-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
@@ -29,11 +40,35 @@
           0px 1px 3px 0px rgba(0, 0, 0, 0.12);
         --material-card-shadow-inset: 0 0 0 0 rgba(0, 0, 0, 0.2),
           0 0 0 0 rgba(0, 0, 0, 0.14), 0 0 0 0 rgba(0, 0, 0, 0.12);
+        --partner-card-shadow: 4px 4px 20px 4px rgba(0, 0, 0, 0.2);
 
         /* https://css-tricks.com/snippets/css/system-font-stack/ */
         --system-font-stack: Roboto, -apple-system, BlinkMacSystemFont,
           'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
           'Segoe UI Emoji', 'Segoe UI Symbol';
+
+        --alt-font-stack: 'Noto Sans TC', -apple-system, BlinkMacSystemFont,
+          'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+          'Segoe UI Emoji', 'Segoe UI Symbol';
+
+        /* Styles */
+        --material-popup-close-x: #fff;
+        --material-popup-close: #ccc;
+        --material-popup-back: #efefef;
+        --static-background-panel-color: rgba(0, 0, 0, 0.3);
+
+        /* Font color */
+        --material-nav-left-color: #fff;
+        --active-link-color: rgba(204, 17, 0, 30%);
+        --content-link-color: #7d6f57;
+        --hover-link-color: #4d3f27;
+
+        /* Line color */
+        --material-nav-left-lines: rgba(255, 255, 255, 0.5);
+        --material-border-lines: rgba(255, 255, 255, 0.1);
+
+        /* Icon size */
+        --material-icon-font-size: 20px;
 
         margin: 0;
         padding: 0;
@@ -48,9 +83,9 @@
         padding: 0;
         font-family: var(--system-font-stack);
         color: var(--color-text-primary);
-        font-size: 18px;
+        font-size: 16px;
         line-height: 1.5rem;
-        background-color: var(--color-background-light);
+        background-color: var(--color-background-all);
       }
 
       html,
@@ -59,65 +94,7 @@
         width: 100%;
       }
 
-      @font-face {
-        font-family: 'Noto Sans CJK TC';
-        src: url('./assets/fonts/noto-sans-tc_regular_zh_lzh_785da7cebd0b.woff2')
-            format('woff2'),
-          url('./assets/fonts/noto-sans-tc_regular_zh_lzh_785da7cebd0b.ttf')
-            format('truetype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: 'Noto Sans CJK TC';
-        src: url('./assets/fonts/noto-sans-tc_bold_zh_lzh_bbcfc9a4d4b2.woff2')
-            format('woff2'),
-          url('./assets/fonts/noto-sans-tc_bold_zh_lzh_bbcfc9a4d4b2.ttf')
-            format('truetype');
-        font-weight: bold;
-        font-style: normal;
-        font-display: swap;
-      }
-
-      footer {
-        background: #777;
-      }
-
-      .footer-bar {
-        background: var(--color-footer-bar);
-        text-align: right;
-        font-family: var(--material-font-family);
-        font-size: var(--material-button-font-size);
-      }
-
-      .footer-bar-content {
-        color: #fff;
-        background: var(--color-footer-bar-content);
-        float: right;
-        padding: 0 3em 0 1em;
-      }
-
-      .footer-bar-content a,
-      .footer-bar-content a:hover,
-      .footer-bar-content a:active {
-        color: #fff;
-        font-family: var(--material-font-family);
-        font-size: var(--material-button-font-size);
-        text-decoration: none;
-      }
-
-      .footer-color {
-        background: var(--color-background-all);
-        min-height: 3em;
-      }
-
-      .footer-right {
-        text-align: right;
-      }
-
-      .logo-container {
+      .header-logo-container {
         position: relative;
         width: 100%;
         z-index: 2;
@@ -146,11 +123,6 @@
         position: relative;
         top: 10px;
       }
-
-      .footer-logo {
-        width: 69px;
-        margin: 10px 20px 5px 20px;
-      }
     </style>
 
     <meta charset="UTF-8" />
@@ -158,17 +130,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Buddhanexus</title>
 
-    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./src/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./src/assets/icons/favicon-16x16.png">
+    <!-- iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="./src/assets/icons/apple-touch-icon.png">
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-title" content="Buddhanexus" />
+
+    <link rel="manifest" href="./src/assets/icons/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 
     <meta name="theme-color" content="#2A3443" />
     <meta name="description" content="Buddhistnexus" />
-
-    <!-- iOS -->
-    <link rel="apple-touch-icon" href="./assets/icons/icon-192x192.png" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="mobile-web-app-status-bar-style" content="black" />
-    <meta name="mobile-web-app-title" content="Buddhanexus" />
 
     <script>
       if (!window.customElements) {
@@ -179,28 +154,10 @@
   </head>
 
   <body>
-    <div class="logo-container logo-position logo-position-start">
-      <img src="/src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus" />
+    <div class="header-logo-container logo-position logo-position-start">
+      <img src="./src/assets/img/buddhanexus_logo.png" alt="Buddha Nexus" />
     </div>
 
     <app-layout id="app_layout"></app-layout>
-
-    <footer>
-      <div class="footer-bar">
-        &nbsp;
-        <div class="footer-bar-content">
-          <a href="/">HOME</a>
-        </div>
-      </div>
-      <div class="footer-color">
-        <div class="footer-right">
-          <img
-            src="/src/assets/img/tree.png"
-            alt="buddhanexus"
-            class="footer-logo"
-          />
-        </div>
-      </div>
-    </footer>
   </body>
 </html>

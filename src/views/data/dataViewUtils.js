@@ -37,14 +37,9 @@ export const updateViewModeParamInBrowserLocation = (
 export const createTextViewSegmentUrl = segmentNr => {
   let lang = getLanguageFromFilename(segmentNr);
   let textName = segmentNr.split(':')[0];
-  return `../../${lang}/text/${textName}/${segmentNr}`;
-};
-
-export const getSegmentIdFromKey = segmentKey => {
-  let segmentLabel = segmentKey[0];
-  if (segmentKey.length > 1) {
-    const parallels = segmentKey[segmentKey.length - 1].split(':');
-    return segmentLabel + `–${parallels[parallels.length - 1]}`;
+  if (lang === 'chn') {
+    textName = textName.replace(/_[0-9][0-9][0-9]/, '');
   }
-  return segmentLabel;
+  // This is a hack because dots in the segmentnumber are not accepted in the routing.
+  return `../../${lang}/text/${textName}/${segmentNr.replace(/\./g, '@')}`;
 };

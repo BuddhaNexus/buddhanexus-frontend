@@ -1,11 +1,9 @@
 import { customElement, LitElement, property, html, css } from 'lit-element';
 
-import styles from '../data/data-view.styles';
-import sharedStyles from '../data/data-view-shared.styles';
-
 @customElement('search-view-list-header')
 class SearchViewListHeader extends LitElement {
   @property({ type: String }) searchQuery;
+  @property({ type: String }) resultNumber;
 
   static get styles() {
     return [
@@ -15,23 +13,38 @@ class SearchViewListHeader extends LitElement {
           flex: 1;
         }
 
-        .search-result-header {
-          background-color: var(--color-light-grey);
-          margin: 6px;
-          padding: 12px;
-          flex: 2;
+        #search-result-header {
+          padding-bottom: 16px;
+          padding-top: 16px;
+          font-weight: bold;
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          text-transform: none;
         }
       `,
-      styles,
-      sharedStyles,
     ];
   }
-
+  maxMessage() {
+    if (this.resultNumber == 200) {
+      return html`
+        (max. possible number of 200 results reached)
+      `;
+    }
+  }
   render() {
+    if (this.resultNumber == 0) {
+      //prettier-ignore
+      return html`
+        <div id="search-result-header">
+          No results found
+        </div>`;
+    }
     return html`
       <div class="list-header-container">
-        <div class="search-result-header material-card">
-          Showing results for ${this.searchQuery}:
+        <div id="search-result-header">
+          Showing ${this.resultNumber} results for query "${this.searchQuery}"
+          ${this.maxMessage()}:
         </div>
       </div>
     `;

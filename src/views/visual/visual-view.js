@@ -1,21 +1,29 @@
 import { customElement, html, css, LitElement, property } from 'lit-element';
 
 import '@google-web-components/google-chart/google-chart.js';
+import { switchNavbarVisibility } from '../utility/utils';
 
 import './visual-view-header';
 import './visual-view-graph';
+import './visual-view-selection-box';
 
 @customElement('visual-view')
 export class VisualView extends LitElement {
   @property({ type: String }) searchItem;
   @property({ type: String }) colorScheme;
+  @property({ type: String }) activeLanguage;
   @property({ type: Array }) selectedCollections;
+  @property({ type: String }) headerVisibility = '';
 
   static get styles() {
     return [
       css`
+        :host {
+          width: 100%;
+          height: calc(100vh - var(--header-height));
+        }
+
         .visual-view-container {
-          display: flex;
           flex-direction: column;
           min-height: 200px;
           align-items: flex-start;
@@ -38,6 +46,10 @@ export class VisualView extends LitElement {
     ];
   }
 
+  firstUpdated() {
+    this.activeLanguage = this.location.params.lang;
+  }
+
   setSelection = (searchItem, selectedCollections) => {
     this.searchItem = searchItem;
     this.selectedCollections = selectedCollections;
@@ -47,20 +59,44 @@ export class VisualView extends LitElement {
     this.colorScheme = colorScheme;
   };
 
+  setDisplay() {
+    return this.activeLanguage ? 'display: flex' : 'display: none';
+  }
+
+  toggleNavBar = () => {
+    if (this.headerVisibility === '') {
+      this.headerVisibility = 'no-header';
+      this.classList.add('no-header');
+      switchNavbarVisibility(false);
+    } else {
+      this.headerVisibility = '';
+      this.classList.remove('no-header');
+      switchNavbarVisibility(true);
+    }
+  };
+
   render() {
+    //prettier-ignore
     return html`
-      <div class="visual-view-container">
+      ${!this.activeLanguage
+        ? html`
+            <visual-view-selection-box></visual-view-selection-box>
+          `
+        : null}
+
+      <div class="visual-view-container" style="${this.setDisplay()}">
         <visual-view-header
           .setSelection="${this.setSelection}"
           .setColorScheme="${this.setColorScheme}"
-        ></visual-view-header>
+          .activeLanguage="${this.activeLanguage}"
+          .toggleNavBar="${this.toggleNavBar}">
+        </visual-view-header>
 
         <visual-view-graph
           .searchItem="${this.searchItem}"
           .colorScheme="${this.colorScheme}"
           .selectedCollections="${this.selectedCollections}"
-          .setSelection="${this.setSelection}"
-        >
+          .setSelection="${this.setSelection}">
         </visual-view-graph>
       </div>
     `;

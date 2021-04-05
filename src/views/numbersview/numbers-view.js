@@ -23,12 +23,15 @@ export class NumbersView extends LitElement {
   @property({ type: Number }) quoteLength;
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
-
-  @property({ type: Array }) segmentsData;
+  @property({ type: String }) folio;
+  @property({ type: Number }) pageNumber = 0;
+  @property({ type: Array }) segmentsData = [];
   @property({ type: String }) lang;
-  @property({ type: Array }) collectionsData;
+  @property({ type: Array }) collectionsData = [];
   @property({ type: String }) fetchError;
+  @property({ type: String }) addObserverFlag = true;
   @property({ type: String }) fetchLoading = true;
+  @property({ type: String }) headerVisibility;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -36,14 +39,23 @@ export class NumbersView extends LitElement {
 
   async connectedCallback() {
     super.connectedCallback();
-    this.fetchData();
+    await this.fetchData();
   }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
     this.lang = getLanguageFromFilename(this.fileName);
-    console.log('numbers view updated. ', _changedProperties);
-    _changedProperties.forEach((oldValue, propName) => {
+    _changedProperties.forEach(async (oldValue, propName) => {
+      if (propName === 'pageNumber' && !this.fetchLoading) {
+        await this.fetchData();
+      }
+      if (propName === 'fileName' && !this.fetchLoading) {
+        if (this.folio) {
+          this.folio = '';
+        }
+        this.resetView();
+        await this.fetchData();
+      }
       if (
         [
           'score',
@@ -51,14 +63,46 @@ export class NumbersView extends LitElement {
           'sortMethod',
           'quoteLength',
           'limitCollection',
-          'fileName',
+          'folio',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
-        this.fetchData();
+        this.resetView();
+        await this.fetchData();
+      }
+      if (propName === 'collectionsData') {
+        // data fetched, add listener
+        this.addInfiniteScrollListener();
       }
     });
   }
+
+  resetView() {
+    this.segmentsData = [];
+    this.collectionsData = [];
+    this.pageNumber = 0;
+  }
+
+  updatePageNumber() {
+    this.pageNumber = this.pageNumber + 1;
+  }
+
+  addInfiniteScrollListener = async () => {
+    await this.updateComplete;
+    const tableRows = this.shadowRoot
+      .querySelector('.numbers-view-table')
+      .querySelectorAll('.numbers-view-table-row');
+    const observedRow = tableRows[tableRows.length - 1];
+    const observer = new IntersectionObserver(async entries => {
+      if (entries[0].isIntersecting) {
+        observer.unobserve(observedRow);
+        this.updatePageNumber();
+      }
+    });
+    if (this.addObserverFlag) {
+      observer.observe(observedRow);
+    }
+  };
 
   async fetchData() {
     if (!this.fileName) {
@@ -66,40 +110,49 @@ export class NumbersView extends LitElement {
       return;
     }
     this.fetchLoading = true;
+    let folio = '';
+    if (this.folio) {
+      folio = this.folio.num;
+    }
 
     const { segments, collections, error } = await getSegmentsForFile({
+      page: this.pageNumber,
       fileName: this.fileName,
       score: this.score,
       co_occ: this.cooccurance,
       par_length: this.quoteLength,
       limit_collection: this.limitCollection,
+      folio: folio,
     });
-
-    this.segmentsData = segments;
-    this.collectionsData = collections;
+    // We only add the observer to trigger the reloading when new data was added to the current
+    // segments; otherwise we reached the end of the data and don't need to observe anymore.
+    this.addObserverFlag = false;
+    segments.map(segment => {
+      if (!this.segmentsData.includes(segment)) {
+        this.addObserverFlag = true;
+      }
+    });
+    this.segmentsData = [...this.segmentsData, ...segments];
+    this.collectionsData = [...this.collectionsData, ...collections];
     this.fetchError = error;
 
     this.fetchLoading = false;
   }
 
   render() {
-    if (this.fetchLoading) {
-      return html`
-        <bn-loading-spinner></bn-loading-spinner>
-      `;
-    }
-
     return html`
-      <data-view-header
-        .score="${this.score}"
-        .limitCollection="${this.limitCollection}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
+      ${this.fetchLoading
+        ? html`
+            <bn-loading-spinner></bn-loading-spinner>
+          `
+        : null}
+
+      <data-view-subheader
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${NumbersViewInfoModalContent()}"
-      ></data-view-header>
-      <div class="table-wrapper">
+      ></data-view-subheader>
+      <div class="table-wrapper ${this.headerVisibility}">
         ${NumbersViewTable({
           fileName: this.fileName,
           collections: this.collectionsData,

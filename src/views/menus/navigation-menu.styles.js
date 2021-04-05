@@ -2,12 +2,16 @@ import { css } from 'lit-element';
 
 export default css`
   #menu-container {
-    margin-top: 24px;
+    margin-top: 44px;
+    margin-bottom: 180px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--material-nav-left-lines);
   }
 
   ul {
     list-style-type: none;
-    padding-left: 0px;
+    padding-left: 0;
     margin: 0 0 0 -12px;
   }
 
@@ -18,13 +22,21 @@ export default css`
 
   .filename {
     font-size: 14px;
-    font-family: Roboto;
+    font-family: var(--system-font-stack);
     cursor: pointer;
   }
 
   vaadin-details {
     box-shadow: none;
     margin: 0;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: var(--material-nav-left-lines);
+    padding: 0 0 0 0;
+  }
+
+  vaadin-details::part(content) {
+    padding: 0 0 0 0;
   }
 
   .category-name {
@@ -32,16 +44,46 @@ export default css`
   }
 
   .category-display {
-    margin-left: -12px;
-  }
-
-  .collection-list {
-    font-size: 18px;
-    font-family: Roboto;
+    margin-left: 0;
+    color: var(--material-nav-left-color);
   }
 
   .file-list {
     line-height: 1rem;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: var(--material-nav-left-lines);
+    background: var(--color-sidebar-submenu);
+  }
+
+  .file-list ul {
+    padding: 0 0 12px 28px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: var(--material-nav-left-lines);
+    background: var(--color-sidebar-subsubmenu);
+    min-height: 40px;
+  }
+
+  .file-list ul li {
+    color: var(--material-nav-left-color);
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
+    line-height: 1.5;
+    padding-bottom: 0;
+    display: block;
+    display: -webkit-box;
+    max-width: 200px;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .collection-list {
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
+    color: var(--material-nav-left-color);
   }
 
   vaadin-details::part(summary),
@@ -49,5 +91,14 @@ export default css`
   vaadin-details::part(toggle) {
     background: var(--color-sidebar-menu);
     color: var(--color-menu-items);
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    font-family: var(--material-font-family);
+    font-size: var(--material-button-font-size);
+  }
+
+  vaadin-details::part(summary) {
+    border-top: 1px solid var(--material-nav-left-lines);
   }
 `;

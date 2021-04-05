@@ -1,6 +1,5 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 
-import { tokenizeWords } from '../utility/preprocessing';
 import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import {
   getLanguageFromFilename,
@@ -9,7 +8,9 @@ import {
 import { getFileTextAndParallels } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-import styles from './text-view.styles';
+import styles from './text-view-table.styles';
+import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
+import { TextSegment } from './TextSegment';
 
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {
@@ -20,8 +21,11 @@ export class TextViewRight extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Number }) score;
   @property({ type: Object }) rightTextData;
+  @property({ type: Boolean }) showSegmentNumbers;
+  @property({ type: String }) segmentDisplaySide;
+
   // local variables
-  @property({ type: String }) activeSegment = 'none';
+  @property({ type: String }) activeSegment = undefined;
   @property({ type: String }) endOfRightTextFlag = false;
   @property({ type: Array }) textRight = [];
   @property({ type: Object }) parallels = {};
@@ -36,7 +40,6 @@ export class TextViewRight extends LitElement {
 
   firstUpdated() {
     this.activeSegment = this.rightTextData.selectedParallels[0];
-    //this.fetchDataText();
     this.noScrolling = false;
   }
 
@@ -59,7 +62,6 @@ export class TextViewRight extends LitElement {
           'cooccurance',
           'sortMethod',
           'quoteLength',
-          'limitCollection',
         ].includes(propName) &&
         !this.fetchLoading
       ) {
@@ -87,12 +89,17 @@ export class TextViewRight extends LitElement {
   scrollAfterEndlessReload() {
     if (this.noScrolling && this.EndlessScrollFlag) {
       if (this.activeSegment) {
+        let mainScrollPosition = this.scrollTop;
+        let mainElement = document.querySelector('html');
+        let mainElementScroll = mainElement.scrollTop;
         let activeElement = this.shadowRoot.getElementById(this.activeSegment);
-        if (this.currentPosition > 100) {
+        if (this.currentPosition > 400) {
           activeElement.scrollIntoView({ block: 'end', inline: 'nearest' });
         } else {
           activeElement.scrollIntoView({ block: 'start', inline: 'nearest' });
         }
+        this.scrollTop = mainScrollPosition;
+        mainElement.scrollTop = mainElementScroll;
       }
     }
   }
@@ -102,6 +109,7 @@ export class TextViewRight extends LitElement {
       this.fetchLoading = false;
       return;
     }
+
     this.fetchLoading = true;
     const { textleft, parallels, error } = await getFileTextAndParallels({
       fileName: this.rightFileName,
@@ -111,7 +119,7 @@ export class TextViewRight extends LitElement {
       co_occ: this.cooccurance,
       active_segment: this.activeSegment,
     });
-    this.endOfRightTextFlag = textleft.length != 200 ? true : false;
+    this.endOfRightTextFlag = textleft.length != 800 ? true : false;
     this.textRight = textleft;
     this.textRight = removeDuplicates(this.textRight, 'segnr');
     this.textRightBySegNr = {};
@@ -134,12 +142,16 @@ export class TextViewRight extends LitElement {
   async scrollRightText() {
     if (
       !this.noScrolling &&
-      this.shadowRoot.querySelector('.selected-segment')
+      !this.fetchLoading &&
+      this.shadowRoot.querySelector(`.${C_SELECTED_SEGMENT}`)
     ) {
       let parentWindow = this;
       let parentScroll = parentWindow.scrollTop;
-      this.shadowRoot.querySelector('.selected-segment').scrollIntoView();
+      let mainElement = document.querySelector('html');
+      let mainElementScroll = mainElement.scrollTop;
+      this.shadowRoot.querySelector(`.${C_SELECTED_SEGMENT}`).scrollIntoView();
       parentWindow.scrollTop = parentScroll;
+      mainElement.scrollTop = mainElementScroll;
       this.noScrolling = true;
     }
   }
@@ -173,7 +185,10 @@ export class TextViewRight extends LitElement {
       return;
     }
     let targets = this.shadowRoot.querySelectorAll('.right-segment');
-    if (this.activeSegment != 'none' && this.activeSegment != targets[0].id) {
+    if (
+      this.activeSegment !== undefined &&
+      this.activeSegment != targets[0].id
+    ) {
       observer.observe(targets[0]);
     }
     if (!this.endOfRightTextFlag) {
@@ -185,22 +200,24 @@ export class TextViewRight extends LitElement {
     if (!e || !e.target) {
       return;
     }
-    let allSegments = this.shadowRoot.querySelectorAll('.selected-segment');
+    let allSegments = this.shadowRoot.querySelectorAll(
+      `.${C_SELECTED_SEGMENT}`
+    );
     allSegments.forEach(item => {
-      item.classList.remove('selected-segment');
+      item.classList.remove(C_SELECTED_SEGMENT);
     });
-    allSegments = this.shadowRoot.querySelectorAll('.highlighted-by-parallel');
+    allSegments = this.shadowRoot.querySelectorAll(`.${C_HIGHLIGHTED_SEGMENT}`);
     allSegments.forEach(item => {
-      item.classList.remove('highlighted-by-parallel');
+      item.classList.remove(C_HIGHLIGHTED_SEGMENT);
     });
     let selectedWord = e.target;
     let selectedSegment = e.target.parentElement;
-    if (selectedSegment.classList.contains('chn-gatha')) {
+    if (selectedSegment.classList.contains('chinese-verse')) {
       selectedSegment = selectedSegment.parentElement;
     }
     this.selectedParallel = selectedSegment;
     if (selectedSegment) {
-      selectedWord.classList.add('highlighted-by-parallel');
+      selectedWord.classList.add(C_HIGHLIGHTED_SEGMENT);
       let position = selectedWord.getAttribute('position');
       let segnr = selectedSegment.id;
       let parallels = this.textRightBySegNr[segnr];
@@ -220,7 +237,8 @@ export class TextViewRight extends LitElement {
             activeSegment: segnr,
             position: position,
             selectedParallels: parallels,
-            rightMode: 1,
+            limitCollection: [this.fileName],
+            rightMode: true,
           },
         })
       );
@@ -231,7 +249,7 @@ export class TextViewRight extends LitElement {
     return html`
       ${this.fetchLoading && this.rightFileName
         ? html`
-            <bn-loading-spinner marginAdjust="-300px"></bn-loading-spinner>
+            <bn-loading-spinner></bn-loading-spinner>
           `
         : null}
       ${TextViewLayoutRight(
@@ -239,8 +257,8 @@ export class TextViewRight extends LitElement {
         this.parallels,
         this.displayParallels,
         this.rightTextData,
-        this.activeSegment,
-        this.currentPosition
+        this.showSegmentNumbers,
+        this.segmentDisplaySide
       )}
     `;
   }
@@ -251,8 +269,8 @@ const TextViewLayoutRight = (
   parallels,
   clickFunction,
   rightTextData,
-  currentSegment,
-  currentPosition
+  showSegmentNumbers,
+  segmentDisplaySide
 ) => {
   if (!textRight || !parallels) {
     return null;
@@ -277,8 +295,8 @@ const TextViewLayoutRight = (
       number,
       clickFunction,
       rightTextData,
-      currentSegment,
-      currentPosition
+      showSegmentNumbers,
+      segmentDisplaySide
     );
   });
 };
@@ -290,8 +308,8 @@ const rightSegmentContainer = (
   number,
   clickFunction,
   rightTextData,
-  currentSegment,
-  currentPosition
+  showSegmentNumbers,
+  segmentDisplaySide
 ) => {
   if (!segmentNr) {
     return null;
@@ -300,32 +318,37 @@ const rightSegmentContainer = (
   let rightSideHighlight = 0;
   if (rightTextData.selectedParallels.indexOf(segmentNr) > -1) {
     rightSideHighlight = 1;
-    colorValues = highlightActiveMainElement(
-      segText,
-      segmentNr,
-      rightTextData.selectedParallels,
-      rightTextData.startoffset,
-      rightTextData.endoffset,
-      true
-    );
+    colorValues = highlightActiveMainElement({
+      rootSegtext: segText,
+      rootSegnr: segmentNr,
+      selectedNumbers: rightTextData.selectedParallels,
+      startoffset: rightTextData.startoffset,
+      endoffset: rightTextData.endoffset,
+      rightMode: true,
+    });
   } else if (current_parallels[0]) {
-    colorValues = findColorValues(segText, segmentNr, current_parallels);
+    colorValues = findColorValues({
+      mainSegment: segText,
+      segmentName: segmentNr,
+      parallels: current_parallels,
+      lang: getLanguageFromFilename(segmentNr),
+    });
   }
   let lang = getLanguageFromFilename(segmentNr);
-  segText = tokenizeWords(
-    segText,
-    lang,
-    colorValues,
-    clickFunction,
-    rightSideHighlight,
-    1
-  );
+  segText = TextSegment({
+    inputData: segText,
+    lang: lang,
+    colorValues: colorValues,
+    onClick: clickFunction,
+    highlightMode: rightSideHighlight,
+    rightMode: 1,
+  });
   return rightSegment(
     segmentNr,
     segText,
     number,
-    currentSegment,
-    currentPosition
+    showSegmentNumbers,
+    segmentDisplaySide
   );
 };
 
@@ -333,19 +356,29 @@ const rightSegment = (
   segmentNr,
   segText,
   number,
-  currentSegment,
-  currentPosition
+  showSegmentNumbers,
+  segmentDisplaySide
 ) => {
-  if (
-    segmentNr == currentSegment &&
-    number > 10 &&
-    number < 180 &&
-    currentPosition < 100
-  ) {
-    // prettier-ignore
-    return html`<br /><span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
-  } else {
-    // prettier-ignore
-    return html`<span class="right-segment" id=${segmentNr} number="${number}">${segText}</span>`;
-  }
+  let segmentNrList = segmentNr.split(':')[1].split('_');
+  const displayNumber =
+    segmentNrList.length >= 2
+      ? `${segmentNrList[segmentNrList.length - 2]}`
+      : `${segmentNrList[0]}`;
+  let firstDisplayNumber =
+    segmentNr.split(':')[1].match('_') && !segmentNr.endsWith('_0')
+      ? false
+      : true;
+  // prettier-ignore
+  return html`<span 
+                class="right-segment"
+                id=${segmentNr}
+                title=${displayNumber}
+                number="${number}">
+                ${firstDisplayNumber
+                  ? html`
+                    <span class="segment-number ${segmentDisplaySide}"
+                      show-number="${showSegmentNumbers}">${displayNumber}</span>`
+                  : null
+                }
+                ${segText}</span>`;
 };

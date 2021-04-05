@@ -31,11 +31,10 @@ export default css`
     flex-wrap: wrap;
     align-items: center;
     color: var(--color-text-secondary);
+    font-size: 14px;
   }
 
   .search-view-list__segment-id {
-    color: var(--color-text-secondary);
-    font-size: 14px;
     margin-right: 16px;
   }
 
@@ -53,22 +52,9 @@ export default css`
   .search-view-list__text {
     font-size: 18px;
     margin-top: 8px;
-    margin-bottom: 8px;
     -ms-word-break: break-all;
     word-break: break-all;
     word-break: break-word;
-  }
-
-  .horizontal-divider {
-    height: 1px;
-    width: 100%;
-    background-color: var(--color-divider);
-    margin-top: 4px;
-    margin-bottom: 4px;
-  }
-
-  .open-link-icon {
-    float: right;
-    width: 18px;
+    cursor: pointer;
   }
 `;

@@ -3,6 +3,7 @@ import {
   getFileSegmentsUrl,
   getGraphDataUrl,
   getTableViewUrl,
+  getTableViewMultiUrl,
   getDataForVisualUrl,
   getFileTextAndParallelsUrl,
   getParallelCountUrl,
@@ -36,6 +37,27 @@ export const getTableViewData = async ({
 }) => {
   try {
     const url = getTableViewUrl(fileName, limit_collection, queryParams);
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load segments from server: ', e);
+    return {
+      error: 'Could not load segments. Please check the console for details.',
+    };
+  }
+};
+
+export const getTableViewMultiData = async ({
+  fileName,
+  multi_lingual,
+  ...queryParams
+}) => {
+  try {
+    const url = getTableViewMultiUrl(fileName, multi_lingual, queryParams);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {
@@ -95,6 +117,7 @@ export const getDataForVisual = async ({
 export const getFileTextAndParallels = async ({
   fileName,
   limit_collection,
+  multi_lingual,
   ...queryParams
 }) => {
   try {
@@ -102,6 +125,7 @@ export const getFileTextAndParallels = async ({
     const url = getFileTextAndParallelsUrl(
       fileName,
       limit_collection,
+      multi_lingual,
       queryParams
     );
     const response = await fetch(url);
@@ -145,6 +169,7 @@ export const getFileTextParallelsMiddle = async ({
   par_length,
   co_occ,
   limit_collection,
+  multi_lingual,
 }) => {
   try {
     let data = {
@@ -154,6 +179,7 @@ export const getFileTextParallelsMiddle = async ({
       par_length: par_length,
       co_occ: co_occ,
       limit_collection: limit_collection,
+      multi_lingual: multi_lingual,
     };
     const url = `${API_URL}/parallels-for-middle/`;
     const request = {
@@ -228,6 +254,78 @@ export const getSearchDataFromBackend = async ({ query }) => {
     return {
       error:
         'Could not load search results. Please check the console for details.',
+    };
+  }
+};
+
+export const getTaggedSanskrit = async ({ query }) => {
+  try {
+    const url = `${API_URL}/sanskrittagger/${query}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load search results from server: ', e);
+    return {
+      error:
+        'Could not load Tagged Sanskrit. Please check the console for details.',
+    };
+  }
+};
+
+export const getDisplayName = async ({ segmentnr }) => {
+  try {
+    const url = `${API_URL}/displayname/${segmentnr}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load displayName from server: ', e);
+    return {
+      error:
+        'Could not load displayName. Please check the console for details.',
+    };
+  }
+};
+
+export const getExternalLink = async ({ fileName }) => {
+  try {
+    const url = `${API_URL}/externallink/${fileName}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load external link from server: ', e);
+    return {
+      error:
+        'Could not load external link. Please check the console for details.',
+    };
+  }
+};
+
+export const getMultilingualData = async ({ fileName }) => {
+  try {
+    const url = `${API_URL}/multilingual/${fileName}`;
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load multilingual languages from server: ', e);
+    return {
+      error:
+        'Could not load multilingual languages. Please check the console for details.',
     };
   }
 };

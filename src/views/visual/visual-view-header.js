@@ -7,6 +7,7 @@ import 'multiselect-combo-box/theme/material/multiselect-combo-box';
 import '@vaadin/vaadin-dialog/theme/material/vaadin-dialog';
 
 import { getCollectionsForVisual } from '../menus/actions';
+import '../components/card';
 
 import styles from './visual-view-header.styles';
 
@@ -22,8 +23,8 @@ export class VisualViewHeader extends LitElement {
   ];
   @property({ type: Array }) colorSchemeValues = [
     'Gradient',
-    'Source',
-    'Target',
+    'Inquiry Collection',
+    'Hit Collection',
   ];
   @property({ type: String }) activeLanguage;
   @property({ type: Array }) collectionData;
@@ -31,6 +32,7 @@ export class VisualViewHeader extends LitElement {
   @property({ type: Array }) selectedCollections = [];
   @property({ type: Function }) setSelection;
   @property({ type: Function }) setColorScheme;
+  @property({ type: Function }) toggleNavBar;
   @property({ type: Boolean }) isDialogOpen;
   @property({ type: String }) fetchError;
 
@@ -44,7 +46,6 @@ export class VisualViewHeader extends LitElement {
   }
 
   updated(_changedProperties) {
-    console.log('visual header properties updated. ', _changedProperties);
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'searchItem') {
         this.setTargetCollectionData();
@@ -67,8 +68,6 @@ export class VisualViewHeader extends LitElement {
   }
 
   async fetchData() {
-    console.log('visual chart menu: fetching data');
-
     const { result, error } = await getCollectionsForVisual();
     this.collectionData = result;
     this.fetchError = error;
@@ -118,46 +117,38 @@ export class VisualViewHeader extends LitElement {
   setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
 
   render() {
+    //prettier-ignore
     return html`
       <div class="selection-box">
-        <div class="visual-view-options-card">
+        <bn-card>
           <vaadin-dialog
             id="info-visual"
             aria-label="simple"
             .opened="${this.isDialogOpen}"
-            @opened-changed="${this.setIsDialogOpen}"
-          >
+            @opened-changed="${this.setIsDialogOpen}">
             <template>
-              <strong
-                >Sankey graph of all matches of the available
-                collections.</strong
-              ><br /><br />
-              Select the language, Inquiry and Hit Collections.<br />Click on
-              any collection on the left side in the chart to open it. More than
-              one Hit Collection can be selected.
+              Select the Inquiry and Hit Collections. More than one Hit
+              Collection can be selected. To reduce the view to a single
+              subsection, click on the pertinent coloured bar in the Inquiry
+              Collection (left). The view can be further reduced to a single
+              text. A click on a single text will open the text view where the
+              individual matches will be displayed.
             </template>
           </vaadin-dialog>
+
+          <iron-icon
+            icon="vaadin:desktop"
+            title="Toggle Full Screen Mode"
+            @click="${this.toggleNavBar}"
+            class="nav-bar-toggle-icon">
+          </iron-icon>
+
           <vaadin-button class="info-button" @click="${this.openDialog}">
             <iron-icon
               class="info-icon"
-              icon="vaadin:info-circle-o"
-            ></iron-icon>
+              icon="vaadin:info-circle-o">
+            </iron-icon>
           </vaadin-button>
-
-          <vaadin-combo-box
-            id="visual-view-language-dropdown"
-            label="Select Language"
-            item-label-path="label"
-            item-value-path="language"
-            @value-changed="${this.handleLanguageChanged}"
-            .items="${this.languages}"
-          >
-            <template>
-              <strong style="display: inline; margin-bottom: 4px;"
-                >[[item.label]]</strong
-              >
-            </template>
-          </vaadin-combo-box>
 
           ${this.activeLanguage
             ? html`
@@ -168,12 +159,9 @@ export class VisualViewHeader extends LitElement {
                   item-value-path="collectionkey"
                   selected-item="${this.searchItem}"
                   @value-changed="${this.handleCollectionChanged}"
-                  .items="${this.limitCollectionData(this.collectionData)}"
-                >
+                  .items="${this.limitCollectionData(this.collectionData)}">
                   <template>
-                    <strong style="display: inline; margin-bottom: 4px;"
-                      >[[item.collectionname]]</strong
-                    >
+                    <strong style="display: inline; margin-bottom: 4px;">[[item.collectionname]]</strong>
                   </template>
                 </vaadin-combo-box>
 
@@ -186,8 +174,7 @@ export class VisualViewHeader extends LitElement {
                         @selected-items-changed="${this
                           .handleTargetCollectionChanged}"
                         .items="${this.targetCollectionData}"
-                        item-value-path="collectionkey"
-                      >
+                        item-value-path="collectionkey">
                       </multiselect-combo-box>
 
                       <vaadin-combo-box
@@ -195,28 +182,25 @@ export class VisualViewHeader extends LitElement {
                         label="Color Scheme"
                         selected-item="${this.colorScheme}"
                         .items="${this.colorSchemeValues}"
-                        @value-changed="${this.handleColorSchemeChanged}"
-                      >
+                        @value-changed="${this.handleColorSchemeChanged}">
                       </vaadin-combo-box>
 
                       <vaadin-button
                         id="visual-back-button"
                         theme="contrast primary small"
                         @click="${this.returnToMainCollection}"
-                        title="Return to top level"
-                      >
+                        title="Return to top level">
                         <iron-icon
                           id="visual-back-icon"
                           icon="vaadin:backwards"
-                          slot="prefix"
-                        ></iron-icon>
-                        Back
+                          slot="prefix">
+                        </iron-icon>
                       </vaadin-button>
                     `
                   : null}
               `
             : null}
-        </div>
+        </bn-card>
       </div>
     `;
   }

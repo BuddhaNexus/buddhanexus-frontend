@@ -54,16 +54,20 @@ export class VisualViewGraph extends LitElement {
     // smaller collections are enlarged, resulting in a compression effect that makes
     // the rendering of smaller entities more readable. a value of ** 1 means nothing
     // is changed. The smaller the value is, the stronger the graph is 'compressed'.
-    return value ** 0.33;
-    // We can also add language specific values here.
+    value = value ** 0.25;
+    // we force this min. value of 2 for each connection in order to avoid elements in the graph that are too tiny to be visible.
+    if (value < 2) {
+      value = 2;
+    }
+    return value;
   }
 
   changeColorScheme() {
     switch (this.colorScheme) {
-      case 'Source':
+      case 'Inquiry Collection':
         this.setOptions = getGoogleGraphOptionsSource;
         break;
-      case 'Target':
+      case 'Hit Collection':
         this.setOptions = getGoogleGraphOptionsTarget;
         break;
       default:
@@ -122,14 +126,12 @@ export class VisualViewGraph extends LitElement {
       if (i == this.currentPage) {
         currentClass += ' active';
       }
+      //prettier-ignore
       pages.push(
-        html`
-          <span class="${currentClass}" @click="${() => (this.currentPage = i)}"
-            >${i + 1}</span
-          >
-        `
+        html`<span class="${currentClass}" @click="${() => (this.currentPage = i)}">${i + 1}</span>`
       );
     }
+    //prettier-ignore
     return html`
       <div id="pages-display">
         <div id="inner-pages">
@@ -150,11 +152,10 @@ export class VisualViewGraph extends LitElement {
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
     this.pageSize = this.language === 'pli' ? 25 : 100;
-    let searchTerm = this.searchItem;
-    searchTerm = !searchTerm.includes('acip')
-      ? searchTerm.split('_')[1]
-      : searchTerm.replace('tib_', '');
-    console.log('visual view: fetching data', this.searchItem);
+    let searchTerm = this.searchItem
+      .split('_')
+      .slice(1)
+      .join('_');
     let { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,
@@ -165,6 +166,7 @@ export class VisualViewGraph extends LitElement {
     this.adjustChartHeight();
     this.fetchError = error;
     this.fetchLoading = false;
+    this.targetItem = '';
   }
 
   adjustChartHeight() {
@@ -180,13 +182,15 @@ export class VisualViewGraph extends LitElement {
     }
     let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
 
+    let cutoffFactor = this.language === 'pli' ? this.pageSize : 15;
+
     // calculating graphheight based on pagesize.
     let factor;
     let windowHeight = window.innerHeight - 200;
-    if (rightPageSize > 25 && rightPageSize >= leftPageSize) {
-      factor = (windowHeight * rightPageSize) / 25;
-    } else if (leftPageSize > 25) {
-      factor = (windowHeight * leftPageSize) / 25;
+    if (rightPageSize > cutoffFactor && rightPageSize >= leftPageSize) {
+      factor = (windowHeight * rightPageSize) / cutoffFactor;
+    } else if (leftPageSize > cutoffFactor) {
+      factor = (windowHeight * leftPageSize) / cutoffFactor;
     } else {
       factor = windowHeight;
     }
@@ -200,18 +204,22 @@ export class VisualViewGraph extends LitElement {
     if (!e.detail.chart.getSelection()[0]) {
       return;
     }
+
     let targetItem = e.detail.chart.getSelection()[0].name;
     if (!targetItem || targetItem.match(/_\(/)) {
       return;
     }
     const selectedTarget = targetItem.match(/ \((.*?)\)/);
-    if (targetItem === this.targetItem && !selectedTarget) {
-      let win = window.open(`../${this.language}/text/${targetItem}`, '_blank');
+    const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
+    if (targetItem === this.targetItem) {
+      let win = window.open(
+        `../${this.language}/text/${setSelectionTarget}`,
+        '_blank'
+      );
       win.focus();
       return;
     }
     this.targetItem = targetItem;
-    const setSelectionTarget = selectedTarget ? selectedTarget[1] : targetItem;
     this.setSelection(
       this.language + '_' + setSelectionTarget,
       this.selectedCollections

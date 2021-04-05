@@ -5,7 +5,7 @@ import '@vaadin/vaadin-details/theme/material/vaadin-details.js';
 import { getDataForSidebarMenu } from '../../api/actions';
 
 import styles from './navigation-menu.styles';
-import { getMainLayout } from '../utility/utils';
+import { getMainLayout, preprocessMenuData } from '../utility/utils';
 
 @customElement('navigation-menu')
 export class NavigationMenu extends LitElement {
@@ -59,15 +59,23 @@ export class NavigationMenu extends LitElement {
   }
 
   addCatagoryFiles(files) {
+    let pictureFiles = preprocessMenuData(files);
     let totalFilesList = [];
-    if (files.length !== 0) {
-      totalFilesList = files.map(
+    if (pictureFiles.length !== 0) {
+      totalFilesList = pictureFiles.map(
         file => html`
           <li
             class="filename"
             id="${file.filename}"
             @click="${this.openThisFile}"
           >
+            <div>
+              <strong id="${file.filename}">${file.textname}</strong>
+              <img src="${file.imgStringPLI}" item-icon />
+              <img src="${file.imgStringSKT}" item-icon />
+              <img src="${file.imgStringTIB}" item-icon />
+              <img src="${file.imgStringCHN}" item-icon />
+            </div>
             ${file.displayname}
           </li>
         `
@@ -83,10 +91,9 @@ export class NavigationMenu extends LitElement {
   }
 
   addCategoryItems(collection) {
-    let categoryList = html``;
-    collection.categories.forEach(category => {
-      categoryList = html`
-        ${categoryList}
+    //prettier-ignore
+    return collection.categories.map(
+      category => html`
         <vaadin-details theme="reverse" class="file-list">
           <div slot="summary" class="category-display">
             ${category.categorydisplayname}<br />
@@ -96,9 +103,8 @@ export class NavigationMenu extends LitElement {
             ${this.addCatagoryFiles(category.files)}
           </ul>
         </vaadin-details>
-      `;
-    });
-    return categoryList;
+      `
+    );
   }
 
   collectionMenu() {

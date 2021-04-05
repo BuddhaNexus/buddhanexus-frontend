@@ -4,5 +4,6 @@ dist/
 suttas/
 .env
 network
+.env.example2
 
 

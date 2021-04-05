@@ -10,14 +10,19 @@ export default css`
     display: block;
     overflow: scroll;
     position: relative;
-    height: calc(100vh - 200px);
+    height: calc(100vh - 260px);
     font-size: 14px;
     margin-top: 8px;
     min-height: 300px;
   }
 
+  .table-wrapper.no-header {
+    height: calc(100vh - 190px);
+  }
+
   td,
   th {
+    z-index: 1;
     vertical-align: top;
     padding: 10px;
     border: 3px solid white;
@@ -39,11 +44,11 @@ export default css`
   }
 
   thead th {
-    z-index: 1;
+    z-index: 2;
   }
 
   .segment-number {
-    color: rgba(0, 0, 0, 0.54);
+    color: var(--color-text-secondary);
     font-size: 14px;
     white-space: nowrap;
   }
@@ -65,5 +70,11 @@ export default css`
     position: absolute;
     z-index: 99;
     font-weight: bold;
+  }
+
+  .open-link-icon {
+    color: var(--color-text-secondary);
+    width: 10px;
+    cursor: pointer;
   }
 `;

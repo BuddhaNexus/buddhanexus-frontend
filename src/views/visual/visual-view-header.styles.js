@@ -7,13 +7,6 @@ export default css`
     margin: 16px 16px 0 16px;
   }
 
-  .visual-view-options-card {
-    padding: 12px 24px 24px 24px;
-    background-color: var(--color-light-grey);
-    border-radius: 4px;
-    box-shadow: var(--material-card-shadow);
-  }
-
   vaadin-button {
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);
@@ -22,6 +15,12 @@ export default css`
   vaadin-combo-box {
     display: flex-start;
     margin: 0 12px;
+  }
+
+  vaadin-combo-box,
+  multiselect-combo-box {
+    --material-primary-color: var(--bn-dark-red);
+    --material-primary-text-color: var(--bn-dark-red);
   }
 
   #visual-back-button {
@@ -46,16 +45,31 @@ export default css`
   }
 
   .info-button {
-    padding: 0;
-    min-width: 24px;
-    height: 24px;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.54);
-    font-weight: bold;
+    cursor: help;
+  }
+
+  .info-icon {
+    color: var(--color-text-secondary);
+  }
+
+  .nav-bar-toggle-icon {
+    cursor: row-resize;
+    min-height: 22px;
+    min-width: 22px;
+    pointer-events: auto;
+    opacity: 1;
+    transition: opacity var(--vaadin-app-layout-transition);
+    color: var(--material-secondary-text-color);
+  }
+
+  vaadin-button {
     background-color: transparent;
+    color: var(--color-menu-items);
+    font-weight: bold;
+    min-width: 24px;
   }
 
   #color-scheme-dropdown {
-    width: 150px;
+    width: 200px;
   }
 `;

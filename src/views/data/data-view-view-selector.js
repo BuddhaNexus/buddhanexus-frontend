@@ -4,6 +4,8 @@ import { DATA_VIEW_MODES } from './data-view-filters-container';
 @customElement('data-view-view-selector')
 export class DataViewViewSelector extends LitElement {
   @property({ type: String }) viewMode;
+  @property({ type: String }) language;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Function }) handleViewModeChanged;
 
   static get styles() {
@@ -11,6 +13,7 @@ export class DataViewViewSelector extends LitElement {
       css`
         .visibility-filters {
           margin-left: 0;
+          margin-right: 2em;
         }
 
         .visibility-filters vaadin-radio-button {
@@ -34,7 +37,12 @@ export class DataViewViewSelector extends LitElement {
         @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
       >
         ${Object.values(DATA_VIEW_MODES).map(filter => {
-          if (filter !== 'numbers' || this.language !== 'tib') {
+          if (
+            (filter !== 'numbers' || (this.language !== 'tib' && this.language !== 'skt' && this.language !== 'multi')) &&
+            filter !== 'neutral' &&
+            (filter !== 'multilang' || this.multiLingualMode.length > 1) &&
+            filter !== 'text-search'
+          ) {
             return html`
               <vaadin-radio-button value="${filter}">
                 ${filter}

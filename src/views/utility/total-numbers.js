@@ -1,9 +1,9 @@
 import { customElement, html, LitElement, property } from 'lit-element';
-import { getParallelCount } from '../../api/actions';
-import { replaceFileNameForDisplay } from '../utility/preprocessing';
 
-@customElement('show-total-numbers')
-export class totalNumbers extends LitElement {
+import { getParallelCount } from '../../api/actions';
+
+@customElement('data-view-total-numbers')
+export class TotalNumbers extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: Array }) limitCollection;
   @property({ type: Number }) quoteLength;
@@ -16,57 +16,51 @@ export class totalNumbers extends LitElement {
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
-      if (
-        [
-          'fileName',
-          'score',
-          'cooccurance',
-          'quoteLength',
-          'limitCollection',
-        ].includes(propName)
+      if (propName === 'fileName') {
+        setTimeout(this.startLoading.bind(this), 2000);
+      } else if (
+        ['score', 'cooccurance', 'quoteLength', 'limitCollection'].includes(
+          propName
+        )
       ) {
-        this.updateParallelCount();
-        this.fetchLoading = true;
+        this.startLoading();
       }
     });
   }
 
-  async updateParallelCount() {
-    if (!this.fetchLoading) {
-      const { parallel_count, error } = await getParallelCount({
-        fileName: this.fileName,
-        score: this.score,
-        co_occ: this.cooccurance,
-        par_length: this.quoteLength,
-        limit_collection: this.limitCollection,
-      });
-      this.parallelCount = parallel_count;
-      this.fetchLoading = false;
-      this.fetchError = error;
-      this.addTotalNumbersText();
+  startLoading() {
+    if (this.fetchLoading || !this.fileName) {
+      return;
     }
+    this.updateParallelCount();
+    this.fetchLoading = true;
   }
 
-  addTotalNumbersText() {
-    const fileNameForDisplay = replaceFileNameForDisplay(this.fileName);
-    const numbersCount =
-      this.parallelCount > 10000 ? `More than 10.000` : this.parallelCount;
-    this.totalNumbersText = html`
-      ${numbersCount} approximate matches have been found for
-      ${fileNameForDisplay} with the current filters
-    `;
+  async updateParallelCount() {
+    const { parallel_count, error } = await getParallelCount({
+      fileName: this.fileName,
+      score: this.score,
+      co_occ: this.cooccurance,
+      par_length: this.quoteLength,
+      limit_collection: this.limitCollection,
+    });
+    this.parallelCount = parallel_count;
+    this.fetchLoading = false;
+    this.fetchError = error;
   }
 
   render() {
+    const matchCount =
+      this.parallelCount > 10000 ? `> 10.000` : this.parallelCount;
+
     if (this.fetchLoading) {
       return html`
-        <div><strong>Loading ...</strong></div>
+        <strong>Loading ...</strong>
       `;
     }
+    //prettier-ignore
     return html`
-      <div id="total-numbers">
-        <strong>${this.totalNumbersText}</strong>
-      </div>
+      <span> <strong>${matchCount}</strong> matches </span>
     `;
   }
 }
