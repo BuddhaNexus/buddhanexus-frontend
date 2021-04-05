@@ -49,7 +49,7 @@ export function findColorValues({ mainSegment, segmentName, parallels, lang }) {
       }
     }
   }
-    if(lang.match(/skt/)){
+    if (lang.match(/skt/)) {
 	colourValues = removeHighlightedNumbers(mainSegment, colourValues);
     }
   return colourValues;

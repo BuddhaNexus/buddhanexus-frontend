@@ -1232,7 +1232,7 @@ function fromWylieOneTsekbar(tokens, i, opts) { // (str, int)
     // Returns a WylieStack object.
 function fromWylieOneStack(tokens, i, opts) {
     var orig_i = i
-    var t = '', t2 = '', o = ''
+    var t = '', t2 = ''//, o = ''
     var out = ''
     var warns = []
     var consonants = 0      // how many consonants found
@@ -1420,8 +1420,8 @@ function fromWylieOneStack(tokens, i, opts) {
 
 function sloppyRepl(str) {
     str = str.replace(/[ʼʹ‘’ʾ]/, "'");
-    str = str.replace(/ ([\(0-9])/, "_$1");
-    str = str.replace(/([_\)\/]) /, "$1_");
+    str = str.replace(/ ([(0-9])/, "_$1");
+    str = str.replace(/([_)/]) /, "$1_");
     str = str.replace("G", "g");
     str = str.replace("C", "c");
     str = str.replace("B", "b");
@@ -1566,7 +1566,7 @@ function formatHex(t) { //char
     // when they come in the middle of Tibetan script.
 function handleSpaces(str, i, out) { //return int
     var found = 0;
-    var orig_i = i;
+    // var orig_i = i;
     while (i < str.length && str.charAt(i) == ' ') {
         i++;
         found++;
@@ -1645,7 +1645,7 @@ function toWylieOneTsekbar(str, len, i) {
         stacks[0].dot = true;
     // put it all together
     var out = ''
-    for (var si = 0; si < stacks.length; si++) out += putStackTogether(stacks[si])
+    for (var si2 = 0; si2 < stacks.length; si2++) out += putStackTogether(stacks[si2])
     var ret = new ToWylieTsekbar();
     ret.wylie = out;
     ret.tokens_used = i - orig_i;
@@ -1713,15 +1713,16 @@ function toWylieOneStack(str, len, i) {
     // a-chen with vowel signs: remove the "a" and keep the vowel signs
     if (st.top == "a" && st.stack.length == 1 && st.vowels.length > 0) st.stack.shift();
     // handle long vowels: A+i becomes I, etc.
+    var l;
     if (st.vowels.length > 1 && st.vowels[0] == "A" && tib_vowel_long(st.vowels[1]) != null) {
-        var l = tib_vowel_long(st.vowels[1]);
+        l = tib_vowel_long(st.vowels[1]);
         st.vowels.shift();
         st.vowels.shift();
         st.vowels.unshift(l);
     }
     // special cases: "ph^" becomes "f", "b^" becomes "v"
     if (st.caret && st.stack.length == 1 && tib_caret(st.top) != null) {
-        var l = tib_caret(st.top);
+        l = tib_caret(st.top);
         st.top = l;
         st.stack.shift();
         st.stack.unshift(l);
@@ -1882,16 +1883,16 @@ function exportJsEWTS(global) {
     }
     else
     */
-    if(typeof exports !== 'undefined'){
+    if (typeof exports !== 'undefined'){
         if (typeof module !== 'undefined' && module.exports) {
             exports = module.exports = jsEWTS ;
         }
 
         exports.jsEWTS = jsEWTS;
     }else {
-        if(global) { global.jsEWTS = jsEWTS }
-        if(window) { window.jsEWTS = jsEWTS }
+        if (global) { global.jsEWTS = jsEWTS }
+        if (window) { window.jsEWTS = jsEWTS }
     }
-};
+}
 
 exportJsEWTS(this);

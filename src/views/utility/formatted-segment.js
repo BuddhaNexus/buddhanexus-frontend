@@ -200,17 +200,18 @@ export class FormattedFileName extends LitElement {
     document.execCommand('copy');
     document.body.removeChild(el);
   }
-    showSource(filename) {
-	const lang = getLanguageFromFilename(filename);
-	if(lang=="skt"){
-	    if(filename.match(/[X0-9]n[0-9]/)){
-		return html`(<a href="http://www.dsbcproject.org/">DSBC</a>)`;
-	    }
-	       else{
-		   return html`(<a href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL</a>)`;
-	       }	       
-	}
+
+  showSource(filename) {
+    const lang = getLanguageFromFilename(filename);
+    if (lang=="skt") {
+        if (filename.match(/[X0-9]n[0-9]/)) {
+          return html`(<a href="http://www.dsbcproject.org/">DSBC</a>)`;
+        }
+        else {
+         return html`(<a href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL</a>)`;
+        }
     }
+  }
     
   render() {
     if (this.fetchLoading || !this.displayName) {

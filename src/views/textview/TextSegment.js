@@ -13,7 +13,7 @@ function getCooccuranceColor(cooc) {
 function getCleanedWord(lang, splitWords, i,transMethod) {
   let cleanedWord = '';
     if (lang === LANGUAGE_CODES.TIBETAN) {
-      if(transMethod == "uni") {
+      if (transMethod == "uni") {
           cleanedWord = TibetanSegmentUnicode(splitWords[i]);
       }
       else {
@@ -35,7 +35,7 @@ function TextSegmentChineseWord(currentString) {
 }
 
 const TibetanSegmentWylie = (segment) => {
-  var strippedSegment = segment.replace(/\//g, '|') + ' ';
+  let strippedSegment = segment.replace(/\//g, '|') + ' ';
   return !strippedSegment.match(/\|\||[.?!:;]/g)
     ? strippedSegment
     : !strippedSegment.includes('*')
@@ -48,7 +48,7 @@ const TibetanSegmentWylie = (segment) => {
 // possibly we have to do a few more changes to the method of 
 // preprocessing in case of unicode, so having it as a separate function might be 
 const TibetanSegmentUnicode = (segment) => {
-  var strippedSegment = segment.replace(/\//g, '|') + ' ';
+  let strippedSegment = segment.replace(/\//g, '|') + ' ';
   return !strippedSegment.match(/\|\||[.?!:;]/g)
     ? fromWylie(strippedSegment)
     : !strippedSegment.includes('*')

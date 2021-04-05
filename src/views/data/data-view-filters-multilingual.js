@@ -177,7 +177,7 @@ export class DataViewFiltersMultilingual extends LitElement {
 
   render() {
     //prettier-ignore
-    if(!this.dataLoading && this.multiLangTotalList) {
+    if (!this.dataLoading && this.multiLangTotalList) {
       return html`
         <div id="multi-lingual-label">Choose Languages:</div>
         <div id="multi-lingual">

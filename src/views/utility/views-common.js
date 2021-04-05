@@ -16,14 +16,14 @@ export function getLanguageFromFilename(filename) {
 }
 
 export function removeDuplicates(originalArray, prop) {
-  var newArray = [];
-  var lookupObject = {};
+  let newArray = [];
+  let lookupObject = {};
 
-  for (var i in originalArray) {
+  for (let i in originalArray) {
     lookupObject[originalArray[i][prop]] = originalArray[i];
   }
 
-  for (i in lookupObject) {
+  for (let i in lookupObject) {
     newArray.push(lookupObject[i]);
   }
   return newArray;

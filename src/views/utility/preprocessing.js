@@ -20,7 +20,7 @@ export const SEGMENT_COLORS = {
 
 // this function is especially important for the Sanskrit: It removes accidentally highlighted numbers etc. that are not part of a match.
 export function removeHighlightedNumbers(segmentText, colourValues) {
-  var re = /(([a-zA-Z,._\-*()À-ž[\]]+)?[0-9_*<>]+([[\]a-zA-Z,._\-*()À-ž<>]+)?)|([0-9]+[,._]+[0-9]+)/gim;
+  let re = /(([a-zA-Z,._\-*()À-ž[\]]+)?[0-9_*<>]+([[\]a-zA-Z,._\-*()À-ž<>]+)?)|([0-9]+[,._]+[0-9]+)/gim;
   let matches = [...segmentText.matchAll(re)];
   matches.forEach(match => {
     const beg = match.index;
@@ -79,15 +79,17 @@ export function highlightTextByOffset({
         }
         colourValues.push(colourValue);
       }
-	if(lang.match(/skt/)){
-	    colourValues = removeHighlightedNumbers(textArray[i],colourValues);
-	}
+
+      if (lang.match(/skt/)) {
+          colourValues = removeHighlightedNumbers(textArray[i],colourValues);
+      }
+
       returnArray.push(
         TextSegment({
           inputData: textArray[i],
           lang: lang,
-            colorValues: colourValues,
-	    transMethod
+          colorValues: colourValues,
+          transMethod
         })
       );
     }
