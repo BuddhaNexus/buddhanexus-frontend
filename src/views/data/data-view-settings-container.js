@@ -19,12 +19,12 @@ export class DataViewSettingsContainer extends LitElement {
 
   render() {
     if (this.lang == 'tib') {
+      //prettier-ignore
       return html`
         <span class="button-font">Display text as:</span>
         <vaadin-radio-group
           class="toggle-transliteration-scheme"
-          @value-changed="${this.toggleTransMode}"
-        >
+          @value-changed="${this.toggleTransMode}">
           <vaadin-radio-button value="wylie" checked>
             <span class="button-font">Wylie</span>
           </vaadin-radio-button>

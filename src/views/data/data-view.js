@@ -366,7 +366,6 @@ export class DataView extends LitElement {
             .headerVisibility="${this.headerVisibility}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
             .segmentDisplaySide="${this.segmentDisplaySide}">
-
           </data-view-router>
         </div>
 
@@ -411,8 +410,6 @@ export class DataView extends LitElement {
             .toggleTransMode="${this.toggleTransMode}">
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}">
-
-
           </data-view-settings-container>
         </side-sheet>
       </div>

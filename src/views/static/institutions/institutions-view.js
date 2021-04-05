@@ -63,7 +63,6 @@ export class InstitutionsView extends LitElement {
               </a>
             </div>
 
-
             <div>
               Resources for Kanjur & Tanjur Studies (rKTs, Universität Wien)
             </div>
@@ -80,8 +79,6 @@ export class InstitutionsView extends LitElement {
                   alt="UNI Vienna" />
               </a>
             </div>
-
-
 
             <h2>RESOURCES PARTNERS</h2>
 
@@ -144,7 +141,6 @@ export class InstitutionsView extends LitElement {
                   alt="University of the West" />
               </a>
             </div>
-
 
             <div>Chinese Buddhist Electronic Text Association (CBETA)</div>
             <div class="partner">

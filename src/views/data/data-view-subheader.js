@@ -133,7 +133,7 @@ class DataViewSubheader extends LitElement {
 
         <vaadin-button class="info-button" @click="${this.openDialog}">
           <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
-        </vaadin-button>       
+        </vaadin-button>
       </div> ${this.extraMessage}
     `;
   }

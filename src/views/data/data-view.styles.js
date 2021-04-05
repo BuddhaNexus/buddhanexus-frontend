@@ -110,4 +110,3 @@ export default css`
     width: 0;
   }
 `;
-

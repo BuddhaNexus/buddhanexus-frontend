@@ -46,7 +46,7 @@ export class TextViewRouter extends LitElement {
     this.setSelectedView(DATA_VIEW_MODES.TEXT);
   }
 
-    render() {
+  render() {
     if (this.selectedView === DATA_VIEW_MODES.TEXT_SEARCH) {
       return html`
         <text-view-search

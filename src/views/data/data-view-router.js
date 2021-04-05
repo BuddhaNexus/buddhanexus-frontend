@@ -53,9 +53,7 @@ export class DataViewRouter extends LitElement {
           .segmentDisplaySide="${this.segmentDisplaySide}"
           .headerVisibility="${this.headerVisibility}"
           .transMethod="${this.transMethod}"
-        >
-          ></text-view-router
-        >
+        ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
       return html`
@@ -91,9 +89,7 @@ export class DataViewRouter extends LitElement {
           .score="${this.score}"
           .searchString="${this.searchString}"
           .transliterationScheme="${this.transliterationScheme}"
-        >
-          ></table-view
-        >
+        ></table-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {
       return html`
