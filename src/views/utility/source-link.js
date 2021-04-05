@@ -53,24 +53,24 @@ export class FormattedFileName extends LitElement {
     if (this.lang === 'skt') {
       this.fetchData();
       if (this.filename.match(/[X0-9]n[0-9]/)) {
-          this.buttonText = 'DSBC';
-          this.imgLink = '../../src/assets/icons/dsbc_logo.png';
-          this.titleText =
-                `Click to go to the original file in the Digital Sanskrit
+        this.buttonText = 'DSBC';
+        this.imgLink = '../../src/assets/icons/dsbc_logo.png';
+        this.titleText = `Click to go to the original file in the Digital Sanskrit
                 Buddhist Canon (includes full header information).`;
       } else {
-          this.buttonText = 'GRETIL';
-          this.imgLink = '../../src/assets/icons/gretil_logo.png';
-          this.titleText =
-                  `Click to go to the original file in GRETIL
+        this.buttonText = 'GRETIL';
+        this.imgLink = '../../src/assets/icons/gretil_logo.png';
+        this.titleText = `Click to go to the original file in GRETIL
                   (includes full header information).`;
       }
     }
 
     if (this.lang === 'tib') {
       this.fetchData();
-      this.buttonText = 'Click to visit the file in the Buddhist Digital Resource Center.';
-      this.buttonText2 = 'Click to visit the file at Resources for Kanjur & Tanjur Studies .';
+      this.buttonText =
+        'Click to visit the file in the Buddhist Digital Resource Center.';
+      this.buttonText2 =
+        'Click to visit the file at Resources for Kanjur & Tanjur Studies .';
       this.imgLink = '../../src/assets/icons/bdrc_logo.png';
       this.imgLink2 = '../../src/assets/icons/rkts_logo.png';
       this.titleText2 =
@@ -96,11 +96,17 @@ export class FormattedFileName extends LitElement {
     const { link, error } = await getExternalLink({
       fileName: this.filename,
     });
-      this.sourceLink = link;
-      if (this.lang == "tib") {
-        this.sourceLink2 = link.replace("http://purl.bdrc.io/resource/WA0RK","http://purl.rkts.eu/resource/WKT")
-        this.sourceLink2 = this.sourceLink2.replace("http://purl.bdrc.io/resource/WA0RT","https://www.istb.univie.ac.at/kanjur/rktsneu/verif/verif3.php?id=")
-      }
+    this.sourceLink = link;
+    if (this.lang == 'tib') {
+      this.sourceLink2 = link.replace(
+        'http://purl.bdrc.io/resource/WA0RK',
+        'http://purl.rkts.eu/resource/WKT'
+      );
+      this.sourceLink2 = this.sourceLink2.replace(
+        'http://purl.bdrc.io/resource/WA0RT',
+        'https://www.istb.univie.ac.at/kanjur/rktsneu/verif/verif3.php?id='
+      );
+    }
     this.fetchLoading = false;
     this.fetchError = error;
   }
@@ -131,7 +137,7 @@ export class FormattedFileName extends LitElement {
     if (this.fetchLoading) {
       return;
     }
-      // prettier-ignore
+    // prettier-ignore
     if (this.lang != "tib") {
       return html`<span class="source-link" title="${this.titleText}">Links:&nbsp;
                   <a href="${this.sourceLink}"
