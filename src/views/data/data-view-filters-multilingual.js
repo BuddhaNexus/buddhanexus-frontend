@@ -11,7 +11,8 @@ export class DataViewFiltersMultilingual extends LitElement {
   @property({ type: Array }) multiLangTotalList;
   @property({ type: Array }) mainLang;
   @property({ type: Array }) multiLingualMode = [];
-  @property({ type: Function }) multiLingualBlockList = [];
+  @property({ type: Array }) multiLingualBlockList = [];
+  @property({ type: Function }) updateMultiLingualMode;
   @property({ type: Boolean }) dataLoading = false;
   @property({ type: String }) dataLoadError = false;
 
@@ -60,6 +61,8 @@ export class DataViewFiltersMultilingual extends LitElement {
     this.multiLingualMode = this.multiLangTotalList.filter(
       x => !this.multiLingualBlockList.includes(x)
     );
+    this.multiLingualMode = [...new Set(this.multiLingualMode)];
+    this.multiLingualMode = this.multiLingualMode.filter(Boolean);
     this.updateMultiLingualMode(this.multiLingualMode);
   };
 
@@ -174,7 +177,7 @@ export class DataViewFiltersMultilingual extends LitElement {
 
   render() {
     //prettier-ignore
-    if(!this.dataLoading && this.multiLangTotalList) {
+    if (!this.dataLoading && this.multiLangTotalList) {
       return html`
         <div id="multi-lingual-label">Choose Languages:</div>
         <div id="multi-lingual">

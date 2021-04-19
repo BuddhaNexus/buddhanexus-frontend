@@ -2,6 +2,7 @@ import { html } from 'lit-element';
 import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import { getLanguageFromFilename } from '../utility/views-common';
 import { TextSegment } from './TextSegment';
+import { SourceSegment } from './SourceSegment';
 
 function getLeftSegmentColors(
   current_parallels,
@@ -40,6 +41,7 @@ export function LeftSegmentContainer({
   leftTextData,
   showSegmentNumbers,
   segmentDisplaySide,
+  transMethod,
 }) {
   const lang = getLanguageFromFilename(segmentNr);
   const leftSideSelected =
@@ -62,16 +64,22 @@ export function LeftSegmentContainer({
     leftSideSelected,
     leftTextData
   );
-
-  return LeftSegment({
-    segmentNr: segmentNr,
-    segText: TextSegment({
+  let newSegText;
+  if (segmentNr.match('source')) {
+    newSegText = SourceSegment(segText);
+  } else {
+    newSegText = TextSegment({
       lang,
       colorValues,
       onClick,
       inputData: segText,
       highlightMode: leftSideSelected ? 1 : 0,
-    }),
+      transMethod: transMethod,
+    });
+  }
+  return LeftSegment({
+    segmentNr: segmentNr,
+    segText: newSegText,
     number: number,
     displayNumber,
     firstDisplayNumber,

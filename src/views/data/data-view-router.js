@@ -29,7 +29,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: String }) headerVisibility;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
-
+  @property({ type: String }) transMethod;
   render() {
     if (
       this.selectedView === DATA_VIEW_MODES.TEXT ||
@@ -52,6 +52,7 @@ export class DataViewRouter extends LitElement {
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
           .headerVisibility="${this.headerVisibility}"
+          .transMethod="${this.transMethod}"
         ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
@@ -87,23 +88,23 @@ export class DataViewRouter extends LitElement {
           .sortMethod="${this.sortMethod}"
           .score="${this.score}"
           .searchString="${this.searchString}"
+          .transliterationScheme="${this.transliterationScheme}"
         ></table-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {
       return html`
         <table-view-multilang
           .fileName="${this.fileName}"
+          .score="${this.score}"
           .multiSearchString="${this.multiSearchString}"
           .multiLingualMode="${this.multiLingualMode}"
         ></table-view-multilang>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
-
       return html`
         <neutral-view .lang="${this.lang}"></neutral-view>
       `;
     } else {
-	console.log("FAILED VIEWMODE",this.selectedView);
       return html`
         <h2>Select the view mode.</h2>
       `;

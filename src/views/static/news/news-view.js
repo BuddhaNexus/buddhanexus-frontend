@@ -14,9 +14,61 @@ export class NewsView extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <h2>
-              November 5, 2020: The BuddhaNexus in
-              <i>The Digital Orientalist</i>
+              January 19, 2021: Major update of the BuddhaNexus database
             </h2>
+            <p>
+              We are happy to announce a major update of the BuddhaNexus
+              database. The Tibetan corpus has been enlarged and contains now
+              the two paracanonical collections of the rNying ma rgyud ’bum
+              (based on the 56-vols. modern edition) and the rNying ma bka’ ma
+              (based on the 133 vols. modern edition). The files do not contain
+              page numbers yet, but we hope to be able to supplement them in the
+              near future.<br />
+              This update also includes links to BUDA (at BDRC) of the bKa’
+              ’gyur and bsTan ’gyur texts. Links to the rKTs will be provided
+              soon.<br />
+              We are currently working on further updates, including enlarging
+              the Sanskrit corpus to include texts from the Digital Sanskrit
+              Buddhist Canon (DSBC) and other projects, and generating
+              translingual matches.
+            </p>
+            <p>
+              For questions and/or feedback, please contact us under
+              <a
+                href="mailto:buddhanexus.info@gmail.com"
+                class="content-link"
+                target="blank"
+                >buddhanexus.info@gmail.com</a
+              >.
+            </p>
+            <p>
+              With regards,<br />
+              BuddhaNexus Team
+            </p>
+
+            <h2>
+              January 5, 2021: The BuddhaNexus in
+              <i>The Digital Orientalist</i> (Part II)
+            </h2>
+            <p>
+              Matthew Hayes, editor for Buddhist Studies at
+              <i>The Digital Orientalist</i> continues to introduce readers to
+              the BuddhaNexus project in his online article "<a
+                href="https://digitalorientalist.com/2021/01/05/text-matching-at-the-canonical-crossroads-an-introduction-to-buddhanexus-part-ii/"
+                class="content-link"
+                target="blank"
+                >Text-Matching at the Canonical Crossroads: An Introduction to
+                BuddhaNexus (Part II)</a
+              >". The contribution includes interview material with Sebastian
+              Nehrdich, a PhD student working on the technical development of
+              BuddhaNexus..
+            </p>
+
+            <h2>
+              November 5, 2021: The BuddhaNexus in
+              <i>The Digital Orientalist</i> (Part I)
+            </h2>
+
             <p>
               Matthew Hayes, editor for Buddhist Studies at
               <i>The Digital Orientalist</i> introduces readers to the

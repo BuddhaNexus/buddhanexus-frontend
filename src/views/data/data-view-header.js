@@ -9,6 +9,7 @@ class DataViewHeader extends LitElement {
   @property({ type: Boolean }) filterBarOpen = true;
   @property({ type: String }) fileName = '';
   @property({ type: String }) language;
+  @property({ type: Number }) score;
   @property({ type: String }) viewMode;
   @property({ type: String }) sortMethod;
   @property({ type: Function }) toggleNavBar;
@@ -95,6 +96,7 @@ class DataViewHeader extends LitElement {
             <data-view-header-fields
               .language="${this.language}"
               .fileName="${this.fileName}"
+              .score="${this.score}"
               .setFileName="${this.setFileName}"
               .setFolio="${this.setFolio}"
               .viewMode="${this.viewMode}"

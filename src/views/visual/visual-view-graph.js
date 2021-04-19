@@ -8,6 +8,8 @@ import {
   getGoogleGraphOptionsTarget,
 } from './visualViewUtils';
 
+import { paginateGraphData, graphDataRemoveLowest } from './graphDataUtils';
+
 import styles from './visual-view-graph.styles';
 
 @customElement('visual-view-graph')
@@ -18,7 +20,7 @@ export class VisualViewGraph extends LitElement {
   @property({ type: Function }) setSelection;
   @property({ type: Array }) graphData;
   @property({ type: Array }) setOptions;
-  @property({ type: Number }) pageSize = 100;
+  @property({ type: Number }) pageSize = 30;
   @property({ type: Number }) lastPageSize;
   @property({ type: String }) language;
   @property({ type: String }) targetItem;
@@ -49,19 +51,6 @@ export class VisualViewGraph extends LitElement {
     });
   }
 
-  smoothGraphValues(value) {
-    // this function is used to determine how much large collections are shrinked and
-    // smaller collections are enlarged, resulting in a compression effect that makes
-    // the rendering of smaller entities more readable. a value of ** 1 means nothing
-    // is changed. The smaller the value is, the stronger the graph is 'compressed'.
-    value = value ** 0.25;
-    // we force this min. value of 2 for each connection in order to avoid elements in the graph that are too tiny to be visible.
-    if (value < 2) {
-      value = 2;
-    }
-    return value;
-  }
-
   changeColorScheme() {
     switch (this.colorScheme) {
       case 'Inquiry Collection':
@@ -73,35 +62,6 @@ export class VisualViewGraph extends LitElement {
       default:
         this.setOptions = getGoogleGraphOptions;
     }
-  }
-
-  paginateGraphData(graphData) {
-    let paginatedGraphData = [];
-    let currentPage = [];
-    let alreadyFoundTexts = [];
-    let count = 0;
-    let entryCount = 0;
-
-    graphData.forEach(entry => {
-      entry[2] = this.smoothGraphValues(entry[2]);
-
-      if (!alreadyFoundTexts.includes(entry[0])) {
-        alreadyFoundTexts.push(entry[0]);
-        count += 1;
-        if (count > this.pageSize) {
-          paginatedGraphData.push(currentPage);
-          currentPage = [];
-          count = 1;
-        }
-      }
-      currentPage.push(entry);
-      entryCount += 1;
-      if (entryCount == graphData.length) {
-        paginatedGraphData.push(currentPage);
-        this.lastPageSize = count;
-      }
-    });
-    return paginatedGraphData;
   }
 
   decreaseCurrentPage() {
@@ -151,7 +111,6 @@ export class VisualViewGraph extends LitElement {
     this.currentPage = 0;
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
-    this.pageSize = this.language === 'pli' ? 25 : 100;
     let searchTerm = this.searchItem
       .split('_')
       .slice(1)
@@ -161,12 +120,14 @@ export class VisualViewGraph extends LitElement {
       selected: this.selectedCollections,
       language: this.language,
     });
-    this.graphData = this.paginateGraphData(graphdata);
+    let paginatedData = paginateGraphData(graphdata, this.pageSize);
+    this.graphData = paginatedData[0];
+    this.lastPageSize = paginatedData[1];
+    this.graphData = graphDataRemoveLowest(this.graphData);
     this.totalPages = this.graphData.length;
     this.adjustChartHeight();
     this.fetchError = error;
     this.fetchLoading = false;
-    this.targetItem = '';
   }
 
   adjustChartHeight() {
@@ -182,7 +143,7 @@ export class VisualViewGraph extends LitElement {
     }
     let rightPageSize = this.graphData[this.currentPage].length / leftPageSize;
 
-    let cutoffFactor = this.language === 'pli' ? this.pageSize : 15;
+    let cutoffFactor = this.language === 'pli' ? this.pageSize : 10;
 
     // calculating graphheight based on pagesize.
     let factor;

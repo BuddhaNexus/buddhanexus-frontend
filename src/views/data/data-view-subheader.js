@@ -57,7 +57,7 @@ class DataViewSubheader extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) infoModalContent;
   @property({ type: String }) language;
-
+  @property({ type: String }) extraMessage;
   @property({ type: Boolean }) isDialogOpen = false;
 
   static get styles() {
@@ -134,7 +134,7 @@ class DataViewSubheader extends LitElement {
         <vaadin-button class="info-button" @click="${this.openDialog}">
           <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
         </vaadin-button>
-      </div>
+      </div> ${this.extraMessage}
     `;
   }
 }

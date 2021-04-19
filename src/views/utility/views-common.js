@@ -6,7 +6,7 @@ export const sortByKey = (array, key) =>
 export function getLanguageFromFilename(filename) {
   if (filename.match('[DH][0-9][0-9][0-9]|NG|NK')) {
     return LANGUAGE_CODES.TIBETAN;
-  } else if (filename.match('(u$|u:|^Y|^XX)')) {
+  } else if (filename.match('(u$|u:|u_)')) {
     return LANGUAGE_CODES.SANSKRIT;
   } else if (filename.match('([TX][0-9]*n[0-9])')) {
     return LANGUAGE_CODES.CHINESE;
@@ -16,14 +16,14 @@ export function getLanguageFromFilename(filename) {
 }
 
 export function removeDuplicates(originalArray, prop) {
-  var newArray = [];
-  var lookupObject = {};
+  let newArray = [];
+  let lookupObject = {};
 
-  for (var i in originalArray) {
+  for (let i in originalArray) {
     lookupObject[originalArray[i][prop]] = originalArray[i];
   }
 
-  for (i in lookupObject) {
+  for (let i in lookupObject) {
     newArray.push(lookupObject[i]);
   }
   return newArray;

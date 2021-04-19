@@ -33,6 +33,7 @@ export class TextViewRight extends LitElement {
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) noScrolling = false;
   @property({ type: String }) EndlessScrollFlag = false;
+  @property({ type: String }) transMethod;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -118,6 +119,7 @@ export class TextViewRight extends LitElement {
       par_length: this.quoteLength,
       co_occ: this.cooccurance,
       active_segment: this.activeSegment,
+      multi_lingual: [getLanguageFromFilename(this.fileName)],
     });
     this.endOfRightTextFlag = textleft.length != 800 ? true : false;
     this.textRight = textleft;
@@ -258,7 +260,8 @@ export class TextViewRight extends LitElement {
         this.displayParallels,
         this.rightTextData,
         this.showSegmentNumbers,
-        this.segmentDisplaySide
+        this.segmentDisplaySide,
+        this.transMethod
       )}
     `;
   }
@@ -270,7 +273,8 @@ const TextViewLayoutRight = (
   clickFunction,
   rightTextData,
   showSegmentNumbers,
-  segmentDisplaySide
+  segmentDisplaySide,
+  transMethod
 ) => {
   if (!textRight || !parallels) {
     return null;
@@ -296,7 +300,8 @@ const TextViewLayoutRight = (
       clickFunction,
       rightTextData,
       showSegmentNumbers,
-      segmentDisplaySide
+      segmentDisplaySide,
+      transMethod
     );
   });
 };
@@ -309,7 +314,8 @@ const rightSegmentContainer = (
   clickFunction,
   rightTextData,
   showSegmentNumbers,
-  segmentDisplaySide
+  segmentDisplaySide,
+  transMethod
 ) => {
   if (!segmentNr) {
     return null;
@@ -341,6 +347,7 @@ const rightSegmentContainer = (
     colorValues: colorValues,
     onClick: clickFunction,
     highlightMode: rightSideHighlight,
+    transMethod: transMethod,
     rightMode: 1,
   });
   return rightSegment(
@@ -348,7 +355,8 @@ const rightSegmentContainer = (
     segText,
     number,
     showSegmentNumbers,
-    segmentDisplaySide
+    segmentDisplaySide,
+    transMethod
   );
 };
 

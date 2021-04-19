@@ -1,5 +1,5 @@
 {
-  "name": "pali-networks",
+  "name": "buddhanexus",
   "version": "1.0.0",
   "description": "This is a pali segmentation parallels app.",
   "main": "index.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ayya-vimala/pali-networks"
+    "url": "git+https://github.com/BuddhaNexus/buddhanexus-frontend"
   },
   "keywords": [],
   "author": "Ayya Vimala <ayya.vimala@gmail.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ayya-vimala/pali-networks/issues"
+    "url": "https://github.com/BuddhaNexus/buddhanexus-frontend/issues"
   },
-  "homepage": "https://github.com/ayya-vimala/pali-networks",
+  "homepage": "https://github.com/BuddhaNexus/buddhanexus-frontend",
   "dependencies": {
     "@polymer/paper-input": "^3.2.1",
     "@polymer/paper-slider": "https://github.com/BuddhaNexus/paper-slider.git",

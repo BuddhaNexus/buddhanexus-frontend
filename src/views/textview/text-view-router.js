@@ -35,6 +35,7 @@ export class TextViewRouter extends LitElement {
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
+  @property({ type: String }) transMethod;
 
   handleSearchResultClicked(e) {
     this.leftTextData = e.detail;
@@ -52,6 +53,7 @@ export class TextViewRouter extends LitElement {
           .lang="${this.lang}"
           .fileName="${this.fileName}"
           .searchString="${this.searchString}"
+          .transMethod="${this.transMethod}"
           @click-result="${this.handleSearchResultClicked}"
           @click-return="${this.handleReturnButtonClicked}"
         ></text-view-search>
@@ -62,6 +64,7 @@ export class TextViewRouter extends LitElement {
       <text-view
         .fileName="${this.fileName}"
         .folio="${this.folio}"
+        .transMethod="${this.transMethod}"
         .setFileName="${this.setFileName}"
         .limitCollection="${this.limitCollection}"
         .leftTextData="${this.leftTextData}"

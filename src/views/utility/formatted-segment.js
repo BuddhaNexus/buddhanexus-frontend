@@ -40,7 +40,13 @@ export class FormattedSegment extends LitElement {
       title = 'Chinese';
     }
 
-    return html`<img title='${title}' width="16px" src="../../src/assets/icons/favicon-${par_lang}-16x16.png"></img>`;
+    return html`
+      <img
+        title="${title}"
+        width="16px"
+        src="../../src/assets/icons/favicon-${par_lang}-16x16.png"
+      />
+    `;
   }
 
   updated(_changedProperties) {
@@ -199,6 +205,21 @@ export class FormattedFileName extends LitElement {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
+  }
+
+  showSource(filename) {
+    const lang = getLanguageFromFilename(filename);
+    if (lang == 'skt') {
+      if (filename.match(/[X0-9]n[0-9]/)) {
+        return html`
+          (<a href="http://www.dsbcproject.org/">DSBC</a>)
+        `;
+      } else {
+        return html`
+          (<a href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL</a>)
+        `;
+      }
+    }
   }
 
   render() {
