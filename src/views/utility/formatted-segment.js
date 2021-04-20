@@ -87,7 +87,7 @@ export class FormattedSegment extends LitElement {
       segmentnr: this.filename,
     });
     this.displayName = displayData ? displayData[0] : '';
-    if (this.lang === 'skt') {
+    if (this.lang === 'skt' || this.lang === 'tib') {
       this.displayLink = displayData ? displayData[2] : '';
     }
     if (this.lang === 'chn' || this.lang === 'pli') {
@@ -102,26 +102,41 @@ export class FormattedSegment extends LitElement {
   }
 
   getLinkForSegmentNumbers(language, segmentnr) {
+    // prettier-ignore
+    const dhpVerses = [1,21,33,44,60,76,90,100,116,129,146,157,167,179,197,
+                        209,221,235,256,273,290,306,320,334,360,383,424]
     let linkText = '';
     if (language === 'pli') {
+      // Because SuttaCentral changed the way links work, some things
+      // have changed here. For now I placed them in comments and asked at SC
+      // if there are any plans to add range highlighting again.
       let cleanedSegment = segmentnr
         .split(':')[1]
         .replace(/_[0-9]+/g, '')
-        .replace('–', '--');
+        .split('–')[0];
+      // .replace('–', '--');
       let rootSegment = segmentnr.split(':')[0];
       if (segmentnr.match(/^dhp/)) {
-        cleanedSegment = `${cleanedSegment.split('.', 1)}`;
-        rootSegment = 'dhp';
+        let verseNumber = parseInt(cleanedSegment.split('.', 1)[0]);
+        for (let i = 0; i < dhpVerses.length; i++) {
+          if (verseNumber >= dhpVerses[i] && verseNumber < dhpVerses[i + 1]) {
+            rootSegment = `dhp${String(dhpVerses[i])}-${String(
+              dhpVerses[i + 1] - 1
+            )}`;
+            break;
+          }
+        }
+        cleanedSegment = '';
       } else if (segmentnr.match(/^an[1-9]|^sn[1-9]/)) {
         rootSegment = `${rootSegment}.${cleanedSegment.split('.', 1)}`;
         const dotPosition = cleanedSegment.indexOf('.');
         cleanedSegment = cleanedSegment.substring(dotPosition + 1);
-        if (cleanedSegment.match(/--/)) {
-          let [firstpart, secondpart] = cleanedSegment.split('--');
-          const secondDot = secondpart.indexOf('.');
-          secondpart = secondpart.substring(secondDot + 1);
-          cleanedSegment = `${firstpart}--${secondpart}`;
-        }
+        // if (cleanedSegment.match(/--/)) {
+        //   let [firstpart, secondpart] = cleanedSegment.split('--');
+        //   const secondDot = secondpart.indexOf('.');
+        //   secondpart = secondpart.substring(secondDot + 1);
+        //   cleanedSegment = `${firstpart}--${secondpart}`;
+        // }
       }
       linkText = segmentnr.match(/^tika|^anya|^atk/)
         ? `https://www.tipitaka.org/romn/`
