@@ -170,7 +170,7 @@ export class DataViewFiltersContainer extends LitElement {
 
   renderMultiSelectBox(label, id, changefunction, itempath) {
     return html`
-      <multiselect-combo-box com
+      <multiselect-combo-box
         Label="${label}"
         id="${id}"
         item-label-path="categoryname"
@@ -180,8 +180,11 @@ export class DataViewFiltersContainer extends LitElement {
         @selected-items-changed="${changefunction}"
         .items="${itempath}"
         class="input-field"
-        item-value-path="category" 
+        item-value-path="category"
       >
+        <template>
+          <b>[[item.categoryname]]</b> [[item.displayname]]<br />
+        </template>
       </multiselect-combo-box>
     `;
   }
