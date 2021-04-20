@@ -182,6 +182,9 @@ export class DataViewFiltersContainer extends LitElement {
         class="input-field"
         item-value-path="category"
       >
+        <template>
+          <b>[[item.categoryname]]</b> [[item.displayname]]<br />
+        </template>
       </multiselect-combo-box>
     `;
   }
