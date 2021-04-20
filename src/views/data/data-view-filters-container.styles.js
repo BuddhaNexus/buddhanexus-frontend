@@ -40,5 +40,10 @@ export default css`
   .filter-group {
     margin-top: 16px;
     margin-bottom: 16px;
+    max-width: 300px;
+    display: inline-block;
+  }
+  .filter-group input {
+    max-width: 300px;
   }
 `;

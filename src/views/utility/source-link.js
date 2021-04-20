@@ -54,7 +54,7 @@ export class FormattedFileName extends LitElement {
       this.fetchData();
       if (this.filename.match(/[X0-9]n[0-9]/)) {
         this.buttonText = 'DSBC';
-        this.imgLink = '../../src/assets/icons/dsbc_logo.png';
+        this.imgLink = '../../src/assets/icons/dsbc_logo2.png';
         this.titleText = `Click to go to the original file in the Digital Sanskrit
                 Buddhist Canon (includes full header information).`;
       } else {
