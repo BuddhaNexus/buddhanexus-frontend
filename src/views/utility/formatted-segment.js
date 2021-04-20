@@ -80,7 +80,7 @@ export class FormattedSegment extends LitElement {
     this.lang = getLanguageFromFilename(segmentnrString);
     this.filename = segmentnrString.split(':')[0];
     this.number = segmentnrString.split(':')[1];
-    if (this.lang === 'chn') {
+    if (this.lang === 'chn' || this.lang === 'skt') {
       this.filename = this.filename.replace(/_[0-9]+/, '');
     }
     const { displayData, error } = await getDisplayName({

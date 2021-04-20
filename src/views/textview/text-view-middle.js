@@ -1,6 +1,6 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import { truncateSegnrText } from './textViewUtils';
-import { sortByKey, getLanguageFromFilename } from '../utility/views-common';
+import { getLanguageFromFilename } from '../utility/views-common';
 import {
   highlightTextByOffset,
   segmentArrayToString,
@@ -138,8 +138,6 @@ export class TextViewMiddle extends LitElement {
     let parallelCounter = 0;
     let parallels = [...this.selectedParallels];
     if (parallels) {
-      parallels = sortByKey(parallels, 'score');
-      parallels = parallels.reverse();
       for (let i = 0; i < parallels.length; i++) {
         if (
           parallels[i].root_offset_beg <= this.data.position &&
