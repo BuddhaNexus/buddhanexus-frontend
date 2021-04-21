@@ -19,7 +19,7 @@ export default css`
     --material-primary-text-color: var(--bn-dark-red);
   }
 
-  #button-font {
+  .button-font {
     color: var(--color-text-secondary);
     font-size: 14px;
     font-family: var(--system-font-stack);

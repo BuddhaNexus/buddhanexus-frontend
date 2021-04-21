@@ -21,7 +21,7 @@ class DataViewHeader extends LitElement {
   @property({ type: Function }) setFolio;
   @property({ type: Function }) handleViewModeChanged;
   @property({ type: Function }) toggleFilterBarOpen;
-
+  @property({ type: Function }) toggleTransMode;
   @property({ type: String }) searchString;
 
   static get styles() {
@@ -104,7 +104,8 @@ class DataViewHeader extends LitElement {
               .updateSearch="${this.updateSearch}"
               .multiLingualMode="${this.multiLingualMode}"
               .updateMultiLangSearch="${this.updateMultiLangSearch}"
-              .updateSortMethod="${this.updateSortMethod}">
+              .updateSortMethod="${this.updateSortMethod}"
+              .toggleTransMode="${this.toggleTransMode}">
             </data-view-header-fields>
 
             <iron-icon

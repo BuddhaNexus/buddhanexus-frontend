@@ -239,6 +239,7 @@ export class DataView extends LitElement {
   toggleTransMode = e => {
     this.transMethod = e.target.value;
   };
+
   setSortMethod = e => {
     this.sortMethod = e.target.value;
     if (this.sortMethod != 'position') {
@@ -322,6 +323,10 @@ export class DataView extends LitElement {
     this.multiLingualMode = multiLingualList;
   };
 
+  displaySettings = () => {
+    return this.viewMode == 'text' ? 'display: inline-flex' : 'display: none';
+  };
+
   render() {
     //prettier-ignore
     return html`
@@ -342,7 +347,8 @@ export class DataView extends LitElement {
             .updateSearch="${this.setSearch}"
             .multiLingualMode="${this.multiLingualMode}"
             .updateMultiLangSearch="${this.setMultiLangSearch}"
-            .updateSortMethod="${this.setSortMethod}">
+            .updateSortMethod="${this.setSortMethod}"
+            .toggleTransMode="${this.toggleTransMode}">
           </data-view-header>
 
           <data-view-router
@@ -405,9 +411,9 @@ export class DataView extends LitElement {
 
           <data-view-settings-container
             class="settings-menu"
+            style="${this.displaySettings()}"
             lang="${this.language}"
             view="${this.viewMode}"
-            .toggleTransMode="${this.toggleTransMode}">
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}">
           </data-view-settings-container>
