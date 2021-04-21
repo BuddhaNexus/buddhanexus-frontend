@@ -124,8 +124,7 @@ class DataViewHeader extends LitElement {
               .updateSearch="${this.updateSearch}"
               .multiLingualMode="${this.multiLingualMode}"
               .updateMultiLangSearch="${this.updateMultiLangSearch}"
-              .updateSortMethod="${this.updateSortMethod}"
-              .toggleTransMode="${this.toggleTransMode}">
+              .updateSortMethod="${this.updateSortMethod}">
             </data-view-header-fields>
 
             ${shouldShowTransliterationSlider
