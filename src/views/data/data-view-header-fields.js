@@ -23,7 +23,6 @@ export class DataViewHeaderFields extends LitElement {
   @property({ type: Function }) updateSearch;
   @property({ type: Function }) updateMultiLangSearch;
   @property({ type: Function }) updateSortMethod;
-  @property({ type: Function }) toggleTransMode;
 
   static get styles() {
     return [
@@ -69,22 +68,6 @@ export class DataViewHeaderFields extends LitElement {
           height: 1em;
           margin-right: 0.8em;
           margin-bottom: 0.25em;
-        }
-
-        vaadin-radio-button {
-          --material-primary-color: var(--bn-dark-red);
-          --material-primary-text-color: var(--bn-dark-red);
-        }
-
-        .button-font {
-          color: var(--color-text-secondary);
-          font-size: 14px;
-          font-family: var(--system-font-stack);
-          font-weight: 400;
-        }
-
-        .toggle-transliteration-scheme {
-          padding-left: 12px;
         }
       `,
     ];
@@ -240,9 +223,6 @@ export class DataViewHeaderFields extends LitElement {
     const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
     const shouldShowMultiLangSearchBox =
       this.viewMode === DATA_VIEW_MODES.MULTILANG;
-    const shouldShowTransliterationSlider =
-      this.language === LANGUAGE_CODES.TIBETAN &&
-      this.viewMode === DATA_VIEW_MODES.TEXT;
 
     //prettier-ignore
     return html`
@@ -344,20 +324,6 @@ export class DataViewHeaderFields extends LitElement {
                 </vaadin-list-box>
               </template>
             </vaadin-select>`
-        : null}
-      ${shouldShowTransliterationSlider
-        ? html`
-          <vaadin-radio-group
-            class="toggle-transliteration-scheme"
-            label="Display text as:"
-            @value-changed="${this.toggleTransMode}">
-            <vaadin-radio-button value="wylie" checked>
-              <span class="button-font">Wylie</span>
-            </vaadin-radio-button>
-            <vaadin-radio-button value="uni">
-              <span class="button-font">Unicode</span>
-            </vaadin-radio-button>
-          </vaadin-radio-group>`
         : null}
     `;
   }

@@ -73,11 +73,31 @@ class DataViewHeader extends LitElement {
         vaadin-text-field [part='value'] {
           padding-left: 16px;
         }
+
+        vaadin-radio-button {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+        }
+
+        .button-font {
+          color: var(--color-text-secondary);
+          font-size: 14px;
+          font-family: var(--system-font-stack);
+          font-weight: 400;
+        }
+
+        .toggle-transliteration-scheme {
+          padding-left: 12px;
+          position: absolute;
+          right: 120px;
+        }
       `,
     ];
   }
 
   render() {
+    const shouldShowTransliterationSlider =
+      this.language === 'tib' && this.viewMode === 'text';
     //prettier-ignore
     return html`
       <div class="data-view-header">
@@ -107,6 +127,21 @@ class DataViewHeader extends LitElement {
               .updateSortMethod="${this.updateSortMethod}"
               .toggleTransMode="${this.toggleTransMode}">
             </data-view-header-fields>
+
+            ${shouldShowTransliterationSlider
+              ? html`
+                <vaadin-radio-group
+                  class="toggle-transliteration-scheme"
+                  label="Display text as:"
+                  @value-changed="${this.toggleTransMode}">
+                  <vaadin-radio-button value="wylie" checked>
+                    <span class="button-font">Wylie</span>
+                  </vaadin-radio-button>
+                  <vaadin-radio-button value="uni">
+                    <span class="button-font">Unicode</span>
+                  </vaadin-radio-button>
+                </vaadin-radio-group>`
+              : null}
 
             <iron-icon
               icon="vaadin:desktop"
