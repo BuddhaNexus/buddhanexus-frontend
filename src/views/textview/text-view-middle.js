@@ -198,7 +198,7 @@ export class TextViewMiddle extends LitElement {
             startoffset: parOffsetBegin,
             endoffset: parOffsetEnd,
             lang: par_lang,
-            transMethod: this.transMethod
+            transMethod: this.transMethod,
           });
           let transMessage = `Match`;
           if (src_lang != par_lang) {
@@ -222,7 +222,7 @@ export class TextViewMiddle extends LitElement {
                 <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}"></formatted-segment>
               <span class="trans-message">${transMessage}</span> <br /> </span> 
               <span class="score">Score: ${parallels[i].score} %</span>
-              <span class="segment-length">Length: ${parallels[i].par_length}</span>
+              <span class="segment-length ${parallels[i].par_length ? 'show-length' : 'no-show-length'}">Length: ${parallels[i].par_length}</span>
               <span class="co-occurance">Co-occurrence: ${parallels[i]['co-occ']} </span>
               <br />
               <div class="horizontal-divider"></div>

@@ -26,7 +26,7 @@ export const TableViewTableRow = ({
             </formatted-segment>
           </span>
           <div class="table-view-table__parallel-details">
-            <span class="table-view-table__parallel-details-badge">Length: <b>${rootLength}</b></span>
+            <span class="table-view-table__parallel-details-badge ${parLength ? 'show-length' : 'no-show-length'}">Length: <b>${rootLength}</b></span>
           </div>
           <iron-icon
             class="open-link-icon"
@@ -48,7 +48,7 @@ export const TableViewTableRow = ({
           </span>
           <div class="table-view-table__parallel-details">
             <span class="table-view-table__parallel-details-badge">Score: <b>${score}%</b></span>
-            <span class="table-view-table__parallel-details-badge">Length: <b>${parLength}</b></span>
+            <span class="table-view-table__parallel-details-badge ${parLength ? 'show-length' : 'no-show-length'}">Length: <b>${parLength}</b></span>
           </div>
           <iron-icon
             class="open-link-icon"

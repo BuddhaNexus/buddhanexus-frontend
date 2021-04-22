@@ -11,9 +11,7 @@ function TableViewInfoModalContent() {
   return html`
     <div>
       <p>
-        The matches can be sorted in three different ways: (1) by their position
-        in the Inquiry Text, (2) by their position in the Hit Text(s), and (3)
-        by the length of the match in the Hit Text.
+        In progress: Multi-language info will follow shortly.
       </p>
     </div>
   `;

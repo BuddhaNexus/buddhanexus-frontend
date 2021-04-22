@@ -111,4 +111,8 @@ export default css`
     padding: 24px;
     cursor: help;
   }
+
+  .no-show-length {
+    display: none;
+  }
 `;

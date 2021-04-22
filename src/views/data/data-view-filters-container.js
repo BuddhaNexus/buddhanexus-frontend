@@ -241,17 +241,22 @@ export class DataViewFiltersContainer extends LitElement {
     }
   }
   render() {
+    const shouldShowMultiLangFilters =
+      this.viewMode !== DATA_VIEW_MODES.MULTILANG;
     //prettier-ignore
     return html`
-      <data-view-filters-multilingual
-        style="display: ${
-          this.shouldShowMultiLingual() ? 'block' : 'none'
-        }"
-        .fileName="${this.fileName}"
-        .mainLang="${this.language}"
-        .multiLingualMode="${this.multiLingualMode}"
-        .updateMultiLingualMode="${this.updateMultiLingualMode}">
-      </data-view-filters-multilingual>
+      ${shouldShowMultiLangFilters
+        ? html`
+          <data-view-filters-multilingual
+            style="display: ${
+              this.shouldShowMultiLingual() ? 'block' : 'none'
+            }"
+            .fileName="${this.fileName}"
+            .mainLang="${this.language}"
+            .multiLingualMode="${this.multiLingualMode}"
+            .updateMultiLingualMode="${this.updateMultiLingualMode}">
+          </data-view-filters-multilingual>`
+        : null}
 
       <data-view-filter-sliders
         .viewMode="${this.viewMode}"
