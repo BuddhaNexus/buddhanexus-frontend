@@ -6,6 +6,7 @@ import { getDataForSidebarMenu } from '../../api/actions';
 
 import styles from './navigation-menu.styles';
 import { getMainLayout, preprocessMenuData } from '../utility/utils';
+import { LANGUAGE_CODES, LANGUAGE_NAMES } from '../utility/constants';
 
 @customElement('navigation-menu')
 export class NavigationMenu extends LitElement {
@@ -76,7 +77,7 @@ export class NavigationMenu extends LitElement {
               <img src="${file.imgStringTIB}" item-icon />
               <img src="${file.imgStringCHN}" item-icon />
             </div>
-            ${file.displayname}
+            ${this.language === 'multi' ? file.displayName : file.displayname}
           </li>
         `
       );
@@ -112,17 +113,76 @@ export class NavigationMenu extends LitElement {
       return;
     }
     let collectionMenuData = html``;
-    this.navigationMenuData.forEach(collection => {
-      collectionMenuData = html`
-        ${collectionMenuData}
-        <vaadin-details theme="reverse">
-          <div slot="summary" class="collection-list">
-            ${collection.collection}
-          </div>
-          ${this.addCategoryItems(collection)}
-        </vaadin-details>
-      `;
-    });
+    if (this.language !== 'multi') {
+      if (!this.navigationMenuData[0].collection) {
+        return;
+      }
+      this.navigationMenuData.forEach(collection => {
+        collectionMenuData = html`
+          ${collectionMenuData}
+          <vaadin-details theme="reverse">
+            <div slot="summary" class="collection-list">
+              ${collection.collection}
+            </div>
+            ${this.addCategoryItems(collection)}
+          </vaadin-details>
+        `;
+      });
+    } else {
+      if (!this.navigationMenuData[0].available_lang) {
+        return;
+      }
+
+      let navData = [];
+      let languageList = [];
+      let collectionName = '';
+      this.navigationMenuData.forEach(file => {
+        if (languageList.includes(file.filelanguage)) {
+          navData.forEach(collection => {
+            if (collection.collectioncode === file.filelanguage) {
+              collection.files.push(file);
+            }
+          });
+        } else {
+          switch (file.filelanguage) {
+            case LANGUAGE_CODES.TIBETAN:
+              collectionName = LANGUAGE_NAMES.TIBETAN;
+              break;
+            case LANGUAGE_CODES.PALI:
+              collectionName = LANGUAGE_NAMES.PALI;
+              break;
+            case LANGUAGE_CODES.SANSKRIT:
+              collectionName = LANGUAGE_NAMES.SANSKRIT;
+              break;
+            case LANGUAGE_CODES.CHINESE:
+              collectionName = LANGUAGE_NAMES.CHINESE;
+              break;
+            default:
+              collectionName = '';
+          }
+          languageList.push(file.filelanguage);
+          let collectionData = {};
+          collectionData.collectioncode = file.filelanguage;
+          collectionData.collection = collectionName;
+          collectionData.files = [file];
+          navData.push(collectionData);
+        }
+      });
+
+      navData.forEach(collection => {
+        collectionMenuData = html`
+          ${collectionMenuData}
+          <vaadin-details theme="reverse" class="file-list">
+            <div slot="summary" class="collection-list">
+              ${collection.collection}
+            </div>
+            <ul class="multifiles">
+              ${this.addCatagoryFiles(collection.files)}
+            </ul>
+          </vaadin-details>
+        `;
+      });
+    }
     return collectionMenuData;
   }
 
