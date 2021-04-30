@@ -173,7 +173,7 @@ export class DataViewFiltersContainer extends LitElement {
       <multiselect-combo-box
         Label="${label}"
         id="${id}"
-        item-label-path="categoryname"
+        item-label-path="search_field"
         style="display: ${this.shouldShowFilterDropdown()
           ? 'inline-flex'
           : 'none'}"
