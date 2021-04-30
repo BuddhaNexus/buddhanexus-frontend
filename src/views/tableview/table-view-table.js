@@ -17,6 +17,7 @@ export class TableViewTable extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: Array }) limitCollection;
   @property({ type: Array }) parallels;
+  @property({ type: String }) transMethod;
 
   @property({ type: Function }) setPageNumber;
 
@@ -40,12 +41,14 @@ export class TableViewTable extends LitElement {
               startoffset: parallel.root_offset_beg,
               endoffset: parallel.root_offset_end + 1,
               lang: getLanguageFromFilename(parallel.root_segnr[0]),
+              transMethod: this.transMethod,
             }),
             parallelSegmentText: highlightTextByOffset({
               textArray: parallel.par_segment,
               startoffset: parallel.par_offset_beg,
               endoffset: parallel.par_offset_end,
               lang: getLanguageFromFilename(parallel.file_name),
+              transMethod: this.transMethod,
             }),
             parallelSegmentId: parallel.par_segnr,
             score: parallel.score,

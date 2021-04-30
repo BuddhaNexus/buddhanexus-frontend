@@ -88,7 +88,7 @@ export class DataViewRouter extends LitElement {
           .sortMethod="${this.sortMethod}"
           .score="${this.score}"
           .searchString="${this.searchString}"
-          .transliterationScheme="${this.transliterationScheme}"
+          .transMethod="${this.transMethod}"
         ></table-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {
