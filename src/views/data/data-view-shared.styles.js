@@ -24,6 +24,11 @@ export default css`
     -webkit-font-smoothing: antialiased;
   }
 
+  [lang='tib'][trans='uni'] {
+    font-family: var(--tibetan-font-stack);
+    -webkit-font-smoothing: antialiased;
+  }
+
   .segment-link {
     text-decoration: none;
     color: var(--color-text-secondary);

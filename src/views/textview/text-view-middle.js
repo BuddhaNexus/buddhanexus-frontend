@@ -210,6 +210,7 @@ export class TextViewMiddle extends LitElement {
             <div
               class="selected-parallel material-card"
               lang="${par_lang}"
+              trans="${this.transMethod}"
               activeSegments="${rootSegnrText}"
               rootOffsetBegin="${rootOffsetBegin}"
               rootOffsetEnd="${rootOffsetEnd}"

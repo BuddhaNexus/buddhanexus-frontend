@@ -56,6 +56,7 @@ export class TableViewTable extends LitElement {
             rootLength: parallel.root_length,
             rootUrl: createTextViewSegmentUrl(parallel.root_segnr[0]),
             parUrl: createTextViewSegmentUrl(parallel.par_segnr[0]),
+            transMethod: this.transMethod
           })
         )}
       </div>

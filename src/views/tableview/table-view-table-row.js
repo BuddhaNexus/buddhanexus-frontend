@@ -13,6 +13,7 @@ export const TableViewTableRow = ({
   rootLength,
   rootUrl,
   parUrl,
+  transMethod,
 }) =>
   //prettier-ignore
   html`
@@ -36,7 +37,8 @@ export const TableViewTableRow = ({
           </iron-icon>
         </header>
         <div class="horizontal-divider"></div>
-        <div class="table-view-table__text" lang="${getLanguageFromFilename(rootSegmentId[0])}">${rootSegmentText}</div>
+        <div class="table-view-table__text" lang="${getLanguageFromFilename(rootSegmentId[0])}"
+          trans="${transMethod}">${rootSegmentText}</div>
       </div>
       <div class="table-view-table__cell table-view-table__cell-parallel material-card">
         <header class="table-view-table__cell-header">
@@ -58,7 +60,8 @@ export const TableViewTableRow = ({
           </iron-icon>
         </header>
         <div class="horizontal-divider"></div>
-        <div class="table-view-table__text" lang="${getLanguageFromFilename(parallelSegmentId[0])}">${parallelSegmentText}</div>
+        <div class="table-view-table__text" lang="${getLanguageFromFilename(parallelSegmentId[0])}"
+          trans="${transMethod}">${parallelSegmentText}</div>
       </div>
     </div>
   `;
