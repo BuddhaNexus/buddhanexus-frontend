@@ -74,6 +74,7 @@ export default class TextViewTable extends LitElement {
         <text-view-right
           id="text-view-right"
           lang="${getLanguageFromFilename(this.rightFileName)}"
+          trans="${this.transMethod}"
           .fileName="${this.fileName}"
           .rightFileName="${this.rightFileName}"
           .rightTextData="${this.rightTextData}"
@@ -104,6 +105,7 @@ export default class TextViewTable extends LitElement {
             <text-view-left
               id="text-view-left"
               lang="${this.lang}"
+              trans="${this.transMethod}"
               .fileName="${this.fileName}"
               .leftTextData="${this.leftTextData}"
               .score="${this.score}"
