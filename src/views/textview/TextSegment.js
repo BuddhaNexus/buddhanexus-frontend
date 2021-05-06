@@ -47,15 +47,20 @@ const TibetanSegmentWylie = segment => {
 // possibly we have to do a few more changes to the method of
 // preprocessing in case of unicode, so having it as a separate function might be
 const TibetanSegmentUnicode = segment => {
-  //  let strippedSegment = segment.replace(/\//g, '|') + ' ';
   let strippedSegment = segment.replace(/ \//g, '/');
-  return !strippedSegment.match(/\/\/|[.?!:;]/g)
-    ? fromWylie(strippedSegment)
-    : !strippedSegment.includes('*')
-    ? // prettier-ignore
-      html`${fromWylie(strippedSegment)}<br />`
-    : // prettier-ignore
-      html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
+  strippedSegment = strippedSegment.replace(/ng\//g, 'ng /'); // always put tsek between nga and shad
+  if (strippedSegment.match(/@|#/)) {
+    // don't process folio numbers
+    return strippedSegment;
+  } else {
+    return !strippedSegment.match(/\/\/|[.?!:;]/g)
+      ? fromWylie(strippedSegment)
+      : !strippedSegment.includes('*')
+      ? // prettier-ignore
+        html`${fromWylie(strippedSegment)}<br />`
+      : // prettier-ignore
+        html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
+  }
 };
 
 const ChineseSegment = (inputData, segment) => {
