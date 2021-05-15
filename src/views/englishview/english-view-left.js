@@ -11,7 +11,6 @@ import { LeftSegmentContainer } from './LeftSegment';
 @customElement('english-view-left')
 export class EnglishViewLeft extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Number }) currentPosition = 0;
   @property({ type: Array }) leftTextData;
   @property({ type: String }) activeSegment;
   @property({ type: Boolean }) showSegmentNumbers;

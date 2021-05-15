@@ -29,10 +29,7 @@ export class EnglishView extends LitElement {
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
-      if (propName === 'fileName') {
-        this.fetchNewText();
-      }
-      if (propName === 'transMethod') {
+      if (['fileName', 'transMethod'].includes(propName)) {
         this.fetchNewText();
       }
       if (propName === 'folio') {
@@ -40,10 +37,6 @@ export class EnglishView extends LitElement {
         this.fetchNewText();
       }
     });
-  }
-
-  handleSegmentClick(e) {
-    this.activeSegment = e.target.id;
   }
 
   async fetchNewText() {
@@ -88,7 +81,7 @@ export class EnglishView extends LitElement {
         .showSegmentNumbers="${this.showSegmentNumbers}"
         .segmentDisplaySide="${this.segmentDisplaySide}"
         .headerVisibility="${this.headerVisibility}"
-        .handleSegmentClick="${this.handleSegmentClick}"
+        .transMethod="${this.transMethod}"
       >
       </english-view-table>
     `;

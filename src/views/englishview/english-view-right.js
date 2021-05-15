@@ -8,7 +8,6 @@ import { LeftSegmentContainer } from './LeftSegment';
 @customElement('english-view-right')
 export class EnglishViewRight extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Number }) currentPosition = 0;
   @property({ type: Object }) rightTextData;
   @property({ type: String }) activeSegment;
   @property({ type: Boolean }) showSegmentNumbers;

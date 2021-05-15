@@ -8,12 +8,17 @@ import styles from './data-view-settings-container.styles';
 
 @customElement('data-view-settings-container')
 export class DataViewSettingsContainer extends LitElement {
+  @property({ type: String }) fileName;
   @property({ type: Function }) toggleShowSegmentNumbers;
   @property({ type: Function }) toggleSegmentDisplaySide;
   @property({ type: Function }) toggleShowSCTranslation;
 
   static get styles() {
     return [styles];
+  }
+
+  disableSC() {
+    return this.fileName.match('^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt)') ? "display: none" : "";
   }
 
   render() {
@@ -34,7 +39,7 @@ export class DataViewSettingsContainer extends LitElement {
       </vaadin-radio-button>
     </vaadin-radio-group>
 
-    <paper-toggle-button @checked-changed="${this.toggleShowSCTranslation}">
+    <paper-toggle-button @checked-changed="${this.toggleShowSCTranslation}" style="${this.disableSC()}">
       <span class="button-font">Show SuttaCentral Translation</span>
     </paper-toggle-button>
   `;

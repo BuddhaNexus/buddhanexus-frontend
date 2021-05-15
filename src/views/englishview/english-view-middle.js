@@ -8,7 +8,6 @@ import { LeftSegmentContainer } from './LeftSegment';
 @customElement('english-view-middle')
 export class EnglishViewMiddle extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Number }) currentPosition = 0;
   @property({ type: Object }) middleData;
   @property({ type: String }) activeSegment;
   @property({ type: Boolean }) showSegmentNumbers;

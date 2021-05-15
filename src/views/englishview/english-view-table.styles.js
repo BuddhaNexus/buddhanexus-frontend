@@ -87,6 +87,7 @@ export default css`
     display: inline;
     cursor: pointer;
     font-size: 16px;
+    line-height: 24px;
   }
 
   .source-segment {

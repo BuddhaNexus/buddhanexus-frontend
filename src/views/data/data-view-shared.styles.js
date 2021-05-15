@@ -29,6 +29,11 @@ export default css`
     -webkit-font-smoothing: antialiased;
   }
 
+  [lang='pli'][trans='uni'] {
+    font-family: var(--devanagari-font-stack);
+    -webkit-font-smoothing: antialiased;
+  }
+
   .segment-link {
     text-decoration: none;
     color: var(--color-text-secondary);

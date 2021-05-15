@@ -427,6 +427,7 @@ export class DataView extends LitElement {
             style="${this.displaySettings()}"
             lang="${this.language}"
             view="${this.viewMode}"
+            .fileName="${this.fileName}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
             .toggleShowSCTranslation="${this.toggleShowSCTranslation}">

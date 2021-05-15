@@ -2,7 +2,6 @@ import { customElement, html, css, LitElement, property } from 'lit-element';
 
 import styles from './english-view-table.styles';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
-// import { isObjectEmpty } from '../utility/utils';
 import './english-view-left';
 import './english-view-middle';
 import './english-view-right';
@@ -19,7 +18,7 @@ export default class EnglishViewTable extends LitElement {
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
-  @property({ type: Function }) handleSegmentClick;
+  @property({ type: String }) transMethod;
 
   static get styles() {
     return [
@@ -31,6 +30,11 @@ export default class EnglishViewTable extends LitElement {
         }
       `,
     ];
+  }
+
+  handleSegmentClick(e) {
+    this.activeSegment = e.target.id;
+    console.log(e.target.class)
   }
 
   renderMiddleData() {
@@ -84,6 +88,7 @@ export default class EnglishViewTable extends LitElement {
             <english-view-left
               id="english-view-left"
               lang="pli"
+              trans="${this.transMethod}"
               .fileName="${this.fileName}"
               .leftTextData="${this.leftTextData}"
               .activeSegment="${this.activeSegment}"
