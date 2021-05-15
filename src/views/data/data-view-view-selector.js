@@ -38,17 +38,11 @@ export class DataViewViewSelector extends LitElement {
       >
         ${Object.values(DATA_VIEW_MODES).map(filter => {
           if (
-            (filter !== 'numbers' ||
-              (this.language !== 'tib' &&
-                this.language !== 'skt' &&
-                this.language !== 'multi')) &&
+            (filter !== 'numbers' || (this.language !== 'tib' && this.language !== 'skt' && this.language !== 'multi')) &&
             filter !== 'neutral' &&
-            (filter !== 'multilang' ||
-              (this.language != 'skt' &&
-                this.language != 'tib' &&
-                this.language != 'chn' &&
-                this.language != 'pli')) &&
-            filter !== 'text-search'
+            (filter !== 'multilang' || (this.language !== 'skt' && this.language !== 'tib' && this.language !== 'chn' && this.language !== 'pli')) &&
+            filter !== 'text-search' &&
+            (filter !== 'english' || (this.language !== 'skt' && this.language !== 'tib' && this.language !== 'chn'))
           ) {
             return html`
               <vaadin-radio-button value="${filter}">

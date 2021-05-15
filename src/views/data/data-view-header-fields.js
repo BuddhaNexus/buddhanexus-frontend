@@ -197,7 +197,8 @@ export class DataViewHeaderFields extends LitElement {
       (this.viewMode === DATA_VIEW_MODES.TEXT ||
         this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH ||
         this.viewMode === DATA_VIEW_MODES.TABLE ||
-        this.viewMode === DATA_VIEW_MODES.NUMBERS) &&
+        this.viewMode === DATA_VIEW_MODES.NUMBERS ||
+        this.viewMode === DATA_VIEW_MODES.ENGLISH) &&
       !this.fileName.match('NG') &&
       // disable the folio selector for the NK/NG-collections;
       //re-enable them once we get the page numbers back.

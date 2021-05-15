@@ -9,8 +9,8 @@ import styles from './data-view-settings-container.styles';
 @customElement('data-view-settings-container')
 export class DataViewSettingsContainer extends LitElement {
   @property({ type: Function }) toggleShowSegmentNumbers;
-  @property({ type: String }) lang;
   @property({ type: Function }) toggleSegmentDisplaySide;
+  @property({ type: Function }) toggleShowSCTranslation;
 
   static get styles() {
     return [styles];
@@ -33,6 +33,10 @@ export class DataViewSettingsContainer extends LitElement {
         <span class="button-font">Right</span>
       </vaadin-radio-button>
     </vaadin-radio-group>
+
+    <paper-toggle-button @checked-changed="${this.toggleShowSCTranslation}">
+      <span class="button-font">Show SuttaCentral Translation</span>
+    </paper-toggle-button>
   `;
   }
 }

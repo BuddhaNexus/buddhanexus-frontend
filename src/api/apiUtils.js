@@ -56,6 +56,14 @@ export const getFileTextAndParallelsUrl = (
   return `${API_URL}/files/${fileName}/textandparallels${q}`;
 };
 
+export const getFileTextUrl = (
+  fileName,
+  queryParams
+) => {
+  let q = stringifyQueryParams(queryParams);
+  return `${API_URL}/files/${fileName}/filetext${q}`;
+};
+
 export const getGraphDataUrl = (fileName, target_collection, queryParams) => {
   let q = stringifyQueryParams(queryParams);
   if (target_collection && target_collection.length > 0) {

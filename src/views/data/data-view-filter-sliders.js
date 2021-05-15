@@ -68,7 +68,11 @@ export default class DataViewFilterSliders extends LitElement {
   }
 
   shouldShowAll() {
-    return this.viewMode != 'multilang';
+    return this.viewMode != 'multilang' && this.viewMode != 'english';
+  }
+
+  shouldShowSimilarityScore() {
+    return this.viewMode != 'english';
   }
 
   render() {
@@ -77,6 +81,9 @@ export default class DataViewFilterSliders extends LitElement {
       <div class="data-view-filter-sliders">
         <div
           id="slider-container"
+          style="display: ${
+            this.shouldShowSimilarityScore() ? 'block' : 'none'
+          }"
           name="set 100% for highest similarity, 0% to see all">
           <div id="slider-label">Similarity Score:</div>
           <paper-slider
