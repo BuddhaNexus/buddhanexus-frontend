@@ -114,6 +114,7 @@ export class DataViewRouter extends LitElement {
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
           .headerVisibility="${this.headerVisibility}"
+          .transMethod="${this.transMethod}"
         ></english-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {

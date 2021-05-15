@@ -18,6 +18,7 @@ export class EnglishViewRouter extends LitElement {
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
   @property({ type: Boolean }) showSCEnglish;
+  @property({ type: String }) transMethod;
 
   render() {
     return html`
@@ -28,6 +29,7 @@ export class EnglishViewRouter extends LitElement {
         .showSegmentNumbers="${this.showSegmentNumbers}"
         .segmentDisplaySide="${this.segmentDisplaySide}"
         .headerVisibility="${this.headerVisibility}"
+        .transMethod="${this.transMethod}"
       ></english-view>
     `;
   }

@@ -14,12 +14,12 @@ export class EnglishView extends LitElement {
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
   @property({ type: Boolean }) showSCEnglish;
+  @property({ type: String }) transMethod;
 
   @property({ type: Array }) rightTextData;
   @property({ type: Array }) middleData;
   @property({ type: Array }) leftTextData;
   @property({ type: Boolean }) fetchLoading = false;
-
 
   firstUpdated() {
     if (this.fileName) {
@@ -30,6 +30,9 @@ export class EnglishView extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
+        this.fetchNewText();
+      }
+      if (propName === 'transMethod') {
         this.fetchNewText();
       }
       if (propName === 'folio') {
@@ -48,11 +51,12 @@ export class EnglishView extends LitElement {
       return;
     }
     this.fetchLoading = true;
-    const {textleft, textright} = await getFileText({
+    const { textleft, textright } = await getFileText({
       fileName: this.fileName,
       active_segment: this.activeSegment,
+      transmode: this.transMethod,
     });
-// This is a temporary hack as long as english segments are not loaded yet
+    // This is a temporary hack as long as english segments are not loaded yet
     this.leftTextData = textleft;
     this.rightTextData = textright;
     this.middleData = this.rightTextData;

@@ -97,8 +97,9 @@ class DataViewHeader extends LitElement {
 
   render() {
     const shouldShowTransliterationSlider =
-      (this.language === 'tib' || this.language === 'multi') &&
-      this.viewMode != 'graph';
+      ((this.language === 'tib' || this.language === 'multi') &&
+        this.viewMode != 'graph') ||
+      this.viewMode === 'english';
     //prettier-ignore
     return html`
       <div class="data-view-header">
@@ -135,10 +136,10 @@ class DataViewHeader extends LitElement {
                   label="Display text as:"
                   @value-changed="${this.toggleTransMode}">
                   <vaadin-radio-button value="wylie" checked>
-                    <span class="button-font">Wylie</span>
+                    <span class="button-font">${(this.language === 'tib') ? 'Wylie' : 'Roman'}</span>
                   </vaadin-radio-button>
                   <vaadin-radio-button value="uni">
-                    <span class="button-font">Unicode</span>
+                    <span class="button-font">${(this.language === 'tib') ? 'Unicode' : 'Devanagari'}</span>
                   </vaadin-radio-button>
                 </vaadin-radio-group>`
               : null}
