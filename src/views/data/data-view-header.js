@@ -97,7 +97,8 @@ class DataViewHeader extends LitElement {
 
   render() {
     const shouldShowTransliterationSlider =
-      this.language === 'tib' && this.viewMode != 'graph';
+      (this.language === 'tib' || this.language === 'multi') &&
+      this.viewMode != 'graph';
     //prettier-ignore
     return html`
       <div class="data-view-header">

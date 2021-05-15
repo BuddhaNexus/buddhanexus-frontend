@@ -33,6 +33,7 @@ export class TableViewMultiLang extends LitElement {
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
   @property({ type: Number }) endReached = false;
+  @property({ type: String }) transMethod;
 
   static get styles() {
     return [
@@ -169,6 +170,7 @@ export class TableViewMultiLang extends LitElement {
 
       <table-view-table
         .fileName="${this.fileName}"
+        .transMethod="${this.transMethod}"
         .probability="${this.probability}"
         .quoteLength="${this.quoteLength}"
         .cooccurance="${this.cooccurance}"

@@ -102,6 +102,7 @@ export class DataViewRouter extends LitElement {
           .score="${this.score}"
           .multiSearchString="${this.multiSearchString}"
           .multiLingualMode="${this.multiLingualMode}"
+          .transMethod="${this.transMethod}"
         ></table-view-multilang>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.ENGLISH) {
