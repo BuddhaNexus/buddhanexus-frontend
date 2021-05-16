@@ -2,7 +2,7 @@ import { customElement, html, LitElement, property } from 'lit-element';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './english-view-table.styles';
-import { LeftSegmentContainer } from './LeftSegment';
+import { EnglishSegmentContainer } from './EnglishSegment';
 
 @customElement('english-view-right')
 export class EnglishViewRight extends LitElement {
@@ -45,7 +45,7 @@ export class EnglishViewRight extends LitElement {
     }
     return html`
       ${this.rightTextData.map(({ segnr, segtext }) =>
-        LeftSegmentContainer({
+        EnglishSegmentContainer({
           segmentNr: segnr,
           segText: segtext,
           activeSegment: newActiveSegment,

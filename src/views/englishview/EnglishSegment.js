@@ -1,19 +1,21 @@
 import { html } from 'lit-element';
 
-export function LeftSegmentContainer({
+export function EnglishSegmentContainer({
   segmentNr,
   segText,
   activeSegment,
   showSegmentNumbers,
   segmentDisplaySide,
-  onClick
+  onClick,
 }) {
   let highLightSegment = false;
-  if (activeSegment && (segmentNr.split('_')[0] === activeSegment.split('_')[0] || 
-                        segmentNr.split('_')[0] === activeSegment.substr(3,)))
-    {
-      highLightSegment = true;
-    }
+  if (
+    activeSegment &&
+    (segmentNr.split('_')[0] === activeSegment.split('_')[0] ||
+      segmentNr.split('_')[0] === activeSegment.substr(3))
+  ) {
+    highLightSegment = true;
+  }
   let segmentNrList = segmentNr.split(':')[1].split('_');
   const displayNumber =
     segmentNrList.length >= 2
@@ -24,8 +26,8 @@ export function LeftSegmentContainer({
       ? false
       : true;
 
-  let newSegText = PaliSegment(segText)
-  return LeftSegment({
+  let newSegText = PaliSegment(segText);
+  return EnglishSegment({
     segmentNr: segmentNr,
     segText: newSegText,
     highLightSegment,
@@ -33,14 +35,14 @@ export function LeftSegmentContainer({
     firstDisplayNumber,
     showSegmentNumbers,
     segmentDisplaySide,
-    onClick
+    onClick,
   });
 }
 
-const PaliSegment = (inputData) => {
+const PaliSegment = inputData => {
   if (!inputData) {
     return;
-  };
+  }
   const strippedSegment = inputData.replace(/\//g, '|').trim();
   return strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g)
     ? html`
@@ -55,7 +57,7 @@ const PaliSegment = (inputData) => {
       `;
 };
 
-export function LeftSegment({
+export function EnglishSegment({
   segmentNr,
   segText,
   highLightSegment,
@@ -63,7 +65,7 @@ export function LeftSegment({
   firstDisplayNumber,
   showSegmentNumbers,
   segmentDisplaySide,
-  onClick
+  onClick,
 }) {
   // prettier-ignore
   return html`<span class="segment ${highLightSegment ? 'segment--highlighted' : ''}"
