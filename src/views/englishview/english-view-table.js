@@ -19,6 +19,7 @@ export default class EnglishViewTable extends LitElement {
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
   @property({ type: String }) transMethod;
+  @property({ type: Function }) handleSegmentClick;
 
   static get styles() {
     return [
@@ -30,11 +31,6 @@ export default class EnglishViewTable extends LitElement {
         }
       `,
     ];
-  }
-
-  handleSegmentClick(e) {
-    this.activeSegment = e.target.id;
-    console.log(e.target.class)
   }
 
   renderMiddleData() {
@@ -104,4 +100,3 @@ export default class EnglishViewTable extends LitElement {
     `;
   }
 }
-

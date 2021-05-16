@@ -44,19 +44,21 @@ export class EnglishView extends LitElement {
       return;
     }
     this.fetchLoading = true;
-    const { textleft, textright } = await getFileText({
+    const { textleft, textmiddle, textright } = await getFileText({
       fileName: this.fileName,
       active_segment: this.activeSegment,
       transmode: this.transMethod,
     });
-    // This is a temporary hack as long as english segments are not loaded yet
     this.leftTextData = textleft;
+    this.middleData = textmiddle;
     this.rightTextData = textright;
-    this.middleData = this.rightTextData;
-    // this.fetchError = error;
     this.fetchLoading = false;
     this.addedSegmentObservers = false;
   }
+
+  handleSegmentClick = e => {
+    this.activeSegment = e.target.id;
+  };
 
   render() {
     return html`
@@ -82,8 +84,8 @@ export class EnglishView extends LitElement {
         .segmentDisplaySide="${this.segmentDisplaySide}"
         .headerVisibility="${this.headerVisibility}"
         .transMethod="${this.transMethod}"
-      >
-      </english-view-table>
+        .handleSegmentClick="${this.handleSegmentClick}"
+      ></english-view-table>
     `;
   }
 }
