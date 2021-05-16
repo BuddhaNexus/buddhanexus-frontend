@@ -10,7 +10,7 @@ import sharedDataViewStyles from '../data/data-view-shared.styles';
 function EnglishViewHeaderRightColumn({
   isInfoDialogRightOpen,
   setIsInfoDialogRightOpen,
-  openDialogRight
+  openDialogRight,
 }) {
   //prettier-ignore
   return html`
@@ -22,7 +22,8 @@ function EnglishViewHeaderRightColumn({
         @opened-changed="${setIsInfoDialogRightOpen}">
         <template>
           <div>
-            Right side SC English.
+            <p>The human translations in the right column are sourced from SuttaCentral.net Bilara translation system.</p>
+            <p>Translators are Bhikkhu Sujato (Suttas) and Bhikkhu Bhahmali (Vinaya).</p>
           </div>
         </template>
       </vaadin-dialog>
@@ -30,16 +31,15 @@ function EnglishViewHeaderRightColumn({
       <vaadin-button class="info-button" @click="${openDialogRight}">
         <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
       </vaadin-button>
-      <div style="display: inline-flex">SuttaCentral Translation</div>
+      <div style="display: inline-flex">Human Translation</div>
     </div>
   `;
 }
 
 function EnglishViewHeaderLeftColumn({
-  handleScrollUpButtonClicked,
   isInfoDialogLeftOpen,
   setIsInfoDialogLeftOpen,
-  openDialogLeft
+  openDialogLeft,
 }) {
   //prettier-ignore
   return html`
@@ -51,7 +51,13 @@ function EnglishViewHeaderLeftColumn({
       <template>
         <div>
           <p>
-            Modal content for English View.
+            This view shows the original Pali text in the left column and the english translations.
+            The right column shows the text by our artificial intelligence neural network computer.
+          </p><p>
+            In the settings menu there is an option to show the human english translation by
+            Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya) if these exist.
+          </p><p>
+            Click on any segment to show the matching segment in the other language.
           </p>
         </div>
       </template>
@@ -59,17 +65,6 @@ function EnglishViewHeaderLeftColumn({
 
     <vaadin-button class="info-button" @click="${openDialogLeft}">
       <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
-    </vaadin-button>
-
-    <vaadin-button
-      class="up-button"
-      title="Go back to the beginning of the Inquiry Text"
-      @click="${handleScrollUpButtonClicked}">
-      <iron-icon
-        class="swap-icon"
-        icon="vaadin:arrow-circle-up-o"
-        slot="prefix">
-      </iron-icon>
     </vaadin-button>
   `;
 }
@@ -93,17 +88,7 @@ export class EnglishViewHeader extends LitElement {
           align-items: baseline;
           justify-content: space-between;
           text-transform: none;
-        }
-
-        .up-button {
-          padding: 0;
-          left: 10px;
-          display: inline-flex;
-          min-width: 24px;
-          height: 24px;
-          margin-left: 12px;
-          background-color: transparent;
-          cursor: pointer;
+          font-family: var(--roboto-font-stack);
         }
 
         .info-icon {
@@ -123,22 +108,6 @@ export class EnglishViewHeader extends LitElement {
           height: 32px;
         }
 
-        .swap-icon {
-          color: var(--bn-dark-red);
-          margin: 0;
-        }
-
-        .swap-button {
-          padding: 0;
-          right: 16px;
-          display: inline-flex;
-          min-width: 24px;
-          height: 24px;
-          totmargin-left: 12px;
-          background-color: transparent;
-          cursor: pointer;
-        }
-
         @media screen and (max-width: 900px) {
           #english-view-header {
             padding-bottom: 8px;
@@ -146,12 +115,6 @@ export class EnglishViewHeader extends LitElement {
         }
       `,
     ];
-  }
-
-  handleScrollUpButtonClicked() {
-    this.dispatchEvent(
-      new CustomEvent('reset-left-text', { bubbles: true, composed: true })
-    );
   }
 
   openDialogRight = () => (this.isInfoDialogRightOpen = true);
@@ -170,7 +133,6 @@ export class EnglishViewHeader extends LitElement {
           <span class="text-name-label">Inquiry Text: </span>
           <formatted-filename .filename="${this.fileName}" .rightside="${'left'}"></formatted-filename>
           ${EnglishViewHeaderLeftColumn({
-            handleScrollUpButtonClicked: this.handleScrollUpButtonClicked,
             isInfoDialogLeftOpen: this.isInfoDialogLeftOpen,
             setIsInfoDialogLeftOpen: this.setIsInfoDialogLeftOpen,
             openDialogLeft: this.openDialogLeft
@@ -178,7 +140,7 @@ export class EnglishViewHeader extends LitElement {
           <source-link .filename="${this.fileName}"></source-link>
         </div>
 
-        <div>Artifical Intelligence English</div>
+        <div>Artificial Intelligence Translation</div>
 
         ${this.showSCEnglish
           ? EnglishViewHeaderRightColumn({

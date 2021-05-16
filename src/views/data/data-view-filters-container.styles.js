@@ -8,6 +8,7 @@ export default css`
     flex-wrap: wrap;
     flex-direction: column;
     padding-bottom: 36px;
+    font-family: var(--roboto-font-stack);
   }
 
   vaadin-radio-button,

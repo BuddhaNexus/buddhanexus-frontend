@@ -67,6 +67,7 @@ class DataViewSubheader extends LitElement {
           display: flex;
           align-items: baseline;
           font-weight: bold;
+          font-family: var(--roboto-font-stack);
         }
 
         .info-button {

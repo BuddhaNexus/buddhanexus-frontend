@@ -5,7 +5,6 @@ import sharedStyles from '../data/data-view-shared.styles';
 
 import '../utility/formatted-segment';
 
-
 @customElement('table-view-table-header')
 class TableViewTableHeader extends LitElement {
   @property({ type: String }) fileName;
@@ -16,6 +15,7 @@ class TableViewTableHeader extends LitElement {
         .table-header-container {
           display: flex;
           flex: 1;
+          font-family: var(--roboto-font-stack);
         }
 
         .segment-header {

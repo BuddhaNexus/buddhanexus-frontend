@@ -9,6 +9,7 @@ import styles from './data-view-settings-container.styles';
 @customElement('data-view-settings-container')
 export class DataViewSettingsContainer extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: String }) viewMode;
   @property({ type: Function }) toggleShowSegmentNumbers;
   @property({ type: Function }) toggleSegmentDisplaySide;
   @property({ type: Function }) toggleShowSCTranslation;
@@ -18,7 +19,11 @@ export class DataViewSettingsContainer extends LitElement {
   }
 
   disableSC() {
-    return this.fileName.match('^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt)') ? "display: none" : "";
+    return this.fileName.match(
+      '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt)'
+    ) || this.viewMode !== 'english'
+      ? 'display: none'
+      : '';
   }
 
   render() {

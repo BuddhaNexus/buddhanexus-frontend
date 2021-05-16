@@ -18,69 +18,8 @@ export default css`
     width: 10px;
   }
 
-  #english-view-search-header {
-    padding-bottom: 16px;
-    padding-top: 16px;
-    font-weight: bold;
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    text-transform: none;
-  }
-
-  .result-segment-nr {
-    color: var(--color-text-secondary);
-    font-size: 14px;
-    white-space: nowrap;
-    text-decoration: none;
-  }
-
-  .result-segment-list__item-header {
-    color: var(--color-text-secondary);
-    font-size: 14px;
-  }
-
-  .result-text {
-    margin-bottom: 0;
-    cursor: pointer;
-    margin-top: 8px;
-  }
-
-  #return-link {
-    display: flex;
-    cursor: pointer;
-    color: var(--content-link-color);
-  }
-
-  #return-link:hover {
-    color: var(--hover-link-color);
-  }
-
-  #return-link-arrow {
-    width: 20px;
-    padding-right: 8px;
-  }
-
-  .chinese-verse {
-    text-align: right;
-    max-width: 500px;
-  }
-
-  .result-segment {
-    background-color: var(--color-light-grey);
-    margin-top: 0;
-    margin-bottom: 8px;
-    padding: 10px;
-  }
-
-  .segment--highlighted,
-  .segment--selected {
+  .segment--highlighted {
     background-color: var(--color-background-light);
-  }
-
-  .highlight-parallel {
-    color: #0031ca;
-    cursor: pointer;
   }
 
   .segment {
@@ -88,10 +27,6 @@ export default css`
     cursor: pointer;
     font-size: 16px;
     line-height: 24px;
-  }
-
-  .source-segment {
-    font-weight: 550;
   }
 
   .segment-number[show-number='false'] {
@@ -118,8 +53,6 @@ export default css`
   }
 
   .left-text-column {
-    // TODO: uncomment if there's issues with scrolling
-    // overscroll-behavior: none;
     overflow-wrap: break-word;
     font-size: 1.1em;
     line-height: 1.5em;

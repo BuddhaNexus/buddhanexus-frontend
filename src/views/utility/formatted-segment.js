@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement, property, css } from 'lit-element';
 
 import { getDisplayName } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
@@ -19,7 +19,14 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) fetchError;
 
   static get styles() {
-    return [styles];
+    return [
+      styles,
+      css`
+        .formatted-segment {
+          font-family: var(--roboto-font-stack);
+        }
+      `,
+    ];
   }
 
   firstUpdated() {
@@ -84,7 +91,7 @@ export class FormattedSegment extends LitElement {
       this.filename = this.filename.replace(/_[0-9]+/, '');
     }
     const { displayData, error } = await getDisplayName({
-      segmentnr: this.filename
+      segmentnr: this.filename,
     });
     this.displayName = displayData ? displayData[0] : '';
     if (this.lang === 'skt' || this.lang === 'tib') {

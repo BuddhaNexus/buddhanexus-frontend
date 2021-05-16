@@ -22,7 +22,7 @@ export default css`
   .button-font {
     color: var(--color-text-secondary);
     font-size: 14px;
-    font-family: var(--system-font-stack);
+    font-family: var(--roboto-font-stack);
     font-weight: 400;
   }
 

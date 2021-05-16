@@ -329,7 +329,9 @@ export class DataView extends LitElement {
   };
 
   displaySettings = () => {
-    return this.viewMode == 'text' || this.viewMode == 'english' ? 'display: inline-flex' : 'display: none';
+    return this.viewMode == 'text' || this.viewMode == 'english'
+      ? 'display: inline-flex'
+      : 'display: none';
   };
 
   shouldShowTotalNumbers() {
@@ -428,6 +430,7 @@ export class DataView extends LitElement {
             lang="${this.language}"
             view="${this.viewMode}"
             .fileName="${this.fileName}"
+            .viewMode="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
             .toggleShowSCTranslation="${this.toggleShowSCTranslation}">
