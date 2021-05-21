@@ -22,7 +22,7 @@ export class SearchView extends LitElement {
         h1 {
           font-size: 1.6em;
           font-weight: bold;
-          font-family: var(--roboto-font-stack);
+          font-family: var(--system-font-stack);
         }
 
         .search-view-list {

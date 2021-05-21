@@ -3,18 +3,18 @@ import { css } from 'lit-element';
 export default css`
   [lang='en'] {
     text-transform: none;
-    font-family: var(--system-font-stack);
+    font-family: var(--lato-font-stack);
   }
 
   [lang='tib'] {
-    font-family: var(--system-font-stack);
+    font-family: var(--lato-font-stack);
   }
 
   [lang='tib'],
   [lang='skt'],
   [lang='pli'],
   [lang='en'] {
-    font-family: var(--system-font-stack);
+    font-family: var(--lato-font-stack);
     line-height: 1.4em;
     font-size: 1em;
   }
@@ -55,6 +55,7 @@ export default css`
     padding-right: 12px;
     color: var(--color-text-secondary);
     text-transform: none;
+    font-family: var(--system-font-stack);
   }
 
   .trans-message {
@@ -62,6 +63,7 @@ export default css`
     padding-left: 12px;
     color: var(--bn-dark-red);
     text-transform: uppercase;
+    font-family: var(--system-font-stack);
   }
 
   .selected-parallel {

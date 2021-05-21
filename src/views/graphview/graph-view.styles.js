@@ -7,7 +7,6 @@ export default css`
     flex: 1;
     overflow: hidden;
     margin-bottom: 2.25em;
-    font-family: var(--roboto-font-stack);
   }
 
   #histogram-title {

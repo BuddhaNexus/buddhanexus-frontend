@@ -26,7 +26,7 @@ export default css`
 
   .filename {
     font-size: 14px;
-    font-family: var(--roboto-font-stack);
+    font-family: var(--system-font-stack);
     cursor: pointer;
   }
 

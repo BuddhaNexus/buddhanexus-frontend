@@ -17,7 +17,6 @@ export class SideSheet extends LitElement {
           height: inherit;
           border-left: 2px var(--color-light-grey) solid;
           background-color: white;
-          font-family: var(--roboto-font-stack);
         }
 
         .side-sheet__content {

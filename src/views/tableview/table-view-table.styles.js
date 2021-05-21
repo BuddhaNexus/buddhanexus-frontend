@@ -35,7 +35,6 @@ export default css`
     flex-wrap: wrap;
     align-items: center;
     color: var(--color-text-secondary);
-    font-family: var(--roboto-font-stack);
   }
 
   .table-view-table__segment-id {

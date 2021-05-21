@@ -14,7 +14,6 @@ export default css`
     font-size: 14px;
     margin-top: 8px;
     min-height: 300px;
-    font-family: var(--roboto-font-stack);
   }
 
   .table-wrapper.no-header {

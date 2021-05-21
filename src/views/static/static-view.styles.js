@@ -24,6 +24,7 @@ export default css`
     background-image: url('src/assets/img/background_welcome.jpg');
     background-size: cover;
     background-attachment: fixed;
+    font-family: var(--lato-font-stack);
   }
 
   .main-border {

@@ -130,7 +130,6 @@ export class TextViewHeader extends LitElement {
           align-items: baseline;
           justify-content: space-between;
           text-transform: none;
-          font-family: var(--roboto-font-stack);
         }
 
         .up-button {

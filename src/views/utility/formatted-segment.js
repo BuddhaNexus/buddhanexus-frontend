@@ -23,7 +23,7 @@ export class FormattedSegment extends LitElement {
       styles,
       css`
         .formatted-segment {
-          font-family: var(--roboto-font-stack);
+          font-family: var(--system-font-stack);
         }
       `,
     ];

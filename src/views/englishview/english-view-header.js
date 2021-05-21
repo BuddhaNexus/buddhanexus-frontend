@@ -88,7 +88,6 @@ export class EnglishViewHeader extends LitElement {
           align-items: baseline;
           justify-content: space-between;
           text-transform: none;
-          font-family: var(--roboto-font-stack);
         }
 
         .info-icon {

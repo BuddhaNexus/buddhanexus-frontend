@@ -15,7 +15,6 @@ class TableViewTableHeader extends LitElement {
         .table-header-container {
           display: flex;
           flex: 1;
-          font-family: var(--roboto-font-stack);
         }
 
         .segment-header {
