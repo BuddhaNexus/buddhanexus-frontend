@@ -11,7 +11,7 @@ export default css`
     background-color: var(--material-nav-left-color);
     padding: 14px 40px;
     border-top: 8px solid #221f19;
-    font-family: var(--lato-font-stack);
+    font-family: var(--linden-font-stack);
   }
 
   .main-content h1 {

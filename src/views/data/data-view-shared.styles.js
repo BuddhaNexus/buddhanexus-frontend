@@ -12,11 +12,14 @@ export default css`
 
   [lang='tib'],
   [lang='skt'],
-  [lang='pli'],
-  [lang='en'] {
+  [lang='pli'] {
     font-family: var(--lato-font-stack);
     line-height: 1.4em;
     font-size: 1em;
+  }
+
+  [lang='en'] {
+    font-family: var(--linden-font-stack);
   }
 
   [lang='chn'] {
