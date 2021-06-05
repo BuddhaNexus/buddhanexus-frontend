@@ -53,13 +53,12 @@ const TibetanSegmentUnicode = segment => {
     // don't process folio numbers
     return strippedSegment;
   } else {
+    // prettier-ignore
     return !strippedSegment.match(/\/\/|[.?!:;]/g)
-      ? fromWylie(strippedSegment)
+      ? html`${fromWylie(strippedSegment)}`
       : !strippedSegment.includes('*')
-      ? // prettier-ignore
-        html`${fromWylie(strippedSegment)}<br />`
-      : // prettier-ignore
-        html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
+      ? html`${fromWylie(strippedSegment)}<br />`
+      : html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
   }
 };
 
