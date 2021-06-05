@@ -8,7 +8,12 @@ export default function SearchViewListItem({
   SegmentText,
   distance,
   rootUrl,
+  multiResults,
 }) {
+  let multiLangAvailable = false;
+  if (multiResults.length > 0) {
+    multiLangAvailable = true;
+  }
   //prettier-ignore
   return html`
     <div class="search-view-list__item">
@@ -19,7 +24,10 @@ export default function SearchViewListItem({
               .segmentnr="${[SegmentId,]}"
               .lang="${getLanguageFromFilename(SegmentId)}">
             </formatted-segment>
-          </span><span>Edit distance: ${distance}</span>
+          </span><span>Edit distance: ${distance} </span> 
+          <span class="trans-message" style="display: ${
+              multiLangAvailable ? 'block' : 'none'
+            }"> multiligngual data vailable</span>
           <div class="search-view-list__parallel-details">
             <span class="search-view-list__parallel-details-badge">
           </div>
