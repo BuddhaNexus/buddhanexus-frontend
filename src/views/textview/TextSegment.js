@@ -54,7 +54,9 @@ const TibetanSegmentUnicode = segment => {
     return strippedSegment;
   } else {
     return !strippedSegment.match(/\/\/|[.?!:;]/g)
-      ? fromWylie(strippedSegment)
+      ? html`
+          ${fromWylie(strippedSegment)}
+        `
       : !strippedSegment.includes('*')
       ? // prettier-ignore
         html`${fromWylie(strippedSegment)}<br />`
@@ -98,19 +100,26 @@ const SanskritSegment = (inputData, segment) => {
 function TextSegmentWord({
   selected,
   currentColor,
+  transMethod,
   highlightColor,
   position,
   onClick,
   cleanedWord,
 }) {
+  let fontStyle = '';
+  if (transMethod == 'uni') {
+    fontStyle = 'font-size: 110%; line-height: 110%';
+  }
   if (!currentColor || currentColor === 0) {
-    return cleanedWord;
+    return html`
+      <span style="${fontStyle}">${cleanedWord}</span>
+    `;
   }
 
   // prettier-ignore
   return html`<span 
               class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}"
-              style="color:${highlightColor}"
+              style="color:${highlightColor}; ${fontStyle}"
               position="${position}"
               @click="${onClick}">${cleanedWord}</span>`;
 }
@@ -143,6 +152,7 @@ function TextSegmentWords(
     const renderedWord = TextSegmentWord({
       selected,
       currentColor,
+      transMethod,
       position,
       onClick,
       cleanedWord: getCleanedWord(lang, segmentData, i, transMethod),
@@ -185,7 +195,11 @@ export function TextSegment({
         break;
       default:
         if (transMethod == 'uni') {
-          outputText = TibetanSegmentUnicode(inputData);
+          outputText = html`
+            <span style="font-size: 110%; line-height: 110%"
+              >${TibetanSegmentUnicode(inputData)}</span
+            >
+          `;
         } else {
           outputText = TibetanSegmentWylie(inputData);
         }
