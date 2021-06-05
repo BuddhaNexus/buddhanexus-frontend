@@ -14,7 +14,13 @@ function getCleanedWord(lang, splitWords, i, transMethod) {
   let cleanedWord = '';
   if (lang === LANGUAGE_CODES.TIBETAN) {
     if (transMethod == 'uni') {
-      cleanedWord = TibetanSegmentUnicode(splitWords[i]);
+      let word = splitWords[i];
+      if (i < splitWords.length - 1) {
+        if (!splitWords[i + 1].includes('/') && !word.endsWith('ng')) {
+          word = word + ' ';
+        }
+      }
+      cleanedWord = TibetanSegmentUnicode(word);
     } else {
       cleanedWord = TibetanSegmentWylie(splitWords[i]);
     }
@@ -54,9 +60,7 @@ const TibetanSegmentUnicode = segment => {
     return strippedSegment;
   } else {
     return !strippedSegment.match(/\/\/|[.?!:;]/g)
-      ? html`
-          ${fromWylie(strippedSegment)}
-        `
+      ? fromWylie(strippedSegment)
       : !strippedSegment.includes('*')
       ? // prettier-ignore
         html`${fromWylie(strippedSegment)}<br />`
@@ -111,9 +115,8 @@ function TextSegmentWord({
     fontStyle = 'font-size: 110%; line-height: 110%';
   }
   if (!currentColor || currentColor === 0) {
-    return html`
-      <span style="${fontStyle}">${cleanedWord}</span>
-    `;
+    // prettier-ignore
+    return html`<span style="${fontStyle}">${cleanedWord}</span>`;
   }
 
   // prettier-ignore
