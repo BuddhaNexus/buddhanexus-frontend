@@ -28,7 +28,7 @@ export default function SearchViewListItem({
           </span><span>Edit distance: ${distance} </span> 
           <span class="trans-message" style="display: ${
             multiLangAvailable ? 'block' : 'none'
-          }"> multiligngual data vailable</span>
+          }"> multilingual data vailable</span>
         <div class="search-view-list__parallel-details">
             <span class="search-view-list__parallel-details-badge">
           </div>
