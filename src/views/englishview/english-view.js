@@ -21,12 +21,6 @@ export class EnglishView extends LitElement {
   @property({ type: Array }) leftTextData;
   @property({ type: Boolean }) fetchLoading = false;
 
-  firstUpdated() {
-    if (this.fileName) {
-      this.fetchNewText();
-    }
-  }
-
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (['fileName', 'transMethod'].includes(propName)) {
@@ -34,7 +28,6 @@ export class EnglishView extends LitElement {
       }
       if (propName === 'folio') {
         this.activeSegment = this.folio.segment_nr;
-        this.fetchNewText();
       }
     });
   }
@@ -46,7 +39,6 @@ export class EnglishView extends LitElement {
     this.fetchLoading = true;
     const { textleft, textmiddle, textright } = await getFileText({
       fileName: this.fileName,
-      active_segment: this.activeSegment,
       transmode: this.transMethod,
     });
     this.leftTextData = textleft;

@@ -20,16 +20,16 @@ export class EnglishViewMiddle extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (
-        propName === 'middleData' &&
+        ['middleData', 'activeSegment'].includes(propName) &&
         this.activeSegment &&
         this.activeSegment !== 'none'
       ) {
-        let allSegments = this.shadowRoot.querySelectorAll('.segment');
-        allSegments.forEach(el => {
-          if (el.id === 'ai-' + this.activeSegment.split('_')[0]) {
-            el.scrollIntoView();
-          }
-        });
+        let allSegments = this.shadowRoot.querySelectorAll(
+          '.segment--highlighted'
+        );
+        if (allSegments[0]) {
+          allSegments[0].scrollIntoView();
+        }
       }
     });
   }
