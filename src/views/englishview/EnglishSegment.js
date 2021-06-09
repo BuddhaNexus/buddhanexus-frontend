@@ -46,11 +46,11 @@ const PaliSegment = inputData => {
   const strippedSegment = inputData.replace(/\//g, '|').trim();
   return strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g)
     ? html`
-        <br />${strippedSegment}<br />
+        <h3>${strippedSegment}</h3>
       `
     : strippedSegment.match(/[.?|)'vagga''vatthu''sutta']$/g)
     ? html`
-        ${strippedSegment}<br />
+        ${strippedSegment}</p><p>
       `
     : html`
         ${strippedSegment}
