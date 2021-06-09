@@ -11,17 +11,15 @@ export default css`
     background-color: var(--material-nav-left-color);
     padding: 14px 40px;
     border-top: 8px solid #221f19;
-    font-family: var(--linden-font-stack);
+    font-family: var(--source-serif-font-stack);
   }
 
   .main-content h1 {
     font-size: 1.6em;
-    font-weight: bold;
   }
 
   .main-content h2 {
     font-size: 1.4em;
-    font-weight: bold;
   }
 
   .main-content h3 {

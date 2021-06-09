@@ -3,23 +3,21 @@ import { css } from 'lit-element';
 export default css`
   [lang='en'] {
     text-transform: none;
-    font-family: var(--lato-font-stack);
+    font-family: var(--source-sans-font-stack);
   }
 
   [lang='tib'] {
-    font-family: var(--lato-font-stack);
+    font-family: var(--source-sans-font-stack);
   }
 
   [lang='tib'],
   [lang='skt'],
   [lang='pli'] {
-    font-family: var(--lato-font-stack);
-    line-height: 1.4em;
-    font-size: 1em;
+    font-family: var(--source-sans-font-stack);
   }
 
   [lang='en'] {
-    font-family: var(--linden-font-stack);
+    font-family: var(--source-serif-font-stack);
   }
 
   [lang='chn'] {

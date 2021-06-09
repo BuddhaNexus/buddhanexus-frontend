@@ -24,7 +24,7 @@ export default css`
     background-image: url('src/assets/img/background_welcome.jpg');
     background-size: cover;
     background-attachment: fixed;
-    font-family: var(--linden-font-stack);
+    font-family: var(--source-serif-font-stack);
   }
 
   .main-border {
@@ -41,12 +41,10 @@ export default css`
 
   .main-content h1 {
     font-size: 1.6em;
-    font-weight: bold;
   }
 
   .main-content h2 {
     font-size: 1.4em;
-    font-weight: bold;
   }
 
   .main-content h3 {
