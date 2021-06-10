@@ -1,4 +1,4 @@
-import { customElement, html, LitElement, property } from 'lit-element';
+import { customElement, html, LitElement, property, css } from 'lit-element';
 
 import { getDisplayName } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
@@ -19,7 +19,14 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) fetchError;
 
   static get styles() {
-    return [styles];
+    return [
+      styles,
+      css`
+        .formatted-segment {
+          font-family: var(--system-font-stack);
+        }
+      `,
+    ];
   }
 
   firstUpdated() {
@@ -84,11 +91,15 @@ export class FormattedSegment extends LitElement {
       this.filename = this.filename.replace(/_[0-9]+/, '');
     }
     const { displayData, error } = await getDisplayName({
-      segmentnr: this.filename
+      segmentnr: this.filename,
     });
     this.displayName = displayData ? displayData[0] : '';
     if (this.lang === 'skt' || this.lang === 'tib') {
       this.displayLink = displayData ? displayData[2] : '';
+      // The below is only a tryout to redirect segments to SC as fallback option
+      if (displayData && displayData[3]) {
+        this.displayLink = displayData[3];
+      }
     }
     if (this.lang === 'chn' || this.lang === 'pli') {
       this.displayLink = this.getLinkForSegmentNumbers(
@@ -142,8 +153,9 @@ export class FormattedSegment extends LitElement {
         ? `https://www.tipitaka.org/romn/`
         : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
     } else if (language === 'chn') {
+      const cleanedSegmentNumber = segmentnr.split(':')[1].split('–')[0];
       const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
-      linkText = `http://tripitaka.cbeta.org/${cleanedSegment}`;
+      linkText = `http://tripitaka.cbeta.org/${cleanedSegment}#${cleanedSegmentNumber}`;
     }
     return linkText;
   }
