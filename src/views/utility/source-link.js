@@ -98,6 +98,7 @@ export class FormattedFileName extends LitElement {
     });
     switch (this.lang) {
       case LANGUAGE_CODES.TIBETAN:
+        this.sourceLink = link[0];
         this.sourceLink2 = link[0].replace(
           'http://purl.bdrc.io/resource/WA0RK',
           'http://purl.rkts.eu/resource/WKT'
