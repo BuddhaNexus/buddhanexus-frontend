@@ -151,7 +151,6 @@ export class TableViewMultiLang extends LitElement {
   setPageNumber = pageNumber => (this.pageNumber = pageNumber);
 
   render() {
-    console.log(this.lang);
     return html`
       ${this.fetchLoading
         ? html`
