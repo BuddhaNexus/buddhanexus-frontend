@@ -70,6 +70,9 @@ export class FormattedFileName extends LitElement {
         if (this.filename.match(/[X0-9]n[0-9]/)) {
           this.buttonText = SOURCE_BUTTONS.DSBC[1];
           this.imgLink = SOURCE_BUTTONS.DSBC[0];
+        } else if (this.filename.match(/_sc/)) {
+          this.buttonText = SOURCE_BUTTONS.SC[1];
+          this.imgLink = SOURCE_BUTTONS.SC[0];
         } else {
           this.buttonText = SOURCE_BUTTONS.GRETIL[1];
           this.imgLink = SOURCE_BUTTONS.GRETIL[0];
