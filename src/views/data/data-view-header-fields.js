@@ -158,7 +158,7 @@ export class DataViewHeaderFields extends LitElement {
         return 'Find Chinese texts...';
       case LANGUAGE_CODES.SANSKRIT:
         return 'Find Sanskrit texts...';
-      case LANGUAGE_CODES.MULTILANG:
+      case LANGUAGE_CODES.MULTILING:
         return 'Find Multilingual texts...';
     }
   };
@@ -209,7 +209,7 @@ export class DataViewHeaderFields extends LitElement {
   }
 
   shouldShowMultiLangMessage() {
-    if (this.viewMode === DATA_VIEW_MODES.MULTILANG && this.score > 0) {
+    if (this.viewMode === DATA_VIEW_MODES.MULTILING && this.score > 0) {
       return true;
     }
     return false;
@@ -222,7 +222,7 @@ export class DataViewHeaderFields extends LitElement {
       this.fileName;
     const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
     const shouldShowMultiLangSearchBox =
-      this.viewMode === DATA_VIEW_MODES.MULTILANG;
+      this.viewMode === DATA_VIEW_MODES.MULTILING;
 
     //prettier-ignore
     return html`

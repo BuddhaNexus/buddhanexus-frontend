@@ -68,7 +68,7 @@ export default class DataViewFilterSliders extends LitElement {
   }
 
   shouldShowAll() {
-    return this.viewMode != 'multilang';
+    return this.viewMode != 'multiling';
   }
 
   render() {

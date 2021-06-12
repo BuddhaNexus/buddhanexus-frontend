@@ -18,7 +18,7 @@ export const DATA_VIEW_MODES = {
   TEXT_SEARCH: 'text-search',
   TABLE: 'table',
   NUMBERS: 'numbers',
-  MULTILANG: 'multilang',
+  MULTILING: 'multiling',
   GRAPH: 'graph',
   NEUTRAL: 'neutral',
 };
@@ -153,7 +153,7 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowFilterDropdown() {
     return (
       this.viewMode !== DATA_VIEW_MODES.GRAPH &&
-      this.viewMode !== DATA_VIEW_MODES.MULTILANG
+      this.viewMode !== DATA_VIEW_MODES.MULTILING
     );
   }
 
@@ -164,7 +164,7 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowMultiLingual() {
     return (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
-      this.viewMode === DATA_VIEW_MODES.MULTILANG
+      this.viewMode === DATA_VIEW_MODES.MULTILING
     );
   }
 
@@ -242,7 +242,7 @@ export class DataViewFiltersContainer extends LitElement {
   }
   render() {
     const shouldShowMultiLangFilters =
-      this.viewMode !== DATA_VIEW_MODES.MULTILANG;
+      this.viewMode !== DATA_VIEW_MODES.MULTILING;
     //prettier-ignore
     return html`
       ${shouldShowMultiLangFilters

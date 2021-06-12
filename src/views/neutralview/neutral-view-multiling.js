@@ -3,7 +3,7 @@ import { customElement, html, LitElement } from 'lit-element';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './neutral-view.styles';
 
-@customElement('neutral-view-multilang')
+@customElement('neutral-view-multiling')
 export class NeutralViewChinese extends LitElement {
   static get styles() {
     return [styles, sharedDataViewStyles];

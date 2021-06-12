@@ -101,10 +101,10 @@ export class DataView extends LitElement {
         this.score = DEFAULT_SCORES.CHINESE;
         this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
-      case LANGUAGE_CODES.MULTILANG:
-        this.score = DEFAULT_SCORES.MULTILANG;
-        this.minLength = MIN_LENGTHS.MULTILANG;
-        this.quoteLength = DEFAULT_LENGTHS.MULTILANG;
+      case LANGUAGE_CODES.MULTILING:
+        this.score = DEFAULT_SCORES.MULTILING;
+        this.minLength = MIN_LENGTHS.MULTILING;
+        this.quoteLength = DEFAULT_LENGTHS.MULTILING;
         break;
     }
   }
@@ -159,11 +159,11 @@ export class DataView extends LitElement {
   checkSelectedView() {
     if (this.viewMode === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
       let newUrl;
-      if (this.language != LANGUAGE_CODES.MULTILANG) {
+      if (this.language != LANGUAGE_CODES.MULTILING) {
         this.viewMode = DATA_VIEW_MODES.TEXT;
         newUrl = this.location.pathname.replace('neutral', 'text');
       } else {
-        this.viewMode = DATA_VIEW_MODES.MULTILANG;
+        this.viewMode = DATA_VIEW_MODES.MULTILING;
         newUrl = this.location.pathname.replace('neutral', 'multi');
       }
       this.location.pathname = newUrl;

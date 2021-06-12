@@ -33,7 +33,7 @@ export const getTableViewMultiUrl = (fileName, multi_lingual, queryParams) => {
       .join('');
   }
 
-  return `${API_URL}/files/${fileName}/multilang${q}`;
+  return `${API_URL}/files/${fileName}/multiling${q}`;
 };
 
 export const getFileTextAndParallelsUrl = (

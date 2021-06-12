@@ -18,7 +18,7 @@ function TableViewInfoModalContent() {
   `;
 }
 
-@customElement('table-view-multilang')
+@customElement('table-view-multiling')
 export class TableViewMultiLang extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) folio;
