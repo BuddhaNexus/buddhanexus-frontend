@@ -80,16 +80,22 @@ export class GuidelinesView extends LitElement {
                 <iron-icon class="info-icon" icon="vaadin:vaadin:arrow-circle-up-o"></iron-icon> symbol, 
                 to display the Inquiry Text in a new tab, click the 
                 <iron-icon class="info-icon" icon="vaadin:plus-circle-o"></iron-icon> symbol. 
-                Upon selecting (by clicking) any of the colored positions, the matches found in various Hit Texts for 
-                that position will be displayed in a new column. By clicking on any of these matches the respective Hit Text 
-                will be displayed in yet another column, with the match in question highlighted. All matches with the Inquiry Text 
+                Upon selecting (by clicking) any of the coloured positions, the matches found in various Hit Texts for that
+                position will be displayed in a new column. Whenever multilingual alignment (Sanskrit &lt;&gt; Tibetan) is available
+                for the Inquiry Text, the multilingual match would be displayed first, followed by the various monolingual 
+                matches found in other texts. (An option for disabling the multilingual match display is available in the filter.)
+                By clicking on any of these matches the respective Hit Text will be displayed in yet another column, with the 
+                match in question highlighted. All matches with the Inquiry Text 
                 found in the displayed Hit Text are coloured. To display the Hit Text in a new tab, click the + symbol.</li>
                 <li><b>Table View</b>: Displays a table of the matches found for the current Inquiry Text. The results can be sorted 
                 in three different ways: (1) by their position in the Inquiry Text, (2) by their position in the Hit Text(s), and (3) 
                 by the length of the match in the Hit Text. </li>
-                <li><b>Numbers View:</b>: Displays a table with the segment numbers of the matches found for the current Inquiry Text. 
+                <li><b>Numbers View</b>: Displays a table with the segment numbers of the matches found for the current Inquiry Text. 
                 This view mode is only available for Pāli and Chinese texts, where the segment numbers represent the PTS and Taisho numbers,
                 respectively.</li>
+                <li><b>Multilingual View</b>: Displays automatically generated sentence alignment between a given Sanskrit text 
+                and its Tibetan translation in a table form. This view mode is available only under the category “Multilingual” and
+                for those Sanskrit and Tibetan texts where multilingual matches exist.</li>
                 <li><b>Graph View</b>: Displays various graphs visualizing the (approximate) matches found for the Inquiry Text. 
                 The pie graph displays the distribution of the (approximate) matches according to the collection’s sections. 
                 The histogram shows the distribution of the top files that have matches with the Inquiry Text based on the 
