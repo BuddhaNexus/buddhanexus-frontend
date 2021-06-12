@@ -77,8 +77,6 @@ export class NeutralViewChinese extends LitElement {
               filtered out the similarity setting in the filter menu should be
               decrease as desired.
             </p>
-
-            <p></p>
             <p>
               In addition to the display of the multilingual matches in a
               tabular form, all other view modes offered in the pertinent

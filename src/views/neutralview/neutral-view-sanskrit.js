@@ -34,8 +34,6 @@ export class NeutralViewSanskrit extends LitElement {
                 >SC</a
               >).
             </p>
-
-            <p></p>
             <p>
               Due to the huge amount of material, some texts from the original
               databases have been omitted (cumulative pāda indexes and duplicate
