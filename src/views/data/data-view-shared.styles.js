@@ -27,6 +27,7 @@ export default css`
   [lang='tib'][trans='uni'] {
     font-family: var(--tibetan-font-stack);
     -webkit-font-smoothing: antialiased;
+    font-size: 1.1em;
   }
 
   .segment-link {
