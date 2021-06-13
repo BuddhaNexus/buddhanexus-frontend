@@ -10,9 +10,9 @@ export default function SearchViewListItem({
   rootUrl,
   multiResults,
 }) {
-  let multiLangAvailable = false;
+  let multiLingAvailable = false;
   if (multiResults.length > 0) {
-    multiLangAvailable = true;
+    multiLingAvailable = true;
   }
   //prettier-ignore
   return html`
@@ -26,7 +26,7 @@ export default function SearchViewListItem({
             </formatted-segment>
           </span><span>Edit distance: ${distance} </span> 
           <span class="trans-message" style="display: ${
-              multiLangAvailable ? 'block' : 'none'
+              multiLingAvailable ? 'block' : 'none'
             }"> multilingual data vailable</span>
           <div class="search-view-list__parallel-details">
             <span class="search-view-list__parallel-details-badge">

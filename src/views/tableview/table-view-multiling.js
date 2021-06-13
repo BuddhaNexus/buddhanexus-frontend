@@ -19,13 +19,14 @@ function TableViewInfoModalContent() {
 }
 
 @customElement('table-view-multiling')
-export class TableViewMultiLang extends LitElement {
+export class TableViewMultiLing extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) folio;
   @property({ type: String }) score;
   @property({ type: Boolean }) lengthMessage = false;
   @property({ type: String }) lang;
   @property({ type: String }) multiSearchString;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Array }) parallelsData = [];
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
@@ -49,7 +50,7 @@ export class TableViewMultiLang extends LitElement {
     super.connectedCallback();
     await this.fetchData();
   }
-  multiLangMessage() {
+  multiLingMessage() {
     if (this.score > 0) {
       return html`
         <span
@@ -163,7 +164,7 @@ export class TableViewMultiLang extends LitElement {
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
         .lengthMessage="${this.lengthMessage}"
-        .extraMessage="${this.multiLangMessage()}"
+        .extraMessage="${this.multiLingMessage()}"
       ></data-view-subheader>
 
       <table-view-table

@@ -241,11 +241,11 @@ export class DataViewFiltersContainer extends LitElement {
     }
   }
   render() {
-    const shouldShowMultiLangFilters =
+    const shouldShowMultiLingFilters =
       this.viewMode !== DATA_VIEW_MODES.MULTILING;
     //prettier-ignore
     return html`
-      ${shouldShowMultiLangFilters
+      ${shouldShowMultiLingFilters
         ? html`
           <data-view-filters-multilingual
             style="display: ${

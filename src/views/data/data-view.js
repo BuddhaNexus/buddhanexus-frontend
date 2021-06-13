@@ -216,7 +216,7 @@ export class DataView extends LitElement {
     this.viewMode = DATA_VIEW_MODES.TEXT_SEARCH;
   };
 
-  setMultiLangSearch = searchString => {
+  setMultiLingSearch = searchString => {
     this.multiSearchString = searchString;
   };
 
@@ -346,7 +346,7 @@ export class DataView extends LitElement {
             .toggleNavBar="${this.toggleNavBar}"
             .updateSearch="${this.setSearch}"
             .multiLingualMode="${this.multiLingualMode}"
-            .updateMultiLangSearch="${this.setMultiLangSearch}"
+            .updateMultiLingSearch="${this.setMultiLingSearch}"
             .updateSortMethod="${this.setSortMethod}"
             .toggleTransMode="${this.toggleTransMode}">
           </data-view-header>
