@@ -8,7 +8,7 @@ import { LANGUAGE_CODES } from '../utility/constants';
 @customElement('data-view-filters-multilingual')
 export class DataViewFiltersMultilingual extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Array }) multiLangTotalList;
+  @property({ type: Array }) multiLingTotalList;
   @property({ type: Array }) mainLang;
   @property({ type: Array }) multiLingualMode = [];
   @property({ type: Array }) multiLingualBlockList = [];
@@ -58,7 +58,7 @@ export class DataViewFiltersMultilingual extends LitElement {
     } else {
       this.multiLingualBlockList.push(e.target.value);
     }
-    this.multiLingualMode = this.multiLangTotalList.filter(
+    this.multiLingualMode = this.multiLingTotalList.filter(
       x => !this.multiLingualBlockList.includes(x)
     );
     this.multiLingualMode = [...new Set(this.multiLingualMode)];
@@ -75,7 +75,7 @@ export class DataViewFiltersMultilingual extends LitElement {
       fileName: this.fileName,
     });
     langList.push(this.mainLang);
-    this.multiLangTotalList = langList;
+    this.multiLingTotalList = langList;
     this.multiLingualMode = langList;
     if (this.multiLingualBlockList) {
       this.multiLingualMode.filter(
@@ -84,7 +84,7 @@ export class DataViewFiltersMultilingual extends LitElement {
     }
     this.dataLoadError = error;
     this.dataLoading = false;
-    this.updateMultiLingualMode(this.multiLangTotalList);
+    this.updateMultiLingualMode(this.multiLingTotalList);
   }
 
   renderPali() {
@@ -97,7 +97,7 @@ export class DataViewFiltersMultilingual extends LitElement {
           >Pāḷi</vaadin-checkbox
         >
       `;
-    } else if (this.multiLangTotalList.includes(LANGUAGE_CODES.PALI)) {
+    } else if (this.multiLingTotalList.includes(LANGUAGE_CODES.PALI)) {
       return html`
         <vaadin-checkbox
           value="pli"
@@ -119,7 +119,7 @@ export class DataViewFiltersMultilingual extends LitElement {
           >Sanskrit</vaadin-checkbox
         >
       `;
-    } else if (this.multiLangTotalList.includes(LANGUAGE_CODES.SANSKRIT)) {
+    } else if (this.multiLingTotalList.includes(LANGUAGE_CODES.SANSKRIT)) {
       return html`
         <vaadin-checkbox
           value="skt"
@@ -141,7 +141,7 @@ export class DataViewFiltersMultilingual extends LitElement {
           >Tibetan</vaadin-checkbox
         >
       `;
-    } else if (this.multiLangTotalList.includes(LANGUAGE_CODES.TIBETAN)) {
+    } else if (this.multiLingTotalList.includes(LANGUAGE_CODES.TIBETAN)) {
       return html`
         <vaadin-checkbox
           value="tib"
@@ -163,7 +163,7 @@ export class DataViewFiltersMultilingual extends LitElement {
           >Chinese</vaadin-checkbox
         >
       `;
-    } else if (this.multiLangTotalList.includes(LANGUAGE_CODES.CHINESE)) {
+    } else if (this.multiLingTotalList.includes(LANGUAGE_CODES.CHINESE)) {
       return html`
         <vaadin-checkbox
           value="chn"
@@ -177,7 +177,7 @@ export class DataViewFiltersMultilingual extends LitElement {
 
   render() {
     //prettier-ignore
-    if (!this.dataLoading && this.multiLangTotalList) {
+    if (!this.dataLoading && this.multiLingTotalList) {
       return html`
         <div id="multi-lingual-label">Choose Languages:</div>
         <div id="multi-lingual">
