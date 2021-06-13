@@ -52,7 +52,7 @@ export default css`
   }
 
   .data-view[lang='multi'][view='neutral'] {
-    background-image: url('/src/assets/img/background_content_skt.jpg');
+    background-image: url('/src/assets/img/background_content_tib.jpg');
     background-size: cover;
     background-attachment: fixed;
   }
