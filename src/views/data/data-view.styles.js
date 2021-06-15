@@ -51,6 +51,12 @@ export default css`
     background-attachment: fixed;
   }
 
+  .data-view[lang='multi'][view='neutral'] {
+    background-image: url('/src/assets/img/background_content_tib.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
   .data-view__main-container {
     display: flex;
     flex-direction: column;

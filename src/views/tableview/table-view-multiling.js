@@ -11,24 +11,22 @@ function TableViewInfoModalContent() {
   return html`
     <div>
       <p>
-        In progress: Multi-language info will follow shortly.
+        Displays automatically generated sentence alignment between a given
+        Sanskrit text and its Tibetan translation in a table form.
       </p>
     </div>
   `;
 }
 
-@customElement('table-view-multilang')
-export class TableViewMultiLang extends LitElement {
+@customElement('table-view-multiling')
+export class TableViewMultiLing extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) folio;
   @property({ type: String }) score;
-  @property({ type: Number }) probability;
-  @property({ type: Number }) quoteLength;
-  @property({ type: Number }) cooccurance;
-  @property({ type: String }) sortMethod;
-  @property({ type: Array }) limitCollection;
+  @property({ type: Boolean }) lengthMessage = false;
   @property({ type: String }) lang;
   @property({ type: String }) multiSearchString;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Array }) parallelsData = [];
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
@@ -52,7 +50,7 @@ export class TableViewMultiLang extends LitElement {
     super.connectedCallback();
     await this.fetchData();
   }
-  multiLangMessage() {
+  multiLingMessage() {
     if (this.score > 0) {
       return html`
         <span
@@ -165,16 +163,13 @@ export class TableViewMultiLang extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
-        .extraMessage="${this.multiLangMessage()}"
+        .lengthMessage="${this.lengthMessage}"
+        .extraMessage="${this.multiLingMessage()}"
       ></data-view-subheader>
 
       <table-view-table
         .fileName="${this.fileName}"
         .transMethod="${this.transMethod}"
-        .probability="${this.probability}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
-        .limitCollection="${this.limitCollection}"
         .parallels="${this.parallelsData}"
         .searchString="${this.multiSearchString}"
         .setPageNumber="${this.setPageNumber}"
