@@ -45,7 +45,7 @@ export class DataViewViewSelector extends LitElement {
                 this.language !== 'skt' &&
                 this.language !== 'multi')) &&
             filter !== 'neutral' &&
-            (filter !== 'multilang' ||
+            (filter !== 'multiling' ||
               (this.language !== 'skt' &&
                 this.language !== 'tib' &&
                 this.language !== 'chn' &&
