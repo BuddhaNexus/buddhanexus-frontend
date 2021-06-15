@@ -89,6 +89,15 @@ export class FormattedFileName extends LitElement {
         /_[TX]/,
         'n'
       )}_001`;
+      this.titleText2 =
+        'Click to go to the entry in the Chinese Buddhist Canonical Attributions database.';
+
+      this.sourceLink2 = `https://dazangthings.nz/cbc/text/${this.filename.replace(
+        /_[TX]/,
+        'n'
+      )}`;
+
+      this.buttonText2 = 'CBC@';
     }
   }
 
@@ -138,11 +147,20 @@ export class FormattedFileName extends LitElement {
       return;
     }
     // prettier-ignore
-    if (this.lang != "tib") {
+    if (this.lang != "tib" && this.lang != "chn") {
       return html`<span class="source-link" title="${this.titleText}">Links:&nbsp;
                   <a href="${this.sourceLink}"
                      target="blank">${this.buttonText} <img class="image-link" target="_blank" src="${this.imgLink}"/></a>`
-    } else {
+    }
+      else if (this.lang == "chn") {
+      return html`<span class="source-link" title="${this.titleText}">Links:&nbsp;
+                  <a href="${this.sourceLink}"
+                     target="blank">${this.buttonText} <img class="image-link" target="_blank" src="${this.imgLink}"/></a>
+<span  title="${this.titleText2}">
+                  <a href="${this.sourceLink2}"
+                     target="blank">${this.buttonText2}</a>`
+    }
+      else {
       if (!this.filename.includes("N")) { // for the time being, exclude NG/NK files from linking
         return html`<span class="source-link">Links:&nbsp;
                     <a href="${this.sourceLink}"

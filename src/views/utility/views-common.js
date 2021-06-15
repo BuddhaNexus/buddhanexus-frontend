@@ -11,7 +11,10 @@ export function getLanguageFromFilename(filename) {
     return LANGUAGE_CODES.TIBETAN;
   } else if (filename.match('(u$|u:|u_|-skt:)')) {
     return LANGUAGE_CODES.SANSKRIT;
-  } else if (filename.match('([TX][0-9]*n[0-9])')) {
+  } else if (
+    filename.match('([TX][0-9][0-9][0-9][0-9])') ||
+    filename.match('([TX][0-9][0-9]n[0-9][0-9])')
+  ) {
     return LANGUAGE_CODES.CHINESE;
   } else {
     return LANGUAGE_CODES.PALI;

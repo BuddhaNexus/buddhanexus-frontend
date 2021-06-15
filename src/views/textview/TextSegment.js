@@ -175,6 +175,7 @@ export function TextSegment({
 }) {
   if (colorValues.length <= 0) {
     let outputText;
+
     switch (lang) {
       case LANGUAGE_CODES.PALI:
         outputText = PaliSegment(inputData, inputData.replace(/\//g, '|'));
