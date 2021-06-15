@@ -21,7 +21,7 @@ export class DataViewHeaderFields extends LitElement {
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
   @property({ type: Function }) updateSearch;
-  @property({ type: Function }) updateMultiLangSearch;
+  @property({ type: Function }) updateMultiLingSearch;
   @property({ type: Function }) updateSortMethod;
 
   static get styles() {
@@ -158,7 +158,7 @@ export class DataViewHeaderFields extends LitElement {
         return 'Find Chinese texts...';
       case LANGUAGE_CODES.SANSKRIT:
         return 'Find Sanskrit texts...';
-      case LANGUAGE_CODES.MULTILANG:
+      case LANGUAGE_CODES.MULTILING:
         return 'Find Multilingual texts...';
     }
   };
@@ -209,8 +209,8 @@ export class DataViewHeaderFields extends LitElement {
     return false;
   }
 
-  shouldShowMultiLangMessage() {
-    if (this.viewMode === DATA_VIEW_MODES.MULTILANG && this.score > 0) {
+  shouldShowMultiLingMessage() {
+    if (this.viewMode === DATA_VIEW_MODES.MULTILING && this.score > 0) {
       return true;
     }
     return false;
@@ -222,8 +222,8 @@ export class DataViewHeaderFields extends LitElement {
         this.viewMode === DATA_VIEW_MODES.TEXT_SEARCH) &&
       this.fileName;
     const shouldShowSortBox = this.viewMode === DATA_VIEW_MODES.TABLE;
-    const shouldShowMultiLangSearchBox =
-      this.viewMode === DATA_VIEW_MODES.MULTILANG;
+    const shouldShowMultiLingSearchBox =
+      this.viewMode === DATA_VIEW_MODES.MULTILING;
 
     //prettier-ignore
     return html`
@@ -290,17 +290,17 @@ export class DataViewHeaderFields extends LitElement {
               </div>
             </paper-input>`
         : null}
-      ${shouldShowMultiLangSearchBox
+      ${shouldShowMultiLingSearchBox
         ? html`
             <paper-input
               placeholder="Search"
               class="search-box"
               type="search"
               no-label-float
-              @change="${e => this.updateMultiLangSearch(e.target.value)}"
+              @change="${e => this.updateMultiLingSearch(e.target.value)}"
               @keydown="${e => {
                 if (e.code === 'Enter') {
-                  this.updateMultiLangSearch(e.target.value);
+                  this.updateMultiLingSearch(e.target.value);
                 }
               }}">
               <div slot="prefix">

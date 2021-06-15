@@ -3,7 +3,7 @@ import { property, html, customElement, LitElement } from 'lit-element';
 import '../numbersview/numbers-view';
 import '../graphview/graph-view';
 import '../tableview/table-view';
-import '../tableview/table-view-multilang';
+import '../tableview/table-view-multiling';
 import '../textview/text-view-router';
 import '../englishview/english-view-router';
 import '../neutralview/neutral-view';
@@ -95,15 +95,15 @@ export class DataViewRouter extends LitElement {
           .transMethod="${this.transMethod}"
         ></table-view>
       `;
-    } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {
+    } else if (this.selectedView === DATA_VIEW_MODES.MULTILING) {
       return html`
-        <table-view-multilang
+        <table-view-multiling
           .fileName="${this.fileName}"
           .score="${this.score}"
           .multiSearchString="${this.multiSearchString}"
           .multiLingualMode="${this.multiLingualMode}"
           .transMethod="${this.transMethod}"
-        ></table-view-multilang>
+        ></table-view-multiling>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.ENGLISH) {
       return html`

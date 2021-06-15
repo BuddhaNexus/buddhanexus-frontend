@@ -18,10 +18,10 @@ export const DATA_VIEW_MODES = {
   TEXT_SEARCH: 'text-search',
   TABLE: 'table',
   NUMBERS: 'numbers',
-  MULTILANG: 'multilang',
+  MULTILING: 'multiling',
   GRAPH: 'graph',
   NEUTRAL: 'neutral',
-  ENGLISH: 'english'
+  ENGLISH: 'english',
 };
 
 @customElement('data-view-filters-container')
@@ -166,7 +166,7 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowMultiLingual() {
     return (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
-      this.viewMode === DATA_VIEW_MODES.MULTILANG
+      this.viewMode === DATA_VIEW_MODES.MULTILING
     );
   }
 
@@ -242,13 +242,13 @@ export class DataViewFiltersContainer extends LitElement {
       `;
     }
   }
-  
+
   render() {
-    const shouldShowMultiLangFilters =
-      this.viewMode !== DATA_VIEW_MODES.MULTILANG;
+    const shouldShowMultiLingFilters =
+      this.viewMode !== DATA_VIEW_MODES.MULTILING;
     //prettier-ignore
     return html`
-      ${shouldShowMultiLangFilters
+      ${shouldShowMultiLingFilters
         ? html`
           <data-view-filters-multilingual
             style="display: ${
