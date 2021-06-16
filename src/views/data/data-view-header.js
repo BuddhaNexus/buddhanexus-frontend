@@ -14,7 +14,7 @@ class DataViewHeader extends LitElement {
   @property({ type: String }) sortMethod;
   @property({ type: Function }) toggleNavBar;
   @property({ type: Function }) updateSearch;
-  @property({ type: Function }) updateMultiLangSearch;
+  @property({ type: Function }) updateMultiLingSearch;
   @property({ type: Array }) multiLingualMode;
   @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) setFileName;
@@ -124,7 +124,7 @@ class DataViewHeader extends LitElement {
               .sortMethod="${this.sortMethod}"
               .updateSearch="${this.updateSearch}"
               .multiLingualMode="${this.multiLingualMode}"
-              .updateMultiLangSearch="${this.updateMultiLangSearch}"
+              .updateMultiLingSearch="${this.updateMultiLingSearch}"
               .updateSortMethod="${this.updateSortMethod}">
             </data-view-header-fields>
 

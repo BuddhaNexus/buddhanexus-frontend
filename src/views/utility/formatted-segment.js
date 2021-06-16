@@ -11,6 +11,7 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) segmentnr;
   @property({ type: String }) filename;
   @property({ type: String }) lang;
+  @property({ type: Boolean }) logo = true;
   @property({ type: String }) number;
   @property({ type: String }) displayName = '';
   @property({ type: String }) displayLink = '';
@@ -32,19 +33,27 @@ export class FormattedSegment extends LitElement {
   firstUpdated() {
     this.addObserver();
   }
+
   getIcon(par_lang) {
+    if (!this.logo) {
+      return;
+    }
     let title;
-    if (par_lang == 'tib') {
-      title = 'Tibetan';
-    }
-    if (par_lang == 'skt') {
-      title = 'Sanskrit';
-    }
-    if (par_lang == 'pli') {
-      title = 'Pali';
-    }
-    if (par_lang == 'chn') {
-      title = 'Chinese';
+    switch (par_lang) {
+      case 'tib':
+        title = 'Tibetan';
+        break;
+      case 'skt':
+        title = 'Sanskrit';
+        break;
+      case 'pli':
+        title = 'Pali';
+        break;
+      case 'chn':
+        title = 'Chinese';
+        break;
+      default:
+        title = '';
     }
 
     return html`

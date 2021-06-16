@@ -14,7 +14,13 @@ function getCleanedWord(lang, splitWords, i, transMethod) {
   let cleanedWord = '';
   if (lang === LANGUAGE_CODES.TIBETAN) {
     if (transMethod == 'uni') {
-      cleanedWord = TibetanSegmentUnicode(splitWords[i]);
+      let word = splitWords[i];
+      if (i < splitWords.length - 1) {
+        if (!splitWords[i + 1].includes('/') && !word.endsWith('ng')) {
+          word = word + ' ';
+        }
+      }
+      cleanedWord = TibetanSegmentUnicode(word);
     } else {
       cleanedWord = TibetanSegmentWylie(splitWords[i]);
     }
@@ -53,13 +59,12 @@ const TibetanSegmentUnicode = segment => {
     // don't process folio numbers
     return strippedSegment;
   } else {
+    // prettier-ignore
     return !strippedSegment.match(/\/\/|[.?!:;]/g)
-      ? fromWylie(strippedSegment)
+      ? html`${fromWylie(strippedSegment)}`
       : !strippedSegment.includes('*')
-      ? // prettier-ignore
-        html`${fromWylie(strippedSegment)}<br />`
-      : // prettier-ignore
-        html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
+      ? html`${fromWylie(strippedSegment)}<br />`
+      : html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
   }
 };
 

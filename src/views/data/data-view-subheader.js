@@ -56,6 +56,7 @@ export const minimumLengthText = language => {
 class DataViewSubheader extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) infoModalContent;
+  @property({ type: Boolean }) lengthMessage;
   @property({ type: String }) language;
   @property({ type: String }) extraMessage;
   @property({ type: Boolean }) isDialogOpen = false;
@@ -127,7 +128,7 @@ class DataViewSubheader extends LitElement {
           @opened-changed="${this.setIsDialogOpen}">
           <template>
             ${this.infoModalContent}
-            ${minimumLengthText(this.language)}
+            ${this.lengthMessage ? minimumLengthText(this.language) : ''}
           </template>
         </vaadin-dialog>
 
