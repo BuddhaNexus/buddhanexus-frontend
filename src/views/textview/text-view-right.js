@@ -267,6 +267,21 @@ export class TextViewRight extends LitElement {
   }
 }
 
+function copyText(e) {
+  const currentID = e.target.id;
+  let fileName = currentID.split(':')[0];
+  fileName = this.lang === 'chn' ? fileName.split('_')[0] : fileName;
+  const currentURL = e.target.baseURI.split('/');
+  currentURL.pop();
+  const el = document.createElement('textarea');
+  el.value = currentURL.join().replace(/,/g, '/') + fileName + currentID;
+  alert('URL copied to clipboard:\n' + el.value);
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+}
+
 const TextViewLayoutRight = (
   textRight,
   parallels,
@@ -385,6 +400,7 @@ const rightSegment = (
                 ${firstDisplayNumber
                   ? html`
                     <span class="segment-number ${segmentDisplaySide}"
+                      id="/${segmentNr}" @click="${copyText}"
                       show-number="${showSegmentNumbers}">${displayNumber}</span>`
                   : null
                 }

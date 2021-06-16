@@ -160,6 +160,7 @@ export class FormattedSegment extends LitElement {
   copyText() {
     const el = document.createElement('textarea');
     el.value = this.filename + ':' + this.number + ': ' + this.displayName;
+    alert('Copied to clipboard:\n' + el.value);
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
@@ -225,6 +226,7 @@ export class FormattedFileName extends LitElement {
   copyText() {
     const el = document.createElement('textarea');
     el.value = this.textName + ': ' + this.displayName;
+    alert('Copied to clipboard:\n' + el.value);
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');

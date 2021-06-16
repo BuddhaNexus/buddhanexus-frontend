@@ -88,6 +88,17 @@ export function LeftSegmentContainer({
   });
 }
 
+function copyText(e) {
+  const currentURL = e.target.baseURI + e.target.id;
+  const el = document.createElement('textarea');
+  el.value = currentURL;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  alert('URL copied to clipboard:\n' + currentURL);
+}
+
 export function LeftSegment({
   segmentNr,
   segText,
@@ -105,6 +116,7 @@ export function LeftSegment({
                 ${firstDisplayNumber
                   ? html`
                     <span class="segment-number ${segmentDisplaySide}"
+                      id="/${segmentNr}" @click="${copyText}"
                       show-number="${showSegmentNumbers}">${displayNumber}</span>`
                   : null
                 }
