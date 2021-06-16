@@ -50,6 +50,7 @@ export class DataViewFiltersMultilingual extends LitElement {
       }
     });
   }
+
   updateMultiLingualEvent = e => {
     if (e.target.checked) {
       this.multiLingualBlockList = this.multiLingualBlockList.filter(

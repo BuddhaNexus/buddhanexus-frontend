@@ -17,11 +17,18 @@ export class DataViewSettingsContainer extends LitElement {
   }
 
   render() {
+    const shouldShowChecked = this.lang === 'pli' || this.lang === 'chn';
     //prettier-ignore
     return html`
-    <paper-toggle-button @checked-changed="${this.toggleShowSegmentNumbers}">
-      <span class="button-font">Show Segment Numbers</span>
-    </paper-toggle-button>
+        ${shouldShowChecked
+        ? html`
+            <paper-toggle-button @checked-changed="${this.toggleShowSegmentNumbers}" checked>
+              <span class="button-font">Show Segment Numbers</span>
+            </paper-toggle-button>`
+        : html `
+            <paper-toggle-button @checked-changed="${this.toggleShowSegmentNumbers}">
+              <span class="button-font">Show Segment Numbers</span>
+            </paper-toggle-button>`}
 
     <vaadin-radio-group
       class="segment-numbers-sides"

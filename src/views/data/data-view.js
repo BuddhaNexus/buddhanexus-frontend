@@ -55,7 +55,7 @@ export class DataView extends LitElement {
   @property({ type: String }) folio;
   @property({ type: String }) headerVisibility = '';
   @property({ type: Boolean }) filterBarOpen;
-  @property({ type: Boolean }) showSegmentNumbers = false;
+  @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
 
   static get styles() {
@@ -75,6 +75,7 @@ export class DataView extends LitElement {
     this.initializeFilterValues(this.language);
     this.checkSelectedView();
   }
+
   initializeFilterValues(lang) {
     switch (lang) {
       case LANGUAGE_CODES.TIBETAN:
