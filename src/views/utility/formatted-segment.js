@@ -97,9 +97,9 @@ export class FormattedSegment extends LitElement {
     if (this.lang === 'skt' || this.lang === 'tib') {
       this.displayLink = displayData ? displayData[2] : '';
       // The below is only a tryout to redirect segments to SC as fallback option
-      if (displayData && displayData[3]) {
-        this.displayLink = displayData[3];
-      }
+      // if (displayData && displayData[3]) {
+      //   this.displayLink = displayData[3];
+      // }
     }
     if (this.lang === 'chn' || this.lang === 'pli') {
       this.displayLink = this.getLinkForSegmentNumbers(
