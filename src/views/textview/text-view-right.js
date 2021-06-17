@@ -275,7 +275,11 @@ function copyText(segmentNr) {
   const currentURL = window.location.href.split('/');
   currentURL.pop();
   return (
-    currentURL.join().replace(/,/g, '/') + '/' + fileName + '/' + segmentNr
+    currentURL.join().replace(/,/g, '/') +
+    '/' +
+    fileName +
+    '/' +
+    segmentNr.replace(/\./g, '@')
   );
 }
 
