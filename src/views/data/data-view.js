@@ -43,6 +43,7 @@ export class DataView extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: String }) multiSearchString;
   @property({ type: String }) transMethod = 'wylie';
+  @property({ type: Boolean }) showSCEnglish;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
   @property({ type: Array }) multiLingualMode = [
@@ -320,13 +321,23 @@ export class DataView extends LitElement {
     this.segmentDisplaySide = e.target.value;
   };
 
+  toggleShowSCTranslation = e => {
+    this.showSCEnglish = e.detail.value;
+  };
+
   setMultiLingualMode = multiLingualList => {
     this.multiLingualMode = multiLingualList;
   };
 
   displaySettings = () => {
-    return this.viewMode == 'text' ? 'display: inline-flex' : 'display: none';
+    return this.viewMode == 'text' || this.viewMode == 'english'
+      ? 'display: inline-flex'
+      : 'display: none';
   };
+
+  shouldShowTotalNumbers() {
+    return this.viewMode != 'english';
+  }
 
   render() {
     //prettier-ignore
@@ -366,6 +377,7 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
+            .showSCEnglish="${this.showSCEnglish}"
             .transMethod="${this.transMethod}"
             .searchString="${this.searchString}"
             .multiLingualMode="${this.multiLingualMode}"
@@ -386,6 +398,9 @@ export class DataView extends LitElement {
           }}">
           <data-view-total-numbers
             id="total-numbers"
+            style="display: ${
+              this.shouldShowTotalNumbers() ? 'block' : 'none'
+            }"
             .fileName="${this.fileName}"
             .score="${this.score}"
             .limitCollection="${this.setLimitOrTargetCollection}"
@@ -415,8 +430,11 @@ export class DataView extends LitElement {
             style="${this.displaySettings()}"
             lang="${this.language}"
             view="${this.viewMode}"
+            .fileName="${this.fileName}"
+            .viewMode="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
-            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}">
+            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
+            .toggleShowSCTranslation="${this.toggleShowSCTranslation}">
           </data-view-settings-container>
         </side-sheet>
       </div>

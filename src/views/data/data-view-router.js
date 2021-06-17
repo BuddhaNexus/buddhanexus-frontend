@@ -5,7 +5,9 @@ import '../graphview/graph-view';
 import '../tableview/table-view';
 import '../tableview/table-view-multiling';
 import '../textview/text-view-router';
+import '../englishview/english-view-router';
 import '../neutralview/neutral-view';
+
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view-router')
@@ -30,6 +32,8 @@ export class DataViewRouter extends LitElement {
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) transMethod;
+  @property({ type: Boolean }) showSCEnglish;
+
   render() {
     if (
       this.selectedView === DATA_VIEW_MODES.TEXT ||
@@ -100,6 +104,18 @@ export class DataViewRouter extends LitElement {
           .multiLingualMode="${this.multiLingualMode}"
           .transMethod="${this.transMethod}"
         ></table-view-multiling>
+      `;
+    } else if (this.selectedView === DATA_VIEW_MODES.ENGLISH) {
+      return html`
+        <english-view-router
+          .fileName="${this.fileName}"
+          .folio="${this.folio}"
+          .showSCEnglish="${this.showSCEnglish}"
+          .showSegmentNumbers="${this.showSegmentNumbers}"
+          .segmentDisplaySide="${this.segmentDisplaySide}"
+          .headerVisibility="${this.headerVisibility}"
+          .transMethod="${this.transMethod}"
+        ></english-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
       return html`

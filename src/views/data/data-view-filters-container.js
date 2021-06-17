@@ -21,6 +21,7 @@ export const DATA_VIEW_MODES = {
   MULTILING: 'multiling',
   GRAPH: 'graph',
   NEUTRAL: 'neutral',
+  ENGLISH: 'english',
 };
 
 @customElement('data-view-filters-container')
@@ -153,7 +154,8 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowFilterDropdown() {
     return (
       this.viewMode !== DATA_VIEW_MODES.GRAPH &&
-      this.viewMode !== DATA_VIEW_MODES.MULTILING
+      this.viewMode !== DATA_VIEW_MODES.MULTILANG &&
+      this.viewMode !== DATA_VIEW_MODES.ENGLISH
     );
   }
 
@@ -240,6 +242,7 @@ export class DataViewFiltersContainer extends LitElement {
       `;
     }
   }
+
   render() {
     const shouldShowMultiLingFilters =
       this.viewMode !== DATA_VIEW_MODES.MULTILING;
