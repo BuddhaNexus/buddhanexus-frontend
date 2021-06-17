@@ -67,4 +67,8 @@ export const SOURCE_BUTTONS = {
     '../../src/assets/icons/cbeta_logo.png',
     'Click to go to the original file in CBETA (includes additional information).',
   ],
+  CBC: [
+    '',
+    'Click to go to Chinese Buddhist Canonical Attributions database listing (includes information about ascriptions).',
+  ],
 };

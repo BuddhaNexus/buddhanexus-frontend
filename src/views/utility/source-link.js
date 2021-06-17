@@ -10,9 +10,12 @@ export class FormattedFileName extends LitElement {
   @property({ type: String }) filename;
   @property({ type: String }) lang;
   @property({ type: String }) sourceLink = '';
+  @property({ type: String }) sourceLink2 = '';
+  @property({ type: String }) CBClink = '';
   @property({ type: String }) imgLink = '';
   @property({ type: String }) imgLink2 = '';
   @property({ type: String }) buttonText = '';
+  @property({ type: String }) buttonText2 = '';
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -44,6 +47,16 @@ export class FormattedFileName extends LitElement {
           vertical-align: middle;
           padding-bottom: 6px;
           padding-left: 4px;
+        }
+
+        .cbclink {
+          background-color: #333333;
+          color: white;
+          padding: 6px;
+        }
+
+        .cbclink:hover {
+          color: white;
         }
       `,
     ];
@@ -80,13 +93,17 @@ export class FormattedFileName extends LitElement {
         this.buttonText2 = SOURCE_BUTTONS.SC[1];
         this.imgLink2 = SOURCE_BUTTONS.SC[0];
         break;
-      case LANGUAGE_CODES.CHINESE:
+      case LANGUAGE_CODES.CHINESE: {
         this.fetchData();
         this.buttonText = SOURCE_BUTTONS.CBETA[1];
         this.imgLink = SOURCE_BUTTONS.CBETA[0];
         this.buttonText2 = SOURCE_BUTTONS.SC[1];
         this.imgLink2 = SOURCE_BUTTONS.SC[0];
+        const CBCfilename =
+          this.filename.substring(0, 1) + this.filename.substring(4);
+        this.CBClink = 'https://dazangthings.nz/cbc/text/' + CBCfilename;
         break;
+      }
       default:
         this.buttonText = '';
         this.imgLink = '';
@@ -161,6 +178,14 @@ export class FormattedFileName extends LitElement {
                         <a href="${this.sourceLink2}"
                           title="${this.buttonText2}"
                           target="_blank"><img class="image-link" src="${this.imgLink2}"/></a>`
+                    : null}
+
+                  ${this.CBClink
+                    ? html`
+                        <a href="${this.CBClink}"
+                          class="cbclink"
+                          title="${SOURCE_BUTTONS.CBC[1]}"
+                          target="_blank">CBC@</a>`
                     : null}
                   </span>`
     }
