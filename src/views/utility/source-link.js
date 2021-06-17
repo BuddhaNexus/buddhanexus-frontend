@@ -3,15 +3,19 @@ import { customElement, html, css, LitElement, property } from 'lit-element';
 import { getExternalLink } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
 
+import { SOURCE_BUTTONS, LANGUAGE_CODES } from './constants';
+
 @customElement('source-link')
 export class FormattedFileName extends LitElement {
   @property({ type: String }) filename;
   @property({ type: String }) lang;
   @property({ type: String }) sourceLink = '';
+  @property({ type: String }) sourceLink2 = '';
+  @property({ type: String }) CBClink = '';
   @property({ type: String }) imgLink = '';
   @property({ type: String }) imgLink2 = '';
   @property({ type: String }) buttonText = '';
-  @property({ type: String }) titleText = '';
+  @property({ type: String }) buttonText2 = '';
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -50,45 +54,51 @@ export class FormattedFileName extends LitElement {
 
   updated() {
     this.lang = getLanguageFromFilename(this.filename);
-    if (this.lang === 'skt') {
-      this.fetchData();
-      if (this.filename.match(/[X0-9]n[0-9]/)) {
-        this.buttonText = 'DSBC';
-        this.imgLink = '../../src/assets/icons/dsbc_logo.png';
-        this.titleText = `Click to go to the original file in the Digital Sanskrit
-                Buddhist Canon (includes full header information).`;
-      } else {
-        this.buttonText = 'GRETIL';
-        this.imgLink = '../../src/assets/icons/gretil_logo.png';
-        this.titleText = `Click to go to the original file in GRETIL
-                  (includes full header information).`;
-      }
-    }
 
-    if (this.lang === 'tib') {
-      this.fetchData();
-      this.buttonText =
-        'Click to visit the file in the Buddhist Digital Resource Center.';
-      this.buttonText2 =
-        'Click to visit the file at Resources for Kanjur & Tanjur Studies .';
-      this.imgLink = '../../src/assets/icons/bdrc_logo.png';
-      this.imgLink2 = '../../src/assets/icons/rkts_logo.png';
-      this.titleText2 =
-        'Click to visit the file in the Buddhist Digital Resource Center.';
-    } else if (this.lang === 'pli') {
-      this.titleText = this.fetchTitleText(this.filename);
-      this.imgLink = this.fetchImageLink(this.filename);
-      this.buttonText = this.fetchButtonText(this.filename);
-      this.sourceLink = this.fetchPaliSource(this.filename);
-    } else if (this.lang === 'chn') {
-      this.buttonText = 'CBETA';
-      this.imgLink = '../../src/assets/icons/cbeta_logo.png';
-      this.titleText =
-        'Click to go to the original file in CBETA (includes additional information).';
-      this.sourceLink = `https://cbetaonline.dila.edu.tw/${this.filename.replace(
-        /_[TX]/,
-        'n'
-      )}_001`;
+    switch (this.lang) {
+      case LANGUAGE_CODES.TIBETAN:
+        this.fetchData();
+        this.buttonText = SOURCE_BUTTONS.BDRC[1];
+        this.buttonText2 = SOURCE_BUTTONS.RKTS[1];
+        this.imgLink = SOURCE_BUTTONS.BDRC[0];
+        this.imgLink2 = SOURCE_BUTTONS.RKTS[0];
+        break;
+      case LANGUAGE_CODES.PALI:
+        this.imgLink = this.fetchImageLink(this.filename);
+        this.buttonText = this.fetchButtonText(this.filename);
+        this.sourceLink = this.fetchPaliSource(this.filename);
+        break;
+      case LANGUAGE_CODES.SANSKRIT:
+        this.fetchData();
+        if (this.filename.match(/[X0-9]n[0-9]/)) {
+          this.buttonText = SOURCE_BUTTONS.DSBC[1];
+          this.imgLink = SOURCE_BUTTONS.DSBC[0];
+        } else if (this.filename.match(/_sc/)) {
+          this.buttonText = SOURCE_BUTTONS.SC[1];
+          this.imgLink = SOURCE_BUTTONS.SC[0];
+        } else {
+          this.buttonText = SOURCE_BUTTONS.GRETIL[1];
+          this.imgLink = SOURCE_BUTTONS.GRETIL[0];
+        }
+        this.buttonText2 = SOURCE_BUTTONS.SC[1];
+        this.imgLink2 = SOURCE_BUTTONS.SC[0];
+        break;
+      case LANGUAGE_CODES.CHINESE: {
+        this.fetchData();
+        this.buttonText = SOURCE_BUTTONS.CBETA[1];
+        this.imgLink = SOURCE_BUTTONS.CBETA[0];
+        this.buttonText2 = SOURCE_BUTTONS.SC[1];
+        this.imgLink2 = SOURCE_BUTTONS.SC[0];
+        const CBCfilename =
+          this.filename.substring(0, 1) + this.filename.substring(4);
+        this.CBClink = 'https://dazangthings.nz/cbc/text/' + CBCfilename;
+        break;
+      }
+      default:
+        this.buttonText = '';
+        this.imgLink = '';
+        this.buttonText2 = '';
+        this.imgLink2 = '';
     }
   }
 
@@ -96,35 +106,44 @@ export class FormattedFileName extends LitElement {
     const { link, error } = await getExternalLink({
       fileName: this.filename,
     });
-    this.sourceLink = link;
-    if (this.lang == 'tib') {
-      this.sourceLink2 = link.replace(
-        'http://purl.bdrc.io/resource/WA0RK',
-        'http://purl.rkts.eu/resource/WKT'
-      );
-      this.sourceLink2 = this.sourceLink2.replace(
-        'http://purl.bdrc.io/resource/WA0RT',
-        'https://www.istb.univie.ac.at/kanjur/rktsneu/verif/verif3.php?id='
-      );
+    switch (this.lang) {
+      case LANGUAGE_CODES.TIBETAN:
+        this.sourceLink = link[0];
+        this.sourceLink2 = link[0].replace(
+          'http://purl.bdrc.io/resource/WA0RK',
+          'http://purl.rkts.eu/resource/WKT'
+        );
+        this.sourceLink2 = this.sourceLink2.replace(
+          'http://purl.bdrc.io/resource/WA0RT',
+          'https://www.istb.univie.ac.at/kanjur/rktsneu/verif/verif3.php?id='
+        );
+        break;
+      case LANGUAGE_CODES.SANSKRIT:
+        this.sourceLink = link[0];
+        this.sourceLink2 = link[1];
+        break;
+      case LANGUAGE_CODES.CHINESE:
+        this.sourceLink = this.sourceLink = `https://cbetaonline.dila.edu.tw/${this.filename.replace(
+          /_[TX]/,
+          'n'
+        )}_001`;
+        this.sourceLink2 = link[1];
+        break;
     }
     this.fetchLoading = false;
     this.fetchError = error;
   }
 
   fetchButtonText(filename) {
-    return filename.match(/^tika|^anya|^atk/) ? `VRI` : `SC`;
-  }
-
-  fetchTitleText(filename) {
     return filename.match(/^tika|^anya|^atk/)
-      ? `Click to go to the original text in VRI.`
-      : `Click to go to the original text(s) in SuttaCentral (includes translations and parallels).`;
+      ? SOURCE_BUTTONS.VRI[1]
+      : SOURCE_BUTTONS.SC[1];
   }
 
   fetchImageLink(filename) {
     return filename.match(/^tika|^anya|^atk/)
-      ? '../../src/assets/icons/vri_logo.gif'
-      : '../../src/assets/icons/sc_logo.png';
+      ? SOURCE_BUTTONS.VRI[0]
+      : SOURCE_BUTTONS.SC[0];
   }
 
   fetchPaliSource(filename) {
@@ -138,20 +157,27 @@ export class FormattedFileName extends LitElement {
       return;
     }
     // prettier-ignore
-    if (this.lang != "tib") {
-      return html`<span class="source-link" title="${this.titleText}">Links:&nbsp;
-                  <a href="${this.sourceLink}"
-                     target="blank">${this.buttonText} <img class="image-link" target="_blank" src="${this.imgLink}"/></a>`
-    } else {
-      if (!this.filename.includes("N")) { // for the time being, exclude NG/NK files from linking
-        return html`<span class="source-link">Links:&nbsp;
+    if (!this.filename.startsWith("N")) { // for the time being, exclude NG/NK files from linking
+      return html`<span class="source-link">Links:&nbsp;
                     <a href="${this.sourceLink}"
                        title="${this.buttonText}"
-                       target="blank"><img class="image-link" target="_blank" src="${this.imgLink}"/></a>
-                    <a href="${this.sourceLink2}"
-                       title="${this.buttonText2}"
-                       target="blank"><img class="image-link" target="_blank" src="${this.imgLink2}"/></a>`
-      }
+                       target="_blank"><img class="image-link" src="${this.imgLink}"/></a>
+
+                  ${this.sourceLink2
+                    ? html`
+                        <a href="${this.sourceLink2}"
+                          title="${this.buttonText2}"
+                          target="_blank"><img class="image-link" src="${this.imgLink2}"/></a>`
+                    : null}
+
+                  ${this.CBClink
+                    ? html`
+                        <a href="${this.CBClink}"
+                          title="${SOURCE_BUTTONS.CBC[1]}"
+                          target="_blank">CBC@</a>`
+                    : null}
+                  </span>`
     }
+    return;
   }
 }
