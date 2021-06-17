@@ -104,8 +104,10 @@ export function LeftSegment({
                 number="${number}">
                 ${firstDisplayNumber
                   ? html`
-                    <span class="segment-number ${segmentDisplaySide}"
-                      show-number="${showSegmentNumbers}">${displayNumber}</span>`
+                    <a class="segment-number ${segmentDisplaySide}"
+                      href="${window.location.href+'/'+segmentNr.replace(/\./g, '@')}"
+                      target="_blank"
+                      show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
                 }
                 ${segText}</span>`
