@@ -100,7 +100,7 @@ export default css`
   .segment-number {
     color: var(--color-text-secondary);
     font-size: 10px;
-    cursor: copy;
+    text-decoration: none;
   }
 
   .segment-number.left {

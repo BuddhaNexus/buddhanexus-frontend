@@ -267,19 +267,16 @@ export class TextViewRight extends LitElement {
   }
 }
 
-function copyText(e) {
-  const currentID = e.target.id;
-  let fileName = currentID.split(':')[0];
-  fileName = this.lang === 'chn' ? fileName.split('_')[0] : fileName;
-  const currentURL = e.target.baseURI.split('/');
+function copyText(segmentNr) {
+  let fileName = segmentNr.split(':')[0];
+  fileName = fileName.match(/[TXK][0-9]+n[0-9]+/g)
+    ? fileName.split('_')[0]
+    : fileName;
+  const currentURL = window.location.href.split('/');
   currentURL.pop();
-  const el = document.createElement('textarea');
-  el.value = currentURL.join().replace(/,/g, '/') + fileName + currentID;
-  alert('URL copied to clipboard:\n' + el.value);
-  document.body.appendChild(el);
-  el.select();
-  document.execCommand('copy');
-  document.body.removeChild(el);
+  return (
+    currentURL.join().replace(/,/g, '/') + '/' + fileName + '/' + segmentNr
+  );
 }
 
 const TextViewLayoutRight = (
@@ -399,9 +396,10 @@ const rightSegment = (
                 number="${number}">
                 ${firstDisplayNumber
                   ? html`
-                    <span class="segment-number ${segmentDisplaySide}"
-                      id="/${segmentNr}" @click="${copyText}"
-                      show-number="${showSegmentNumbers}">${displayNumber}</span>`
+                    <a class="segment-number ${segmentDisplaySide}"
+                      href="${copyText(segmentNr)}"
+                      target="_blank"
+                      show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
                 }
                 ${segText}</span>`;
