@@ -48,16 +48,6 @@ export class FormattedFileName extends LitElement {
           padding-bottom: 6px;
           padding-left: 4px;
         }
-
-        .cbclink {
-          background-color: #333333;
-          color: white;
-          padding: 6px;
-        }
-
-        .cbclink:hover {
-          color: white;
-        }
       `,
     ];
   }
@@ -183,7 +173,6 @@ export class FormattedFileName extends LitElement {
                   ${this.CBClink
                     ? html`
                         <a href="${this.CBClink}"
-                          class="cbclink"
                           title="${SOURCE_BUTTONS.CBC[1]}"
                           target="_blank">CBC@</a>`
                     : null}
