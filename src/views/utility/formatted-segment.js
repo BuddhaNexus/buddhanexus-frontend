@@ -47,7 +47,7 @@ export class FormattedSegment extends LitElement {
         title = 'Sanskrit';
         break;
       case 'pli':
-        title = 'Pali';
+        title = 'Pāli';
         break;
       case 'chn':
         title = 'Chinese';

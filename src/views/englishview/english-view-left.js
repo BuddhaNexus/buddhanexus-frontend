@@ -33,6 +33,11 @@ export class EnglishViewLeft extends LitElement {
         if (allSegments) {
           allSegments[0].scrollIntoView();
         }
+      } else {
+        let allSegments = this.shadowRoot.querySelectorAll('.segment');
+        if (allSegments) {
+          allSegments[0].scrollIntoView();
+        }
       }
     });
   }

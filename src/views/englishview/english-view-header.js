@@ -51,8 +51,8 @@ function EnglishViewHeaderLeftColumn({
       <template>
         <div>
           <p>
-            This view shows the original Pali text in the left column and the english translations.
-            The right column shows the text by our artificial intelligence neural network computer.
+            This view shows the original Pāli text in the left column and the english translations.
+            The right column shows the translation by our artificial intelligence neural network computer.
           </p><p>
             In the settings menu there is an option to show the human english translation by
             Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya) if these exist.

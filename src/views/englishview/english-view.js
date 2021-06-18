@@ -24,6 +24,7 @@ export class EnglishView extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (['fileName', 'transMethod'].includes(propName)) {
+        this.activeSegment = 'none';
         this.fetchNewText();
       }
       if (propName === 'folio') {
