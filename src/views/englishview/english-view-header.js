@@ -72,7 +72,7 @@ function EnglishViewHeaderLeftColumn({
 @customElement('english-view-header')
 export class EnglishViewHeader extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Boolean }) showSCEnglish;
+  @property({ type: Boolean }) displaySCEnglish;
 
   @property({ type: Boolean }) isInfoDialogRightOpen = false;
   @property({ type: Boolean }) isInfoDialogLeftOpen = false;
@@ -141,7 +141,7 @@ export class EnglishViewHeader extends LitElement {
 
         <div>Artificial Intelligence Translation</div>
 
-        ${this.showSCEnglish
+        ${this.displaySCEnglish
           ? EnglishViewHeaderRightColumn({
               isInfoDialogRightOpen: this.isInfoDialogRightOpen,
               openDialogRight: this.openDialogRight,
