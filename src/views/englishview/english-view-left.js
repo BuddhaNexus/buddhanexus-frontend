@@ -1,11 +1,8 @@
 import { customElement, html, LitElement, property } from 'lit-element';
-// import { removeDuplicates } from '../utility/views-common';
-// import { getFileText } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './english-view-table.styles';
 import { EnglishSegmentContainer } from './EnglishSegment';
-// import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './english-view';
 
 @customElement('english-view-left')
 export class EnglishViewLeft extends LitElement {
