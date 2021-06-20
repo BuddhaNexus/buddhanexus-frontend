@@ -58,6 +58,26 @@ const PaliSegment = (inputData, segmentNr) => {
       `;
 };
 
+function openInNewTab(segmentNr) {
+  let segmentnr = segmentNr;
+  if (segmentNr.startsWith('ai-') || segmentNr.startsWith('en-')) {
+    segmentnr = segmentNr.replace('ai-', '').replace('en-', '') + '_0';
+  }
+  let fileName = segmentnr.split(':')[0];
+  const currentURL = window.location.href.split('/');
+  currentURL.pop();
+  return (
+    currentURL
+      .join()
+      .replace(/,/g, '/')
+      .replace('english', 'text') +
+    '/' +
+    fileName +
+    '/' +
+    segmentnr.replace(/\./g, '@')
+  );
+}
+
 export function EnglishSegment({
   segmentNr,
   segText,
@@ -69,15 +89,16 @@ export function EnglishSegment({
   onClick,
 }) {
   // prettier-ignore
-  return html`<span class="segment ${highLightSegment ? 'segment--highlighted' : ''}"
-                title=${displayNumber}
-                id=${segmentNr}
-                @click="${onClick}">
-                ${firstDisplayNumber
+  return html`${firstDisplayNumber
                   ? html`
-                    <span class="segment-number ${segmentDisplaySide}"
-                      show-number="${showSegmentNumbers}">${displayNumber}</span>`
+                    <a class="segment-number ${segmentDisplaySide}"
+                      href="${openInNewTab(segmentNr)}"
+                      target="_blank"
+                      show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
                 }
-                ${segText}</span>`
+                <span class="segment ${highLightSegment ? 'segment--highlighted' : ''}"
+                title=${displayNumber}
+                id=${segmentNr}
+                @click="${onClick}">${segText}</span>`
 }
