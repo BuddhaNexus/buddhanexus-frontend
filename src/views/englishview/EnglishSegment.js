@@ -1,5 +1,7 @@
 import { html } from 'lit-element';
 
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
+
 export function EnglishSegmentContainer({
   segmentNr,
   segText,
@@ -58,24 +60,10 @@ const PaliSegment = (inputData, segmentNr) => {
       `;
 };
 
-function openInNewTab(segmentNr) {
-  let segmentnr = segmentNr;
-  if (segmentNr.startsWith('ai-') || segmentNr.startsWith('en-')) {
-    segmentnr = segmentNr.replace('ai-', '').replace('en-', '') + '_0';
-  }
-  let fileName = segmentnr.split(':')[0];
-  const currentURL = window.location.href.split('/');
-  currentURL.pop();
-  return (
-    currentURL
-      .join()
-      .replace(/,/g, '/')
-      .replace('english', 'text') +
-    '/' +
-    fileName +
-    '/' +
-    segmentnr.replace(/\./g, '@')
-  );
+function convertSegment(segmentNr) {
+  return segmentNr.startsWith('ai-') || segmentNr.startsWith('en-')
+    ? (segmentNr = segmentNr.replace('ai-', '').replace('en-', '') + '_0')
+    : segmentNr;
 }
 
 export function EnglishSegment({
@@ -92,7 +80,7 @@ export function EnglishSegment({
   return html`${firstDisplayNumber
                   ? html`
                     <a class="segment-number ${segmentDisplaySide}"
-                      href="${openInNewTab(segmentNr)}"
+                      href="${createTextViewSegmentUrl(convertSegment(segmentNr))}"
                       target="_blank"
                       show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
