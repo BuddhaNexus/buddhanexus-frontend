@@ -3,6 +3,7 @@ import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import { getLanguageFromFilename } from '../utility/views-common';
 import { TextSegment } from './TextSegment';
 import { SourceSegment } from './SourceSegment';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 
 function getLeftSegmentColors(
   current_parallels,
@@ -105,7 +106,7 @@ export function LeftSegment({
                 ${firstDisplayNumber
                   ? html`
                     <a class="segment-number ${segmentDisplaySide}"
-                      href="${window.location.href+'/'+segmentNr.replace(/\./g, '@')}"
+                      href="${createTextViewSegmentUrl(segmentNr)}"
                       target="_blank"
                       show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
