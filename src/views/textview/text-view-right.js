@@ -11,6 +11,7 @@ import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
 import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './text-view';
 import { TextSegment } from './TextSegment';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 
 @customElement('text-view-right')
 export class TextViewRight extends LitElement {
@@ -267,22 +268,6 @@ export class TextViewRight extends LitElement {
   }
 }
 
-function copyText(segmentNr) {
-  let fileName = segmentNr.split(':')[0];
-  fileName = fileName.match(/[TXK][0-9]+n[0-9]+/g)
-    ? fileName.split('_')[0]
-    : fileName;
-  const currentURL = window.location.href.split('/');
-  currentURL.pop();
-  return (
-    currentURL.join().replace(/,/g, '/') +
-    '/' +
-    fileName +
-    '/' +
-    segmentNr.replace(/\./g, '@')
-  );
-}
-
 const TextViewLayoutRight = (
   textRight,
   parallels,
@@ -401,7 +386,7 @@ const rightSegment = (
                 ${firstDisplayNumber
                   ? html`
                     <a class="segment-number ${segmentDisplaySide}"
-                      href="${copyText(segmentNr)}"
+                      href="${createTextViewSegmentUrl(segmentNr)}"
                       target="_blank"
                       show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
