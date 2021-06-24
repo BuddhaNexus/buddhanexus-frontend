@@ -58,6 +58,7 @@ export class DataView extends LitElement {
   @property({ type: Boolean }) filterBarOpen;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
+  @property({ type: String }) externalLinkCode;
 
   static get styles() {
     return [dataViewStyles];
@@ -325,14 +326,12 @@ export class DataView extends LitElement {
     this.showSCEnglish = e.detail.value;
   };
 
-  setMultiLingualMode = multiLingualList => {
-    this.multiLingualMode = multiLingualList;
+  toggleExternalLink = e => {
+    this.externalLinkCode = e.detail.value;
   };
 
-  displaySettings = () => {
-    return this.viewMode == 'text' || this.viewMode == 'english'
-      ? 'display: inline-flex'
-      : 'display: none';
+  setMultiLingualMode = multiLingualList => {
+    this.multiLingualMode = multiLingualList;
   };
 
   shouldShowTotalNumbers() {
@@ -384,7 +383,8 @@ export class DataView extends LitElement {
             .multiSearchString="${this.multiSearchString}"
             .headerVisibility="${this.headerVisibility}"
             .showSegmentNumbers="${this.showSegmentNumbers}"
-            .segmentDisplaySide="${this.segmentDisplaySide}">
+            .segmentDisplaySide="${this.segmentDisplaySide}"
+            .externalLinkCode="${this.externalLinkCode}">
           </data-view-router>
         </div>
 
@@ -427,14 +427,15 @@ export class DataView extends LitElement {
 
           <data-view-settings-container
             class="settings-menu"
-            style="${this.displaySettings()}"
             lang="${this.language}"
             view="${this.viewMode}"
             .fileName="${this.fileName}"
+            .lang="${this.language}"
             .viewMode="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
-            .toggleShowSCTranslation="${this.toggleShowSCTranslation}">
+            .toggleShowSCTranslation="${this.toggleShowSCTranslation}"
+            .toggleExternalLink="${this.toggleExternalLink}">
           </data-view-settings-container>
         </side-sheet>
       </div>

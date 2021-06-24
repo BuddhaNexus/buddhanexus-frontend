@@ -26,6 +26,7 @@ export class TextViewMiddle extends LitElement {
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) fetchError;
   @property({ type: String }) transMethod;
+  @property({ type: String }) externalLinkCode;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -221,7 +222,12 @@ export class TextViewMiddle extends LitElement {
               @click="${this.clickedParallel}"
               @mouseover="${this.mouseOverParallel}">
               <span class="selected-parallel-nr">
-                <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}" .rootUrl="${createTextViewSegmentUrl(parSegnr)}"></formatted-segment>
+                <formatted-segment
+                  .segmentnr="${[parSegnr]}"
+                  .lang="${par_lang}"
+                  .rootUrl="${createTextViewSegmentUrl(parSegnr)}"
+                  .externalLinkCode="${this.externalLinkCode}">
+                </formatted-segment>
               <span class="trans-message">${transMessage}</span> <br /> </span> 
               <span class="score">Score: ${parallels[i].score} %</span>
               <span class="segment-length ${parallels[i].par_length ? 'show-length' : 'no-show-length'}">Length: ${parallels[i].par_length}</span>

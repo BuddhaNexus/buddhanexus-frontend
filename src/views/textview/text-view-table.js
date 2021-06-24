@@ -27,6 +27,7 @@ export default class TextViewTable extends LitElement {
   @property({ type: Function }) handleMouseOver;
   @property({ type: Function }) handleParallelClicked;
   @property({ type: String }) headerVisibility;
+  @property({ type: String }) externalLinkCode;
 
   static get styles() {
     return [
@@ -57,6 +58,7 @@ export default class TextViewTable extends LitElement {
               .data="${this.middleData}"
               .leftActiveSegment="${this.leftActiveSegment}"
               .transMethod="${this.transMethod}"
+              .externalLinkCode="${this.externalLinkCode}"
               @mouseover-parallel="${this.handleMouseOver}"
               @click-parallel="${this.handleParallelClicked}">
             </text-view-middle>

@@ -33,6 +33,7 @@ export class DataViewRouter extends LitElement {
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) transMethod;
   @property({ type: Boolean }) showSCEnglish;
+  @property({ type: String }) externalLinkCode;
 
   render() {
     if (
@@ -55,6 +56,7 @@ export class DataViewRouter extends LitElement {
           .setSelectedView="${this.setSelectedView}"
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
+          .externalLinkCode="${this.externalLinkCode}"
           .headerVisibility="${this.headerVisibility}"
           .transMethod="${this.transMethod}"
         ></text-view-router>
@@ -69,6 +71,7 @@ export class DataViewRouter extends LitElement {
           .cooccurance="${this.cooccurance}"
           .score="${this.score}"
           .headerVisibility="${this.headerVisibility}"
+          .externalLinkCode="${this.externalLinkCode}"
         ></numbers-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.GRAPH) {
@@ -93,6 +96,7 @@ export class DataViewRouter extends LitElement {
           .score="${this.score}"
           .searchString="${this.searchString}"
           .transMethod="${this.transMethod}"
+          .externalLinkCode="${this.externalLinkCode}"
         ></table-view>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.MULTILING) {
@@ -103,6 +107,7 @@ export class DataViewRouter extends LitElement {
           .multiSearchString="${this.multiSearchString}"
           .multiLingualMode="${this.multiLingualMode}"
           .transMethod="${this.transMethod}"
+          .externalLinkCode="${this.externalLinkCode}"
         ></table-view-multiling>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.ENGLISH) {

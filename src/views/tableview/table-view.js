@@ -30,6 +30,7 @@ export class TableView extends LitElement {
   @property({ type: String }) sortMethod;
   @property({ type: Array }) limitCollection;
   @property({ type: String }) transMethod;
+  @property({ type: String }) externalLinkCode;
 
   @property({ type: String }) lang;
   @property({ type: Array }) parallelsData = [];
@@ -173,6 +174,7 @@ export class TableView extends LitElement {
         .parallels="${this.parallelsData}"
         .setPageNumber="${this.setPageNumber}"
         .transMethod="${this.transMethod}"
+        .externalLinkCode="${this.externalLinkCode}"
       ></table-view-table>
     `;
   }

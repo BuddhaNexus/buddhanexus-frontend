@@ -14,6 +14,7 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) lang;
   @property({ type: String }) rootUrl;
   @property({ type: Boolean }) logo = true;
+  @property({ type: String }) externalLinkCode;
   @property({ type: String }) number;
   @property({ type: String }) displayName = '';
   @property({ type: String }) displayLink = '';
@@ -110,21 +111,13 @@ export class FormattedSegment extends LitElement {
       segmentnr: this.filename,
     });
     this.displayName = displayData ? displayData[0] : '';
-    if (
-      this.lang === LANGUAGE_CODES.SANSKRIT ||
-      this.lang === LANGUAGE_CODES.TIBETAN
-    ) {
-      this.externalLink = displayData ? displayData[2] : '';
-    }
-    if (
-      this.lang === LANGUAGE_CODES.CHINESE ||
-      this.lang === LANGUAGE_CODES.PALI
-    ) {
-      this.externalLink = this.getLinkForSegmentNumbers(
-        this.lang,
-        segmentnrString
-      );
-    }
+
+    this.externalLink = this.getLinkForSegmentNumbers(
+      this.lang,
+      segmentnrString,
+      displayData
+    );
+
     this.displayLink = this.rootUrl;
     this.externalLinkName = this.getExternalLinkName(
       this.lang,
@@ -136,12 +129,15 @@ export class FormattedSegment extends LitElement {
   }
 
   getExternalLinkName(language, externalLink) {
+    if (!externalLink) {
+      return;
+    }
     let linkName = '';
     switch (language) {
       case LANGUAGE_CODES.TIBETAN:
         linkName = externalLink.match('bdrc')
           ? `Buddhist Digital Resource Centre`
-          : '';
+          : `Resources for Kanjur and Tanjur Studies`;
         break;
       case LANGUAGE_CODES.PALI:
         linkName = externalLink.match('suttacentral')
@@ -149,12 +145,18 @@ export class FormattedSegment extends LitElement {
           : `Vipassana Research Institute`;
         break;
       case LANGUAGE_CODES.SANSKRIT:
-        linkName = externalLink.match('dsbc')
-          ? `Digital Sanskrit Buddhist Canon`
-          : `GRETIL`;
+        if (externalLink.match('suttacentral')) {
+          linkName = `SuttaCentral`;
+        } else if (externalLink.match('dsbc')) {
+          linkName = `Digital Sanskrit Buddhist Canon`;
+        } else {
+          linkName = `GRETIL`;
+        }
         break;
       case LANGUAGE_CODES.CHINESE:
-        linkName = `CBETA`;
+        linkName = externalLink.match('suttacentral')
+          ? `SuttaCentral`
+          : `CBETA`;
         break;
       default:
         linkName = '';
@@ -162,15 +164,67 @@ export class FormattedSegment extends LitElement {
     return linkName;
   }
 
-  getLinkForSegmentNumbers(language, segmentnr) {
+  getLinkForSegmentNumbers(language, segmentnr, displayData) {
     // prettier-ignore
-    const dhpVerses = [1,21,33,44,60,76,90,100,116,129,146,157,167,179,197,
-                        209,221,235,256,273,290,306,320,334,360,383,424]
     let linkText = '';
+    if (language === LANGUAGE_CODES.TIBETAN) {
+      if (!displayData || !displayData[2]) {
+        linkText = '';
+      }
+      if (this.externalLinkCode === 'exlink1') {
+        linkText = displayData[2];
+      } else {
+        linkText = displayData[2].replace(
+          'http://purl.bdrc.io/resource/WA0RT',
+          'https://www.istb.univie.ac.at/kanjur/rktsneu/verif/verif3.php?id='
+        );
+      }
+    }
+
+    if (language === LANGUAGE_CODES.SANSKRIT) {
+      if (!displayData || !displayData[2]) {
+        linkText = '';
+      }
+      if (this.externalLinkCode === 'exlink1' || !displayData[3]) {
+        linkText = displayData[2];
+      } else {
+        linkText = displayData[3];
+      }
+    }
+
     if (language === LANGUAGE_CODES.PALI) {
       // Because SuttaCentral changed the way links work, some things
       // have changed here. For now I placed them in comments and asked at SC
       // if there are any plans to add range highlighting again.
+      const dhpVerses = [
+        1,
+        21,
+        33,
+        44,
+        60,
+        76,
+        90,
+        100,
+        116,
+        129,
+        146,
+        157,
+        167,
+        179,
+        197,
+        209,
+        221,
+        235,
+        256,
+        273,
+        290,
+        306,
+        320,
+        334,
+        360,
+        383,
+        424,
+      ];
       let cleanedSegment = segmentnr
         .split(':')[1]
         .replace(/_[0-9]+/g, '')
@@ -202,11 +256,18 @@ export class FormattedSegment extends LitElement {
       linkText = segmentnr.match(/^tika|^anya|^atk/)
         ? `https://www.tipitaka.org/romn/`
         : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
-    } else if (LANGUAGE_CODES.CHINESE) {
+    }
+
+    if (language === LANGUAGE_CODES.CHINESE) {
       const cleanedSegmentNumber = segmentnr.split(':')[1].split('–')[0];
       const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
-      linkText = `http://tripitaka.cbeta.org/${cleanedSegment}#${cleanedSegmentNumber}`;
+      if (this.externalLinkCode === 'exlink1' || !displayData[3]) {
+        linkText = `http://tripitaka.cbeta.org/${cleanedSegment}#${cleanedSegmentNumber}`;
+      } else {
+        linkText = `${displayData[3]}#t${cleanedSegmentNumber}`;
+      }
     }
+
     return linkText;
   }
 

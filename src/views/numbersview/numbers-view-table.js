@@ -6,7 +6,13 @@ import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 import NumbersViewTableHeader from './numbers-view-table-header';
 import '../utility/formatted-segment';
 
-const NumbersViewTable = ({ fileName, collections, segments, language }) => {
+const NumbersViewTable = ({
+  fileName,
+  collections,
+  segments,
+  language,
+  externalLinkCode,
+}) => {
   if (!segments || segments.length === 0) {
     return null;
   }
@@ -18,7 +24,12 @@ const NumbersViewTable = ({ fileName, collections, segments, language }) => {
   return html`
     <table class="numbers-view-table">
       ${NumbersViewTableHeader(fileName, collectionslist)}
-      ${NumbersViewTableContent(segments, collectionslist, language)}
+      ${NumbersViewTableContent(
+        segments,
+        collectionslist,
+        language,
+        externalLinkCode
+      )}
     </table>
   `;
 };
@@ -29,7 +40,12 @@ function Comparator(a, b) {
   return 0;
 }
 
-const NumbersViewTableContent = (segments, collectionkeys, language) =>
+const NumbersViewTableContent = (
+  segments,
+  collectionkeys,
+  language,
+  externalLinkCode
+) =>
   segments.map(segment => {
     const collections = objectMap(collectionkeys, () => []);
     const { parallels: segmentParallels, segmentnr } = segment;
@@ -37,7 +53,8 @@ const NumbersViewTableContent = (segments, collectionkeys, language) =>
       segmentParallels ? segmentParallels.sort(Comparator) : [],
       collections,
       segmentnr,
-      language
+      language,
+      externalLinkCode
     );
   });
 
@@ -46,6 +63,7 @@ const TableRowContainer = (
   collections,
   segmentnr,
   language,
+  externalLinkCode,
   logo = false
 ) =>
   segmentParallels.map((parallelArr, index) => {
@@ -56,18 +74,33 @@ const TableRowContainer = (
         .segmentnr="${[`${segmentnr}`]}"
         .lang="${language}"
         .rootUrl="${rootLink}"
+        .externalLinkCode="${externalLinkCode}"
         .logo="${logo}"
       ></formatted-segment>
     `;
     if (collections[parCollection]) {
       collections[parCollection].push(parallelArr);
       if (index === segmentParallels.length - 1) {
-        return TableRow(segmentlink, collections, language, rootLink, logo);
+        return TableRow(
+          segmentlink,
+          collections,
+          language,
+          rootLink,
+          externalLinkCode,
+          logo
+        );
       }
     }
   });
 
-const TableRow = (segmentNr, collections, language, rootLink, logo) =>
+const TableRow = (
+  segmentNr,
+  collections,
+  language,
+  rootLink,
+  externalLinkCode,
+  logo
+) =>
   //prettier-ignore
   html`
     <tr class="numbers-view-table-row">
@@ -77,14 +110,19 @@ const TableRow = (segmentNr, collections, language, rootLink, logo) =>
       ${Object.keys(collections).map(
         key => html`
           <td>
-            ${getParallelsForCollection(collections[key], language, logo)}
+            ${getParallelsForCollection(collections[key], language, externalLinkCode, logo)}
           </td>
         `
       )}
     </tr>
   `;
 
-const getParallelsForCollection = (collection, language, logo) =>
+const getParallelsForCollection = (
+  collection,
+  language,
+  externalLinkCode,
+  logo
+) =>
   collection.map(item => {
     const parLink = createTextViewSegmentUrl(item[0]);
     const segmentlink = html`
@@ -92,6 +130,7 @@ const getParallelsForCollection = (collection, language, logo) =>
         .segmentnr="${item}"
         .lang="${language}"
         .rootUrl="${parLink}"
+        .externalLinkCode="${externalLinkCode}"
         .logo="${logo}"
       ></formatted-segment>
     `;

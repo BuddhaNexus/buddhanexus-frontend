@@ -32,6 +32,7 @@ export class NumbersView extends LitElement {
   @property({ type: String }) addObserverFlag = true;
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) headerVisibility;
+  @property({ type: String }) externalLinkCode;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -158,6 +159,7 @@ export class NumbersView extends LitElement {
           collections: this.collectionsData,
           segments: this.segmentsData,
           language: this.lang,
+          externalLinkCode: this.externalLinkCode,
         })}
       </div>
     `;

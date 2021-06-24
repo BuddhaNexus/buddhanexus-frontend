@@ -36,6 +36,7 @@ export class TextViewRouter extends LitElement {
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
   @property({ type: String }) transMethod;
+  @property({ type: String }) externalLinkCode;
 
   handleSearchResultClicked(e) {
     this.leftTextData = e.detail;
@@ -54,6 +55,7 @@ export class TextViewRouter extends LitElement {
           .fileName="${this.fileName}"
           .searchString="${this.searchString}"
           .transMethod="${this.transMethod}"
+          .externalLinkCode="${this.externalLinkCode}"
           @click-result="${this.handleSearchResultClicked}"
           @click-return="${this.handleReturnButtonClicked}"
         ></text-view-search>
@@ -77,6 +79,7 @@ export class TextViewRouter extends LitElement {
         .showSegmentNumbers="${this.showSegmentNumbers}"
         .segmentDisplaySide="${this.segmentDisplaySide}"
         .headerVisibility="${this.headerVisibility}"
+        .externalLinkCode="${this.externalLinkCode}"
       ></text-view>
     `;
   }
