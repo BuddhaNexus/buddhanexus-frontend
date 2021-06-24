@@ -6,6 +6,7 @@ import {
   segmentArrayToString,
 } from '../utility/preprocessing';
 import { getFileTextParallelsMiddle } from '../../api/actions';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
@@ -220,7 +221,7 @@ export class TextViewMiddle extends LitElement {
               @click="${this.clickedParallel}"
               @mouseover="${this.mouseOverParallel}">
               <span class="selected-parallel-nr">
-                <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}"></formatted-segment>
+                <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}" .rootUrl="${createTextViewSegmentUrl(parSegnr)}"></formatted-segment>
               <span class="trans-message">${transMessage}</span> <br /> </span> 
               <span class="score">Score: ${parallels[i].score} %</span>
               <span class="segment-length ${parallels[i].par_length ? 'show-length' : 'no-show-length'}">Length: ${parallels[i].par_length}</span>

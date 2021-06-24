@@ -35,9 +35,17 @@ export default css`
         }
 
         .copy-icon {
+          margin-left: 2px;
           width: 10px;
           color: var(--color-text-secondary);
           cursor: copy;
+        }
+
+        .open-link-icon {
+          margin-left: 2px;
+          width: 10px;
+          color: var(--color-text-secondary);
+          cursor: pointer;
         }
   }
 `;
