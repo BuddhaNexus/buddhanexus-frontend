@@ -22,7 +22,8 @@ export default function SearchViewListItem({
           <span class="search-view-list__segment-id">
             <formatted-segment
               .segmentnr="${[SegmentId,]}"
-              .lang="${getLanguageFromFilename(SegmentId)}">
+              .lang="${getLanguageFromFilename(SegmentId)}"
+              .rootUrl="${rootUrl}">
             </formatted-segment>
           </span><span>Edit distance: ${distance} </span> 
           <span class="trans-message" style="display: ${

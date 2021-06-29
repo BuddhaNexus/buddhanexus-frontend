@@ -3,6 +3,7 @@ import { customElement, html, LitElement, property, css } from 'lit-element';
 import { getDisplayName } from '../../api/actions';
 import { getLanguageFromFilename } from './views-common';
 import { segmentArrayToString } from './preprocessing';
+import { LANGUAGE_CODES, LANGUAGE_NAMES } from '../utility/constants';
 
 import styles from './formatted-segment.styles';
 
@@ -11,10 +12,13 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) segmentnr;
   @property({ type: String }) filename;
   @property({ type: String }) lang;
+  @property({ type: String }) rootUrl;
   @property({ type: Boolean }) logo = true;
   @property({ type: String }) number;
   @property({ type: String }) displayName = '';
   @property({ type: String }) displayLink = '';
+  @property({ type: String }) externalLink = '';
+  @property({ type: String }) externalLinkName = '';
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -40,17 +44,17 @@ export class FormattedSegment extends LitElement {
     }
     let title;
     switch (par_lang) {
-      case 'tib':
-        title = 'Tibetan';
+      case LANGUAGE_CODES.TIBETAN:
+        title = LANGUAGE_NAMES.TIBETAN;
         break;
-      case 'skt':
-        title = 'Sanskrit';
+      case LANGUAGE_CODES.SANSKRIT:
+        title = LANGUAGE_NAMES.SANSKRIT;
         break;
-      case 'pli':
-        title = 'Pali';
+      case LANGUAGE_CODES.PALI:
+        title = LANGUAGE_NAMES.PALI;
         break;
-      case 'chn':
-        title = 'Chinese';
+      case LANGUAGE_CODES.CHINESE:
+        title = LANGUAGE_NAMES.CHINESE;
         break;
       default:
         title = '';
@@ -96,29 +100,66 @@ export class FormattedSegment extends LitElement {
     this.lang = getLanguageFromFilename(segmentnrString);
     this.filename = segmentnrString.split(':')[0];
     this.number = segmentnrString.split(':')[1];
-    if (this.lang === 'chn' || this.lang === 'skt') {
+    if (
+      this.lang === LANGUAGE_CODES.CHINESE ||
+      this.lang === LANGUAGE_CODES.SANSKRIT
+    ) {
       this.filename = this.filename.replace(/_[0-9]+/, '');
     }
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
     this.displayName = displayData ? displayData[0] : '';
-    if (this.lang === 'skt' || this.lang === 'tib') {
-      this.displayLink = displayData ? displayData[2] : '';
-      // The below is only a tryout to redirect segments to SC as fallback option
-      // if (displayData && displayData[3]) {
-      //   this.displayLink = displayData[3];
-      // }
+    if (
+      this.lang === LANGUAGE_CODES.SANSKRIT ||
+      this.lang === LANGUAGE_CODES.TIBETAN
+    ) {
+      this.externalLink = displayData ? displayData[2] : '';
     }
-    if (this.lang === 'chn' || this.lang === 'pli') {
-      this.displayLink = this.getLinkForSegmentNumbers(
+    if (
+      this.lang === LANGUAGE_CODES.CHINESE ||
+      this.lang === LANGUAGE_CODES.PALI
+    ) {
+      this.externalLink = this.getLinkForSegmentNumbers(
         this.lang,
         segmentnrString
       );
     }
+    this.displayLink = this.rootUrl;
+    this.externalLinkName = this.getExternalLinkName(
+      this.lang,
+      this.externalLink
+    );
     this.fetchLoading = false;
     this.allowFetching = false;
     this.fetchError = error;
+  }
+
+  getExternalLinkName(language, externalLink) {
+    let linkName = '';
+    switch (language) {
+      case LANGUAGE_CODES.TIBETAN:
+        linkName = externalLink.match('bdrc')
+          ? `Buddhist Digital Resource Centre`
+          : '';
+        break;
+      case LANGUAGE_CODES.PALI:
+        linkName = externalLink.match('suttacentral')
+          ? `SuttaCentral`
+          : `Vipassana Research Institute`;
+        break;
+      case LANGUAGE_CODES.SANSKRIT:
+        linkName = externalLink.match('dsbc')
+          ? `Digital Sanskrit Buddhist Canon`
+          : `GRETIL`;
+        break;
+      case LANGUAGE_CODES.CHINESE:
+        linkName = `CBETA`;
+        break;
+      default:
+        linkName = '';
+    }
+    return linkName;
   }
 
   getLinkForSegmentNumbers(language, segmentnr) {
@@ -126,7 +167,7 @@ export class FormattedSegment extends LitElement {
     const dhpVerses = [1,21,33,44,60,76,90,100,116,129,146,157,167,179,197,
                         209,221,235,256,273,290,306,320,334,360,383,424]
     let linkText = '';
-    if (language === 'pli') {
+    if (language === LANGUAGE_CODES.PALI) {
       // Because SuttaCentral changed the way links work, some things
       // have changed here. For now I placed them in comments and asked at SC
       // if there are any plans to add range highlighting again.
@@ -161,7 +202,7 @@ export class FormattedSegment extends LitElement {
       linkText = segmentnr.match(/^tika|^anya|^atk/)
         ? `https://www.tipitaka.org/romn/`
         : `https://suttacentral.net/${rootSegment}/pli/ms#${cleanedSegment}`;
-    } else if (language === 'chn') {
+    } else if (LANGUAGE_CODES.CHINESE) {
       const cleanedSegmentNumber = segmentnr.split(':')[1].split('–')[0];
       const cleanedSegment = segmentnr.split(':')[0].replace(/_[TX]/, 'n');
       linkText = `http://tripitaka.cbeta.org/${cleanedSegment}#${cleanedSegmentNumber}`;
@@ -184,7 +225,7 @@ export class FormattedSegment extends LitElement {
       // prettier-ignore
       return html`<span class="formatted-segment" title="${this.filename}">${this.filename}:${this.number}</span>`
     }
-    if (this.displayLink) {
+    if (this.externalLink) {
       // prettier-ignore
       return html`${this.getIcon(this.lang)} <a target="_blanc" class="segment-link" href="${this.displayLink}">
         <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
@@ -194,10 +235,19 @@ export class FormattedSegment extends LitElement {
           icon="vaadin:copy-o"
           title="Copy work title to Clipboard"
           @click="${this.copyText}">
-        </iron-icon>`
+        </iron-icon>
+        <iron-icon
+          class="open-link-icon"
+          icon="vaadin:external-link"
+          title="Display this text in ${this.externalLinkName}"
+          onclick="window.open('${this.externalLink}','_blank');">
+        </iron-icon>
+        `
     }
     // prettier-ignore
-    return html`${this.getIcon(this.lang)} <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
+    return html`${this.getIcon(this.lang)} <a target="_blanc" class="segment-link" href="${this.displayLink}">
+        <span class="formatted-segment" title="${this.displayName}">${this.filename}:${this.number}</span>
+        </a>
         <iron-icon
           class="copy-icon"
           icon="vaadin:copy-o"
