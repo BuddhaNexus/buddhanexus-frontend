@@ -100,6 +100,10 @@ export class GuidelinesView extends LitElement {
                 The pie graph displays the distribution of the (approximate) matches according to the collection’s sections. 
                 The histogram shows the distribution of the top files that have matches with the Inquiry Text based on the 
                 accumulated length of the approximate matches. A maximum of 50 Hit Texts are shown.</li>
+                <li><b>English View</b>: This view-mode is only available for Pāli texts. It displays the original text
+                together with the English translatiosn by our artificial intelligence neural network computer. As an extra option
+                there is the possibility to show the human english translation by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya)
+                if these exist.</li>
               </ul>
             </p>
             <h3>Visual Charts</h3>

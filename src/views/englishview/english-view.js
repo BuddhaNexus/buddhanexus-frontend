@@ -14,6 +14,7 @@ export class EnglishView extends LitElement {
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
   @property({ type: Boolean }) showSCEnglish;
+  @property({ type: Boolean }) displaySCEnglish;
   @property({ type: String }) transMethod;
 
   @property({ type: Array }) rightTextData;
@@ -23,7 +24,23 @@ export class EnglishView extends LitElement {
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
-      if (['fileName', 'transMethod'].includes(propName)) {
+      if (propName === 'fileName') {
+        this.activeSegment = 'none';
+        if (
+          this.fileName.match(
+            '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt)'
+          )
+        ) {
+          this.displaySCEnglish = false;
+        } else {
+          this.displaySCEnglish = this.showSCEnglish;
+        }
+        this.fetchNewText();
+      }
+      if (propName === 'showSCEnglish') {
+        this.displaySCEnglish = this.showSCEnglish;
+      }
+      if (propName === 'transMethod') {
         this.fetchNewText();
       }
       if (propName === 'folio') {
@@ -61,13 +78,13 @@ export class EnglishView extends LitElement {
         : null}
       <english-view-header
         .fileName="${this.fileName}"
-        .showSCEnglish="${this.showSCEnglish}"
+        .displaySCEnglish="${this.displaySCEnglish}"
       ></english-view-header>
 
       <english-view-table
         id="english-view-table"
         .fileName="${this.fileName}"
-        .showSCEnglish="${this.showSCEnglish}"
+        .displaySCEnglish="${this.displaySCEnglish}"
         .leftTextData="${this.leftTextData}"
         .middleData="${this.middleData}"
         .rightTextData="${this.rightTextData}"

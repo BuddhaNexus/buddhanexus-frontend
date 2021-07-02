@@ -29,8 +29,6 @@ export class DataViewViewSelector extends LitElement {
   }
 
   render() {
-    // In the English filter, remove pli as a language to make it visible.
-    // This viewmode is temporarily hidden.
     return html`
       <vaadin-radio-group
         label="Choose view:"
@@ -54,8 +52,7 @@ export class DataViewViewSelector extends LitElement {
             (filter !== 'english' ||
               (this.language !== 'skt' &&
                 this.language !== 'tib' &&
-                this.language !== 'chn' &&
-                this.language !== 'pli'))
+                this.language !== 'chn'))
           ) {
             return html`
               <vaadin-radio-button value="${filter}">

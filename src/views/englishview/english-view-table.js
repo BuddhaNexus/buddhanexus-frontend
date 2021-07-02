@@ -9,7 +9,7 @@ import './english-view-right';
 @customElement('english-view-table')
 export default class EnglishViewTable extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Boolean }) showSCEnglish;
+  @property({ type: Boolean }) displaySCEnglish;
   @property({ type: Array }) leftTextData;
   @property({ type: Array }) middleData;
   @property({ type: Array }) rightTextData;
@@ -50,7 +50,7 @@ export default class EnglishViewTable extends LitElement {
             ></english-view-middle>
           </div>
 
-          ${this.showSCEnglish && this.renderRightData()}
+          ${this.displaySCEnglish && this.renderRightData()}
         </vaadin-split-layout>
       </div>
     `;
@@ -68,6 +68,7 @@ export default class EnglishViewTable extends LitElement {
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
           .handleSegmentClick="${this.handleSegmentClick}"
+          .displaySCEnglish="${this.displaySCEnglish}"
         ></english-view-right>
       </div>
     `;

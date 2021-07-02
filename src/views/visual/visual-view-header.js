@@ -17,7 +17,7 @@ export class VisualViewHeader extends LitElement {
   @property({ type: String }) colorScheme = 'Gradient';
   @property({ type: Array }) languages = [
     { language: 'tib', label: 'Tibetan' },
-    { language: 'pli', label: 'Pali' },
+    { language: 'pli', label: 'Pāli' },
     { language: 'skt', label: 'Sanskrit' },
     { language: 'chn', label: 'Chinese' },
   ];

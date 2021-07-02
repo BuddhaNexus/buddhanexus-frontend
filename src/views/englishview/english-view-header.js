@@ -51,8 +51,10 @@ function EnglishViewHeaderLeftColumn({
       <template>
         <div>
           <p>
-            This view shows the original Pali text in the left column and the english translations.
-            The right column shows the text by our artificial intelligence neural network computer.
+            This view shows the original Pāli text in the left column and the english translations.
+            The right column shows the translation by our artificial intelligence neural network computer.
+            Note: This view is experimental and the translations by the neural network cannot be relied
+            upon as actual correct translations.
           </p><p>
             In the settings menu there is an option to show the human english translation by
             Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya) if these exist.
@@ -72,7 +74,7 @@ function EnglishViewHeaderLeftColumn({
 @customElement('english-view-header')
 export class EnglishViewHeader extends LitElement {
   @property({ type: String }) fileName;
-  @property({ type: Boolean }) showSCEnglish;
+  @property({ type: Boolean }) displaySCEnglish;
 
   @property({ type: Boolean }) isInfoDialogRightOpen = false;
   @property({ type: Boolean }) isInfoDialogLeftOpen = false;
@@ -139,9 +141,9 @@ export class EnglishViewHeader extends LitElement {
           <source-link .filename="${this.fileName}"></source-link>
         </div>
 
-        <div>Artificial Intelligence Translation</div>
+        <div>(Beta version) AI Translation</div>
 
-        ${this.showSCEnglish
+        ${this.displaySCEnglish
           ? EnglishViewHeaderRightColumn({
               isInfoDialogRightOpen: this.isInfoDialogRightOpen,
               openDialogRight: this.openDialogRight,
