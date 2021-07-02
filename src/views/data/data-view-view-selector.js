@@ -52,7 +52,8 @@ export class DataViewViewSelector extends LitElement {
             (filter !== 'english' ||
               (this.language !== 'skt' &&
                 this.language !== 'tib' &&
-                this.language !== 'chn'))
+                this.language !== 'chn' &&
+                this.language !== 'multi'))
           ) {
             return html`
               <vaadin-radio-button value="${filter}">

@@ -136,10 +136,10 @@ class DataViewHeader extends LitElement {
                   label="Display text as:"
                   @value-changed="${this.toggleTransMode}">
                   <vaadin-radio-button value="wylie" checked>
-                    <span class="button-font">${(this.language === 'tib') ? 'Wylie' : 'Roman'}</span>
+                    <span class="button-font">${(this.language === 'tib' || this.language === 'multi') ? 'Wylie' : 'Roman'}</span>
                   </vaadin-radio-button>
                   <vaadin-radio-button value="uni">
-                    <span class="button-font">${(this.language === 'tib') ? 'Unicode' : 'Devanagari'}</span>
+                    <span class="button-font">${(this.language === 'tib' || this.language === 'multi') ? 'Unicode' : 'Devanagari'}</span>
                   </vaadin-radio-button>
                 </vaadin-radio-group>`
               : null}
