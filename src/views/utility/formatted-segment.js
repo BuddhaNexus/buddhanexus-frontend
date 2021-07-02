@@ -196,35 +196,8 @@ export class FormattedSegment extends LitElement {
       // Because SuttaCentral changed the way links work, some things
       // have changed here. For now I placed them in comments and asked at SC
       // if there are any plans to add range highlighting again.
-      const dhpVerses = [
-        1,
-        21,
-        33,
-        44,
-        60,
-        76,
-        90,
-        100,
-        116,
-        129,
-        146,
-        157,
-        167,
-        179,
-        197,
-        209,
-        221,
-        235,
-        256,
-        273,
-        290,
-        306,
-        320,
-        334,
-        360,
-        383,
-        424,
-      ];
+      // prettier-ignore
+      const dhpVerses = [1,21,33,44,60,76,90,100,116,129,146,157,167,179,197,209,221,235,256,273,290,306,320,334,360,383,424];
       let cleanedSegment = segmentnr
         .split(':')[1]
         .replace(/_[0-9]+/g, '')
