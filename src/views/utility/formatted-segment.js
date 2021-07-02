@@ -165,7 +165,6 @@ export class FormattedSegment extends LitElement {
   }
 
   getLinkForSegmentNumbers(language, segmentnr, displayData) {
-    // prettier-ignore
     let linkText = '';
     if (language === LANGUAGE_CODES.TIBETAN) {
       if (!displayData || !displayData[2]) {
