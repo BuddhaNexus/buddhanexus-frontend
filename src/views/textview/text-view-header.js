@@ -26,7 +26,7 @@ function TextViewHeaderRightColumn({
         @click="${clickedNewTabButton}">
         <iron-icon
           class="swap-icon"
-          icon="vaadin:plus-circle-o"
+          icon="vaadin:external-browser"
           slot="prefix">
         </iron-icon>
       </vaadin-button>
@@ -100,7 +100,7 @@ function TextViewHeaderLeftColumn({
       @click="${handleNewTabButtonClicked}">
       <iron-icon
         class="swap-icon"
-        icon="vaadin:plus-circle-o"
+        icon="vaadin:external-browser"
         slot="prefix">
       </iron-icon>
     </vaadin-button>

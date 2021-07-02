@@ -3,7 +3,6 @@
 import { html } from 'lit-element';
 
 import { TextSegment } from '../textview/TextSegment';
-import './formatted-segment';
 
 export const SEGMENT_COLORS = {
   1: '#0CC0E8',
@@ -37,7 +36,7 @@ export function highlightTextByOffset({
   startoffset,
   endoffset,
   lang,
-  transMethod
+  transMethod,
 }) {
   let returnArray = [];
   if (lang.match(/tib/)) {

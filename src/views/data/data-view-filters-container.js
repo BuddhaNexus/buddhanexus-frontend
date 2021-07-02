@@ -84,7 +84,6 @@ export class DataViewFiltersContainer extends LitElement {
       language: this.language,
     });
     this.filterFilesData = filteritems;
-
     this.filterFilesDataError = error;
     this.filterFilesDataLoading = false;
   }
@@ -170,12 +169,12 @@ export class DataViewFiltersContainer extends LitElement {
     );
   }
 
-  renderMultiSelectBox(label, id, changefunction, itempath) {
+  renderMultiSelectBox(label, id, changefunction, itempath, path) {
     return html`
       <multiselect-combo-box
         Label="${label}"
         id="${id}"
-        item-label-path="search_field"
+        item-label-path="${path}"
         style="display: ${this.shouldShowFilterDropdown()
           ? 'inline-flex'
           : 'none'}"
@@ -214,13 +213,15 @@ export class DataViewFiltersContainer extends LitElement {
             'Exclude collections:',
             'exclude-collection',
             this.handleCategoriesExcludeComboBoxChanged,
-            this.filterCategoriesData
+            this.filterCategoriesData,
+            'categoryname'
           )}
           ${this.renderMultiSelectBox(
             'Exclude files:',
             'exclude-filename',
             this.handleFilesExcludeComboBoxChanged,
-            this.filterFilesData
+            this.filterFilesData,
+            'search_field'
           )}
         </div>
         <div
@@ -230,13 +231,15 @@ export class DataViewFiltersContainer extends LitElement {
             'Limit to collections:',
             'filter-collection',
             this.handleCategoriesComboBoxChanged,
-            this.filterCategoriesData
+            this.filterCategoriesData,
+            'categoryname'
           )}
           ${this.renderMultiSelectBox(
             'Limit to files:',
             'filter-filename',
             this.handleFilesComboBoxChanged,
-            this.filterFilesData
+            this.filterFilesData,
+            'search_field'
           )}
         </div>
       `;
