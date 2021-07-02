@@ -12,6 +12,7 @@ export class EnglishViewRight extends LitElement {
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
   @property({ type: Function }) handleSegmentClick;
+  @property({ type: Boolean }) displaySCEnglish;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -20,7 +21,9 @@ export class EnglishViewRight extends LitElement {
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
       if (
-        ['rightTextData', 'activeSegment'].includes(propName) &&
+        ['rightTextData', 'activeSegment', 'displaySCEnglish'].includes(
+          propName
+        ) &&
         this.activeSegment &&
         this.activeSegment !== 'none'
       ) {
@@ -28,6 +31,11 @@ export class EnglishViewRight extends LitElement {
           '.segment--highlighted'
         );
         if (allSegments[0]) {
+          allSegments[0].scrollIntoView();
+        }
+      } else {
+        let allSegments = this.shadowRoot.querySelectorAll('.segment');
+        if (allSegments) {
           allSegments[0].scrollIntoView();
         }
       }

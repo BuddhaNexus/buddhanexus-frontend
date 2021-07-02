@@ -1,5 +1,7 @@
 import { html } from 'lit-element';
 
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
+
 export function EnglishSegmentContainer({
   segmentNr,
   segText,
@@ -26,7 +28,7 @@ export function EnglishSegmentContainer({
       ? false
       : true;
 
-  let newSegText = PaliSegment(segText);
+  let newSegText = PaliSegment(segText, segmentNr);
   return EnglishSegment({
     segmentNr: segmentNr,
     segText: newSegText,
@@ -39,12 +41,13 @@ export function EnglishSegmentContainer({
   });
 }
 
-const PaliSegment = inputData => {
+const PaliSegment = (inputData, segmentNr) => {
   if (!inputData) {
     return;
   }
   const strippedSegment = inputData.replace(/\//g, '|').trim();
-  return strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g)
+  return !segmentNr.match(/^(ai-anya|ai-tika|ai-atk)/g) &&
+    (strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g))
     ? html`
         <h3>${strippedSegment}</h3>
       `
@@ -57,6 +60,12 @@ const PaliSegment = inputData => {
       `;
 };
 
+function convertSegment(segmentNr) {
+  return segmentNr.startsWith('ai-') || segmentNr.startsWith('en-')
+    ? (segmentNr = segmentNr.replace('ai-', '').replace('en-', '') + '_0')
+    : segmentNr;
+}
+
 export function EnglishSegment({
   segmentNr,
   segText,
@@ -68,15 +77,16 @@ export function EnglishSegment({
   onClick,
 }) {
   // prettier-ignore
-  return html`<span class="segment ${highLightSegment ? 'segment--highlighted' : ''}"
-                title=${displayNumber}
-                id=${segmentNr}
-                @click="${onClick}">
-                ${firstDisplayNumber
+  return html`${firstDisplayNumber
                   ? html`
-                    <span class="segment-number ${segmentDisplaySide}"
-                      show-number="${showSegmentNumbers}">${displayNumber}</span>`
+                    <a class="segment-number ${segmentDisplaySide}"
+                      href="${createTextViewSegmentUrl(convertSegment(segmentNr))}"
+                      target="_blank"
+                      show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
                 }
-                ${segText}</span>`
+                <span class="segment ${highLightSegment ? 'segment--highlighted' : ''}"
+                title=${displayNumber}
+                id=${segmentNr}
+                @click="${onClick}">${segText}</span>`
 }

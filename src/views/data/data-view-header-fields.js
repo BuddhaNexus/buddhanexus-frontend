@@ -153,7 +153,7 @@ export class DataViewHeaderFields extends LitElement {
       case LANGUAGE_CODES.TIBETAN:
         return 'Find Tibetan texts...';
       case LANGUAGE_CODES.PALI:
-        return 'Find Pali texts...';
+        return 'Find Pāli texts...';
       case LANGUAGE_CODES.CHINESE:
         return 'Find Chinese texts...';
       case LANGUAGE_CODES.SANSKRIT:

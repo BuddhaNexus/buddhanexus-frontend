@@ -1,11 +1,8 @@
 import { customElement, html, LitElement, property } from 'lit-element';
-// import { removeDuplicates } from '../utility/views-common';
-// import { getFileText } from '../../api/actions';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './english-view-table.styles';
 import { EnglishSegmentContainer } from './EnglishSegment';
-// import { C_HIGHLIGHTED_SEGMENT, C_SELECTED_SEGMENT } from './english-view';
 
 @customElement('english-view-left')
 export class EnglishViewLeft extends LitElement {
@@ -30,6 +27,11 @@ export class EnglishViewLeft extends LitElement {
         let allSegments = this.shadowRoot.querySelectorAll(
           '.segment--highlighted'
         );
+        if (allSegments) {
+          allSegments[0].scrollIntoView();
+        }
+      } else {
+        let allSegments = this.shadowRoot.querySelectorAll('.segment');
         if (allSegments) {
           allSegments[0].scrollIntoView();
         }
