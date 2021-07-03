@@ -51,8 +51,7 @@ export class GuidelinesView extends LitElement {
             <p>
               The Global Text Search offers a search by a text passage. Upon typing in a text passage (max. length 150 characters), 
               a list with the pertinent hits will be displayed. A click on any of the results will display the full text in the 
-              Text View mode. The total number of possible search results is limited to 200 items. 
-              The Pāli data is currently not searchable with the Global Text Search.
+              Text View mode. The total number of possible search results is limited to 200 items.
             </p>
             <h3>Filter Options</h3>
             <p>
