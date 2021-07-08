@@ -55,8 +55,10 @@ export class DataViewHeaderFields extends LitElement {
         }
 
         vaadin-select,
+        vaadin-select-text-field,
         [part='input-field'] {
           --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
         }
 
         #sort-box {

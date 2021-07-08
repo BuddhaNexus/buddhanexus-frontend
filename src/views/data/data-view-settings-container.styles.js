@@ -14,7 +14,8 @@ export default css`
     --paper-toggle-button-checked-bar-color: var(--bn-dark-red);
   }
 
-  vaadin-radio-button {
+  vaadin-radio-button,
+  vaadin-radio-group {
     --material-primary-color: var(--bn-dark-red);
     --material-primary-text-color: var(--bn-dark-red);
   }

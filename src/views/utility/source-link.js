@@ -23,12 +23,17 @@ export class FormattedFileName extends LitElement {
   static get styles() {
     return [
       css`
+        :host {
+          display: inline-flex;
+          min-width: 200px;
+        }
+
         .source-link {
           background-color: var(--color-light-chartbar);
           box-shadow: var(--material-card-shadow);
           border-radius: 5px;
           font-weight: bold;
-          padding: 12px;
+          padding: 4px 12px 0 12px;
           margin-left: 24px;
         }
 

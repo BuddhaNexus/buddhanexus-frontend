@@ -65,7 +65,7 @@ export const SOURCE_BUTTONS = {
   ],
   CBETA: [
     '../../src/assets/icons/cbeta_logo.png',
-    'Click to go to the original file in CBETA (includes additional information).',
+    'Click to go to the original file in CBETA (NEW SITE) (includes additional information).',
   ],
   CBC: [
     '',

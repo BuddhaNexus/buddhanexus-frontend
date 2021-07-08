@@ -14,7 +14,7 @@ function EnglishViewHeaderRightColumn({
 }) {
   //prettier-ignore
   return html`
-    <div class="english-view-header-right">
+    <div id="english-view-header-right">
       <vaadin-dialog
         id="info-english-view-right"
         aria-label="simple"
@@ -51,12 +51,12 @@ function EnglishViewHeaderLeftColumn({
       <template>
         <div>
           <p>
-            This view shows the original Pāli text in the left column and the english translations.
+            This view shows the original Pāli text in the left column and the English translation(s).
             The right column shows the translation by our artificial intelligence neural network computer.
             Note: This view is experimental and the translations by the neural network cannot be relied
             upon as actual correct translations.
           </p><p>
-            In the settings menu there is an option to show the human english translation by
+            In the settings menu there is an option to show the human English translation by
             Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya) if these exist.
           </p><p>
             Click on any segment to show the matching segment in the other language.
@@ -84,12 +84,29 @@ export class EnglishViewHeader extends LitElement {
       sharedDataViewStyles,
       css`
         #english-view-header {
-          padding-bottom: 16px;
+          padding: 8px 0 16px 0;
           font-weight: bold;
           display: flex;
-          align-items: baseline;
+          align-items: center;
           justify-content: space-between;
           text-transform: none;
+        }
+
+        #english-view-header-left,
+        #info-english-view-left,
+        #english-view-header-right {
+          display: inline-flex;
+          align-items: center;
+        }
+
+        .info-button {
+          padding: 0;
+          left: 10px;
+          min-width: 24px;
+          height: 24px;
+          margin: 0 24px 0 12px;
+          background-color: transparent;
+          cursor: help;
         }
 
         .info-icon {
@@ -97,6 +114,7 @@ export class EnglishViewHeader extends LitElement {
         }
 
         .text-name-label {
+          display: inline-flex;
           color: var(--color-text-secondary);
           font-weight: 500;
           font-size: 0.8em;
@@ -107,6 +125,7 @@ export class EnglishViewHeader extends LitElement {
           color: var(--color-menu-items);
           font-weight: bold;
           height: 32px;
+          display: inline-flex;
         }
 
         @media screen and (max-width: 900px) {
