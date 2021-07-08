@@ -74,7 +74,8 @@ class DataViewHeader extends LitElement {
           padding-left: 16px;
         }
 
-        vaadin-radio-button {
+        vaadin-radio-button,
+        vaadin-radio-group {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
         }

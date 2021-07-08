@@ -20,7 +20,8 @@ export class DataViewViewSelector extends LitElement {
           text-transform: capitalize;
         }
 
-        vaadin-radio-button {
+        vaadin-radio-button,
+        vaadin-radio-group {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
         }
