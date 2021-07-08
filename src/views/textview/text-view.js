@@ -36,6 +36,7 @@ export class TextView extends LitElement {
   @property({ type: String }) segmentDisplaySide;
   @property({ type: String }) headerVisibility;
   @property({ type: String }) transMethod;
+  @property({ type: String }) externalLinkCode;
 
   updated(_changedProperties) {
     _changedProperties.forEach((oldValue, propName) => {
@@ -239,6 +240,7 @@ export class TextView extends LitElement {
         .handleParallelClicked="${e => this.handleParallelClicked(e)}"
         .headerVisibility="${this.headerVisibility}"
         .transMethod="${this.transMethod}"
+        .externalLinkCode="${this.externalLinkCode}"
       >
       </text-view-table>
     `;

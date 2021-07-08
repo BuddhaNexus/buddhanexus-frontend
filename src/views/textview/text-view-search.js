@@ -15,6 +15,7 @@ import styles from './text-view-table.styles';
 export class TextViewSearch extends LitElement {
   @property({ type: String }) searchString;
   @property({ type: String }) fileName;
+  @property({ type: String }) externalLinkCode;
 
   @property({ type: Array }) resultSegments;
   @property({ type: String }) fetchLoading = true;
@@ -90,6 +91,7 @@ export class TextViewSearch extends LitElement {
             segText: segment.segtext,
             searchString: this.searchString,
             rootUrl: createTextViewSegmentUrl(segment.segnr),
+            externalLinkCode: this.externalLinkCode,
           })
         )}
       </div>
@@ -97,7 +99,13 @@ export class TextViewSearch extends LitElement {
   }
 }
 
-function ResultSegmentContainer({ segmentNr, segText, searchString, rootUrl }) {
+function ResultSegmentContainer({
+  segmentNr,
+  segText,
+  searchString,
+  rootUrl,
+  externalLinkCode,
+}) {
   let beg = segText.indexOf(searchString);
   let end = beg + searchString.length;
   let lang = getLanguageFromFilename(segmentNr);
@@ -118,7 +126,8 @@ function ResultSegmentContainer({ segmentNr, segText, searchString, rootUrl }) {
           <formatted-segment
             .segmentnr="${[segmentNr,]}"
             .lang="${getLanguageFromFilename(segmentNr)}"
-            .rootUrl="${rootUrl}">
+            .rootUrl="${rootUrl}"
+            .externalLinkCode="${externalLinkCode}">
           </formatted-segment>
         </header>
         <div class="horizontal-divider"></div>

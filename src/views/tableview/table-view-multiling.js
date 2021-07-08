@@ -32,6 +32,7 @@ export class TableViewMultiLing extends LitElement {
   @property({ type: Number }) pageNumber = 0;
   @property({ type: Number }) endReached = false;
   @property({ type: String }) transMethod;
+  @property({ type: String }) externalLinkCode;
 
   static get styles() {
     return [
@@ -173,6 +174,7 @@ export class TableViewMultiLing extends LitElement {
         .parallels="${this.parallelsData}"
         .searchString="${this.multiSearchString}"
         .setPageNumber="${this.setPageNumber}"
+        .externalLinkCode="${this.externalLinkCode}"
       ></table-view-table>
     `;
   }
