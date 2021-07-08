@@ -1,6 +1,6 @@
 node_modules/*
 dist/*
-webpack.config.js
+webpack.common.js
 webpack.development.js
 webpack.production.js
 jquery.fancybox.pack.js
