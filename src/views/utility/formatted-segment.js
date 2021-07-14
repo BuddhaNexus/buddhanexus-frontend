@@ -172,7 +172,7 @@ export class FormattedSegment extends LitElement {
             : `GRETIL`;
         break;
       case LANGUAGE_CODES.CHINESE:
-        linkName = `CBETA`;
+        linkName = `CBETA (OLD SITE)`;
         break;
       default:
         linkName = '';
