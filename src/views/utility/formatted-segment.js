@@ -106,9 +106,27 @@ export class FormattedSegment extends LitElement {
     ) {
       this.filename = this.filename.replace(/_[0-9]+/, '');
     }
+
+    let thisFile = localStorage.getItem('thisFile');
+    if (this.filename === thisFile) {
+      this.parseDisplayData(
+        JSON.parse(localStorage.getItem('thisDisplayData')),
+        segmentnrString
+      );
+      return;
+    }
+
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
+    this.parseDisplayData(displayData, segmentnrString);
+
+    this.fetchLoading = false;
+    this.allowFetching = false;
+    this.fetchError = error;
+  }
+
+  parseDisplayData(displayData, segmentnrString) {
     this.displayName = displayData ? displayData[0] : '';
     if (
       this.lang === LANGUAGE_CODES.SANSKRIT ||
@@ -130,28 +148,28 @@ export class FormattedSegment extends LitElement {
       this.lang,
       this.externalLink
     );
-    this.fetchLoading = false;
-    this.allowFetching = false;
-    this.fetchError = error;
   }
 
   getExternalLinkName(language, externalLink) {
     let linkName = '';
     switch (language) {
       case LANGUAGE_CODES.TIBETAN:
-        linkName = externalLink.match('bdrc')
-          ? `Buddhist Digital Resource Centre`
-          : '';
+        linkName =
+          externalLink && externalLink.match('bdrc')
+            ? `Buddhist Digital Resource Centre`
+            : '';
         break;
       case LANGUAGE_CODES.PALI:
-        linkName = externalLink.match('suttacentral')
-          ? `SuttaCentral`
-          : `Vipassana Research Institute`;
+        linkName =
+          externalLink && externalLink.match('suttacentral')
+            ? `SuttaCentral`
+            : `Vipassana Research Institute`;
         break;
       case LANGUAGE_CODES.SANSKRIT:
-        linkName = externalLink.match('dsbc')
-          ? `Digital Sanskrit Buddhist Canon`
-          : `GRETIL`;
+        linkName =
+          externalLink && externalLink.match('dsbc')
+            ? `Digital Sanskrit Buddhist Canon`
+            : `GRETIL`;
         break;
       case LANGUAGE_CODES.CHINESE:
         linkName = `CBETA`;
@@ -272,6 +290,7 @@ export class FormattedFileName extends LitElement {
   }
 
   updated() {
+    localStorage.setItem('thisFile', this.filename);
     this.fetchData();
   }
 
@@ -279,6 +298,8 @@ export class FormattedFileName extends LitElement {
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
+    localStorage.setItem('thisDisplayData', JSON.stringify(displayData));
+
     this.displayName = displayData[0];
     this.textName = displayData[1];
     this.fetchLoading = false;
