@@ -87,7 +87,6 @@ export default css`
   .right-segment,
   .source-segment {
     display: inline;
-    font-weight: 550;
   }
 
   .source-segment {
