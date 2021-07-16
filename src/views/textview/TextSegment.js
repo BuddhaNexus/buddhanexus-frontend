@@ -51,7 +51,7 @@ const TibetanSegmentWylie = segment => {
 };
 
 // possibly we have to do a few more changes to the method of
-// preprocessing in case of unicode, so having it as a separate function might be
+// preprocessing in case of unicode, so having it as a separate function might be a good idea
 const TibetanSegmentUnicode = segment => {
   let strippedSegment = segment.replace(/ \//g, '/');
   strippedSegment = strippedSegment.replace(/ng\//g, 'ng /'); // always put tsek between nga and shad

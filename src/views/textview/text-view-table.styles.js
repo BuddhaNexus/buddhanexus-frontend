@@ -87,10 +87,11 @@ export default css`
   .right-segment,
   .source-segment {
     display: inline;
+    font-weight: 550;
   }
 
   .source-segment {
-    font-weight: 550;
+    font-weight: 800;
   }
 
   .segment-number[show-number='false'] {
