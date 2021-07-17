@@ -90,7 +90,7 @@ export default css`
   }
 
   .source-segment {
-    font-weight: 550;
+    font-weight: 800;
   }
 
   .segment-number[show-number='false'] {
