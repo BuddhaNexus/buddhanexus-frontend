@@ -57,7 +57,7 @@ export class FormattedFileName extends LitElement {
     ];
   }
 
-  updated() {
+  firstUpdated() {
     this.lang = getLanguageFromFilename(this.filename);
 
     switch (this.lang) {
@@ -108,6 +108,7 @@ export class FormattedFileName extends LitElement {
   }
 
   async fetchData() {
+    this.fetchLoading = true;
     const { link, error } = await getExternalLink({
       fileName: this.filename,
     });
