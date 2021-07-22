@@ -56,9 +56,6 @@ export class FormattedFileName extends LitElement {
       `,
     ];
   }
-  updated() {
-    console.log('UPDATED');
-  }
 
   firstUpdated() {
     this.lang = getLanguageFromFilename(this.filename);
