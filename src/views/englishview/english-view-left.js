@@ -40,12 +40,20 @@ export class EnglishViewLeft extends LitElement {
   }
 
   render() {
+    let newActiveSegment = this.activeSegment;
+    if (this.activeSegment && this.activeSegment !== 'none') {
+      if (this.activeSegment.startsWith('ai-')) {
+        newActiveSegment = this.activeSegment.substr(3).split('_')[0];
+      } else {
+        newActiveSegment = this.activeSegment.split('_')[0];
+      }
+    }
     return html`
       ${this.leftTextData.map(({ segnr, segtext }) =>
         EnglishSegmentContainer({
           segmentNr: segnr,
           segText: segtext,
-          activeSegment: this.activeSegment,
+          activeSegment: newActiveSegment,
           showSegmentNumbers: this.showSegmentNumbers,
           segmentDisplaySide: this.segmentDisplaySide,
           onClick: this.handleSegmentClick,
