@@ -34,7 +34,7 @@ export class NeutralViewPali extends LitElement {
                 href="https://github.com/suttacentral/bilara-data"
                 class="content-link"
                 target="blank"
-                >SuttaCentral JSON-based segmented texts</a
+                >SuttaCentral JSON-based segmented texts (Bilara)</a
               >, which have been extensively tested to ensure integrity and
               correctness. These texts have the same segment numbers as in
               <a
@@ -43,8 +43,7 @@ export class NeutralViewPali extends LitElement {
                 target="blank"
                 >SuttaCentral</a
               >
-              and are linked to the corresponding segments on that site in the
-              table and numbers view modes.
+              and are linked to the corresponding segments on that site.
             </p>
             <p>
               The remaining commentary texts of the Aṭṭhakathā, Tikā, and Anya

@@ -22,8 +22,9 @@ function EnglishViewHeaderRightColumn({
         @opened-changed="${setIsInfoDialogRightOpen}">
         <template>
           <div>
-            <p>The human translations in the right column are sourced from SuttaCentral.net Bilara translation system.</p>
-            <p>Translators are Bhikkhu Sujato (Suttas) and Bhikkhu Bhahmali (Vinaya).</p>
+            <p>The English translation by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya)
+            is displayed in the right column. These are sourced from the
+            SuttaCentral JSON-based segmented texts (Bilara).</p>
           </div>
         </template>
       </vaadin-dialog>
@@ -51,15 +52,15 @@ function EnglishViewHeaderLeftColumn({
       <template>
         <div>
           <p>
-            This view shows the original Pāli text in the left column and the English translation(s).
-            The right column shows the translation by our artificial intelligence neural network computer.
-            Note: This view is experimental and the translations by the neural network cannot be relied
+            This view displays the original Pāli text in the left column together with a machine
+            translation into English created by the Transformer machine learning model (TML).
+          </p><p>Note: This view is experimental and the translations by the TML model cannot be relied
             upon as actual correct translations.
           </p><p>
-            In the settings menu there is an option to show the human English translation by
-            Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya) if these exist.
+            Additionally, an English translation by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya),
+            if this exists, is also offered. See the options in the Settings menu.
           </p><p>
-            Click on any segment to show the matching segment in the other language.
+            Click on any segment to show the matching segment in the other columns.
           </p>
         </div>
       </template>
@@ -160,7 +161,7 @@ export class EnglishViewHeader extends LitElement {
           <source-link .filename="${this.fileName}"></source-link>
         </div>
 
-        <div>(Beta version) AI Translation</div>
+        <div>(Beta version) TML Translation</div>
 
         ${this.displaySCEnglish
           ? EnglishViewHeaderRightColumn({
