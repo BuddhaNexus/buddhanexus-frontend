@@ -107,15 +107,6 @@ export class FormattedSegment extends LitElement {
       this.filename = this.filename.replace(/_[0-9]+/, '');
     }
 
-    let thisFile = localStorage.getItem('thisFile');
-    if (this.filename === thisFile) {
-      this.parseDisplayData(
-        JSON.parse(localStorage.getItem('thisDisplayData')),
-        segmentnrString
-      );
-      return;
-    }
-
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
@@ -290,7 +281,6 @@ export class FormattedFileName extends LitElement {
   }
 
   updated() {
-    localStorage.setItem('thisFile', this.filename);
     this.fetchData();
   }
 
@@ -298,7 +288,6 @@ export class FormattedFileName extends LitElement {
     const { displayData, error } = await getDisplayName({
       segmentnr: this.filename,
     });
-    localStorage.setItem('thisDisplayData', JSON.stringify(displayData));
 
     this.displayName = displayData[0];
     this.textName = displayData[1];

@@ -20,7 +20,7 @@ export class DataViewSettingsContainer extends LitElement {
 
   disableSC() {
     return this.fileName.match(
-      '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt)'
+      '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt|snp)'
     ) || this.viewMode !== 'english'
       ? 'display: none'
       : '';
