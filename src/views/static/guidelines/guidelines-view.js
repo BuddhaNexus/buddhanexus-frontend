@@ -123,7 +123,7 @@ export class GuidelinesView extends LitElement {
             <a target="_blank" class="content-link" href="https://suttacentral.net">SuttaCentral</a> for Sanskrit,
             <a target="_blank" class="content-link" href="https://www.bdrc.io/buda-archive/">BUDA</a> and
             <a target="_blank" class="content-link" href="https://www.istb.univie.ac.at/kanjur/rktsneu/sub/index.php">rKTs</a> for Tibetan, and
-            <a target="_blank" class="content-link" href="cbeta.org">CBETA</a>, <a target="_blank" class="content-link" href="https://suttacentral.net">SuttaCentral</a> and
+            <a target="_blank" class="content-link" href="https://cbeta.org">CBETA</a>, <a target="_blank" class="content-link" href="https://suttacentral.net">SuttaCentral</a> and
             <a target="_blank" class="content-link" href="https://dazangthings.nz/cbc/">CBC@</a> for Chinese.
             </p>
             <h3>Visual Charts</h3>
