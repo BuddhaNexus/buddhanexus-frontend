@@ -149,6 +149,9 @@ export class InstitutionsView extends LitElement {
               </a>
             </div>
 
+            <div><p><a class="content-link" href="https://dazangthings.nz/cbc/">Chinese Buddhist Canonical Attributions database (CBC@)</a> by Michael Radich and Jamie Norrish.</p></div>
+
+
             <h2>FUNDING INSTITUTIONS</h2>
 
             <div>Khyentse Center (KC)</div>
