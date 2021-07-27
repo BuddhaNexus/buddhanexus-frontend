@@ -28,7 +28,7 @@ export class EnglishView extends LitElement {
         this.activeSegment = 'none';
         if (
           this.fileName.match(
-            '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt)'
+            '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt|snp)'
           )
         ) {
           this.displaySCEnglish = false;
