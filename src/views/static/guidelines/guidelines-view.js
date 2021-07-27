@@ -106,7 +106,7 @@ export class GuidelinesView extends LitElement {
                 accumulated length of the approximate matches. A maximum of 50 Hit Texts are shown.</li>
                 <li><b>English View</b>: This view-mode is only available for Pāli texts. It displays the original text
                 together with a machine translation into English created by the
-                <a class="content-link" href="https://github.com/tensorflow/tensor2tensor">Transformer machine learning model</a>.
+                <a target="_blank" class="content-link" href="https://github.com/tensorflow/tensor2tensor">Transformer machine learning model</a>.
                 Additionally, an English translation by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya), if this exists,
                 is also offered.</li>
               </ul>
@@ -116,15 +116,15 @@ export class GuidelinesView extends LitElement {
             BuddhaNexus makes effort to provide useful links of various kinds. These include, whenever possible, links of the
             individual files to the websites from which the digital texts were obtained and to websites offering cataloguing data.
             Currently links with the following websites are available:
-            <a class="content-link" href="suttacentral.net">SuttaCentral</a> and
-            <a class="content-link" href="https://tipitaka.org/">VRI</a> for Pāli,
-            <a class="content-link" href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL</a>,
-            <a class="content-link" href="http://www.dsbcproject.org">DSBC</a> and
-            <a class="content-link" href="suttacentral.net">SuttaCentral</a> for Sanskrit,
-            <a class="content-link" href="https://www.bdrc.io/buda-archive/">BUDA</a> and
-            <a class="content-link" href="https://www.istb.univie.ac.at/kanjur/rktsneu/sub/index.php">rKTs</a> for Tibetan, and
-            <a class="content-link" href="cbeta.org">CBETA</a>, <a class="content-link" href="suttacentral.net">SuttaCentral</a> and
-            <a class="content-link" href="https://dazangthings.nz/cbc/">CBC@</a> for Chinese.
+            <a target="_blank" class="content-link" href="https://suttacentral.net">SuttaCentral</a> and
+            <a target="_blank" class="content-link" href="https://tipitaka.org/">VRI</a> for Pāli,
+            <a target="_blank" class="content-link" href="http://gretil.sub.uni-goettingen.de/gretil.html">GRETIL</a>,
+            <a target="_blank" class="content-link" href="http://www.dsbcproject.org">DSBC</a> and
+            <a target="_blank" class="content-link" href="https://suttacentral.net">SuttaCentral</a> for Sanskrit,
+            <a target="_blank" class="content-link" href="https://www.bdrc.io/buda-archive/">BUDA</a> and
+            <a target="_blank" class="content-link" href="https://www.istb.univie.ac.at/kanjur/rktsneu/sub/index.php">rKTs</a> for Tibetan, and
+            <a target="_blank" class="content-link" href="cbeta.org">CBETA</a>, <a target="_blank" class="content-link" href="https://suttacentral.net">SuttaCentral</a> and
+            <a target="_blank" class="content-link" href="https://dazangthings.nz/cbc/">CBC@</a> for Chinese.
             </p>
             <h3>Visual Charts</h3>
             <p>
