@@ -55,7 +55,7 @@ export class NeutralViewChinese extends LitElement {
                 >ACIP</a
               >
               collection. More information on the used resources is found in the
-              descriptions of the pertinent language category.
+              description of the pertinent language category.
             </p>
             <p>
               Upon a selection of an Inquiry Text, the multilingual matches will
@@ -74,8 +74,8 @@ export class NeutralViewChinese extends LitElement {
               Those multilingual matches that show only little similarity, and
               might therefore be cases of misalignment, have been filtered out
               in the default setting. In order to view those matches that were
-              filtered out the similarity setting in the filter menu should be
-              decrease as desired.
+              filtered out, the similarity setting in the filter menu should be
+              decreased as desired.
             </p>
             <p>
               In addition to the display of the multilingual matches in a
@@ -83,15 +83,15 @@ export class NeutralViewChinese extends LitElement {
               language category are also available.
             </p>
             <p>
-              Moreover, by clicking on the arrow symbol to the right of the
-              filename of each match, one is automatically led to a text view of
-              the Hit Text in question at that specific position. In the
-              monolingual Sanskrit and Tibetan categories, those texts for which
-              multilingual alignments are available are indicated by icons (in
-              the colour of the respective language) found to the right of the
-              filename in the dropdown and the sidebar menus. The multilingual
-              data is also included in the text view of these texts, where they
-              are shown at the top of each list of the matches displayed.
+              Moreover, by clicking on the filename of each match, one is
+              automatically led to a text view of the Hit Text in question at
+              that specific position. In the monolingual Sanskrit and Tibetan
+              categories, those texts for which multilingual alignments are
+              available are indicated by icons (in the colour of the respective
+              language) found to the right of the filename in the dropdown and
+              the sidebar menus. The multilingual data is also included in the
+              text view of these texts, where they are shown at the top of each
+              list of the matches displayed.
             </p>
           </div>
         </div>
