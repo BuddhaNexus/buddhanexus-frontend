@@ -46,7 +46,7 @@ const PaliSegment = (inputData, segmentNr) => {
     return;
   }
   const strippedSegment = inputData.replace(/\//g, '|').trim();
-  return !segmentNr.match(/^(ai-anya|ai-tika|ai-atk)/g) &&
+  return !segmentNr.match(/^(anya|tika|atk)/g) &&
     (strippedSegment.match(/^[0-9]/g) || strippedSegment.match(/[0-9]$/g))
     ? html`
         <h3>${strippedSegment}</h3>

@@ -19,6 +19,7 @@ export class FormattedSegment extends LitElement {
   @property({ type: String }) displayLink = '';
   @property({ type: String }) externalLink = '';
   @property({ type: String }) externalLinkName = '';
+  @property({ type: Boolean }) shouldNotShowExtLink;
   @property({ type: Function }) allowFetching = false;
   @property({ type: Function }) fetchLoading = false;
   @property({ type: String }) fetchError;
@@ -104,7 +105,7 @@ export class FormattedSegment extends LitElement {
       this.lang === LANGUAGE_CODES.CHINESE ||
       this.lang === LANGUAGE_CODES.SANSKRIT
     ) {
-      this.filename = this.filename.replace(/_[0-9]+/, '');
+      this.filename = this.filename.replace(/_[0-9]+$/, '');
     }
 
     const { displayData, error } = await getDisplayName({
@@ -119,29 +120,34 @@ export class FormattedSegment extends LitElement {
 
   parseDisplayData(displayData, segmentnrString) {
     this.displayName = displayData ? displayData[0] : '';
-    if (
-      this.lang === LANGUAGE_CODES.SANSKRIT ||
-      this.lang === LANGUAGE_CODES.TIBETAN
-    ) {
-      this.externalLink = displayData ? displayData[2] : '';
-    }
-    if (
-      this.lang === LANGUAGE_CODES.CHINESE ||
-      this.lang === LANGUAGE_CODES.PALI
-    ) {
-      this.externalLink = this.getLinkForSegmentNumbers(
+    if (!this.shouldNotShowExtLink) {
+      if (
+        this.lang === LANGUAGE_CODES.SANSKRIT ||
+        this.lang === LANGUAGE_CODES.TIBETAN
+      ) {
+        this.externalLink = displayData ? displayData[2] : '';
+      }
+      if (
+        this.lang === LANGUAGE_CODES.CHINESE ||
+        this.lang === LANGUAGE_CODES.PALI
+      ) {
+        this.externalLink = this.getLinkForSegmentNumbers(
+          this.lang,
+          segmentnrString
+        );
+      }
+      this.externalLinkName = this.getExternalLinkName(
         this.lang,
-        segmentnrString
+        this.externalLink
       );
     }
     this.displayLink = this.rootUrl;
-    this.externalLinkName = this.getExternalLinkName(
-      this.lang,
-      this.externalLink
-    );
   }
 
   getExternalLinkName(language, externalLink) {
+    if (!externalLink) {
+      return;
+    }
     let linkName = '';
     switch (language) {
       case LANGUAGE_CODES.TIBETAN:
