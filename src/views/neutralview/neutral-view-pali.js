@@ -29,7 +29,7 @@ export class NeutralViewPali extends LitElement {
               >, with corrections and proofreading by the Dhamma Society.
             </p>
             <p>
-              The Sutta, Vinaya and Abhidhamma texts have been sourced from the
+              The Sutta, Vinaya, and Abhidhamma texts have been sourced from the
               <a
                 href="https://github.com/suttacentral/bilara-data"
                 class="content-link"
