@@ -18,6 +18,7 @@ export class TableViewTable extends LitElement {
   @property({ type: Array }) limitCollection;
   @property({ type: Array }) parallels;
   @property({ type: String }) transMethod;
+  @property({ type: Boolean }) shouldNotShowExtLink;
 
   @property({ type: Function }) setPageNumber;
 
@@ -56,7 +57,8 @@ export class TableViewTable extends LitElement {
             rootLength: parallel.root_length,
             rootUrl: createTextViewSegmentUrl(parallel.root_segnr[0]),
             parUrl: createTextViewSegmentUrl(parallel.par_segnr[0]),
-            transMethod: this.transMethod
+            transMethod: this.transMethod,
+            shouldNotShowExtLink: this.shouldNotShowExtLink
           })
         )}
       </div>

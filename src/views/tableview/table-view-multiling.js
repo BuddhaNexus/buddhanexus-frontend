@@ -28,9 +28,9 @@ export class TableViewMultiLing extends LitElement {
   @property({ type: String }) multiSearchString;
   @property({ type: Array }) multiLingualMode;
   @property({ type: Array }) parallelsData = [];
-  @property({ type: String }) fetchLoading = true;
+  @property({ type: Boolean }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
-  @property({ type: Number }) endReached = false;
+  @property({ type: Boolean }) endReached = false;
   @property({ type: String }) transMethod;
 
   static get styles() {
@@ -173,6 +173,7 @@ export class TableViewMultiLing extends LitElement {
         .parallels="${this.parallelsData}"
         .searchString="${this.multiSearchString}"
         .setPageNumber="${this.setPageNumber}"
+        .shouldNotShowExtLink="${true}"
       ></table-view-table>
     `;
   }

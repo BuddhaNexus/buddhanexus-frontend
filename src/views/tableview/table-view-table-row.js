@@ -14,6 +14,7 @@ export const TableViewTableRow = ({
   rootUrl,
   parUrl,
   transMethod,
+  shouldNotShowExtLink,
 }) =>
   //prettier-ignore
   html`
@@ -24,7 +25,8 @@ export const TableViewTableRow = ({
             <formatted-segment
               .segmentnr="${rootSegmentId}"
               .lang="${getLanguageFromFilename(rootSegmentId[0])}"
-              .rootUrl="${rootUrl}">
+              .rootUrl="${rootUrl}"
+              .shouldNotShowExtLink="${shouldNotShowExtLink}">
             </formatted-segment>
           </span>
           <div class="table-view-table__parallel-details">
@@ -41,7 +43,8 @@ export const TableViewTableRow = ({
             <formatted-segment
               .segmentnr="${parallelSegmentId}"
               .lang="${getLanguageFromFilename(parallelSegmentId[0])}"
-              .rootUrl="${parUrl}">
+              .rootUrl="${parUrl}"
+              .shouldNotShowExtLink="${shouldNotShowExtLink}">
             </formatted-segment>
           </span>
           <div class="table-view-table__parallel-details">
