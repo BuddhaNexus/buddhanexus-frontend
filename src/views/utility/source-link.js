@@ -57,54 +57,58 @@ export class FormattedFileName extends LitElement {
     ];
   }
 
-  firstUpdated() {
-    this.lang = getLanguageFromFilename(this.filename);
+  updated(_changedProperties) {
+    _changedProperties.forEach(async (oldValue, propName) => {
+      if (propName === 'filename' && !this.fetchLoading) {
+        this.lang = getLanguageFromFilename(this.filename);
 
-    switch (this.lang) {
-      case LANGUAGE_CODES.TIBETAN:
-        this.fetchData();
-        this.buttonText = SOURCE_BUTTONS.BDRC[1];
-        this.buttonText2 = SOURCE_BUTTONS.RKTS[1];
-        this.imgLink = SOURCE_BUTTONS.BDRC[0];
-        this.imgLink2 = SOURCE_BUTTONS.RKTS[0];
-        break;
-      case LANGUAGE_CODES.PALI:
-        this.imgLink = this.fetchImageLink(this.filename);
-        this.buttonText = this.fetchButtonText(this.filename);
-        this.sourceLink = this.fetchPaliSource(this.filename);
-        break;
-      case LANGUAGE_CODES.SANSKRIT:
-        this.fetchData();
-        if (this.filename.match(/[X0-9]n[0-9]/)) {
-          this.buttonText = SOURCE_BUTTONS.DSBC[1];
-          this.imgLink = SOURCE_BUTTONS.DSBC[0];
-        } else if (this.filename.match(/_sc/)) {
-          this.buttonText = SOURCE_BUTTONS.SC[1];
-          this.imgLink = SOURCE_BUTTONS.SC[0];
-        } else {
-          this.buttonText = SOURCE_BUTTONS.GRETIL[1];
-          this.imgLink = SOURCE_BUTTONS.GRETIL[0];
+        switch (this.lang) {
+          case LANGUAGE_CODES.TIBETAN:
+            this.fetchData();
+            this.buttonText = SOURCE_BUTTONS.BDRC[1];
+            this.buttonText2 = SOURCE_BUTTONS.RKTS[1];
+            this.imgLink = SOURCE_BUTTONS.BDRC[0];
+            this.imgLink2 = SOURCE_BUTTONS.RKTS[0];
+            break;
+          case LANGUAGE_CODES.PALI:
+            this.imgLink = this.fetchImageLink(this.filename);
+            this.buttonText = this.fetchButtonText(this.filename);
+            this.sourceLink = this.fetchPaliSource(this.filename);
+            break;
+          case LANGUAGE_CODES.SANSKRIT:
+            this.fetchData();
+            if (this.filename.match(/[X0-9]n[0-9]/)) {
+              this.buttonText = SOURCE_BUTTONS.DSBC[1];
+              this.imgLink = SOURCE_BUTTONS.DSBC[0];
+            } else if (this.filename.match(/_sc/)) {
+              this.buttonText = SOURCE_BUTTONS.SC[1];
+              this.imgLink = SOURCE_BUTTONS.SC[0];
+            } else {
+              this.buttonText = SOURCE_BUTTONS.GRETIL[1];
+              this.imgLink = SOURCE_BUTTONS.GRETIL[0];
+            }
+            this.buttonText2 = SOURCE_BUTTONS.SC[1];
+            this.imgLink2 = SOURCE_BUTTONS.SC[0];
+            break;
+          case LANGUAGE_CODES.CHINESE: {
+            this.fetchData();
+            this.buttonText = SOURCE_BUTTONS.CBETA[1];
+            this.imgLink = SOURCE_BUTTONS.CBETA[0];
+            this.buttonText2 = SOURCE_BUTTONS.SC[1];
+            this.imgLink2 = SOURCE_BUTTONS.SC[0];
+            const CBCfilename =
+              this.filename.substring(0, 1) + this.filename.substring(4);
+            this.CBClink = 'https://dazangthings.nz/cbc/text/' + CBCfilename;
+            break;
+          }
+          default:
+            this.buttonText = '';
+            this.imgLink = '';
+            this.buttonText2 = '';
+            this.imgLink2 = '';
         }
-        this.buttonText2 = SOURCE_BUTTONS.SC[1];
-        this.imgLink2 = SOURCE_BUTTONS.SC[0];
-        break;
-      case LANGUAGE_CODES.CHINESE: {
-        this.fetchData();
-        this.buttonText = SOURCE_BUTTONS.CBETA[1];
-        this.imgLink = SOURCE_BUTTONS.CBETA[0];
-        this.buttonText2 = SOURCE_BUTTONS.SC[1];
-        this.imgLink2 = SOURCE_BUTTONS.SC[0];
-        const CBCfilename =
-          this.filename.substring(0, 1) + this.filename.substring(4);
-        this.CBClink = 'https://dazangthings.nz/cbc/text/' + CBCfilename;
-        break;
       }
-      default:
-        this.buttonText = '';
-        this.imgLink = '';
-        this.buttonText2 = '';
-        this.imgLink2 = '';
-    }
+    });
   }
 
   async fetchData() {
