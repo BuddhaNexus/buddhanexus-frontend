@@ -4,6 +4,7 @@ import { getFileText } from '../../api/actions';
 
 import './english-view-header';
 import './english-view-table';
+import { NOENGLISHTRANSLATION } from '../utility/constants';
 
 @customElement('english-view')
 export class EnglishView extends LitElement {
@@ -26,11 +27,7 @@ export class EnglishView extends LitElement {
     _changedProperties.forEach((oldValue, propName) => {
       if (propName === 'fileName') {
         this.activeSegment = 'none';
-        if (
-          this.fileName.match(
-            '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt|snp)'
-          )
-        ) {
+        if (this.fileName.match(NOENGLISHTRANSLATION)) {
           this.displaySCEnglish = false;
         } else {
           this.displaySCEnglish = this.showSCEnglish;

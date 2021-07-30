@@ -5,6 +5,7 @@ import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-button';
 import '@vaadin/vaadin-radio-button/theme/material/vaadin-radio-group';
 
 import styles from './data-view-settings-container.styles';
+import { NOENGLISHTRANSLATION } from '../utility/constants';
 
 @customElement('data-view-settings-container')
 export class DataViewSettingsContainer extends LitElement {
@@ -19,9 +20,8 @@ export class DataViewSettingsContainer extends LitElement {
   }
 
   disableSC() {
-    return this.fileName.match(
-      '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt|snp)'
-    ) || this.viewMode !== 'english'
+    return this.fileName.match(NOENGLISHTRANSLATION) ||
+      this.viewMode !== 'english'
       ? 'display: none'
       : '';
   }
