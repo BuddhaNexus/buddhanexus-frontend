@@ -56,6 +56,7 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: String }) filterFilesDataError = false;
   @property({ type: Boolean }) filterCategoriesDataLoading = true;
   @property({ type: String }) filterCategoriesDataError = false;
+  @property({ type: Boolean }) isDialogOpen = false;
 
   static get styles() {
     return [
@@ -169,6 +170,13 @@ export class DataViewFiltersContainer extends LitElement {
     );
   }
 
+  shouldNotShowWarningMessage() {
+    // This message is only necessary as long as long
+    // filenames in multiselect comboboxes are not
+    // resolved.
+    return this.language === 'pli' || this.language === 'chn';
+  }
+
   renderMultiSelectBox(label, id, changefunction, itempath, path) {
     return html`
       <multiselect-combo-box
@@ -246,6 +254,10 @@ export class DataViewFiltersContainer extends LitElement {
     }
   }
 
+  openDialog = () => (this.isDialogOpen = true);
+
+  setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
+
   render() {
     const shouldShowMultiLingFilters =
       this.viewMode !== DATA_VIEW_MODES.MULTILING;
@@ -275,6 +287,24 @@ export class DataViewFiltersContainer extends LitElement {
         .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
       
+      <vaadin-button
+        class="info-button"
+        style="display: ${this.shouldNotShowWarningMessage() ? 'none' : 'inline-flex'}"
+        title="Warning Sanskrit &amp; Tibetan files"
+        @click="${this.openDialog}">
+        <iron-icon class="info-icon" icon="vaadin:warning"></iron-icon>
+      </vaadin-button>
+
+      <vaadin-dialog
+        id="info-number-view"
+        aria-label="simple"
+        .opened="${this.isDialogOpen}"
+        @opened-changed="${this.setIsDialogOpen}">
+        <template>
+          <p>Some warning text</p>
+        </template>
+      </vaadin-dialog>
+
       <multiselect-combo-box
         Label="Filter by target collection:"
         item-label-path="collectionname"
