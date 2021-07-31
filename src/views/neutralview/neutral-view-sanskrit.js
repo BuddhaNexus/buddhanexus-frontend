@@ -47,16 +47,16 @@ export class NeutralViewSanskrit extends LitElement {
             </p>
             <p>
               The Buddhist Sanskrit files are structured in accordance with the
-              layout of the Tibetan Kangyur and Tengyur. with "Buddhist
-              Scriptures" corresponding to the Kangyur and "Buddhist
-              Non-Scriptures" corresponding to the Tengyur. For the non-Buddhist
-              material taken over from GRETIL, the data structure has been
-              slightly altered. The folders <i>4_rellit/buddh</i> and
-              <i>6_sastra/3_phil/buddh/</i> have been removed and their content
-              divided unter "Buddhist Scriptures" and "Buddhist Non-Scriptures".
-              Moreover, a numbering scheme was introduced to simplify the
-              accesss to the different GRETIL categories. For example,
-              "<b>GV01</b>" represents <b>G</b>RETIL <b>V</b>eda 1.
+              organizational scheme of the Tibetan Buddhist Canon, whereas
+              “Buddhist Scriptures” corresponds to the Kangyur and “Buddhist
+              Non-Scriptures” to the Tengyur. For the non-Buddhist material
+              taken over from GRETIL, the data structure has been slightly
+              altered. The folders 4_rellit/buddh and 6_sastra/3_phil/buddh/
+              have been removed and their content divided under “Buddhist
+              Scriptures” and “Buddhist Non-Scriptures.” Moreover, a numbering
+              scheme was introduced to simplify the access to the different
+              GRETIL categories. For example, "<b>GV01</b>" represents
+              <b>G</b>RETIL <b>V</b>eda 1.
             </p>
             <p>
               For the calculation of the Sanskrit matches and for the global
