@@ -154,6 +154,7 @@ class DataViewHeader extends LitElement {
 
             <iron-icon
               icon="vaadin:cog"
+              title="Filters &amp; Settings"
               @click="${this.toggleFilterBarOpen}"
               class="filter-bar-toggle-icon ${this.filterBarOpen &&
                 'filter-bar-toggle-icon--filter-bar-open'}">
