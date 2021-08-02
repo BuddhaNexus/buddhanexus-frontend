@@ -290,7 +290,7 @@ export class DataViewFiltersContainer extends LitElement {
       <vaadin-button
         class="info-button"
         style="display: ${this.shouldNotShowWarningMessage() ? 'none' : 'inline-flex'}"
-        title="Warning Sanskrit &amp; Tibetan files"
+        title="Dropdown menu warning"
         @click="${this.openDialog}">
         <iron-icon class="info-icon" icon="vaadin:warning"></iron-icon>
       </vaadin-button>
@@ -301,7 +301,7 @@ export class DataViewFiltersContainer extends LitElement {
         .opened="${this.isDialogOpen}"
         @opened-changed="${this.setIsDialogOpen}">
         <template>
-          <p>Some warning text</p>
+          <p>Currently the dropdown menus are not working correctly when files with very long names are selected. The close-button has the tendency to disappear to the far right and becomes invisible in these cases. It is possible to unselect such files by reopening the dropdown menu and unselecting the respective file by clicking on them for a second time.</p>
         </template>
       </vaadin-dialog>
 
