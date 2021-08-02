@@ -301,7 +301,9 @@ export class DataViewFiltersContainer extends LitElement {
         .opened="${this.isDialogOpen}"
         @opened-changed="${this.setIsDialogOpen}">
         <template>
-          <p>Currently the dropdown menus are not working correctly when files with very long names are selected. The close-button has the tendency to disappear to the far right and becomes invisible in these cases. It is possible to unselect such files by reopening the dropdown menu and unselecting the respective file by clicking on them for a second time.</p>
+          <p>Currently the dropdown menus are not working correctly when files with very long names are selected. 
+             The close-button has the tendency to disappear to the far right and becomes invisible in these cases. 
+             It is possible to deselect such files by reopening the dropdown menu and deselecting the respective file by clicking on them for a second time.</p>
         </template>
       </vaadin-dialog>
 
