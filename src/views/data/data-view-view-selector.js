@@ -1,6 +1,8 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
+import '@vaadin/vaadin-select/theme/material/vaadin-select';
+
 @customElement('data-view-view-selector')
 export class DataViewViewSelector extends LitElement {
   @property({ type: String }) viewMode;
@@ -14,14 +16,10 @@ export class DataViewViewSelector extends LitElement {
         .visibility-filters {
           margin-left: 0;
           margin-right: 2em;
+          width: 100px;
         }
 
-        .visibility-filters vaadin-radio-button {
-          text-transform: capitalize;
-        }
-
-        vaadin-radio-button,
-        vaadin-radio-group {
+        vaadin-select {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
         }
@@ -31,39 +29,43 @@ export class DataViewViewSelector extends LitElement {
 
   render() {
     return html`
-      <vaadin-radio-group
+      <vaadin-select
+        value="${this.viewMode}"
         label="Choose view:"
         class="visibility-filters"
-        value="${this.viewMode}"
         @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
       >
-        ${Object.values(DATA_VIEW_MODES).map(filter => {
-          if (
-            (filter !== 'numbers' ||
-              (this.language !== 'tib' &&
-                this.language !== 'skt' &&
-                this.language !== 'multi')) &&
-            filter !== 'neutral' &&
-            (filter !== 'multiling' ||
-              (this.language !== 'skt' &&
-                this.language !== 'tib' &&
-                this.language !== 'chn' &&
-                this.language !== 'pli')) &&
-            filter !== 'text-search' &&
-            (filter !== 'english' ||
-              (this.language !== 'skt' &&
-                this.language !== 'tib' &&
-                this.language !== 'chn' &&
-                this.language !== 'multi'))
-          ) {
-            return html`
-              <vaadin-radio-button value="${filter}">
-                ${filter}
-              </vaadin-radio-button>
-            `;
-          }
-        })}
-      </vaadin-radio-group>
+        <template>
+          <vaadin-list-box>
+            ${Object.values(DATA_VIEW_MODES).map(filter => {
+              if (
+                (filter !== 'numbers' ||
+                  (this.language !== 'tib' &&
+                    this.language !== 'skt' &&
+                    this.language !== 'multi')) &&
+                filter !== 'neutral' &&
+                (filter !== 'multiling' ||
+                  (this.language !== 'skt' &&
+                    this.language !== 'tib' &&
+                    this.language !== 'chn' &&
+                    this.language !== 'pli')) &&
+                filter !== 'text-search' &&
+                (filter !== 'english' ||
+                  (this.language !== 'skt' &&
+                    this.language !== 'tib' &&
+                    this.language !== 'chn' &&
+                    this.language !== 'multi'))
+              ) {
+                return html`
+                  <vaadin-item style="text-transform: capitalize"
+                    >${filter}</vaadin-item
+                  >
+                `;
+              }
+            })}
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
     `;
   }
 }
