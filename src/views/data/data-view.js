@@ -359,8 +359,7 @@ export class DataView extends LitElement {
             .updateSearch="${this.setSearch}"
             .multiLingualMode="${this.multiLingualMode}"
             .updateMultiLingSearch="${this.setMultiLingSearch}"
-            .updateSortMethod="${this.setSortMethod}"
-            .toggleTransMode="${this.toggleTransMode}">
+            .updateSortMethod="${this.setSortMethod}">
           </data-view-header>
 
           <data-view-router
@@ -434,7 +433,8 @@ export class DataView extends LitElement {
             .viewMode="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
-            .toggleShowSCTranslation="${this.toggleShowSCTranslation}">
+            .toggleShowSCTranslation="${this.toggleShowSCTranslation}"
+            .toggleTransMode="${this.toggleTransMode}">
           </data-view-settings-container>
         </side-sheet>
       </div>
