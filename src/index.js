@@ -67,6 +67,28 @@ export class AppLayout extends LitElement {
     }
   };
 
+  openSearch() {
+    this.shadowRoot.querySelector('bn-card').classList.add('navbar-open');
+    this.shadowRoot.querySelector('#search-input').removeAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#search-icon-placeholder')
+      .setAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#cross-icon-placeholder')
+      .removeAttribute('hidden');
+  }
+
+  closeSearch() {
+    this.shadowRoot.querySelector('bn-card').classList.remove('navbar-open');
+    this.shadowRoot.querySelector('#search-input').setAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#search-icon-placeholder')
+      .removeAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#cross-icon-placeholder')
+      .setAttribute('hidden');
+  }
+
   render() {
     // prettier-ignore
     return html`
@@ -96,18 +118,36 @@ export class AppLayout extends LitElement {
           @item-selected="${e => this.handleMenuClick(e)}">
         </vaadin-menu-bar>
 
-        <bn-card slot="navbar" small>
+
+        <bn-card slot="navbar" id="navbar-card" small>
           <paper-input
+            hidden
             id="search-input"
             placeholder="Global Text Search..."
-            type="search"
             @change="${this.navigateToSearch}"
             no-label-float
             autosave="test">
             <div slot="prefix">
               <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
             </div>
+            <div slot="suffix">
+              <iron-icon
+                hidden
+                id="cross-icon-placeholder"
+                class="search-icon"
+                icon="vaadin:close-small"
+                title="Close Search"
+                @click="${this.closeSearch}">
+              </iron-icon>
+            </div>
           </paper-input>
+          <iron-icon
+            id="search-icon-placeholder"
+            class="search-icon"
+            icon="vaadin:search"
+            title="Search BuddhaNexus"
+            @click="${this.openSearch}">
+          </iron-icon>
         </bn-card>
 
         <main></main>

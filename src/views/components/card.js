@@ -12,7 +12,6 @@ export class Card extends LitElement {
         .card {
           padding: 12px 24px 24px 24px;
           border-radius: 4px;
-          background-color: var(--color-light-chartbar);
           box-shadow: var(--material-card-shadow);
           height: inherit;
         }
@@ -26,24 +25,26 @@ export class Card extends LitElement {
           border-radius: 0;
           display: flex;
           flex-wrap: wrap;
+          background-color: var(--color-light-chartbar);
         }
 
-        @media screen and (max-width: 1040px) {
-          .card--header {
-            padding: 36px 48px 16px 48px;
-            border-radius: 0;
-            display: flex;
-            flex-wrap: wrap;
-          }
-        }
+        // I've left this here for now but I think it does not work very well.
+        // @media screen and (max-width: 1040px) {
+        //   .card--header {
+        //     padding: 36px 48px 16px 48px;
+        //     border-radius: 0;
+        //     display: flex;
+        //     flex-wrap: wrap;
+        //   }
+        // }
 
-        @media screen and (max-width: 900px) {
-          .card--header {
-            padding: 12px 16px;
-            font-size: 0.8em;
-            position: sticky;
-          }
-        }
+        // @media screen and (max-width: 900px) {
+        //   .card--header {
+        //     padding: 12px 16px;
+        //     font-size: 0.8em;
+        //     position: sticky;
+        //   }
+        // }
 
         .card--light {
           background-color: var(--color-background-lighter);

@@ -73,11 +73,32 @@ export default css`
     display: none;
   }
 
+  #navbar-card {
+    background-color: var(--color-background);
+  }
+
+  #navbar-card.navbar-open {
+    background-color: var(--color-light-chartbar);
+  }
+
   #search-input {
+    width: 80vw;
     margin: 0px 16px 0px;
     --paper-input-container-focus-color: var(--bn-dark-red);
     --paper-input-container-input: {
       padding: 2px 0;
+    }
+  }
+
+  @media screen and (max-width: 1050px) {
+    #search-input {
+      width: 75vw;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    #search-input {
+      width: 65vw;
     }
   }
 
@@ -137,9 +158,14 @@ export default css`
   }
 
   .search-icon {
-    max-width: 12px;
+    max-width: 18px;
     margin-right: 8px;
     margin-bottom: 2px;
+    color: var(--material-primary-text-color);
+  }
+
+  .navbar-open .search-icon {
+    color: var(--color-text-primary);
   }
 
   footer {
