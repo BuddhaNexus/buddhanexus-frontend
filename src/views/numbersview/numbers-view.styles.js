@@ -17,7 +17,7 @@ export default css`
   }
 
   .table-wrapper.no-header {
-    height: calc(100vh - 190px);
+    height: calc(100vh - 90px);
   }
 
   td,

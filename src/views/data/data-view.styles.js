@@ -77,6 +77,10 @@ export default css`
     padding: 12px 48px 16px;
   }
 
+  .data-view.no-header .data-view__main-container data-view-router {
+    padding: 16px 12px 0px;
+  }
+
   @media screen and (max-width: 900px) {
     data-view-router {
       font-size: 0.9em;
