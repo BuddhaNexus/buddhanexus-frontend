@@ -7,7 +7,7 @@ export default css`
   }
 
   vaadin-split-layout.no-header {
-    height: calc(100vh - 260px);
+    height: calc(100vh - 130px);
   }
 
   vaadin-split-layout div {
