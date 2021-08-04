@@ -67,7 +67,9 @@ export default css`
   .data-view.no-header[view='text'] .data-view__main-container,
   .data-view.no-header[view='graph'] .data-view__main-container,
   .data-view.no-header[view='numbers'] .data-view__main-container,
-  .data-view.no-header[view='table'] .data-view__main-container {
+  .data-view.no-header[view='table'] .data-view__main-container,
+  .data-view.no-header[view='english'] .data-view__main-container,
+  .data-view.no-header[view='multiling'] .data-view__main-container {
     background-color: var(--color-background-light);
   }
 
