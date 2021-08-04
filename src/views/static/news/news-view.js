@@ -14,7 +14,7 @@ export class NewsView extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <h2>
-              July 28, 2021: Major updates of BuddhaNexus
+              August 4, 2021: Major updates of BuddhaNexus
             </h2>
             <p>
               We are happy to announce several major updates of BuddhaNexus, as
