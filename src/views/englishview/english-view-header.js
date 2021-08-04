@@ -32,7 +32,7 @@ function EnglishViewHeaderRightColumn({
       <vaadin-button class="info-button" @click="${openDialogRight}">
         <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
       </vaadin-button>
-      <div style="display: inline-flex">Human Translation</div>
+      <div style="display: inline-flex">SuttaCentral Translation</div>
     </div>
   `;
 }
