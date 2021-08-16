@@ -22,23 +22,41 @@ export class NeutralViewSanskrit extends LitElement {
                 class="content-link"
                 target="blank"
                 >GRETIL</a
-              >). Due to the huge amount of material, some texts from the GRETIL
-              database have been omitted (cumulative pāda indexes and duplicate
+              >, Georg-August-Universität Göttingen), the Digital Sanskrit
+              Buddhist Canon (<a
+                href="https://www.dsbcproject.org/"
+                class="content-link"
+                target="_blank"
+                >DSBC</a
+              >, University of the West), some files from SuttaCentral (<a
+                href="https://www.suttacentral.net/"
+                class="content-link"
+                target="_blank"
+                >SC</a
+              >), and a couple of files obtained from individual researchers.
+            </p>
+            <p>
+              Due to the huge amount of material, some texts from the original
+              databases have been omitted (cumulative pāda indexes and duplicate
               texts from the same source). Moreover, there has been no attempt
               by BuddhaNexus to improve the quality of the texts (e.g. removing
               typos, introducing identical conventions, and the like). Some
               minor changes have, nonetheless, been made for the sake of
               standardization. In order to make the matching process feasible,
-              some markup information of the original GRETIL files has been
-              neglected.
+              some markup information of the original files has been neglected.
             </p>
             <p>
-              The original structure of the GRETIL collection has been slightly
-              altered. The folders <i>4_rellit/buddh</i> and
-              <i>6_sastra/3_phil/buddh/</i> have been merged into one. This
-              folder has been further divided into subfolders. Moreover, a
-              numbering scheme was introduced. For example, "<b>GV01</b>"
-              represents <b>G</b>RETIL <b>V</b>eda 1.
+              The Buddhist Sanskrit files are structured in accordance with the
+              organizational scheme of the Tibetan Buddhist Canon, whereas
+              “Buddhist Scriptures” corresponds to the Kangyur and “Buddhist
+              Non-Scriptures” to the Tengyur. For the non-Buddhist material
+              taken over from GRETIL, the data structure has been slightly
+              altered. The folders 4_rellit/buddh and 6_sastra/3_phil/buddh/
+              have been removed and their content divided under “Buddhist
+              Scriptures” and “Buddhist Non-Scriptures.” Moreover, a numbering
+              scheme was introduced to simplify the access to the different
+              GRETIL categories. For example, "<b>GV01</b>" represents
+              <b>G</b>RETIL <b>V</b>eda 1.
             </p>
             <p>
               For the calculation of the Sanskrit matches and for the global

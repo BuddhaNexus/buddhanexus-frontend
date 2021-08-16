@@ -11,30 +11,27 @@ function TableViewInfoModalContent() {
   return html`
     <div>
       <p>
-        The matches can be sorted in three different ways: (1) by their position
-        in the Inquiry Text, (2) by their position in the Hit Text(s), and (3)
-        by the length of the match in the Hit Text.
+        Displays automatically generated sentence alignment between a given
+        Sanskrit text and its Tibetan translation in a table form.
       </p>
     </div>
   `;
 }
 
-@customElement('table-view-multilang')
-export class TableViewMultiLang extends LitElement {
+@customElement('table-view-multiling')
+export class TableViewMultiLing extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) folio;
   @property({ type: String }) score;
-  @property({ type: Number }) probability;
-  @property({ type: Number }) quoteLength;
-  @property({ type: Number }) cooccurance;
-  @property({ type: String }) sortMethod;
-  @property({ type: Array }) limitCollection;
+  @property({ type: Boolean }) lengthMessage = false;
   @property({ type: String }) lang;
   @property({ type: String }) multiSearchString;
+  @property({ type: Array }) multiLingualMode;
   @property({ type: Array }) parallelsData = [];
-  @property({ type: String }) fetchLoading = true;
+  @property({ type: Boolean }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
-  @property({ type: Number }) endReached = false;
+  @property({ type: Boolean }) endReached = false;
+  @property({ type: String }) transMethod;
 
   static get styles() {
     return [
@@ -53,6 +50,20 @@ export class TableViewMultiLang extends LitElement {
     super.connectedCallback();
     await this.fetchData();
   }
+  multiLingMessage() {
+    if (this.score > 0) {
+      return html`
+        <span
+          ><br /><b
+            >Currently Only well-aligned matching translation passages are
+            shown. In order to show all aligned passages, please set the
+            "similarity Score" filter in the filter menu on the right side to
+            zero.</b
+          ><br
+        /></span>
+      `;
+    }
+  }
 
   updated(_changedProperties) {
     super.updated(_changedProperties);
@@ -66,7 +77,7 @@ export class TableViewMultiLang extends LitElement {
         await this.fetchData();
       }
       if (
-        ['multiSearchString', 'folio'].includes(propName) &&
+        ['multiSearchString', 'folio', 'score'].includes(propName) &&
         !this.fetchLoading
       ) {
         this.resetView();
@@ -98,6 +109,7 @@ export class TableViewMultiLang extends LitElement {
     const parallels = await getTableViewMultiData({
       fileName: this.fileName,
       multi_lingual: this.multiLingualMode,
+      score: this.score,
       folio: folio,
       page: pageNumber,
       search_string: this.multiSearchString,
@@ -151,17 +163,17 @@ export class TableViewMultiLang extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
+        .lengthMessage="${this.lengthMessage}"
+        .extraMessage="${this.multiLingMessage()}"
       ></data-view-subheader>
 
       <table-view-table
         .fileName="${this.fileName}"
-        .probability="${this.probability}"
-        .quoteLength="${this.quoteLength}"
-        .cooccurance="${this.cooccurance}"
-        .limitCollection="${this.limitCollection}"
+        .transMethod="${this.transMethod}"
         .parallels="${this.parallelsData}"
         .searchString="${this.multiSearchString}"
         .setPageNumber="${this.setPageNumber}"
+        .shouldNotShowExtLink="${true}"
       ></table-view-table>
     `;
   }

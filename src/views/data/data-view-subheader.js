@@ -56,8 +56,9 @@ export const minimumLengthText = language => {
 class DataViewSubheader extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: String }) infoModalContent;
+  @property({ type: Boolean }) lengthMessage;
   @property({ type: String }) language;
-
+  @property({ type: String }) extraMessage;
   @property({ type: Boolean }) isDialogOpen = false;
 
   static get styles() {
@@ -65,7 +66,7 @@ class DataViewSubheader extends LitElement {
       css`
         .data-view-subheader {
           display: flex;
-          align-items: baseline;
+          align-items: center;
           font-weight: bold;
         }
 
@@ -119,6 +120,10 @@ class DataViewSubheader extends LitElement {
       <div class="data-view-subheader">
         <div class="text-name-label">Inquiry Text:</div>
         <formatted-filename .filename="${this.fileName}"></formatted-filename>&#160;
+        <vaadin-button class="info-button" @click="${this.openDialog}">
+          <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
+        </vaadin-button>
+
         <source-link .filename="${this.fileName}"></source-link>
         <vaadin-dialog
           id="info-number-view"
@@ -127,14 +132,10 @@ class DataViewSubheader extends LitElement {
           @opened-changed="${this.setIsDialogOpen}">
           <template>
             ${this.infoModalContent}
-            ${minimumLengthText(this.language)}
+            ${this.lengthMessage ? minimumLengthText(this.language) : ''}
           </template>
         </vaadin-dialog>
-
-        <vaadin-button class="info-button" @click="${this.openDialog}">
-          <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
-        </vaadin-button>
-      </div>
+      </div> ${this.extraMessage}
     `;
   }
 }

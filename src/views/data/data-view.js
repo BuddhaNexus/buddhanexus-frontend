@@ -42,6 +42,8 @@ export class DataView extends LitElement {
   @property({ type: Array }) setLimitOrTargetCollection = [];
   @property({ type: String }) searchString;
   @property({ type: String }) multiSearchString;
+  @property({ type: String }) transMethod = 'wylie';
+  @property({ type: Boolean }) showSCEnglish;
   @property({ type: String }) sortMethod = 'position';
   @property({ type: String }) viewMode;
   @property({ type: Array }) multiLingualMode = [
@@ -71,7 +73,12 @@ export class DataView extends LitElement {
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
     this.handleViewModeParamChanged();
-    switch (this.language) {
+    this.initializeFilterValues(this.language);
+    this.checkSelectedView();
+  }
+
+  initializeFilterValues(lang) {
+    switch (lang) {
       case LANGUAGE_CODES.TIBETAN:
         this.minLength = MIN_LENGTHS.TIBETAN;
         this.quoteLength = DEFAULT_LENGTHS.TIBETAN;
@@ -96,8 +103,12 @@ export class DataView extends LitElement {
         this.score = DEFAULT_SCORES.CHINESE;
         this.multiLingualMode = [LANGUAGE_CODES.CHINESE];
         break;
+      case LANGUAGE_CODES.MULTILING:
+        this.score = DEFAULT_SCORES.MULTILING;
+        this.minLength = MIN_LENGTHS.MULTILING;
+        this.quoteLength = DEFAULT_LENGTHS.MULTILING;
+        break;
     }
-    this.checkSelectedView();
   }
 
   updated(_changedProperties) {
@@ -106,6 +117,11 @@ export class DataView extends LitElement {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
         this.checkSearchSelectedText();
+      }
+      if (propName === 'viewMode' && this.score == null) {
+        // when the viewMode is changed and the filter-values are not set yet, we have to initialize them
+        const tempLang = getLanguageFromFilename(this.fileName);
+        this.initializeFilterValues(tempLang);
       }
 
       if (propName === 'language') {
@@ -145,11 +161,11 @@ export class DataView extends LitElement {
   checkSelectedView() {
     if (this.viewMode === DATA_VIEW_MODES.NEUTRAL && this.fileName) {
       let newUrl;
-      if (this.language != LANGUAGE_CODES.MULTILANG) {
+      if (this.language != LANGUAGE_CODES.MULTILING) {
         this.viewMode = DATA_VIEW_MODES.TEXT;
         newUrl = this.location.pathname.replace('neutral', 'text');
       } else {
-        this.viewMode = DATA_VIEW_MODES.MULTILANG;
+        this.viewMode = DATA_VIEW_MODES.MULTILING;
         newUrl = this.location.pathname.replace('neutral', 'multi');
       }
       this.location.pathname = newUrl;
@@ -202,7 +218,7 @@ export class DataView extends LitElement {
     this.viewMode = DATA_VIEW_MODES.TEXT_SEARCH;
   };
 
-  setMultiLangSearch = searchString => {
+  setMultiLingSearch = searchString => {
     this.multiSearchString = searchString;
   };
 
@@ -220,6 +236,10 @@ export class DataView extends LitElement {
     if (this.cooccurance > 29) {
       this.cooccurance = 10000;
     }
+  };
+
+  toggleTransMode = e => {
+    this.transMethod = e.target.value;
   };
 
   setSortMethod = e => {
@@ -301,9 +321,23 @@ export class DataView extends LitElement {
     this.segmentDisplaySide = e.target.value;
   };
 
+  toggleShowSCTranslation = e => {
+    this.showSCEnglish = e.detail.value;
+  };
+
   setMultiLingualMode = multiLingualList => {
     this.multiLingualMode = multiLingualList;
   };
+
+  displaySettings = () => {
+    return this.viewMode == 'text' || this.viewMode == 'english'
+      ? 'display: inline-flex'
+      : 'display: none';
+  };
+
+  shouldShowTotalNumbers() {
+    return this.viewMode != 'english';
+  }
 
   render() {
     //prettier-ignore
@@ -316,6 +350,7 @@ export class DataView extends LitElement {
             .setFileName="${this.setFileName}"
             .viewMode="${this.viewMode}"
             .sortMethod="${this.sortMethod}"
+            .score="${this.score}"
             .handleViewModeChanged="${this.handleViewModeChanged}"
             .setFolio="${this.setFolio}"
             .filterBarOpen="${this.filterBarOpen}"
@@ -323,8 +358,10 @@ export class DataView extends LitElement {
             .toggleNavBar="${this.toggleNavBar}"
             .updateSearch="${this.setSearch}"
             .multiLingualMode="${this.multiLingualMode}"
-            .updateMultiLangSearch="${this.setMultiLangSearch}"
-            .updateSortMethod="${this.setSortMethod}">
+            .updateMultiLingSearch="${this.setMultiLingSearch}"
+            .updateSortMethod="${this.setSortMethod}"
+            .toggleTransMode="${this.toggleTransMode}"
+            .headerVisibility="${this.headerVisibility}">
           </data-view-header>
 
           <data-view-router
@@ -341,6 +378,8 @@ export class DataView extends LitElement {
             .cooccurance="${this.cooccurance}"
             .score="${this.score}"
             .sortMethod="${this.sortMethod}"
+            .showSCEnglish="${this.showSCEnglish}"
+            .transMethod="${this.transMethod}"
             .searchString="${this.searchString}"
             .multiLingualMode="${this.multiLingualMode}"
             .multiSearchString="${this.multiSearchString}"
@@ -360,6 +399,9 @@ export class DataView extends LitElement {
           }}">
           <data-view-total-numbers
             id="total-numbers"
+            style="display: ${
+              this.shouldShowTotalNumbers() ? 'block' : 'none'
+            }"
             .fileName="${this.fileName}"
             .score="${this.score}"
             .limitCollection="${this.setLimitOrTargetCollection}"
@@ -386,10 +428,14 @@ export class DataView extends LitElement {
 
           <data-view-settings-container
             class="settings-menu"
+            style="${this.displaySettings()}"
             lang="${this.language}"
             view="${this.viewMode}"
+            .fileName="${this.fileName}"
+            .viewMode="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
-            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}">
+            .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
+            .toggleShowSCTranslation="${this.toggleShowSCTranslation}">
           </data-view-settings-container>
         </side-sheet>
       </div>

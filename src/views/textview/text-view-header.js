@@ -19,14 +19,14 @@ function TextViewHeaderRightColumn({
 }) {
   //prettier-ignore
   return html`
-    <div class="text-view-header-right">
+    <div id="text-view-header-right">
       <vaadin-button
         class="swap-button"
         title="Display this text in a new tab"
         @click="${clickedNewTabButton}">
         <iron-icon
           class="swap-icon"
-          icon="vaadin:plus-circle-o"
+          icon="vaadin:external-browser"
           slot="prefix">
         </iron-icon>
       </vaadin-button>
@@ -100,7 +100,7 @@ function TextViewHeaderLeftColumn({
       @click="${handleNewTabButtonClicked}">
       <iron-icon
         class="swap-icon"
-        icon="vaadin:plus-circle-o"
+        icon="vaadin:external-browser"
         slot="prefix">
       </iron-icon>
     </vaadin-button>
@@ -124,23 +124,39 @@ export class TextViewHeader extends LitElement {
       sharedDataViewStyles,
       css`
         #text-view-header {
-          padding-bottom: 16px;
+          padding: 8px 0 16px 0;
           font-weight: bold;
           display: flex;
-          align-items: baseline;
+          align-items: center;
           justify-content: space-between;
           text-transform: none;
         }
 
-        .up-button {
+        #text-view-header-left,
+        #info-text-view-left,
+        #text-view-header-right {
+          display: inline-flex;
+          align-items: center;
+        }
+
+        .up-button,
+        .info-button,
+        .swap-button {
           padding: 0;
           left: 10px;
-          display: inline-flex;
           min-width: 24px;
           height: 24px;
           margin-left: 12px;
           background-color: transparent;
+        }
+
+        .up-button,
+        .swap-button {
           cursor: pointer;
+        }
+
+        .info-button {
+          margin-right: 24px;
         }
 
         .info-icon {
@@ -148,6 +164,7 @@ export class TextViewHeader extends LitElement {
         }
 
         .text-name-label {
+          display: inline-flex;
           color: var(--color-text-secondary);
           font-weight: 500;
           font-size: 0.8em;
@@ -158,22 +175,12 @@ export class TextViewHeader extends LitElement {
           color: var(--color-menu-items);
           font-weight: bold;
           height: 32px;
+          display: inline-flex;
         }
 
         .swap-icon {
           color: var(--bn-dark-red);
           margin: 0;
-        }
-
-        .swap-button {
-          padding: 0;
-          right: 16px;
-          display: inline-flex;
-          min-width: 24px;
-          height: 24px;
-          totmargin-left: 12px;
-          background-color: transparent;
-          cursor: pointer;
         }
 
         @media screen and (max-width: 900px) {

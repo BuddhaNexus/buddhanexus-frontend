@@ -12,7 +12,11 @@ export default css`
   ul {
     list-style-type: none;
     padding-left: 0;
-    margin: 0 0 0 -12px;
+    margin: 0 0px 0 -12px;
+  }
+
+  .multifiles {
+    padding-left: 28px;
   }
 
   li {

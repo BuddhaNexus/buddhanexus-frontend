@@ -3,9 +3,11 @@ import { property, html, customElement, LitElement } from 'lit-element';
 import '../numbersview/numbers-view';
 import '../graphview/graph-view';
 import '../tableview/table-view';
-import '../tableview/table-view-multilang';
+import '../tableview/table-view-multiling';
 import '../textview/text-view-router';
+import '../englishview/english-view-router';
 import '../neutralview/neutral-view';
+
 import { DATA_VIEW_MODES } from './data-view-filters-container';
 
 @customElement('data-view-router')
@@ -29,6 +31,8 @@ export class DataViewRouter extends LitElement {
   @property({ type: String }) headerVisibility;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
+  @property({ type: String }) transMethod;
+  @property({ type: Boolean }) showSCEnglish;
 
   render() {
     if (
@@ -52,6 +56,7 @@ export class DataViewRouter extends LitElement {
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
           .headerVisibility="${this.headerVisibility}"
+          .transMethod="${this.transMethod}"
         ></text-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NUMBERS) {
@@ -87,23 +92,36 @@ export class DataViewRouter extends LitElement {
           .sortMethod="${this.sortMethod}"
           .score="${this.score}"
           .searchString="${this.searchString}"
+          .transMethod="${this.transMethod}"
         ></table-view>
       `;
-    } else if (this.selectedView === DATA_VIEW_MODES.MULTILANG) {
+    } else if (this.selectedView === DATA_VIEW_MODES.MULTILING) {
       return html`
-        <table-view-multilang
+        <table-view-multiling
           .fileName="${this.fileName}"
+          .score="${this.score}"
           .multiSearchString="${this.multiSearchString}"
           .multiLingualMode="${this.multiLingualMode}"
-        ></table-view-multilang>
+          .transMethod="${this.transMethod}"
+        ></table-view-multiling>
+      `;
+    } else if (this.selectedView === DATA_VIEW_MODES.ENGLISH) {
+      return html`
+        <english-view-router
+          .fileName="${this.fileName}"
+          .folio="${this.folio}"
+          .showSCEnglish="${this.showSCEnglish}"
+          .showSegmentNumbers="${this.showSegmentNumbers}"
+          .segmentDisplaySide="${this.segmentDisplaySide}"
+          .headerVisibility="${this.headerVisibility}"
+          .transMethod="${this.transMethod}"
+        ></english-view-router>
       `;
     } else if (this.selectedView === DATA_VIEW_MODES.NEUTRAL) {
-
       return html`
         <neutral-view .lang="${this.lang}"></neutral-view>
       `;
     } else {
-	console.log("FAILED VIEWMODE",this.selectedView);
       return html`
         <h2>Select the view mode.</h2>
       `;

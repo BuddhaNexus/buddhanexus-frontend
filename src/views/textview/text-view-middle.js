@@ -1,11 +1,12 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import { truncateSegnrText } from './textViewUtils';
-import { sortByKey, getLanguageFromFilename } from '../utility/views-common';
+import { getLanguageFromFilename } from '../utility/views-common';
 import {
   highlightTextByOffset,
   segmentArrayToString,
 } from '../utility/preprocessing';
 import { getFileTextParallelsMiddle } from '../../api/actions';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import styles from './text-view-table.styles';
@@ -24,6 +25,7 @@ export class TextViewMiddle extends LitElement {
   @property({ type: Array }) selectedParallels;
   @property({ type: String }) fetchLoading = true;
   @property({ type: String }) fetchError;
+  @property({ type: String }) transMethod;
 
   static get styles() {
     return [sharedDataViewStyles, styles];
@@ -100,25 +102,28 @@ export class TextViewMiddle extends LitElement {
     );
   }
 
-  createTransmessage(par_lang) {
-    let transMessage = 'Match';
+  createTransMessage(par_lang) {
     if (par_lang == 'tib') {
-      transMessage = html`
+      return html`
         Tibetan translation
       `;
     }
     if (par_lang == 'skt') {
-      transMessage = html`
+      return html`
         Sanskrit version
+      `;
+    }
+    if (par_lang == 'pli') {
+      return html`
+        Pāli version
       `;
     }
 
     if (par_lang == 'chn') {
-      transMessage = html`
+      return html`
         Chinese translation
       `;
     }
-    return transMessage;
   }
 
   render() {
@@ -134,8 +139,6 @@ export class TextViewMiddle extends LitElement {
     let parallelCounter = 0;
     let parallels = [...this.selectedParallels];
     if (parallels) {
-      parallels = sortByKey(parallels, 'score');
-      parallels = parallels.reverse();
       for (let i = 0; i < parallels.length; i++) {
         if (
           parallels[i].root_offset_beg <= this.data.position &&
@@ -196,10 +199,11 @@ export class TextViewMiddle extends LitElement {
             startoffset: parOffsetBegin,
             endoffset: parOffsetEnd,
             lang: par_lang,
+            transMethod: this.transMethod,
           });
-          let transMessage = ``;
+          let transMessage = `Match`;
           if (src_lang != par_lang) {
-            transMessage = this.createTransmessage(par_lang);
+            transMessage = this.createTransMessage(par_lang);
           }
           //prettier-ignore
           selectedParallelsText = html`
@@ -207,6 +211,7 @@ export class TextViewMiddle extends LitElement {
             <div
               class="selected-parallel material-card"
               lang="${par_lang}"
+              trans="${this.transMethod}"
               activeSegments="${rootSegnrText}"
               rootOffsetBegin="${rootOffsetBegin}"
               rootOffsetEnd="${rootOffsetEnd}"
@@ -216,10 +221,10 @@ export class TextViewMiddle extends LitElement {
               @click="${this.clickedParallel}"
               @mouseover="${this.mouseOverParallel}">
               <span class="selected-parallel-nr">
-                <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}"></formatted-segment>
+                <formatted-segment .segmentnr="${[parSegnr]}" .lang="${par_lang}" .rootUrl="${createTextViewSegmentUrl(parSegnr)}"></formatted-segment>
               <span class="trans-message">${transMessage}</span> <br /> </span> 
               <span class="score">Score: ${parallels[i].score} %</span>
-              <span class="segment-length">Length: ${parallels[i].par_length}</span>
+              <span class="segment-length ${parallels[i].par_length ? 'show-length' : 'no-show-length'}">Length: ${parallels[i].par_length}</span>
               <span class="co-occurance">Co-occurrence: ${parallels[i]['co-occ']} </span>
               <br />
               <div class="horizontal-divider"></div>

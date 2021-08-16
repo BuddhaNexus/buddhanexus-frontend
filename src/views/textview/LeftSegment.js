@@ -2,6 +2,8 @@ import { html } from 'lit-element';
 import { findColorValues, highlightActiveMainElement } from './textViewUtils';
 import { getLanguageFromFilename } from '../utility/views-common';
 import { TextSegment } from './TextSegment';
+import { SourceSegment } from './SourceSegment';
+import { createTextViewSegmentUrl } from '../data/dataViewUtils';
 
 function getLeftSegmentColors(
   current_parallels,
@@ -40,6 +42,7 @@ export function LeftSegmentContainer({
   leftTextData,
   showSegmentNumbers,
   segmentDisplaySide,
+  transMethod,
 }) {
   const lang = getLanguageFromFilename(segmentNr);
   const leftSideSelected =
@@ -62,16 +65,22 @@ export function LeftSegmentContainer({
     leftSideSelected,
     leftTextData
   );
-
-  return LeftSegment({
-    segmentNr: segmentNr,
-    segText: TextSegment({
+  let newSegText;
+  if (segmentNr.match('source')) {
+    newSegText = SourceSegment(segText);
+  } else {
+    newSegText = TextSegment({
       lang,
       colorValues,
       onClick,
       inputData: segText,
       highlightMode: leftSideSelected ? 1 : 0,
-    }),
+      transMethod: transMethod,
+    });
+  }
+  return LeftSegment({
+    segmentNr: segmentNr,
+    segText: newSegText,
     number: number,
     displayNumber,
     firstDisplayNumber,
@@ -96,8 +105,10 @@ export function LeftSegment({
                 number="${number}">
                 ${firstDisplayNumber
                   ? html`
-                    <span class="segment-number ${segmentDisplaySide}"
-                      show-number="${showSegmentNumbers}">${displayNumber}</span>`
+                    <a class="segment-number ${segmentDisplaySide}"
+                      href="${createTextViewSegmentUrl(segmentNr)}"
+                      target="_blank"
+                      show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null
                 }
                 ${segText}</span>`

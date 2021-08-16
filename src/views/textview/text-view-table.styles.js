@@ -7,7 +7,7 @@ export default css`
   }
 
   vaadin-split-layout.no-header {
-    height: calc(100vh - 260px);
+    height: calc(100vh - 130px);
   }
 
   vaadin-split-layout div {
@@ -84,8 +84,13 @@ export default css`
   }
 
   .left-segment,
-  .right-segment {
+  .right-segment,
+  .source-segment {
     display: inline;
+  }
+
+  .source-segment {
+    font-weight: 800;
   }
 
   .segment-number[show-number='false'] {
@@ -95,6 +100,7 @@ export default css`
   .segment-number {
     color: var(--color-text-secondary);
     font-size: 10px;
+    text-decoration: none;
   }
 
   .segment-number.left {

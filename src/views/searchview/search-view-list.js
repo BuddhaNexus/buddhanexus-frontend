@@ -40,6 +40,7 @@ export class SearchViewList extends LitElement {
             }),
             distance: result.distance,
             rootUrl: createTextViewSegmentUrl(result.segment_nr[1]),
+            multiResults: result.multilang_results
           })
         )}
       </div>

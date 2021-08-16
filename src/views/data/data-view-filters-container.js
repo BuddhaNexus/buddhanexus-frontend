@@ -18,9 +18,10 @@ export const DATA_VIEW_MODES = {
   TEXT_SEARCH: 'text-search',
   TABLE: 'table',
   NUMBERS: 'numbers',
-  MULTILANG: 'multilang',
+  MULTILING: 'multiling',
   GRAPH: 'graph',
   NEUTRAL: 'neutral',
+  ENGLISH: 'english',
 };
 
 @customElement('data-view-filters-container')
@@ -55,6 +56,7 @@ export class DataViewFiltersContainer extends LitElement {
   @property({ type: String }) filterFilesDataError = false;
   @property({ type: Boolean }) filterCategoriesDataLoading = true;
   @property({ type: String }) filterCategoriesDataError = false;
+  @property({ type: Boolean }) isDialogOpen = false;
 
   static get styles() {
     return [
@@ -83,7 +85,6 @@ export class DataViewFiltersContainer extends LitElement {
       language: this.language,
     });
     this.filterFilesData = filteritems;
-
     this.filterFilesDataError = error;
     this.filterFilesDataLoading = false;
   }
@@ -153,7 +154,8 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowFilterDropdown() {
     return (
       this.viewMode !== DATA_VIEW_MODES.GRAPH &&
-      this.viewMode !== DATA_VIEW_MODES.MULTILANG
+      this.viewMode !== DATA_VIEW_MODES.MULTILANG &&
+      this.viewMode !== DATA_VIEW_MODES.ENGLISH
     );
   }
 
@@ -164,19 +166,23 @@ export class DataViewFiltersContainer extends LitElement {
   shouldShowMultiLingual() {
     return (
       this.viewMode === DATA_VIEW_MODES.TEXT ||
-      this.viewMode === DATA_VIEW_MODES.MULTILANG
+      this.viewMode === DATA_VIEW_MODES.MULTILING
     );
   }
-  shouldShowSliders() {
-    return this.viewMode !== DATA_VIEW_MODES.MULTILANG;
+
+  shouldNotShowWarningMessage() {
+    // This message is only necessary as long as long
+    // filenames in multiselect comboboxes are not
+    // resolved.
+    return this.language === 'pli' || this.language === 'chn';
   }
 
-  renderMultiSelectBox(label, id, changefunction, itempath) {
+  renderMultiSelectBox(label, id, changefunction, itempath, path) {
     return html`
       <multiselect-combo-box
         Label="${label}"
         id="${id}"
-        item-label-path="categoryname"
+        item-label-path="${path}"
         style="display: ${this.shouldShowFilterDropdown()
           ? 'inline-flex'
           : 'none'}"
@@ -185,6 +191,9 @@ export class DataViewFiltersContainer extends LitElement {
         class="input-field"
         item-value-path="category"
       >
+        <template>
+          <b>[[item.categoryname]]</b> [[item.displayname]]<br />
+        </template>
       </multiselect-combo-box>
     `;
   }
@@ -212,13 +221,15 @@ export class DataViewFiltersContainer extends LitElement {
             'Exclude collections:',
             'exclude-collection',
             this.handleCategoriesExcludeComboBoxChanged,
-            this.filterCategoriesData
+            this.filterCategoriesData,
+            'categoryname'
           )}
           ${this.renderMultiSelectBox(
             'Exclude files:',
             'exclude-filename',
             this.handleFilesExcludeComboBoxChanged,
-            this.filterFilesData
+            this.filterFilesData,
+            'search_field'
           )}
         </div>
         <div
@@ -228,35 +239,45 @@ export class DataViewFiltersContainer extends LitElement {
             'Limit to collections:',
             'filter-collection',
             this.handleCategoriesComboBoxChanged,
-            this.filterCategoriesData
+            this.filterCategoriesData,
+            'categoryname'
           )}
           ${this.renderMultiSelectBox(
             'Limit to files:',
             'filter-filename',
             this.handleFilesComboBoxChanged,
-            this.filterFilesData
+            this.filterFilesData,
+            'search_field'
           )}
         </div>
       `;
     }
   }
+
+  openDialog = () => (this.isDialogOpen = true);
+
+  setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
+
   render() {
+    const shouldShowMultiLingFilters =
+      this.viewMode !== DATA_VIEW_MODES.MULTILING;
     //prettier-ignore
     return html`
-      <data-view-filters-multilingual
-        style="display: ${
-          this.shouldShowMultiLingual() ? 'block' : 'none'
-        }"
-        .fileName="${this.fileName}"
-        .mainLang="${this.language}"
-        .multiLingualMode="${this.multiLingualMode}"
-        .updateMultiLingualMode="${this.updateMultiLingualMode}">
-      </data-view-filters-multilingual>
+      ${shouldShowMultiLingFilters
+        ? html`
+          <data-view-filters-multilingual
+            style="display: ${
+              this.shouldShowMultiLingual() ? 'block' : 'none'
+            }"
+            .fileName="${this.fileName}"
+            .mainLang="${this.language}"
+            .multiLingualMode="${this.multiLingualMode}"
+            .updateMultiLingualMode="${this.updateMultiLingualMode}">
+          </data-view-filters-multilingual>`
+        : null}
 
       <data-view-filter-sliders
-        style="display: ${
-          this.shouldShowSliders() ? 'block' : 'none'
-        }"
+        .viewMode="${this.viewMode}"
         .score="${this.score}"
         .updateScore="${this.updateScore}"
         .quoteLength="${this.quoteLength}"
@@ -266,6 +287,26 @@ export class DataViewFiltersContainer extends LitElement {
         .updateCooccurance="${this.updateCooccurance}">
       </data-view-filter-sliders>
       
+      <vaadin-button
+        class="info-button"
+        style="display: ${this.shouldNotShowWarningMessage() ? 'none' : 'inline-flex'}"
+        title="Dropdown menu warning"
+        @click="${this.openDialog}">
+        <iron-icon class="info-icon" icon="vaadin:warning"></iron-icon>
+      </vaadin-button>
+
+      <vaadin-dialog
+        id="info-number-view"
+        aria-label="simple"
+        .opened="${this.isDialogOpen}"
+        @opened-changed="${this.setIsDialogOpen}">
+        <template>
+          <p>Currently the dropdown menus are not working correctly when files with very long names are selected. 
+             The close-button has the tendency to disappear to the far right and becomes invisible in these cases. 
+             It is possible to deselect such files by reopening the dropdown menu and deselecting the respective file by clicking on them for a second time.</p>
+        </template>
+      </vaadin-dialog>
+
       <multiselect-combo-box
         Label="Filter by target collection:"
         item-label-path="collectionname"

@@ -6,6 +6,7 @@ import {
   getTableViewMultiUrl,
   getDataForVisualUrl,
   getFileTextAndParallelsUrl,
+  getFileTextUrl,
   getParallelCountUrl,
 } from './apiUtils';
 
@@ -126,6 +127,31 @@ export const getFileTextAndParallels = async ({
       fileName,
       limit_collection,
       multi_lingual,
+      queryParams
+    );
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load text segments from server: ', e);
+    return {
+      error:
+        'Could not load text segments. Please check the console for details.',
+    };
+  }
+};
+
+export const getFileText = async ({
+  fileName,
+  ...queryParams
+}) => {
+  try {
+    fileName = fileName.replace(' ', '');
+    const url = getFileTextUrl(
+      fileName,
       queryParams
     );
     const response = await fetch(url);

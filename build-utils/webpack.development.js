@@ -1,6 +1,10 @@
+const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = () => ({
+const common = require('./webpack.common.js');
+
+module.exports = merge(common, {
+  mode: 'development',
   module: {
     rules: [
       {
@@ -8,6 +12,9 @@ module.exports = () => ({
         use: ['style-loader', 'css-loader'],
       },
     ],
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({

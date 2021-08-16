@@ -14,6 +14,7 @@ import { disableDrawer } from './views/utility/utils';
 import styles from './index.styles';
 import BNRouter from './router';
 import { navMenuDataMain, navMenuDataSub } from './menu-data';
+import { TaishoT, TaishoX } from './taisho-numbers';
 
 @customElement('app-layout')
 export class AppLayout extends LitElement {
@@ -31,6 +32,29 @@ export class AppLayout extends LitElement {
 
   firstUpdated(_changedProperties) {
     super.firstUpdated(_changedProperties);
+    const currentUrl = window.location.href;
+    if (currentUrl.match('/chn/text/[TX][0-9]+$')) {
+      let textNr = currentUrl.match(/[TX][0-9]+$/g)[0];
+      let taishoNr = parseInt(textNr.substring(1));
+      let newTextNr = '';
+      let taishoKeys = Object.keys(TaishoT);
+      let taishoValues = Object.values(TaishoT);
+      if (textNr.startsWith('X')) {
+        taishoKeys = Object.keys(TaishoX);
+        taishoValues = Object.values(TaishoX);
+      }
+      for (let number = 0; number < taishoKeys.length; number++) {
+        if (parseInt(taishoKeys[number]) > taishoNr) {
+          newTextNr = taishoValues[number - 1];
+          break;
+        }
+      }
+      let newUrl = currentUrl.replace(
+        /[TX][0-9]+/g,
+        newTextNr + 'n' + textNr.substring(1)
+      );
+      window.location.href = newUrl;
+    }
     disableDrawer();
     // insert router into `<main>` element
     new BNRouter().init();

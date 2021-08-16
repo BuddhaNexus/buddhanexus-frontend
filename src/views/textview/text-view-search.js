@@ -117,7 +117,8 @@ function ResultSegmentContainer({ segmentNr, segText, searchString, rootUrl }) {
         <header class="result-segment-list__item-header">
           <formatted-segment
             .segmentnr="${[segmentNr,]}"
-            .lang="${getLanguageFromFilename(segmentNr)}">
+            .lang="${getLanguageFromFilename(segmentNr)}"
+            .rootUrl="${rootUrl}">
           </formatted-segment>
         </header>
         <div class="horizontal-divider"></div>

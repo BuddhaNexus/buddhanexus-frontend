@@ -23,9 +23,7 @@ export default css`
     width: 100%;
   }
 
-  .settings-menu[view='text'][lang='pli'],
-  .settings-menu[view='text'][lang='chn'],
-  .settings-menu[view='text'][lang='skt'] {
+  .settings-menu {
     display: inline-flex;
   }
 
@@ -53,6 +51,12 @@ export default css`
     background-attachment: fixed;
   }
 
+  .data-view[lang='multi'][view='neutral'] {
+    background-image: url('/src/assets/img/background_content_tib.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
   .data-view__main-container {
     display: flex;
     flex-direction: column;
@@ -63,12 +67,18 @@ export default css`
   .data-view.no-header[view='text'] .data-view__main-container,
   .data-view.no-header[view='graph'] .data-view__main-container,
   .data-view.no-header[view='numbers'] .data-view__main-container,
-  .data-view.no-header[view='table'] .data-view__main-container {
+  .data-view.no-header[view='table'] .data-view__main-container,
+  .data-view.no-header[view='english'] .data-view__main-container,
+  .data-view.no-header[view='multiling'] .data-view__main-container {
     background-color: var(--color-background-light);
   }
 
   data-view-router {
     padding: 12px 48px 16px;
+  }
+
+  .data-view.no-header .data-view__main-container data-view-router {
+    padding: 16px 12px 0px;
   }
 
   @media screen and (max-width: 900px) {

@@ -45,64 +45,59 @@ const TableRowContainer = (
   segmentParallels,
   collections,
   segmentnr,
-  language
+  language,
+  logo = false
 ) =>
   segmentParallels.map((parallelArr, index) => {
     const parCollection = getParCollectionNumber(parallelArr);
+    const rootLink = createTextViewSegmentUrl(segmentnr);
     const segmentlink = html`
       <formatted-segment
         .segmentnr="${[`${segmentnr}`]}"
         .lang="${language}"
+        .rootUrl="${rootLink}"
+        .logo="${logo}"
       ></formatted-segment>
     `;
     if (collections[parCollection]) {
       collections[parCollection].push(parallelArr);
       if (index === segmentParallels.length - 1) {
-        const rootLink = createTextViewSegmentUrl(segmentnr);
-        return TableRow(segmentlink, collections, language, rootLink);
+        return TableRow(segmentlink, collections, language, rootLink, logo);
       }
     }
   });
 
-const TableRow = (segmentNr, collections, language, rootLink) =>
+const TableRow = (segmentNr, collections, language, rootLink, logo) =>
   //prettier-ignore
   html`
     <tr class="numbers-view-table-row">
       <th>
-        <span class="segment-number">${segmentNr}&nbsp;<iron-icon
-        class="open-link-icon"
-        icon="vaadin:external-browser"
-        title="Display this text in a new tab"
-        onclick="window.open('${rootLink}','_blank');">
-      </iron-icon></span>
+        <span class="segment-number">${segmentNr}&nbsp;</span>
       </th>
       ${Object.keys(collections).map(
         key => html`
           <td>
-            ${getParallelsForCollection(collections[key], language)}
+            ${getParallelsForCollection(collections[key], language, logo)}
           </td>
         `
       )}
     </tr>
   `;
 
-const getParallelsForCollection = (collection, language) =>
+const getParallelsForCollection = (collection, language, logo) =>
   collection.map(item => {
     const parLink = createTextViewSegmentUrl(item[0]);
     const segmentlink = html`
       <formatted-segment
         .segmentnr="${item}"
         .lang="${language}"
+        .rootUrl="${parLink}"
+        .logo="${logo}"
       ></formatted-segment>
     `;
     //prettier-ignore
     return html`
-      <span class="segment-number">${segmentlink}&nbsp;<iron-icon
-        class="open-link-icon"
-        icon="vaadin:external-browser"
-        title="Display this text in a new tab"
-        onclick="window.open('${parLink}','_blank');">
-      </iron-icon></span><br />
+      <span class="segment-number">${segmentlink}&nbsp;</span><br />
     `;
   });
 

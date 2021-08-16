@@ -2,6 +2,7 @@ import { C_SELECTED_SEGMENT } from './text-view';
 import { html } from 'lit-element';
 import { SEGMENT_COLORS } from '../utility/preprocessing';
 import { LANGUAGE_CODES } from '../utility/constants';
+import { fromWylie } from '../utility/tibetan-transliteration';
 
 const RIGHT_MODE_HIGHLIGHT_COLOR = '#2ECC40';
 
@@ -9,10 +10,20 @@ function getCooccuranceColor(cooc) {
   return SEGMENT_COLORS[cooc > 10 ? 10 : cooc];
 }
 
-function getCleanedWord(lang, splitWords, i) {
+function getCleanedWord(lang, splitWords, i, transMethod) {
   let cleanedWord = '';
   if (lang === LANGUAGE_CODES.TIBETAN) {
-    cleanedWord = TibetanSegment(splitWords[i]);
+    if (transMethod == 'uni') {
+      let word = splitWords[i];
+      if (i < splitWords.length - 1) {
+        if (!splitWords[i + 1].includes('/') && !word.endsWith('ng')) {
+          word = word + ' ';
+        }
+      }
+      cleanedWord = TibetanSegmentUnicode(word);
+    } else {
+      cleanedWord = TibetanSegmentWylie(splitWords[i]);
+    }
   } else {
     cleanedWord = TextSegmentChineseWord(splitWords[i]);
   }
@@ -28,8 +39,8 @@ function TextSegmentChineseWord(currentString) {
   return currentString;
 }
 
-const TibetanSegment = segment => {
-  const strippedSegment = segment.replace(/\//g, '|') + ' ';
+const TibetanSegmentWylie = segment => {
+  let strippedSegment = segment.replace(/\//g, '|') + ' ';
   return !strippedSegment.match(/\|\||[.?!:;]/g)
     ? strippedSegment
     : !strippedSegment.includes('*')
@@ -37,6 +48,24 @@ const TibetanSegment = segment => {
       html`${strippedSegment}<br />`
     : // prettier-ignore
       html`${strippedSegment.replace('*_', '* ')}`;
+};
+
+// possibly we have to do a few more changes to the method of
+// preprocessing in case of unicode, so having it as a separate function might be a good idea
+const TibetanSegmentUnicode = segment => {
+  let strippedSegment = segment.replace(/ \//g, '/');
+  strippedSegment = strippedSegment.replace(/ng\//g, 'ng /'); // always put tsek between nga and shad
+  if (strippedSegment.match(/@|#/)) {
+    // don't process folio numbers
+    return strippedSegment;
+  } else {
+    // prettier-ignore
+    return !strippedSegment.match(/\/\/|[.?!:;]/g)
+      ? html`${fromWylie(strippedSegment)}`
+      : !strippedSegment.includes('*')
+      ? html`${fromWylie(strippedSegment)}<br />`
+      : html`${fromWylie(strippedSegment).replace('*_', '* ')}`;
+  }
 };
 
 const ChineseSegment = (inputData, segment) => {
@@ -84,7 +113,11 @@ function TextSegmentWord({
   }
 
   // prettier-ignore
-  return html`<span class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}" style="color:${highlightColor}" position="${position}" @click="${onClick}">${cleanedWord}</span>`;
+  return html`<span 
+              class="word ${currentColor !== -1 ? 'highlight-parallel' : ""} ${selected ? C_SELECTED_SEGMENT : ""}"
+              style="color:${highlightColor}"
+              position="${position}"
+              @click="${onClick}">${cleanedWord}</span>`;
 }
 
 function TextSegmentWords(
@@ -93,7 +126,8 @@ function TextSegmentWords(
   colorValues,
   highlightMode,
   onClick,
-  rightMode
+  rightMode,
+  transMethod
 ) {
   let segmentData = inputData;
   if (lang === LANGUAGE_CODES.TIBETAN) {
@@ -116,7 +150,7 @@ function TextSegmentWords(
       currentColor,
       position,
       onClick,
-      cleanedWord: getCleanedWord(lang, segmentData, i),
+      cleanedWord: getCleanedWord(lang, segmentData, i, transMethod),
       highlightColor: rightMode
         ? RIGHT_MODE_HIGHLIGHT_COLOR
         : getCooccuranceColor(currentColor),
@@ -126,7 +160,6 @@ function TextSegmentWords(
     } else {
       position += segmentData[i].length;
     }
-
     return renderedWord;
   });
 }
@@ -138,13 +171,11 @@ export function TextSegment({
   onClick = 0,
   highlightMode = 0,
   rightMode = false,
+  transMethod,
 }) {
   if (colorValues.length <= 0) {
     let outputText;
     switch (lang) {
-      case LANGUAGE_CODES.TIBETAN:
-        outputText = TibetanSegment(inputData);
-        break;
       case LANGUAGE_CODES.PALI:
         outputText = PaliSegment(inputData, inputData.replace(/\//g, '|'));
         break;
@@ -158,7 +189,11 @@ export function TextSegment({
         );
         break;
       default:
-        outputText = TibetanSegment(inputData);
+        if (transMethod == 'uni') {
+          outputText = TibetanSegmentUnicode(inputData);
+        } else {
+          outputText = TibetanSegmentWylie(inputData);
+        }
     }
     return outputText;
   } else {
@@ -168,7 +203,8 @@ export function TextSegment({
       colorValues,
       highlightMode,
       onClick,
-      rightMode
+      rightMode,
+      transMethod
     );
     let outputwords;
     switch (lang) {

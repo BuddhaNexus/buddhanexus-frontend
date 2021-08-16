@@ -22,10 +22,19 @@ export class Card extends LitElement {
         }
 
         .card--header {
-          padding: 36px 48px 16px 48px;
+          padding: 36px 316px 16px 48px;
           border-radius: 0;
           display: flex;
           flex-wrap: wrap;
+        }
+
+        @media screen and (max-width: 1040px) {
+          .card--header {
+            padding: 36px 48px 16px 48px;
+            border-radius: 0;
+            display: flex;
+            flex-wrap: wrap;
+          }
         }
 
         @media screen and (max-width: 900px) {

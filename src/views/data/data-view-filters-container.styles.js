@@ -30,15 +30,22 @@ export default css`
     margin-right: 24px;
   }
 
-  multiselect-combo-box[label],
-  vaadin-combo-box[label] {
-    font-size: 16px;
-    --material-primary-color: var(--bn-dark-red);
-    --material-primary-text-color: var(--bn-dark-red);
+  multiselect-combo-box::part(combo-box) {
+    max-width: 280px;
+    overflow: hidden;
   }
 
   .filter-group {
-    margin-top: 16px;
     margin-bottom: 16px;
+  }
+
+  .info-button {
+    background-color: transparent;
+    cursor: help;
+  }
+
+  .info-icon {
+    color: var(--bn-dark-red);
+    padding: 0;
   }
 `;

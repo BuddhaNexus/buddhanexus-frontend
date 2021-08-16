@@ -21,7 +21,7 @@ export default class TextViewTable extends LitElement {
   @property({ type: String }) leftActiveSegment;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
-
+  @property({ type: String }) transMethod;
   @property({ type: Function }) toggleMiddleData;
   @property({ type: Function }) highlightLeftAfterScrolling;
   @property({ type: Function }) handleMouseOver;
@@ -56,6 +56,7 @@ export default class TextViewTable extends LitElement {
               .multiLingualMode="${this.multiLingualMode}"
               .data="${this.middleData}"
               .leftActiveSegment="${this.leftActiveSegment}"
+              .transMethod="${this.transMethod}"
               @mouseover-parallel="${this.handleMouseOver}"
               @click-parallel="${this.handleParallelClicked}">
             </text-view-middle>
@@ -73,6 +74,7 @@ export default class TextViewTable extends LitElement {
         <text-view-right
           id="text-view-right"
           lang="${getLanguageFromFilename(this.rightFileName)}"
+          trans="${this.transMethod}"
           .fileName="${this.fileName}"
           .rightFileName="${this.rightFileName}"
           .rightTextData="${this.rightTextData}"
@@ -83,6 +85,7 @@ export default class TextViewTable extends LitElement {
           .showSegmentNumbers="${this.showSegmentNumbers}"
           .segmentDisplaySide="${this.segmentDisplaySide}"
           @active-segment-changed="${this.toggleMiddleData}"
+          .transMethod="${this.transMethod}"
         ></text-view-right>
       </div>
     `;
@@ -102,6 +105,7 @@ export default class TextViewTable extends LitElement {
             <text-view-left
               id="text-view-left"
               lang="${this.lang}"
+              trans="${this.transMethod}"
               .fileName="${this.fileName}"
               .leftTextData="${this.leftTextData}"
               .score="${this.score}"
@@ -112,6 +116,7 @@ export default class TextViewTable extends LitElement {
               .leftActiveSegment="${this.leftActiveSegment}"
               .showSegmentNumbers="${this.showSegmentNumbers}"
               .segmentDisplaySide="${this.segmentDisplaySide}"
+              .transMethod="${this.transMethod}"
               @active-segment-changed="${this.toggleMiddleData}"
               @highlight-left-after-scrolling="${this
                 .highlightLeftAfterScrolling}"

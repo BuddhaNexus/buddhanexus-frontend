@@ -20,7 +20,7 @@ export class TextViewLeft extends LitElement {
   @property({ type: String }) leftActiveSegment;
   @property({ type: Boolean }) showSegmentNumbers;
   @property({ type: String }) segmentDisplaySide;
-
+  @property({ type: String }) transMethod;
   // Local variables
   @property({ type: String }) veryShortText = false;
   @property({ type: String }) reachedEndText = false;
@@ -293,6 +293,7 @@ export class TextViewLeft extends LitElement {
           currentPosition: this.currentPosition,
           showSegmentNumbers: this.showSegmentNumbers,
           segmentDisplaySide: this.segmentDisplaySide,
+          transMethod: this.transMethod,
         })
       )}
     `;
