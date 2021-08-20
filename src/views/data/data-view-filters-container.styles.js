@@ -36,7 +36,16 @@ export default css`
   }
 
   .filter-group {
-    margin-top: 16px;
     margin-bottom: 16px;
+  }
+
+  .info-button {
+    background-color: transparent;
+    cursor: help;
+  }
+
+  .info-icon {
+    color: var(--bn-dark-red);
+    padding: 0;
   }
 `;
