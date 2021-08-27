@@ -29,10 +29,7 @@ export class DataViewSettingsContainer extends LitElement {
 
   render() {
     const shouldShowChecked = this.lang === 'pli' || this.lang === 'chn';
-    const shouldShowTransliterationSlider =
-      ((this.lang === 'tib' || this.lang === 'multi') &&
-        this.viewMode != 'graph') ||
-      this.viewMode === 'english';
+    const shouldShowTransliterationSlider = this.viewMode === 'english';
     //prettier-ignore
     return html`
         ${shouldShowTransliterationSlider
@@ -42,10 +39,10 @@ export class DataViewSettingsContainer extends LitElement {
               label="Display text as:"
               @value-changed="${this.toggleTransMode}">
               <vaadin-radio-button value="wylie" checked>
-                <span class="button-font">${(this.lang === 'tib' || this.lang === 'multi') ? 'Wylie' : 'Roman'}</span>
+                <span class="button-font">Roman</span>
               </vaadin-radio-button>
               <vaadin-radio-button value="uni">
-                <span class="button-font">${(this.lang === 'tib' || this.lang === 'multi') ? 'Unicode' : 'Devanagari'}</span>
+                <span class="button-font">Devanagari</span>
               </vaadin-radio-button>
             </vaadin-radio-group>`
           : null}

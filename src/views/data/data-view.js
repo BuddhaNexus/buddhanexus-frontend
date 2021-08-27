@@ -359,7 +359,8 @@ export class DataView extends LitElement {
             .updateSearch="${this.setSearch}"
             .multiLingualMode="${this.multiLingualMode}"
             .updateMultiLingSearch="${this.setMultiLingSearch}"
-            .updateSortMethod="${this.setSortMethod}">
+            .updateSortMethod="${this.setSortMethod}"
+            .toggleTransMode="${this.toggleTransMode}">
           </data-view-header>
 
           <data-view-router
