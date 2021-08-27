@@ -32,7 +32,7 @@ function EnglishViewHeaderRightColumn({
       <vaadin-button class="info-button" @click="${openDialogRight}">
         <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
       </vaadin-button>
-      <div style="display: inline-flex">Human Translation</div>
+      <div style="display: inline-flex">SuttaCentral Translation</div>
     </div>
   `;
 }
@@ -57,8 +57,8 @@ function EnglishViewHeaderLeftColumn({
           </p><p>Note: This view is experimental and the translations by the TML model cannot be relied
             upon as actual correct translations.
           </p><p>
-            Additionally, an English translation by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya),
-            if this exists, is also offered. See the options in the Settings menu.
+            This model is based on the English translations by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya).
+            Additionally, the original English translation is also offered if available.
           </p><p>
             Click on any segment to show the matching segment in the other columns.
           </p>

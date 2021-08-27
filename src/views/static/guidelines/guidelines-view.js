@@ -107,8 +107,8 @@ export class GuidelinesView extends LitElement {
                 <li><b>English View</b>: This view-mode is only available for Pāli texts. It displays the original text
                 together with a machine translation into English created by the
                 <a target="_blank" class="content-link" href="https://github.com/tensorflow/tensor2tensor">Transformer machine learning model</a>.
-                Additionally, an English translation by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya), if this exists,
-                is also offered.</li>
+                This model is based on the English translations by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya).
+                Additionally, the original English translation is also offered if available.</li>
               </ul>
             </p>
             <h3>Links</h3>

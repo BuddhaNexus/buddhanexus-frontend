@@ -360,7 +360,8 @@ export class DataView extends LitElement {
             .multiLingualMode="${this.multiLingualMode}"
             .updateMultiLingSearch="${this.setMultiLingSearch}"
             .updateSortMethod="${this.setSortMethod}"
-            .toggleTransMode="${this.toggleTransMode}">
+            .toggleTransMode="${this.toggleTransMode}"
+            .headerVisibility="${this.headerVisibility}">
           </data-view-header>
 
           <data-view-router

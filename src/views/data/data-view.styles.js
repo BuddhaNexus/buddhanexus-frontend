@@ -67,12 +67,18 @@ export default css`
   .data-view.no-header[view='text'] .data-view__main-container,
   .data-view.no-header[view='graph'] .data-view__main-container,
   .data-view.no-header[view='numbers'] .data-view__main-container,
-  .data-view.no-header[view='table'] .data-view__main-container {
+  .data-view.no-header[view='table'] .data-view__main-container,
+  .data-view.no-header[view='english'] .data-view__main-container,
+  .data-view.no-header[view='multiling'] .data-view__main-container {
     background-color: var(--color-background-light);
   }
 
   data-view-router {
     padding: 12px 48px 16px;
+  }
+
+  .data-view.no-header .data-view__main-container data-view-router {
+    padding: 16px 12px 0px;
   }
 
   @media screen and (max-width: 900px) {
