@@ -50,11 +50,7 @@ export class DataViewViewSelector extends LitElement {
                     this.language !== 'chn' &&
                     this.language !== 'pli')) &&
                 filter !== 'text-search' &&
-                (filter !== 'english' ||
-                  (this.language !== 'skt' &&
-                    this.language !== 'tib' &&
-                    this.language !== 'chn' &&
-                    this.language !== 'multi'))
+                (filter !== 'english' || this.language === 'pli')
               ) {
                 return html`
                   <vaadin-item style="text-transform: capitalize"
