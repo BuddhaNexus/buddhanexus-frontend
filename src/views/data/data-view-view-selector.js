@@ -18,21 +18,33 @@ export class DataViewViewSelector extends LitElement {
           margin-right: 2em;
         }
 
+        // vaadin-radio-group {
+        //   display: inline-flex;
+        // }
+
         vaadin-select {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
-          width: 100px;
+          display: none;
+        }
+
+        @media screen and (max-width: 1000px) {
+          vaadin-select {
+            display: inline-flex;
+            width: 100px;
+          }
+
+          vaadin-radio-group {
+            display: none;
+          }
         }
       `,
     ];
   }
 
   render() {
-    const shouldShowRadioButtons =
-      this.language !== 'pli' && this.language !== 'chn';
-    return html`
-      ${shouldShowRadioButtons
-        ? html`
+    return 
+        html`
             <vaadin-radio-group
               label="Choose view:"
               class="visibility-filters"
@@ -56,8 +68,7 @@ export class DataViewViewSelector extends LitElement {
                 }
               })}
             </vaadin-radio-group>
-          `
-        : html`
+        
             <vaadin-select
               value="${this.viewMode}"
               label="Choose view:"
@@ -83,8 +94,6 @@ export class DataViewViewSelector extends LitElement {
                   })}
                 </vaadin-list-box>
               </template>
-            </vaadin-select>
-          `}
-    `;
+            </vaadin-select>`;
   }
 }
