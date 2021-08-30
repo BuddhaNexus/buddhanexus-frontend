@@ -73,7 +73,6 @@ export class DataViewViewSelector extends LitElement {
   }
 
   render() {
-    console.log(window.innerWidth);
     return html`
       <vaadin-select
         value="${this.viewMode}"
