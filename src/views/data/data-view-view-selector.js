@@ -16,22 +16,69 @@ export class DataViewViewSelector extends LitElement {
         .visibility-filters {
           margin-left: 0;
           margin-right: 2em;
-          width: 100px;
+        }
+
+        vaadin-select,
+        vaadin-radio-button {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
         }
 
         vaadin-select {
-          --material-primary-color: var(--bn-dark-red);
-          --material-primary-text-color: var(--bn-dark-red);
+          display: none;
+        }
+
+        vaadin-ratio-group {
+          display: inline-flex;
+        }
+
+        @media screen and (max-width: 1560px) {
+          vaadin-select[lang='pli'] {
+            display: inline-flex;
+            width: 100px;
+          }
+
+          vaadin-radio-group[lang='pli'] {
+            display: none;
+          }
+        }
+
+        @media screen and (max-width: 1500px) {
+          vaadin-select[lang='chn'],
+          vaadin-select[lang='multi'] {
+            display: inline-flex;
+            width: 100px;
+          }
+
+          vaadin-radio-group[lang='chn'],
+          vaadin-radio-group[lang='multi'] {
+            display: none;
+          }
+        }
+
+        @media screen and (max-width: 1340px) {
+          vaadin-select[lang='skt'],
+          vaadin-select[lang='tib'] {
+            display: inline-flex;
+            width: 100px;
+          }
+
+          vaadin-radio-group[lang='skt'],
+          vaadin-radio-group[lang='tib'] {
+            display: none;
+          }
         }
       `,
     ];
   }
 
   render() {
+    console.log(window.innerWidth);
     return html`
       <vaadin-select
         value="${this.viewMode}"
         label="Choose view:"
+        lang="${this.language}"
         class="visibility-filters"
         @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
       >
@@ -57,6 +104,32 @@ export class DataViewViewSelector extends LitElement {
           </vaadin-list-box>
         </template>
       </vaadin-select>
+
+      <vaadin-radio-group
+        label="Choose view:"
+        class="visibility-filters"
+        value="${this.viewMode}"
+        lang="${this.language}"
+        @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
+      >
+        ${Object.values(DATA_VIEW_MODES).map(filter => {
+          if (
+            (filter !== 'numbers' ||
+              this.language === 'pli' ||
+              this.language === 'chn') &&
+            filter !== 'neutral' &&
+            (filter !== 'multiling' || this.language === 'multi') &&
+            filter !== 'text-search' &&
+            (filter !== 'english' || this.language === 'pli')
+          ) {
+            return html`
+              <vaadin-radio-button value="${filter}">
+                ${filter}
+              </vaadin-radio-button>
+            `;
+          }
+        })}
+      </vaadin-radio-group>
     `;
   }
 }
