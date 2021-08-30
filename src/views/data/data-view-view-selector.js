@@ -18,6 +18,10 @@ export class DataViewViewSelector extends LitElement {
           margin-right: 2em;
         }
 
+        .visibility-filters vaadin-radio-button {
+          text-transform: capitalize;
+        }
+
         vaadin-select,
         vaadin-radio-button {
           --material-primary-color: var(--bn-dark-red);
@@ -32,7 +36,7 @@ export class DataViewViewSelector extends LitElement {
           display: inline-flex;
         }
 
-        @media screen and (max-width: 1560px) {
+        @media screen and (max-width: 1380px) {
           vaadin-select[lang='pli'] {
             display: inline-flex;
             width: 100px;
@@ -43,27 +47,45 @@ export class DataViewViewSelector extends LitElement {
           }
         }
 
-        @media screen and (max-width: 1500px) {
-          vaadin-select[lang='chn'],
+        @media screen and (max-width: 1280px) {
+          vaadin-select[lang='chn'] {
+            display: inline-flex;
+            width: 100px;
+          }
+
+          vaadin-radio-group[lang='chn'] {
+            display: none;
+          }
+        }
+
+        @media screen and (max-width: 1180px) {
+          vaadin-select[lang='skt'] {
+            display: inline-flex;
+            width: 100px;
+          }
+
+          vaadin-radio-group[lang='skt'] {
+            display: none;
+          }
+        }
+
+        @media screen and (max-width: 1480px) {
           vaadin-select[lang='multi'] {
             display: inline-flex;
             width: 100px;
           }
 
-          vaadin-radio-group[lang='chn'],
           vaadin-radio-group[lang='multi'] {
             display: none;
           }
         }
 
         @media screen and (max-width: 1340px) {
-          vaadin-select[lang='skt'],
           vaadin-select[lang='tib'] {
             display: inline-flex;
             width: 100px;
           }
 
-          vaadin-radio-group[lang='skt'],
           vaadin-radio-group[lang='tib'] {
             display: none;
           }
