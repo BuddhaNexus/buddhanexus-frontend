@@ -16,84 +16,47 @@ export class DataViewViewSelector extends LitElement {
         .visibility-filters {
           margin-left: 0;
           margin-right: 2em;
+          width: 100px;
         }
-
-        // vaadin-radio-group {
-        //   display: inline-flex;
-        // }
 
         vaadin-select {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
-          display: none;
-        }
-
-        @media screen and (max-width: 1000px) {
-          vaadin-select {
-            display: inline-flex;
-            width: 100px;
-          }
-
-          vaadin-radio-group {
-            display: none;
-          }
         }
       `,
     ];
   }
 
   render() {
-    return 
-        html`
-            <vaadin-radio-group
-              label="Choose view:"
-              class="visibility-filters"
-              value="${this.viewMode}"
-              @value-changed="${e =>
-                this.handleViewModeChanged(e.target.value)}"
-            >
-              ${Object.values(DATA_VIEW_MODES).map(filter => {
-                if (
-                  filter !== 'numbers' &&
-                  filter !== 'neutral' &&
-                  (filter !== 'multiling' || this.language === 'multi') &&
-                  filter !== 'text-search' &&
-                  filter !== 'english'
-                ) {
-                  return html`
-                    <vaadin-radio-button value="${filter}">
-                      ${filter}
-                    </vaadin-radio-button>
-                  `;
-                }
-              })}
-            </vaadin-radio-group>
-        
-            <vaadin-select
-              value="${this.viewMode}"
-              label="Choose view:"
-              class="visibility-filters"
-              @value-changed="${e =>
-                this.handleViewModeChanged(e.target.value)}"
-            >
-              <template>
-                <vaadin-list-box>
-                  ${Object.values(DATA_VIEW_MODES).map(filter => {
-                    if (
-                      filter !== 'neutral' &&
-                      filter !== 'multiling' &&
-                      filter !== 'text-search' &&
-                      (filter !== 'english' || this.language === 'pli')
-                    ) {
-                      return html`
-                        <vaadin-item style="text-transform: capitalize"
-                          >${filter}</vaadin-item
-                        >
-                      `;
-                    }
-                  })}
-                </vaadin-list-box>
-              </template>
-            </vaadin-select>`;
+    return html`
+      <vaadin-select
+        value="${this.viewMode}"
+        label="Choose view:"
+        class="visibility-filters"
+        @value-changed="${e => this.handleViewModeChanged(e.target.value)}"
+      >
+        <template>
+          <vaadin-list-box>
+            ${Object.values(DATA_VIEW_MODES).map(filter => {
+              if (
+                (filter !== 'numbers' ||
+                  this.language === 'pli' ||
+                  this.language === 'chn') &&
+                filter !== 'neutral' &&
+                (filter !== 'multiling' || this.language === 'multi') &&
+                filter !== 'text-search' &&
+                (filter !== 'english' || this.language === 'pli')
+              ) {
+                return html`
+                  <vaadin-item style="text-transform: capitalize"
+                    >${filter}</vaadin-item
+                  >
+                `;
+              }
+            })}
+          </vaadin-list-box>
+        </template>
+      </vaadin-select>
+    `;
   }
 }
