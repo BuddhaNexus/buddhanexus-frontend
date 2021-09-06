@@ -435,7 +435,8 @@ export class DataView extends LitElement {
             .viewMode="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
-            .toggleShowSCTranslation="${this.toggleShowSCTranslation}">
+            .toggleShowSCTranslation="${this.toggleShowSCTranslation}"
+            .toggleTransMode="${this.toggleTransMode}">
           </data-view-settings-container>
         </side-sheet>
       </div>

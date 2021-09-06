@@ -20,9 +20,9 @@ class DataViewHeader extends LitElement {
   @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
+  @property({ type: Function }) toggleTransMode;
   @property({ type: Function }) handleViewModeChanged;
   @property({ type: Function }) toggleFilterBarOpen;
-  @property({ type: Function }) toggleTransMode;
   @property({ type: String }) searchString;
 
   static get styles() {
@@ -59,6 +59,24 @@ class DataViewHeader extends LitElement {
           cursor: pointer;
         }
 
+        vaadin-radio-button,
+        vaadin-radio-group {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+        }
+        .button-font {
+          color: var(--color-text-secondary);
+          font-size: 14px;
+          font-family: var(--system-font-stack);
+          font-weight: 400;
+        }
+
+        .toggle-transliteration-scheme {
+          padding-left: 12px;
+          position: absolute;
+          right: 120px;
+        }
+
         .nav-bar-toggle-icon {
           right: 40px;
           cursor: row-resize;
@@ -77,25 +95,6 @@ class DataViewHeader extends LitElement {
 
         vaadin-text-field [part='value'] {
           padding-left: 16px;
-        }
-
-        vaadin-radio-button,
-        vaadin-radio-group {
-          --material-primary-color: var(--bn-dark-red);
-          --material-primary-text-color: var(--bn-dark-red);
-        }
-
-        .button-font {
-          color: var(--color-text-secondary);
-          font-size: 14px;
-          font-family: var(--system-font-stack);
-          font-weight: 400;
-        }
-
-        .toggle-transliteration-scheme {
-          padding-left: 12px;
-          position: absolute;
-          right: 120px;
         }
 
         data-view-view-selector.no-header,
@@ -127,9 +126,8 @@ class DataViewHeader extends LitElement {
 
   render() {
     const shouldShowTransliterationSlider =
-      ((this.language === 'tib' || this.language === 'multi') &&
-        this.viewMode != 'graph') ||
-      this.viewMode === 'english';
+      (this.language === 'tib' || this.language === 'multi') &&
+      this.viewMode != 'graph';
     //prettier-ignore
     return html`
       <div class="data-view-header ${this.headerVisibility}">
@@ -168,10 +166,10 @@ class DataViewHeader extends LitElement {
                   label="Display text as:"
                   @value-changed="${this.toggleTransMode}">
                   <vaadin-radio-button value="wylie" checked>
-                    <span class="button-font">${(this.language === 'tib' || this.language === 'multi') ? 'Wylie' : 'Roman'}</span>
+                    <span class="button-font">Wylie</span>
                   </vaadin-radio-button>
                   <vaadin-radio-button value="uni">
-                    <span class="button-font">${(this.language === 'tib' || this.language === 'multi') ? 'Unicode' : 'Devanagari'}</span>
+                    <span class="button-font">Unicode</span>
                   </vaadin-radio-button>
                 </vaadin-radio-group>`
               : null}
