@@ -74,7 +74,7 @@ export default css`
   }
 
   data-view-router {
-    padding: 12px 48px 16px;
+    padding: 12px 48px 0px;
   }
 
   .data-view.no-header .data-view__main-container data-view-router {
