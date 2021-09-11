@@ -100,7 +100,10 @@ export default class TextViewTable extends LitElement {
 
     return html`
       <bn-card light>
-        <vaadin-split-layout class="${this.headerVisibility}">
+        <vaadin-split-layout
+          class="${this.headerVisibility}"
+          lang="${this.lang}"
+        >
           <div class="left-text-column">
             <text-view-left
               id="text-view-left"

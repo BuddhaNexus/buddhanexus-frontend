@@ -6,6 +6,12 @@ export default css`
     height: calc(100vh - 380px);
   }
 
+  @media screen and (max-width: 1040px) {
+    vaadin-split-layout {
+      height: calc(100vh - 340px);
+    }
+  }
+
   vaadin-split-layout.no-header {
     height: calc(100vh - 130px);
   }
