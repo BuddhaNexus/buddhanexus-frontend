@@ -97,7 +97,7 @@ class DataViewHeader extends LitElement {
           padding-left: 16px;
         }
 
-        @media screen and (max-width: 1180px) {
+        @media screen and (max-width: 1060px) {
           .toggle-transliteration-scheme[lang='tib'],
           .toggle-transliteration-scheme[lang='multi'] {
             right: 84px;

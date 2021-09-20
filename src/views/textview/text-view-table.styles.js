@@ -6,16 +6,39 @@ export default css`
     height: calc(100vh - 380px);
   }
 
-  @media screen and (max-width: 1180px) {
+  @media screen and (max-width: 1320px) {
     vaadin-split-layout[lang='tib'],
     vaadin-split-layout[lang='multi'] {
-      height: calc(100vh - 340px);
+      height: calc(100vh - 440px);
+    }
+  }
+
+  @media screen and (max-width: 1250px) {
+    vaadin-split-layout[lang='chn'] {
+      height: calc(100vh - 440px);
+    }
+  }
+
+  @media screen and (max-width: 1140px) {
+    vaadin-split-layout[lang='skt'] {
+      height: calc(100vh - 440px);
+    }
+  }
+
+  @media screen and (max-width: 1060px) {
+    vaadin-split-layout[lang='tib'],
+    vaadin-split-layout[lang='multi'] {
+      height: calc(100vh - 400px);
     }
   }
 
   @media screen and (max-width: 1040px) {
-    vaadin-split-layout {
-      height: calc(100vh - 340px);
+    vaadin-split-layout[lang='tib'],
+    vaadin-split-layout[lang='chn'],
+    vaadin-split-layout[lang='pli'],
+    vaadin-split-layout[lang='skt'],
+    vaadin-split-layout[lang='multi'] {
+      height: calc(100vh - 332px);
     }
   }
 

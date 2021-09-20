@@ -34,7 +34,7 @@ export class Card extends LitElement {
           padding: 36px 316px 16px 48px;
         }
 
-        @media screen and (max-width: 1180px) {
+        @media screen and (max-width: 1060px) {
           .card--header[lang='tib'],
           .card--header[lang='multi'] {
             padding: 12px 282px 12px 16px;

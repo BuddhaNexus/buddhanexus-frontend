@@ -47,7 +47,7 @@ export class DataViewViewSelector extends LitElement {
           }
         }
 
-        @media screen and (max-width: 1280px) {
+        @media screen and (max-width: 1040px) {
           vaadin-select[lang='chn'] {
             display: inline-flex;
             width: 100px;
@@ -58,7 +58,7 @@ export class DataViewViewSelector extends LitElement {
           }
         }
 
-        @media screen and (max-width: 1180px) {
+        @media screen and (max-width: 1040px) {
           vaadin-select[lang='skt'] {
             display: inline-flex;
             width: 100px;
@@ -69,7 +69,7 @@ export class DataViewViewSelector extends LitElement {
           }
         }
 
-        @media screen and (max-width: 1480px) {
+        @media screen and (max-width: 1040px) {
           vaadin-select[lang='multi'] {
             display: inline-flex;
             width: 100px;
@@ -80,7 +80,7 @@ export class DataViewViewSelector extends LitElement {
           }
         }
 
-        @media screen and (max-width: 1340px) {
+        @media screen and (max-width: 1040px) {
           vaadin-select[lang='tib'] {
             display: inline-flex;
             width: 100px;
