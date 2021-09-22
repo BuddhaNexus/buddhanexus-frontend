@@ -125,12 +125,15 @@ class DataViewSubheader extends LitElement {
 
   async fetchDownloadTable() {
     alert(
-      `Fetching data for ${this.fileName} with the current filter settings.\nThis can take some time.\nYour dowload will start when ready.`
+      `Fetching data for ${this.fileName} with the current filter settings.\n
+      This can take some time.\n
+      Your dowload will start when ready.`
     );
 
     // Fetch the data needed
     let tsvData = `BuddhaNexus.net\n\nParallels data download for *${this.fileName.toUpperCase()}*\n\n`;
-    tsvData += `Inquiry Segment Nr.\tInquiry text length\tInquiry Text\tHit Segment Nr.\tHit Segment Length\tHit Segment Score\tHit Segment Text\n`;
+    tsvData += `Inquiry Segment Nr.\tInquiry text length\tInquiry Text\tHit Segment Nr.\t
+                Hit Segment Length\tHit Segment Score\tHit Segment Text\n`;
 
     if (!this.fileName) {
       return;
@@ -224,7 +227,10 @@ class DataViewSubheader extends LitElement {
 
         ${this.downloadData
           ? html`
-            <vaadin-button class="download-button" title="Download this table with current filter settings" @click="${this.fetchDownloadTable}">
+            <vaadin-button
+              class="download-button"
+              title="Download this table with current filter settings"
+              @click="${this.fetchDownloadTable}">
               <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
             </vaadin-button>`
           : null}
