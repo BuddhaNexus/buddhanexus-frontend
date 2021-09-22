@@ -147,7 +147,6 @@ class DataViewSubheader extends LitElement {
       limit_collection: this.limitCollection,
     });
 
-    console.log(parallels);
     parallels.forEach(parallel => {
       let rootSegmentNr = parallel.root_segnr[0];
       let rootSegmentText = '';
