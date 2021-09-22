@@ -8,6 +8,8 @@ import '@vaadin/vaadin-icons/vaadin-icons.js';
 import '../utility/formatted-segment';
 import '../utility/source-link';
 
+import { getTableDownloadData } from '../../api/actions';
+
 import {
   LANGUAGE_CODES,
   LANGUAGE_NAMES,
@@ -59,6 +61,14 @@ class DataViewSubheader extends LitElement {
   @property({ type: Boolean }) lengthMessage;
   @property({ type: String }) language;
   @property({ type: String }) extraMessage;
+  @property({ type: String }) downloadData;
+
+  @property({ type: String }) score;
+  @property({ type: Number }) quoteLength;
+  @property({ type: Number }) cooccurance;
+  @property({ type: String }) sortMethod;
+  @property({ type: Array }) limitCollection;
+
   @property({ type: Boolean }) isDialogOpen = false;
 
   static get styles() {
@@ -75,12 +85,19 @@ class DataViewSubheader extends LitElement {
           cursor: help;
         }
 
-        .info-icon {
+        .download-button {
+          padding: 24px;
+          cursor: copy;
+        }
+
+        .info-icon,
+        .download-icon {
           color: var(--color-text-secondary);
         }
 
         @media screen and (max-width: 900px) {
-          .info-button {
+          .info-button,
+          .download-button {
             padding: 12px;
           }
         }
@@ -105,6 +122,75 @@ class DataViewSubheader extends LitElement {
   openDialog = () => (this.isDialogOpen = true);
 
   setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
+
+  async fetchDownloadTable() {
+    alert(
+      `Fetching data for ${this.fileName} with the current filter settings.\nThis can take some time.\nYour dowload will start when ready.`
+    );
+
+    // Fetch the data needed
+    let tsvData = `BuddhaNexus.net\n\nParallels data download for *${this.fileName.toUpperCase()}*\n\n`;
+    tsvData += `Inquiry Segment Nr.\tInquiry text length\tInquiry Text\tHit Segment Nr.\tHit Segment Length\tHit Segment Score\tHit Segment Text\n`;
+
+    if (!this.fileName) {
+      return;
+    }
+    const parallels = await getTableDownloadData({
+      fileName: this.fileName,
+      score: this.score,
+      co_occ: this.cooccurance,
+      sort_method: this.sortMethod,
+      par_length: this.quoteLength,
+      limit_collection: this.limitCollection,
+    });
+
+    console.log(parallels);
+    parallels.forEach(parallel => {
+      let rootSegmentNr = parallel.root_segnr[0];
+      let rootSegmentText = '';
+      let parSegmentNr = parallel.par_segnr[0];
+      let parSegmentText = '';
+
+      if (parallel.root_segnr.length > 1) {
+        rootSegmentNr += `–${
+          parallel.root_segnr[parallel.root_segnr.length - 1]
+        }`;
+      }
+      parallel.root_seg_text.forEach(text => {
+        rootSegmentText += text;
+      });
+      if (parallel.par_segnr.length > 1) {
+        parSegmentNr += `–${parallel.par_segnr[parallel.par_segnr.length - 1]}`;
+      }
+      parallel.par_segment.forEach(text => {
+        parSegmentText += text;
+      });
+      let tsvFields = [
+        rootSegmentNr,
+        parallel.root_length,
+        rootSegmentText,
+        parSegmentNr,
+        parallel.par_length,
+        parallel.score,
+        parSegmentText,
+      ];
+      tsvData += `${tsvFields.join('\t')}\n`;
+    });
+
+    // Create element to start download with the fetched data
+    const link = document.createElement('a');
+    link.setAttribute(
+      'href',
+      `data:tsv/tsv;charset=utf-8,${encodeURIComponent(tsvData)}`
+    );
+    link.setAttribute('download', `${this.fileName}_table.tsv`);
+
+    link.style.display = 'none';
+    document.body.appendChild(link);
+
+    link.click();
+    document.body.removeChild(link);
+  }
 
   render() {
     if (!this.fileName) {
@@ -135,6 +221,14 @@ class DataViewSubheader extends LitElement {
             ${this.lengthMessage ? minimumLengthText(this.language) : ''}
           </template>
         </vaadin-dialog>
+
+        ${this.downloadData
+          ? html`
+            <vaadin-button class="download-button" title="Download this table with current filter settings" @click="${this.fetchDownloadTable}">
+              <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
+            </vaadin-button>`
+          : null}
+
       </div> ${this.extraMessage}
     `;
   }
