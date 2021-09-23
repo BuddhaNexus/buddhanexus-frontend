@@ -86,6 +86,7 @@ export default css`
     display: flex;
     cursor: pointer;
     color: var(--content-link-color);
+    padding-top: 12px;
   }
 
   #return-link:hover {
