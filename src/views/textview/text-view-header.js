@@ -183,7 +183,7 @@ export class TextViewHeader extends LitElement {
           margin: 0;
         }
 
-        @media screen and (max-width: 900px) {
+        @media screen and (max-width: 1040px) {
           #text-view-header {
             padding-bottom: 8px;
           }

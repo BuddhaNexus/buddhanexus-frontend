@@ -97,6 +97,35 @@ class DataViewHeader extends LitElement {
           padding-left: 16px;
         }
 
+        @media screen and (max-width: 1060px) {
+          .toggle-transliteration-scheme[lang='tib'],
+          .toggle-transliteration-scheme[lang='multi'] {
+            right: 84px;
+          }
+
+          .nav-bar-toggle-icon[lang='tib'],
+          .filter-bar-toggle-icon[lang='tib'],
+          .nav-bar-toggle-icon[lang='multi'],
+          .filter-bar-toggle-icon[lang='multi'] {
+            top: 24px;
+            padding-right: 0px;
+            margin-right: 12px;
+          }
+        }
+
+        @media screen and (max-width: 1040px) {
+          .toggle-transliteration-scheme {
+            right: 84px;
+          }
+
+          .nav-bar-toggle-icon,
+          .filter-bar-toggle-icon {
+            top: 24px;
+            padding-right: 0px;
+            margin-right: 12px;
+          }
+        }
+
         data-view-view-selector.no-header,
         data-view-header-fields.no-header {
           display: none;
@@ -110,6 +139,7 @@ class DataViewHeader extends LitElement {
         .nav-bar-toggle-icon.no-header {
           padding: 0px;
           top: 32px;
+          margin-right: 2em;
         }
 
         .nav-bar-toggle-icon.no-header {
@@ -134,7 +164,7 @@ class DataViewHeader extends LitElement {
         <div
           class="data-view__header-container ${this.filterBarOpen &&
             'data-view__header-container--filter-bar-open'}">
-          <bn-card header="true" class="${this.headerVisibility}">
+          <bn-card header="true" language="${this.language}" class="${this.headerVisibility}">
             <data-view-view-selector
               class="${this.headerVisibility}"
               .language="${this.language}"
@@ -163,6 +193,7 @@ class DataViewHeader extends LitElement {
               ? html`
                 <vaadin-radio-group
                   class="toggle-transliteration-scheme"
+                  lang="${this.language}"
                   label="Display text as:"
                   @value-changed="${this.toggleTransMode}">
                   <vaadin-radio-button value="wylie" checked>
@@ -176,6 +207,7 @@ class DataViewHeader extends LitElement {
             </bn-card>
             <iron-icon
               icon="vaadin:desktop"
+              lang="${this.language}"
               title="Toggle Full Screen Mode"
               @click="${this.toggleNavBar}"
               class="nav-bar-toggle-icon ${this.headerVisibility}">
@@ -183,6 +215,7 @@ class DataViewHeader extends LitElement {
 
             <iron-icon
               icon="vaadin:cog"
+              lang="${this.language}"
               title="Filters &amp; Settings"
               @click="${this.toggleFilterBarOpen}"
               class="filter-bar-toggle-icon ${this.filterBarOpen &&

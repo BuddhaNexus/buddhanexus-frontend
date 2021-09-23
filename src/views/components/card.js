@@ -5,6 +5,7 @@ export class Card extends LitElement {
   @property({ type: Boolean }) small;
   @property({ type: Boolean }) header;
   @property({ type: Boolean }) light;
+  @property({ type: String }) language;
 
   static get styles() {
     return [
@@ -22,26 +23,36 @@ export class Card extends LitElement {
         }
 
         .card--header {
-          padding: 36px 316px 16px 48px;
+          padding: 36px 132px 16px 48px;
           border-radius: 0;
           display: flex;
           flex-wrap: wrap;
         }
 
-        @media screen and (max-width: 1040px) {
-          .card--header {
-            padding: 36px 48px 16px 48px;
-            border-radius: 0;
-            display: flex;
-            flex-wrap: wrap;
+        .card--header[lang='tib'],
+        .card--header[lang='multi'] {
+          padding: 36px 316px 16px 48px;
+        }
+
+        @media screen and (max-width: 1060px) {
+          .card--header[lang='tib'],
+          .card--header[lang='multi'] {
+            padding: 12px 282px 12px 16px;
+            font-size: 0.8em;
+            position: sticky;
           }
         }
 
-        @media screen and (max-width: 900px) {
+        @media screen and (max-width: 1040px) {
           .card--header {
-            padding: 12px 16px;
+            padding: 12px 92px 12px 16px;
             font-size: 0.8em;
             position: sticky;
+          }
+
+          .card--header[lang='tib'],
+          .card--header[lang='multi'] {
+            padding: 12px 282px 12px 16px;
           }
         }
 
@@ -55,7 +66,7 @@ export class Card extends LitElement {
   render() {
     //prettier-ignore
     return html`
-      <div class="card ${this.small ? 'card--small' : ''} ${this.header
+      <div lang=${this.language} class="card ${this.small ? 'card--small' : ''} ${this.header
           ? 'card--header'
           : ''}${this.light ? 'card--light' : ''}">
         <slot></slot>
