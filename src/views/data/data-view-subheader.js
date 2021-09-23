@@ -68,6 +68,7 @@ class DataViewSubheader extends LitElement {
   @property({ type: Number }) cooccurance;
   @property({ type: String }) sortMethod;
   @property({ type: Array }) limitCollection;
+  @property({ type: String }) folio;
 
   @property({ type: Boolean }) isDialogOpen = false;
 
@@ -125,67 +126,74 @@ class DataViewSubheader extends LitElement {
 
   async fetchDownloadTable() {
     alert(
-      `Fetching data for ${this.fileName} with the current filter settings.\n
-      This can take some time.\n
-      Your dowload will start when ready.`
+      `Fetching data for ${this.fileName.toUpperCase()} with the current filter settings.
+      \nThis can take some time.
+      \nYour dowload will start when ready.`
     );
 
     // Fetch the data needed
-    let tsvData = `BuddhaNexus.net\n\nParallels data download for *${this.fileName.toUpperCase()}*\n\n`;
-    tsvData += `Inquiry Segment Nr.\tInquiry text length\tInquiry Text\tHit Segment Nr.\t
-                Hit Segment Length\tHit Segment Score\tHit Segment Text\n`;
+    // let tsvData = `BuddhaNexus.net\n\nParallels data download for *${this.fileName.toUpperCase()}*\n\n`;
+    // tsvData += `Inquiry Segment Nr.\tInquiry text length\tInquiry Text\tHit Segment Nr.\tHit Segment Length\tHit Segment Score\tHit Segment Text\n`;
 
     if (!this.fileName) {
       return;
     }
-    const parallels = await getTableDownloadData({
+    let folio = '';
+    if (this.folio) {
+      folio = this.folio.num;
+    }
+
+    const downloadFile = await getTableDownloadData({
       fileName: this.fileName,
       score: this.score,
       co_occ: this.cooccurance,
       sort_method: this.sortMethod,
       par_length: this.quoteLength,
       limit_collection: this.limitCollection,
+      folio: folio,
     });
 
-    parallels.forEach(parallel => {
-      let rootSegmentNr = parallel.root_segnr[0];
-      let rootSegmentText = '';
-      let parSegmentNr = parallel.par_segnr[0];
-      let parSegmentText = '';
+    // parallels.forEach(parallel => {
+    //   let rootSegmentNr = parallel.root_segnr[0];
+    //   let rootSegmentText = '';
+    //   let parSegmentNr = parallel.par_segnr[0];
+    //   let parSegmentText = '';
 
-      if (parallel.root_segnr.length > 1) {
-        rootSegmentNr += `–${
-          parallel.root_segnr[parallel.root_segnr.length - 1]
-        }`;
-      }
-      parallel.root_seg_text.forEach(text => {
-        rootSegmentText += text;
-      });
-      if (parallel.par_segnr.length > 1) {
-        parSegmentNr += `–${parallel.par_segnr[parallel.par_segnr.length - 1]}`;
-      }
-      parallel.par_segment.forEach(text => {
-        parSegmentText += text;
-      });
-      let tsvFields = [
-        rootSegmentNr,
-        parallel.root_length,
-        rootSegmentText,
-        parSegmentNr,
-        parallel.par_length,
-        parallel.score,
-        parSegmentText,
-      ];
-      tsvData += `${tsvFields.join('\t')}\n`;
-    });
+    //   if (parallel.root_segnr.length > 1) {
+    //     rootSegmentNr += `–${
+    //       parallel.root_segnr[parallel.root_segnr.length - 1]
+    //     }`;
+    //   }
+    //   parallel.root_seg_text.forEach(text => {
+    //     rootSegmentText += text;
+    //   });
+    //   if (parallel.par_segnr.length > 1) {
+    //     parSegmentNr += `–${parallel.par_segnr[parallel.par_segnr.length - 1]}`;
+    //   }
+    //   parallel.par_segment.forEach(text => {
+    //     parSegmentText += text;
+    //   });
+    //   let tsvFields = [
+    //     rootSegmentNr,
+    //     parallel.root_length,
+    //     rootSegmentText,
+    //     parSegmentNr,
+    //     parallel.par_length,
+    //     parallel.score,
+    //     parSegmentText,
+    //   ];
+    //   tsvData += `${tsvFields.join('\t')}\n`;
+    // });
 
     // Create element to start download with the fetched data
+    const url = window.URL.createObjectURL(new Blob([downloadFile]));
     const link = document.createElement('a');
-    link.setAttribute(
-      'href',
-      `data:tsv/tsv;charset=utf-8,${encodeURIComponent(tsvData)}`
-    );
-    link.setAttribute('download', `${this.fileName}_table.tsv`);
+    link.href = url;
+    // link.setAttribute(
+    //   'href',
+    //   `data:xls/xls;charset=utf-8,${encodeURIComponent(tsvData)}`
+    // );
+    link.setAttribute('download', `${this.fileName}_table.xls`);
 
     link.style.display = 'none';
     document.body.appendChild(link);
