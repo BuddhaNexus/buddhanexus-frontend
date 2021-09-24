@@ -60,7 +60,6 @@ export const getTableDownloadData = async ({
 }) => {
   try {
     const url = getTableDownloadUrl(fileName, limit_collection, queryParams);
-    console.log(url);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {

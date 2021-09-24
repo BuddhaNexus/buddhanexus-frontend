@@ -70,7 +70,10 @@ class DataViewSubheader extends LitElement {
   @property({ type: Array }) limitCollection;
   @property({ type: String }) folio;
 
+  @property({ type: String }) downloadFileLink;
   @property({ type: Boolean }) isDialogOpen = false;
+  @property({ type: Boolean }) isDownloadDialogOpen = false;
+  @property({ type: Boolean }) isAlertDialogOpen = false;
 
   static get styles() {
     return [
@@ -124,16 +127,21 @@ class DataViewSubheader extends LitElement {
 
   setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
 
-  async fetchDownloadTable() {
-    alert(
-      `Fetching data for ${this.fileName.toUpperCase()} with the current filter settings.
-      \nThis can take some time.
-      \nYour dowload will start when ready.`
-    );
+  openDownloadDialog = () => (this.isDownloadDialogOpen = true);
 
-    // Fetch the data needed
-    // let tsvData = `BuddhaNexus.net\n\nParallels data download for *${this.fileName.toUpperCase()}*\n\n`;
-    // tsvData += `Inquiry Segment Nr.\tInquiry text length\tInquiry Text\tHit Segment Nr.\tHit Segment Length\tHit Segment Score\tHit Segment Text\n`;
+  setIsDownloadDialogOpen = e => (this.isDownloadDialogOpen = e.detail.value);
+
+  openAlertDialog = () => (this.isAlertDialogOpen = true);
+
+  closeAlertDialog = () => (this.isAlertDialogOpen = false);
+
+  setIsAlertDialogOpen = e => (this.isAlertDialogOpen = e.detail.value);
+
+  async fetchDownloadTable() {
+    let downloadDialog = this.shadowRoot
+      .querySelector('#download-dialog')
+      .querySelector('template');
+    this.openAlertDialog();
 
     if (!this.fileName) {
       return;
@@ -143,7 +151,7 @@ class DataViewSubheader extends LitElement {
       folio = this.folio.num;
     }
 
-    const downloadFile = await getTableDownloadData({
+    const downloadFileLink = await getTableDownloadData({
       fileName: this.fileName,
       score: this.score,
       co_occ: this.cooccurance,
@@ -153,53 +161,14 @@ class DataViewSubheader extends LitElement {
       folio: folio,
     });
 
-    // parallels.forEach(parallel => {
-    //   let rootSegmentNr = parallel.root_segnr[0];
-    //   let rootSegmentText = '';
-    //   let parSegmentNr = parallel.par_segnr[0];
-    //   let parSegmentText = '';
-
-    //   if (parallel.root_segnr.length > 1) {
-    //     rootSegmentNr += `–${
-    //       parallel.root_segnr[parallel.root_segnr.length - 1]
-    //     }`;
-    //   }
-    //   parallel.root_seg_text.forEach(text => {
-    //     rootSegmentText += text;
-    //   });
-    //   if (parallel.par_segnr.length > 1) {
-    //     parSegmentNr += `–${parallel.par_segnr[parallel.par_segnr.length - 1]}`;
-    //   }
-    //   parallel.par_segment.forEach(text => {
-    //     parSegmentText += text;
-    //   });
-    //   let tsvFields = [
-    //     rootSegmentNr,
-    //     parallel.root_length,
-    //     rootSegmentText,
-    //     parSegmentNr,
-    //     parallel.par_length,
-    //     parallel.score,
-    //     parSegmentText,
-    //   ];
-    //   tsvData += `${tsvFields.join('\t')}\n`;
-    // });
-
-    // Create element to start download with the fetched data
-    const url = window.URL.createObjectURL(new Blob([downloadFile]));
-    const link = document.createElement('a');
-    link.href = url;
-    // link.setAttribute(
-    //   'href',
-    //   `data:xls/xls;charset=utf-8,${encodeURIComponent(tsvData)}`
-    // );
-    link.setAttribute('download', `${this.fileName}_table.xls`);
-
-    link.style.display = 'none';
-    document.body.appendChild(link);
-
-    link.click();
-    document.body.removeChild(link);
+    if (downloadFileLink) {
+      this.closeAlertDialog();
+      this.downloadFileLink = downloadFileLink;
+      downloadDialog.innerHTML = `<p>The XLSX file you requested for ${this.fileName.toUpperCase()} 
+                with the current filter settings is ready for download.</p>
+                <a href="${this.downloadFileLink}">Click here to download</a>.`;
+      this.openDownloadDialog();
+    }
   }
 
   render() {
@@ -234,12 +203,33 @@ class DataViewSubheader extends LitElement {
 
         ${this.downloadData
           ? html`
+            <vaadin-dialog
+              id="alert-dialog"
+              aria-label="simple"
+              .opened="${this.isAlertDialogOpen}"
+              @opened-changed="${this.setIsAlertDialogOpen}">
+              <template>
+                <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
+                with the current filter settings.</p>
+                <p>This can take some time. Your dowload will start when ready.</p>
+              </template>
+            </vaadin-dialog>
+
             <vaadin-button
               class="download-button"
               title="Download this table with current filter settings"
               @click="${this.fetchDownloadTable}">
               <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
-            </vaadin-button>`
+            </vaadin-button>
+
+            <vaadin-dialog
+              id="download-dialog"
+              aria-label="simple"
+              .opened="${this.isDownloadDialogOpen}"
+              @opened-changed="${this.setIsDownloadDialogOpen}">
+              <template>
+              </template>
+            </vaadin-dialog>`
           : null}
 
       </div> ${this.extraMessage}
