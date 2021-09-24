@@ -62,37 +62,42 @@ export class TextViewSearch extends LitElement {
       `;
     }
 
-    if (this.resultSegments.length == 0) {
-      //prettier-ignore
-      return html`
-        <div id="text-view-search-header">
-          <strong>No results</strong>
-        </div>
-        <div id="return-link" @click="${this.handleReturnButtonClicked}">
-          <iron-icon
-            id="return-link-arrow"
-            icon="vaadin:arrow-left"
-            slot="prefix">
-          </iron-icon>
-        <strong>Return to text-view</strong></div>
-      `;
-    }
-    //prettier-ignore
     return html`
-      <div id="text-view-search-header">
-        <strong>There are ${this.resultSegments.length} search results for
-          "${this.searchString}" in ${this.fileName.toUpperCase()}:</strong>
+      <div id="return-link" @click="${this.handleReturnButtonClicked}">
+        <iron-icon
+          id="return-link-arrow"
+          icon="vaadin:arrow-left"
+          slot="prefix"
+        >
+        </iron-icon>
+        <strong>Return to text-view</strong>
       </div>
-      <div id="text-view-search-content">
-        ${this.resultSegments.map(segment =>
-          ResultSegmentContainer({
-            segmentNr: segment.segnr,
-            segText: segment.segtext,
-            searchString: this.searchString,
-            rootUrl: createTextViewSegmentUrl(segment.segnr),
-          })
-        )}
-      </div>
+
+      ${this.resultSegments.length == 0
+        ? html`
+            <div id="text-view-search-header">
+              <strong>No results</strong>
+            </div>
+          `
+        : html`
+            <div id="text-view-search-header">
+              <strong
+                >There are ${this.resultSegments.length} search results for
+                "${this.searchString}" in
+                ${this.fileName.toUpperCase()}:</strong
+              >
+            </div>
+            <div id="text-view-search-content">
+              ${this.resultSegments.map(segment =>
+                ResultSegmentContainer({
+                  segmentNr: segment.segnr,
+                  segText: segment.segtext,
+                  searchString: this.searchString,
+                  rootUrl: createTextViewSegmentUrl(segment.segnr),
+                })
+              )}
+            </div>
+          `}
     `;
   }
 }
