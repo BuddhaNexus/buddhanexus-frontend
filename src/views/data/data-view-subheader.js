@@ -162,8 +162,9 @@ class DataViewSubheader extends LitElement {
     });
 
     if (downloadFileLink) {
+      console.log('FILE LINK', downloadFileLink);
       this.closeAlertDialog();
-      this.downloadFileLink = downloadFileLink;
+      this.downloadFileLink = '../../' + downloadFileLink;
       downloadDialog.innerHTML = `<p>The XLSX file you requested for ${this.fileName.toUpperCase()} 
                 with the current filter settings is ready for download.</p>
                 <a href="${this.downloadFileLink}">Click here to download</a>.`;
