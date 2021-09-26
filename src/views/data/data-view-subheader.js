@@ -70,9 +70,7 @@ class DataViewSubheader extends LitElement {
   @property({ type: Array }) limitCollection;
   @property({ type: String }) folio;
 
-  @property({ type: String }) downloadFileLink;
   @property({ type: Boolean }) isDialogOpen = false;
-  @property({ type: Boolean }) isDownloadDialogOpen = false;
   @property({ type: Boolean }) isAlertDialogOpen = false;
 
   static get styles() {
@@ -127,10 +125,6 @@ class DataViewSubheader extends LitElement {
 
   setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
 
-  openDownloadDialog = () => (this.isDownloadDialogOpen = true);
-
-  setIsDownloadDialogOpen = e => (this.isDownloadDialogOpen = e.detail.value);
-
   openAlertDialog = () => (this.isAlertDialogOpen = true);
 
   closeAlertDialog = () => (this.isAlertDialogOpen = false);
@@ -138,9 +132,6 @@ class DataViewSubheader extends LitElement {
   setIsAlertDialogOpen = e => (this.isAlertDialogOpen = e.detail.value);
 
   async fetchDownloadTable() {
-    let downloadDialog = this.shadowRoot
-      .querySelector('#download-dialog')
-      .querySelector('template');
     this.openAlertDialog();
 
     if (!this.fileName) {
@@ -164,11 +155,7 @@ class DataViewSubheader extends LitElement {
     if (downloadFileLink) {
       console.log('FILE LINK', downloadFileLink);
       this.closeAlertDialog();
-      this.downloadFileLink = '../../' + downloadFileLink;
-      downloadDialog.innerHTML = `<p>The XLSX file you requested for ${this.fileName.toUpperCase()} 
-                with the current filter settings is ready for download.</p>
-                <a href="${this.downloadFileLink}">Click here to download</a>.`;
-      this.openDownloadDialog();
+      window.location.href = '../../' + downloadFileLink;
     }
   }
 
@@ -221,16 +208,7 @@ class DataViewSubheader extends LitElement {
               title="Download this table with current filter settings"
               @click="${this.fetchDownloadTable}">
               <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
-            </vaadin-button>
-
-            <vaadin-dialog
-              id="download-dialog"
-              aria-label="simple"
-              .opened="${this.isDownloadDialogOpen}"
-              @opened-changed="${this.setIsDownloadDialogOpen}">
-              <template>
-              </template>
-            </vaadin-dialog>`
+            </vaadin-button>`
           : null}
 
       </div> ${this.extraMessage}
