@@ -153,7 +153,6 @@ class DataViewSubheader extends LitElement {
     });
 
     if (downloadFileLink) {
-      console.log('FILE LINK', downloadFileLink);
       this.closeAlertDialog();
       window.location.href = '../../' + downloadFileLink;
     }
@@ -198,7 +197,7 @@ class DataViewSubheader extends LitElement {
               @opened-changed="${this.setIsAlertDialogOpen}">
               <template>
                 <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
-                with the current filter settings.</p>
+          with the current filter settings. the number of matches in the download is limited to 10,000.</p>
                 <p>This can take some time. Your dowload will start when ready.</p>
               </template>
             </vaadin-dialog>
