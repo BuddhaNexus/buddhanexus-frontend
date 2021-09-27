@@ -170,6 +170,7 @@ export class TableView extends LitElement {
         .sortMethod="${this.sortMethod}"
         .quoteLength="${this.quoteLength}"
         .limitCollection="${this.limitCollection}"
+        .folio="${this.folio}"
       ></data-view-subheader>
 
       <table-view-table

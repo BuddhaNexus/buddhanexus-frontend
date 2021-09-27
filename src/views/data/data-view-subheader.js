@@ -197,8 +197,10 @@ class DataViewSubheader extends LitElement {
               @opened-changed="${this.setIsAlertDialogOpen}">
               <template>
                 <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
-          with the current filter settings. the number of matches in the download is limited to 10,000.</p>
-                <p>This can take some time. Your dowload will start when ready.</p>
+                  with the current filter settings. The number of matches in the download
+                  is limited to 10,000.</p>
+                <p>This can take some time. Your dowload will start when ready. In the mean
+                  time you can continue working.</p>
               </template>
             </vaadin-dialog>
 
