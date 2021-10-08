@@ -83,12 +83,12 @@ class DataViewSubheader extends LitElement {
         }
 
         .info-button {
-          padding: 24px;
+          padding: 24px 0px 24px 24px;
           cursor: help;
         }
 
         .download-button {
-          padding: 24px;
+          padding: 24px 24px 24px 0px;
           cursor: copy;
         }
 
@@ -176,18 +176,6 @@ class DataViewSubheader extends LitElement {
           <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
         </vaadin-button>
 
-        <source-link .filename="${this.fileName}"></source-link>
-        <vaadin-dialog
-          id="info-number-view"
-          aria-label="simple"
-          .opened="${this.isDialogOpen}"
-          @opened-changed="${this.setIsDialogOpen}">
-          <template>
-            ${this.infoModalContent}
-            ${this.lengthMessage ? minimumLengthText(this.language) : ''}
-          </template>
-        </vaadin-dialog>
-
         ${this.downloadData
           ? html`
             <vaadin-dialog
@@ -211,6 +199,18 @@ class DataViewSubheader extends LitElement {
               <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
             </vaadin-button>`
           : null}
+
+        <source-link .filename="${this.fileName}"></source-link>
+        <vaadin-dialog
+          id="info-number-view"
+          aria-label="simple"
+          .opened="${this.isDialogOpen}"
+          @opened-changed="${this.setIsDialogOpen}">
+          <template>
+            ${this.infoModalContent}
+            ${this.lengthMessage ? minimumLengthText(this.language) : ''}
+          </template>
+        </vaadin-dialog>
 
       </div> ${this.extraMessage}
     `;
