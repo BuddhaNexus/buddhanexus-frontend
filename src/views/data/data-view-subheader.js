@@ -196,7 +196,7 @@ class DataViewSubheader extends LitElement {
               class="download-button"
               title="Download this table with current filter settings"
               @click="${this.fetchDownloadTable}">
-              <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
+              <iron-icon class="download-icon" icon="vaadin:download"></iron-icon> <div class="text-name-label">Download</div>
             </vaadin-button>`
           : null}
 
