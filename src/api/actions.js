@@ -8,6 +8,7 @@ import {
   getFileTextAndParallelsUrl,
   getFileTextUrl,
   getParallelCountUrl,
+  getTableDownloadUrl,
 } from './apiUtils';
 
 export const getSegmentsForFile = async ({
@@ -38,6 +39,27 @@ export const getTableViewData = async ({
 }) => {
   try {
     const url = getTableViewUrl(fileName, limit_collection, queryParams);
+    const response = await fetch(url);
+    const json = await response.json();
+    if (!response.ok) {
+      throw Error(json.detail.errorMessage);
+    }
+    return json;
+  } catch (e) {
+    console.error('Could not load segments from server: ', e);
+    return {
+      error: 'Could not load segments. Please check the console for details.',
+    };
+  }
+};
+
+export const getTableDownloadData = async ({
+  fileName,
+  limit_collection,
+  ...queryParams
+}) => {
+  try {
+    const url = getTableDownloadUrl(fileName, limit_collection, queryParams);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {
@@ -144,16 +166,10 @@ export const getFileTextAndParallels = async ({
   }
 };
 
-export const getFileText = async ({
-  fileName,
-  ...queryParams
-}) => {
+export const getFileText = async ({ fileName, ...queryParams }) => {
   try {
     fileName = fileName.replace(' ', '');
-    const url = getFileTextUrl(
-      fileName,
-      queryParams
-    );
+    const url = getFileTextUrl(fileName, queryParams);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {

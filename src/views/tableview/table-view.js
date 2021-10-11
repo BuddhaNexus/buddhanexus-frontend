@@ -32,6 +32,7 @@ export class TableView extends LitElement {
   @property({ type: String }) transMethod;
 
   @property({ type: String }) lang;
+  @property({ type: String }) downloadData;
   @property({ type: Array }) parallelsData = [];
   @property({ type: String }) fetchLoading = true;
   @property({ type: Number }) pageNumber = 0;
@@ -121,6 +122,7 @@ export class TableView extends LitElement {
       return;
     }
     this.parallelsData = [...this.parallelsData, ...parallels];
+    this.downloadData = 'table';
   }
 
   addInfiniteScrollListener = async () => {
@@ -162,6 +164,13 @@ export class TableView extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${TableViewInfoModalContent()}"
+        .downloadData="${this.downloadData}"
+        .score="${this.score}"
+        .cooccurance="${this.cooccurance}"
+        .sortMethod="${this.sortMethod}"
+        .quoteLength="${this.quoteLength}"
+        .limitCollection="${this.limitCollection}"
+        .folio="${this.folio}"
       ></data-view-subheader>
 
       <table-view-table

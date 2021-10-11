@@ -25,6 +25,20 @@ export const getTableViewUrl = (fileName, limit_collection, queryParams) => {
   return `${API_URL}/files/${fileName}/table${q}`;
 };
 
+export const getTableDownloadUrl = (
+  fileName,
+  limit_collection,
+  queryParams
+) => {
+  let q = stringifyQueryParams(queryParams);
+  if (limit_collection && limit_collection.length > 0) {
+    q += limit_collection
+      .map(collectionName => `&limit_collection=${collectionName}`)
+      .join('');
+  }
+  return `${API_URL}/files/${fileName}/tabledownload${q}`;
+};
+
 export const getTableViewMultiUrl = (fileName, multi_lingual, queryParams) => {
   let q = stringifyQueryParams(queryParams);
   if (multi_lingual && multi_lingual.length > 0) {
@@ -56,10 +70,7 @@ export const getFileTextAndParallelsUrl = (
   return `${API_URL}/files/${fileName}/textandparallels${q}`;
 };
 
-export const getFileTextUrl = (
-  fileName,
-  queryParams
-) => {
+export const getFileTextUrl = (fileName, queryParams) => {
   let q = stringifyQueryParams(queryParams);
   return `${API_URL}/files/${fileName}/filetext${q}`;
 };
