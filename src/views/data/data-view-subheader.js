@@ -187,7 +187,7 @@ class DataViewSubheader extends LitElement {
                 <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
                   with the current filter settings. The number of matches in the download
                   is limited to 10,000.</p>
-                <p>This can take some time. Your dowload will start when ready. In the mean
+                <p>This can take some time. Your download will start when ready. In the mean
                   time you can continue working.</p>
               </template>
             </vaadin-dialog>
