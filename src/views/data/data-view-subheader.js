@@ -187,7 +187,7 @@ class DataViewSubheader extends LitElement {
                 <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
                   with the current filter settings. The number of matches in the download
                   is limited to 10,000.</p>
-                <p>This can take some time. Your dowload will start when ready. In the mean
+                <p>This can take some time. Your download will start when ready. In the mean
                   time you can continue working.</p>
               </template>
             </vaadin-dialog>
@@ -197,6 +197,7 @@ class DataViewSubheader extends LitElement {
               title="Download this table with current filter settings"
               @click="${this.fetchDownloadTable}">
               <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
+              <div class="text-name-label">Download</div>
             </vaadin-button>`
           : null}
 
