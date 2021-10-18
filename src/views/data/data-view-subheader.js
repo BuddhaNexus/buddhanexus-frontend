@@ -150,6 +150,7 @@ class DataViewSubheader extends LitElement {
       par_length: this.quoteLength,
       limit_collection: this.limitCollection,
       folio: folio,
+      downloadData: this.downloadData,
     });
 
     if (downloadFileLink) {
