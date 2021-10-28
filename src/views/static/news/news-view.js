@@ -226,7 +226,7 @@ export class NewsView extends LitElement {
             </p>
 
             <h2>
-              January 5, 2021: The BuddhaNexus in
+              January 5, 2020: The BuddhaNexus in
               <i>The Digital Orientalist</i> (Part II)
             </h2>
             <p>
@@ -244,7 +244,7 @@ export class NewsView extends LitElement {
             </p>
 
             <h2>
-              November 5, 2021: The BuddhaNexus in
+              November 5, 2020: The BuddhaNexus in
               <i>The Digital Orientalist</i> (Part I)
             </h2>
 

@@ -70,7 +70,7 @@ export class SanskritTools extends LitElement {
             <h1>Sanskrit Language Tools</h1>
             <bn-card light id="input-form">
               <vaadin-text-area
-                label="Sanskrit Stemmer + Tagger"
+                label="Sanskrit Sandhi Split + Stemming + Tagging"
                 maxlength="100"
                 placeholder="Enter Sanskrit text here (max. 100 characters, unicode)..."
                 id="input-stemmer"
@@ -91,6 +91,13 @@ export class SanskritTools extends LitElement {
               ><h2>Tagged Result:</h2>
               ${preprocessTaggedString(this.taggedSanskritText)}
             </bn-card>
+            The joint splitter/stemmer/tagger is a neural model trained on the
+            data of the
+            <a
+              class="content-link"
+              href="http://www.sanskrit-linguistics.org/dcs/"
+              >Digital Corpus of Sanskrit</a
+            >.
           </div>
         </div>
       </div>
