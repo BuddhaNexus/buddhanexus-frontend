@@ -28,6 +28,7 @@ export class NumbersView extends LitElement {
   @property({ type: Array }) segmentsData = [];
   @property({ type: String }) lang;
   @property({ type: Array }) collectionsData = [];
+  @property({ type: String }) downloadData;
   @property({ type: String }) fetchError;
   @property({ type: String }) addObserverFlag = true;
   @property({ type: String }) fetchLoading = true;
@@ -137,6 +138,7 @@ export class NumbersView extends LitElement {
     this.fetchError = error;
 
     this.fetchLoading = false;
+    this.downloadData = 'numbers';
   }
 
   render() {
@@ -151,6 +153,13 @@ export class NumbersView extends LitElement {
         .fileName="${this.fileName}"
         .language="${this.lang}"
         .infoModalContent="${NumbersViewInfoModalContent()}"
+        .downloadData="${this.downloadData}"
+        .score="${this.score}"
+        .cooccurance="${this.cooccurance}"
+        .sortMethod="${this.sortMethod}"
+        .quoteLength="${this.quoteLength}"
+        .limitCollection="${this.limitCollection}"
+        .folio="${this.folio}"
       ></data-view-subheader>
       <div class="table-wrapper ${this.headerVisibility}">
         ${NumbersViewTable({
