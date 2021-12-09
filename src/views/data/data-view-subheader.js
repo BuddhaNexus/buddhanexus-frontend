@@ -133,7 +133,7 @@ class DataViewSubheader extends LitElement {
 
   async fetchDownloadTable() {
     this.openAlertDialog();
-
+    console.log('CLICKED BUTTON');
     if (!this.fileName) {
       return;
     }
@@ -151,10 +151,10 @@ class DataViewSubheader extends LitElement {
       limit_collection: this.limitCollection,
       folio: folio,
     });
-
     if (downloadFileLink) {
+      console.log('DOWNLOAD FILE LINK', downloadFileLink);
       this.closeAlertDialog();
-      window.location.href = '../../' + downloadFileLink;
+      //window.location.href = '../../' + downloadFileLink;
     }
   }
 
@@ -186,7 +186,7 @@ class DataViewSubheader extends LitElement {
               <template>
                 <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
                   with the current filter settings. The number of matches in the download
-                  is limited to 10,000.</p>
+                  is limited to 2,000.</p>
                 <p>This can take some time. Your download will start when ready. In the mean
                   time you can continue working.</p>
               </template>
