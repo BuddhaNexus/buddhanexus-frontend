@@ -74,14 +74,14 @@ export default css`
   }
 
   data-view-router {
-    padding: 12px 48px 16px;
+    padding: 12px 48px 0px;
   }
 
   .data-view.no-header .data-view__main-container data-view-router {
     padding: 16px 12px 0px;
   }
 
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 1040px) {
     data-view-router {
       font-size: 0.9em;
       padding: 12px;

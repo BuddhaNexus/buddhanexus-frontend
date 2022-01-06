@@ -20,9 +20,9 @@ class DataViewHeader extends LitElement {
   @property({ type: Function }) updateSortMethod;
   @property({ type: Function }) setFileName;
   @property({ type: Function }) setFolio;
+  @property({ type: Function }) toggleTransMode;
   @property({ type: Function }) handleViewModeChanged;
   @property({ type: Function }) toggleFilterBarOpen;
-  @property({ type: Function }) toggleTransMode;
   @property({ type: String }) searchString;
 
   static get styles() {
@@ -59,6 +59,24 @@ class DataViewHeader extends LitElement {
           cursor: pointer;
         }
 
+        vaadin-radio-button,
+        vaadin-radio-group {
+          --material-primary-color: var(--bn-dark-red);
+          --material-primary-text-color: var(--bn-dark-red);
+        }
+        .button-font {
+          color: var(--color-text-secondary);
+          font-size: 14px;
+          font-family: var(--system-font-stack);
+          font-weight: 400;
+        }
+
+        .toggle-transliteration-scheme {
+          padding-left: 12px;
+          position: absolute;
+          right: 120px;
+        }
+
         .nav-bar-toggle-icon {
           right: 40px;
           cursor: row-resize;
@@ -79,23 +97,33 @@ class DataViewHeader extends LitElement {
           padding-left: 16px;
         }
 
-        vaadin-radio-button,
-        vaadin-radio-group {
-          --material-primary-color: var(--bn-dark-red);
-          --material-primary-text-color: var(--bn-dark-red);
+        @media screen and (max-width: 1060px) {
+          .toggle-transliteration-scheme[lang='tib'],
+          .toggle-transliteration-scheme[lang='multi'] {
+            right: 84px;
+          }
+
+          .nav-bar-toggle-icon[lang='tib'],
+          .filter-bar-toggle-icon[lang='tib'],
+          .nav-bar-toggle-icon[lang='multi'],
+          .filter-bar-toggle-icon[lang='multi'] {
+            top: 24px;
+            padding-right: 0px;
+            margin-right: 12px;
+          }
         }
 
-        .button-font {
-          color: var(--color-text-secondary);
-          font-size: 14px;
-          font-family: var(--system-font-stack);
-          font-weight: 400;
-        }
+        @media screen and (max-width: 1040px) {
+          .toggle-transliteration-scheme {
+            right: 84px;
+          }
 
-        .toggle-transliteration-scheme {
-          padding-left: 12px;
-          position: absolute;
-          right: 120px;
+          .nav-bar-toggle-icon,
+          .filter-bar-toggle-icon {
+            top: 24px;
+            padding-right: 0px;
+            margin-right: 12px;
+          }
         }
 
         data-view-view-selector.no-header,
@@ -111,6 +139,7 @@ class DataViewHeader extends LitElement {
         .nav-bar-toggle-icon.no-header {
           padding: 0px;
           top: 32px;
+          margin-right: 2em;
         }
 
         .nav-bar-toggle-icon.no-header {
@@ -127,16 +156,15 @@ class DataViewHeader extends LitElement {
 
   render() {
     const shouldShowTransliterationSlider =
-      ((this.language === 'tib' || this.language === 'multi') &&
-        this.viewMode != 'graph') ||
-      this.viewMode === 'english';
+      (this.language === 'tib' || this.language === 'multi') &&
+      this.viewMode != 'graph';
     //prettier-ignore
     return html`
       <div class="data-view-header ${this.headerVisibility}">
         <div
           class="data-view__header-container ${this.filterBarOpen &&
             'data-view__header-container--filter-bar-open'}">
-          <bn-card header="true" class="${this.headerVisibility}">
+          <bn-card header="true" language="${this.language}" class="${this.headerVisibility}">
             <data-view-view-selector
               class="${this.headerVisibility}"
               .language="${this.language}"
@@ -165,19 +193,21 @@ class DataViewHeader extends LitElement {
               ? html`
                 <vaadin-radio-group
                   class="toggle-transliteration-scheme"
+                  lang="${this.language}"
                   label="Display text as:"
                   @value-changed="${this.toggleTransMode}">
                   <vaadin-radio-button value="wylie" checked>
-                    <span class="button-font">${(this.language === 'tib' || this.language === 'multi') ? 'Wylie' : 'Roman'}</span>
+                    <span class="button-font">Wylie</span>
                   </vaadin-radio-button>
                   <vaadin-radio-button value="uni">
-                    <span class="button-font">${(this.language === 'tib' || this.language === 'multi') ? 'Unicode' : 'Devanagari'}</span>
+                    <span class="button-font">Unicode</span>
                   </vaadin-radio-button>
                 </vaadin-radio-group>`
               : null}
             </bn-card>
             <iron-icon
               icon="vaadin:desktop"
+              lang="${this.language}"
               title="Toggle Full Screen Mode"
               @click="${this.toggleNavBar}"
               class="nav-bar-toggle-icon ${this.headerVisibility}">
@@ -185,6 +215,7 @@ class DataViewHeader extends LitElement {
 
             <iron-icon
               icon="vaadin:cog"
+              lang="${this.language}"
               title="Filters &amp; Settings"
               @click="${this.toggleFilterBarOpen}"
               class="filter-bar-toggle-icon ${this.filterBarOpen &&

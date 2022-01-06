@@ -14,6 +14,36 @@ export class NewsView extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <h2>
+              October 12, 2021:  update of the BuddhaNexus database
+            </h2>
+            <p>
+              We are happy to announce an update of the BuddhaNexus
+              database. The following functions have been added:
+              <ol>
+               <li>The textual matches as presented in the table-view can now be
+               downloaded in excel-format by clicking on the ‘download’ button
+               (found in the header of the table-view to the right of the inquiry text ID).</li>
+               <li>The fullscreen mode of all view options was modified so as to
+               allow better use of the screen space.</li>
+               <li>Various minor bugs have been fixed to increase the interface usability.</li>  
+              </ol>
+            </p>
+            <p>
+              For questions and/or feedback, please contact us under
+              <a
+                href="mailto:buddhanexus.info@gmail.com"
+                class="content-link"
+                target="blank"
+                >buddhanexus.info@gmail.com</a
+              >.
+            </p>
+            <p>
+              With regards,<br />
+              BuddhaNexus Team
+            </p>
+
+
+            <h2>
               August 4, 2021: Major updates of BuddhaNexus
             </h2>
             <p>
@@ -196,7 +226,7 @@ export class NewsView extends LitElement {
             </p>
 
             <h2>
-              January 5, 2021: The BuddhaNexus in
+              January 5, 2020: The BuddhaNexus in
               <i>The Digital Orientalist</i> (Part II)
             </h2>
             <p>
@@ -214,7 +244,7 @@ export class NewsView extends LitElement {
             </p>
 
             <h2>
-              November 5, 2021: The BuddhaNexus in
+              November 5, 2020: The BuddhaNexus in
               <i>The Digital Orientalist</i> (Part I)
             </h2>
 

@@ -117,6 +117,7 @@ export class DataView extends LitElement {
       if (propName === 'fileName') {
         this.updateFileNameParamInUrl(this.fileName, this.activeSegment);
         this.checkSearchSelectedText();
+        window.document.title = this.fileName;
       }
       if (propName === 'viewMode' && this.score == null) {
         // when the viewMode is changed and the filter-values are not set yet, we have to initialize them
@@ -435,7 +436,8 @@ export class DataView extends LitElement {
             .viewMode="${this.viewMode}"
             .toggleShowSegmentNumbers="${this.toggleShowSegmentNumbers}"
             .toggleSegmentDisplaySide="${this.toggleSegmentDisplaySide}"
-            .toggleShowSCTranslation="${this.toggleShowSCTranslation}">
+            .toggleShowSCTranslation="${this.toggleShowSCTranslation}"
+            .toggleTransMode="${this.toggleTransMode}">
           </data-view-settings-container>
         </side-sheet>
       </div>

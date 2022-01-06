@@ -8,6 +8,8 @@ import '@vaadin/vaadin-icons/vaadin-icons.js';
 import '../utility/formatted-segment';
 import '../utility/source-link';
 
+import { getTableDownloadData } from '../../api/actions';
+
 import {
   LANGUAGE_CODES,
   LANGUAGE_NAMES,
@@ -59,7 +61,17 @@ class DataViewSubheader extends LitElement {
   @property({ type: Boolean }) lengthMessage;
   @property({ type: String }) language;
   @property({ type: String }) extraMessage;
+  @property({ type: String }) downloadData;
+
+  @property({ type: String }) score;
+  @property({ type: Number }) quoteLength;
+  @property({ type: Number }) cooccurance;
+  @property({ type: String }) sortMethod;
+  @property({ type: Array }) limitCollection;
+  @property({ type: String }) folio;
+
   @property({ type: Boolean }) isDialogOpen = false;
+  @property({ type: Boolean }) isAlertDialogOpen = false;
 
   static get styles() {
     return [
@@ -71,16 +83,23 @@ class DataViewSubheader extends LitElement {
         }
 
         .info-button {
-          padding: 24px;
+          padding: 24px 0px 24px 24px;
           cursor: help;
         }
 
-        .info-icon {
+        .download-button {
+          padding: 24px 24px 24px 0px;
+          cursor: copy;
+        }
+
+        .info-icon,
+        .download-icon {
           color: var(--color-text-secondary);
         }
 
         @media screen and (max-width: 900px) {
-          .info-button {
+          .info-button,
+          .download-button {
             padding: 12px;
           }
         }
@@ -106,6 +125,40 @@ class DataViewSubheader extends LitElement {
 
   setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
 
+  openAlertDialog = () => (this.isAlertDialogOpen = true);
+
+  closeAlertDialog = () => (this.isAlertDialogOpen = false);
+
+  setIsAlertDialogOpen = e => (this.isAlertDialogOpen = e.detail.value);
+
+  async fetchDownloadTable() {
+    this.openAlertDialog();
+    console.log('CLICKED BUTTON');
+    if (!this.fileName) {
+      return;
+    }
+    let folio = '';
+    if (this.folio) {
+      folio = this.folio.num;
+    }
+
+    const downloadFileLink = await getTableDownloadData({
+      fileName: this.fileName,
+      score: this.score,
+      co_occ: this.cooccurance,
+      sort_method: this.sortMethod,
+      par_length: this.quoteLength,
+      limit_collection: this.limitCollection,
+      folio: folio,
+      download_data: this.downloadData,
+    });
+    if (downloadFileLink) {
+      console.log('DOWNLOAD FILE LINK', downloadFileLink);
+      this.closeAlertDialog();
+      //window.location.href = '../../' + downloadFileLink;
+    }
+  }
+
   render() {
     if (!this.fileName) {
       //prettier-ignore
@@ -124,6 +177,31 @@ class DataViewSubheader extends LitElement {
           <iron-icon class="info-icon" icon="vaadin:info-circle-o"></iron-icon>
         </vaadin-button>
 
+        ${this.downloadData
+          ? html`
+            <vaadin-dialog
+              id="alert-dialog"
+              aria-label="simple"
+              .opened="${this.isAlertDialogOpen}"
+              @opened-changed="${this.setIsAlertDialogOpen}">
+              <template>
+                <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
+                  with the current filter settings. The number of matches in the download
+                  is limited to 2,000.</p>
+                <p>This can take some time. Your download will start when ready. In the mean
+                  time you can continue working.</p>
+              </template>
+            </vaadin-dialog>
+
+            <vaadin-button
+              class="download-button"
+              title="Download this table with current filter settings"
+              @click="${this.fetchDownloadTable}">
+              <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
+              <div class="text-name-label">Download</div>
+            </vaadin-button>`
+          : null}
+
         <source-link .filename="${this.fileName}"></source-link>
         <vaadin-dialog
           id="info-number-view"
@@ -135,6 +213,7 @@ class DataViewSubheader extends LitElement {
             ${this.lengthMessage ? minimumLengthText(this.language) : ''}
           </template>
         </vaadin-dialog>
+
       </div> ${this.extraMessage}
     `;
   }

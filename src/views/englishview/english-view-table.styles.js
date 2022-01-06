@@ -3,7 +3,13 @@ import { css } from 'lit-element';
 export default css`
   vaadin-split-layout {
     --_material-split-layout-splitter-background-color: var(--bn-dark-red);
-    height: calc(100vh - 410px);
+    height: calc(100vh - 380px);
+  }
+
+  @media screen and (max-width: 1040px) {
+    vaadin-split-layout {
+      height: calc(100vh - 340px);
+    }
   }
 
   vaadin-split-layout.no-header {

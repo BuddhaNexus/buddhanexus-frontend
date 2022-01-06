@@ -30,4 +30,8 @@ export default css`
   .segment-numbers-sides {
     margin-left: 44px;
   }
+
+  .toggle-transliteration-scheme {
+    padding-bottom: 12px;
+  }
 `;

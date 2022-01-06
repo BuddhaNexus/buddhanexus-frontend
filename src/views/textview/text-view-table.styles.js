@@ -3,7 +3,43 @@ import { css } from 'lit-element';
 export default css`
   vaadin-split-layout {
     --_material-split-layout-splitter-background-color: var(--bn-dark-red);
-    height: calc(100vh - 410px);
+    height: calc(100vh - 380px);
+  }
+
+  @media screen and (max-width: 1320px) {
+    vaadin-split-layout[lang='tib'],
+    vaadin-split-layout[lang='multi'] {
+      height: calc(100vh - 440px);
+    }
+  }
+
+  @media screen and (max-width: 1250px) {
+    vaadin-split-layout[lang='chn'] {
+      height: calc(100vh - 440px);
+    }
+  }
+
+  @media screen and (max-width: 1140px) {
+    vaadin-split-layout[lang='skt'] {
+      height: calc(100vh - 440px);
+    }
+  }
+
+  @media screen and (max-width: 1060px) {
+    vaadin-split-layout[lang='tib'],
+    vaadin-split-layout[lang='multi'] {
+      height: calc(100vh - 400px);
+    }
+  }
+
+  @media screen and (max-width: 1040px) {
+    vaadin-split-layout[lang='tib'],
+    vaadin-split-layout[lang='chn'],
+    vaadin-split-layout[lang='pli'],
+    vaadin-split-layout[lang='skt'],
+    vaadin-split-layout[lang='multi'] {
+      height: calc(100vh - 332px);
+    }
   }
 
   vaadin-split-layout.no-header {
@@ -50,6 +86,7 @@ export default css`
     display: flex;
     cursor: pointer;
     color: var(--content-link-color);
+    padding-top: 12px;
   }
 
   #return-link:hover {
