@@ -62,6 +62,7 @@ class DataViewSubheader extends LitElement {
   @property({ type: String }) language;
   @property({ type: String }) extraMessage;
   @property({ type: String }) downloadData;
+  @property({ type: String }) downloadFileLink = '';
 
   @property({ type: String }) score;
   @property({ type: Number }) quoteLength;
@@ -72,6 +73,7 @@ class DataViewSubheader extends LitElement {
 
   @property({ type: Boolean }) isDialogOpen = false;
   @property({ type: Boolean }) isAlertDialogOpen = false;
+  @property({ type: Boolean }) isDownloadDialogOpen = false;
 
   static get styles() {
     return [
@@ -131,9 +133,15 @@ class DataViewSubheader extends LitElement {
 
   setIsAlertDialogOpen = e => (this.isAlertDialogOpen = e.detail.value);
 
+  openDownloadDialog = () => (this.isDownloadDialogOpen = true);
+
+  closeDownloadDialog = () => (this.isDownloadDialogOpen = false);
+
+  setIsDownloadDialogOpen = e => (this.isDownloadDialogOpen = e.detail.value);
+
   async fetchDownloadTable() {
+    this.downloadFileLink = '';
     this.openAlertDialog();
-    console.log('CLICKED BUTTON');
     if (!this.fileName) {
       return;
     }
@@ -153,9 +161,15 @@ class DataViewSubheader extends LitElement {
       download_data: this.downloadData,
     });
     if (downloadFileLink) {
-      console.log('DOWNLOAD FILE LINK', downloadFileLink);
+      this.downloadFileLink = downloadFileLink;
       this.closeAlertDialog();
-      //window.location.href = '../../' + downloadFileLink;
+      this.openDownloadDialog();
+    }
+  }
+
+  downloadLink(link) {
+    if (link) {
+      window.location.href = '../../' + link;
     }
   }
 
@@ -190,6 +204,30 @@ class DataViewSubheader extends LitElement {
                   is limited to 2,000.</p>
                 <p>This can take some time. Your download will start when ready. In the mean
                   time you can continue working.</p>
+              </template>
+            </vaadin-dialog>
+
+            <vaadin-dialog
+              id="download-dialog"
+              aria-label="simple"
+              .opened="${this.isDownloadDialogOpen}"
+              @opened-changed="${this.setIsDownloadDialogOpen}">
+              <template>
+                  <style>
+                    button {
+                      background-color: var(--color-light-chartbar);
+                      box-shadow: var(--material-card-shadow);
+                      border-radius: 5px;
+                      font-weight: bold;
+                      padding: 12px;
+                      margin-left: 150px;
+                      height: 48px;
+                    }
+                  </style>
+                  <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
+                  with the current filter settings. The number of matches in the download
+                  is limited to 2,000.</p>
+                  <button @click="${this.downloadLink(this.downloadFileLink)}">Download is ready</button>
               </template>
             </vaadin-dialog>
 
