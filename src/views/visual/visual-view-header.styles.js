@@ -33,6 +33,10 @@ export default css`
     background-color: transparent;
   }
 
+  bn-card {
+    background-color: var(--color-light-chartbar);
+  }
+
   #visual-back-icon {
     color: var(--bn-dark-red);
     margin-left: 0px;

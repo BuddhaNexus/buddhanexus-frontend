@@ -49,9 +49,15 @@ export class DataViewHeaderFields extends LitElement {
         }
 
         .search-box {
+          position: absolute;
+          z-index: 99;
+          width: 50vw;
           padding-top: 1em;
           transform: translateY(1.5px);
           --paper-input-container-focus-color: var(--bn-dark-red);
+          background-color: var(--color-light-chartbar);
+          box-shadow: var(--material-card-shadow);
+          padding: 8px 12px;
         }
 
         vaadin-select,
@@ -218,6 +224,26 @@ export class DataViewHeaderFields extends LitElement {
     return false;
   }
 
+  openSearch() {
+    this.shadowRoot.querySelector('#search-input').removeAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#search-icon-placeholder')
+      .setAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#cross-icon-placeholder')
+      .removeAttribute('hidden');
+  }
+
+  closeSearch() {
+    this.shadowRoot.querySelector('#search-input').setAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#search-icon-placeholder')
+      .removeAttribute('hidden');
+    this.shadowRoot
+      .querySelector('#cross-icon-placeholder')
+      .setAttribute('hidden');
+  }
+
   render() {
     const shouldShowTextSearchBox =
       (this.viewMode === DATA_VIEW_MODES.TEXT ||
@@ -277,9 +303,10 @@ export class DataViewHeaderFields extends LitElement {
       ${shouldShowTextSearchBox
         ? html`
             <paper-input
+              hidden
+              id="search-input"
               placeholder="Search in Inquiry Text"
               class="search-box"
-              type="search"
               no-label-float
               @change="${e => this.updateSearch(e.target.value)}"
               @keydown="${e => {
@@ -290,14 +317,32 @@ export class DataViewHeaderFields extends LitElement {
               <div slot="prefix">
                 <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
               </div>
-            </paper-input>`
+              <div slot="suffix">
+                <iron-icon
+                  hidden
+                  id="cross-icon-placeholder"
+                  class="search-icon"
+                  icon="vaadin:close-small"
+                  title="Close Search"
+                  @click="${this.closeSearch}">
+                </iron-icon>
+              </div>
+            </paper-input>
+            <iron-icon
+              id="search-icon-placeholder"
+              class="search-icon"
+              icon="vaadin:search"
+              title="Search in Inquiry Text"
+              @click="${this.openSearch}">
+            </iron-icon>`
         : null}
       ${shouldShowMultiLingSearchBox
         ? html`
             <paper-input
+              hidden
+              id="search-input"
               placeholder="Search"
               class="search-box"
-              type="search"
               no-label-float
               @change="${e => this.updateMultiLingSearch(e.target.value)}"
               @keydown="${e => {
@@ -308,7 +353,24 @@ export class DataViewHeaderFields extends LitElement {
               <div slot="prefix">
                 <iron-icon class="search-icon" icon="vaadin:search"></iron-icon>
               </div>
-            </paper-input>`
+              <div slot="suffix">
+                <iron-icon
+                  hidden
+                  id="cross-icon-placeholder"
+                  class="search-icon"
+                  icon="vaadin:close-small"
+                  title="Close Search"
+                  @click="${this.closeSearch}">
+                </iron-icon>
+              </div>
+            </paper-input>
+            <iron-icon
+              id="search-icon-placeholder"
+              class="search-icon"
+              icon="vaadin:search"
+              title="Search"
+              @click="${this.openSearch}">
+            </iron-icon>`
         : null}
       ${shouldShowSortBox
         ? html`
