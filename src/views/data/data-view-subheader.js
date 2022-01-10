@@ -1,4 +1,5 @@
 import { css, customElement, html, LitElement, property } from 'lit-element';
+import { render } from 'lit-html';
 
 import '@vaadin/vaadin-button/vaadin-button.js';
 import '@vaadin/vaadin-button/theme/material/vaadin-button';
@@ -62,7 +63,7 @@ class DataViewSubheader extends LitElement {
   @property({ type: String }) language;
   @property({ type: String }) extraMessage;
   @property({ type: String }) downloadData;
-  @property({ type: String }) downloadFileLink = '';
+  @property({ type: String }) downLoadFileLink;
 
   @property({ type: String }) score;
   @property({ type: Number }) quoteLength;
@@ -123,6 +124,11 @@ class DataViewSubheader extends LitElement {
     ];
   }
 
+  constructor() {
+    super();
+    this._boundDialogRenderer = this.dialogRenderer.bind(this);
+  }
+
   openDialog = () => (this.isDialogOpen = true);
 
   setIsDialogOpen = e => (this.isDialogOpen = e.detail.value);
@@ -140,7 +146,7 @@ class DataViewSubheader extends LitElement {
   setIsDownloadDialogOpen = e => (this.isDownloadDialogOpen = e.detail.value);
 
   async fetchDownloadTable() {
-    this.downloadFileLink = '';
+    this.downLoadFileLink = '';
     this.openAlertDialog();
     if (!this.fileName) {
       return;
@@ -161,16 +167,48 @@ class DataViewSubheader extends LitElement {
       download_data: this.downloadData,
     });
     if (downloadFileLink) {
-      this.downloadFileLink = downloadFileLink;
+      this.downLoadFileLink = downloadFileLink.toString();
       this.closeAlertDialog();
       this.openDownloadDialog();
     }
   }
 
-  downloadLink(link) {
-    if (link) {
-      window.location.href = '../../' + link;
-    }
+  dialogRenderer(root) {
+    render(
+      html`
+        <style>
+          #download-link {
+            background-color: var(--color-light-chartbar);
+            box-shadow: var(--material-card-shadow);
+            border-radius: 5px;
+            font-weight: bold;
+            padding: 12px;
+            margin-left: 150px;
+            height: 48px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+            font-size: 0.8em;
+          }
+        </style>
+        <p>
+          Fetching data for <strong>${this.fileName.toUpperCase()}</strong> with
+          the current filter settings. The number of matches in the download is
+          limited to 2,000.
+        </p>
+        <vaadin-button
+          id="download-link"
+          @click="${e => this.downloadLink(e, this.downLoadFileLink)}"
+        >
+          <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
+          <div class="text-name-label">Download is ready</div>
+        </vaadin-button>
+      `,
+      root
+    );
+  }
+
+  downloadLink(e, link) {
+    window.location.href = '../../' + link;
   }
 
   render() {
@@ -211,24 +249,8 @@ class DataViewSubheader extends LitElement {
               id="download-dialog"
               aria-label="simple"
               .opened="${this.isDownloadDialogOpen}"
+              .renderer="${this._boundDialogRenderer}"
               @opened-changed="${this.setIsDownloadDialogOpen}">
-              <template>
-                  <style>
-                    button {
-                      background-color: var(--color-light-chartbar);
-                      box-shadow: var(--material-card-shadow);
-                      border-radius: 5px;
-                      font-weight: bold;
-                      padding: 12px;
-                      margin-left: 150px;
-                      height: 48px;
-                    }
-                  </style>
-                  <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
-                  with the current filter settings. The number of matches in the download
-                  is limited to 2,000.</p>
-                  <button @click="${this.downloadLink(this.downloadFileLink)}">Download is ready</button>
-              </template>
             </vaadin-dialog>
 
             <vaadin-button
