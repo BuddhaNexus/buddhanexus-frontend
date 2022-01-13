@@ -28,7 +28,11 @@ export class DataViewSettingsContainer extends LitElement {
   }
 
   render() {
-    const shouldShowChecked = this.lang === 'pli' || this.lang === 'chn';
+    const shouldShowChecked =
+      this.lang === 'pli' ||
+      this.lang === 'chn' ||
+      this.fileName.startsWith('K10u') ||
+      this.fileName.startsWith('K14dhp');
     const shouldShowTransliterationSlider = this.viewMode === 'english';
     //prettier-ignore
     return html`
