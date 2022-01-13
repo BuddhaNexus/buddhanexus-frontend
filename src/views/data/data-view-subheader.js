@@ -197,7 +197,7 @@ class DataViewSubheader extends LitElement {
         </p>
         <vaadin-button
           id="download-link"
-          @click="${e => this.downloadLink(e, this.downLoadFileLink)}"
+          @click="${this.downloadLink(this.downLoadFileLink)}"
         >
           <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
           <div class="text-name-label">Download is ready</div>
@@ -207,7 +207,7 @@ class DataViewSubheader extends LitElement {
     );
   }
 
-  downloadLink(e, link) {
+  downloadLink(link) {
     window.location.href = '../../' + link;
   }
 
