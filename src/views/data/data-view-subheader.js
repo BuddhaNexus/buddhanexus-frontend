@@ -167,9 +167,10 @@ class DataViewSubheader extends LitElement {
       download_data: this.downloadData,
     });
     if (downloadFileLink) {
-      this.downLoadFileLink = downloadFileLink.toString();
+      this.downLoadFileLink = downloadFileLink;
       this.closeAlertDialog();
       this.openDownloadDialog();
+      window.location.href = '../../' + downloadFileLink;
     }
   }
 
@@ -195,9 +196,13 @@ class DataViewSubheader extends LitElement {
           the current filter settings. The number of matches in the download is
           limited to 2,000.
         </p>
+        <p>
+          Your download should start automatically. If it does not, please click
+          the button below.
+        </p>
         <vaadin-button
           id="download-link"
-          @click="${this.downloadLink(this.downLoadFileLink)}"
+          @click="${e => this.downloadLink(e, this.downLoadFileLink)}"
         >
           <iron-icon class="download-icon" icon="vaadin:download"></iron-icon>
           <div class="text-name-label">Download is ready</div>
@@ -207,7 +212,7 @@ class DataViewSubheader extends LitElement {
     );
   }
 
-  downloadLink(link) {
+  downloadLink(e, link) {
     window.location.href = '../../' + link;
   }
 
