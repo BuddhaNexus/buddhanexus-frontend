@@ -9,7 +9,7 @@ export function getLanguageFromFilename(filename) {
     !filename.match('-skt:')
   ) {
     return LANGUAGE_CODES.TIBETAN;
-  } else if (filename.match('(u$|u:|u_|-skt:)')) {
+  } else if (filename.match('(u$|u:|u_|-skt:|sc:|sc$)')) {
     return LANGUAGE_CODES.SANSKRIT;
   } else if (filename.match('([TX][0-9]*n[0-9])')) {
     return LANGUAGE_CODES.CHINESE;
