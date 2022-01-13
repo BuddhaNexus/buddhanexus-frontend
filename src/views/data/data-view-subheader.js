@@ -194,7 +194,8 @@ class DataViewSubheader extends LitElement {
         <p>
           Fetching data for <strong>${this.fileName.toUpperCase()}</strong> with
           the current filter settings. The number of matches in the download is
-          limited to 2,000.
+          limited to 20,000. Please use the filter settings to change the type
+          of matches that will be downloaded.
         </p>
         <p>
           Your download should start automatically. If it does not, please click
@@ -244,7 +245,7 @@ class DataViewSubheader extends LitElement {
               <template>
                 <p>Fetching data for <strong>${this.fileName.toUpperCase()}</strong>
                   with the current filter settings. The number of matches in the download
-                  is limited to 2,000.</p>
+                  is limited to 20,000. Please use the filter settings to change the type of matches that will be downloaded.</p>
                 <p>This can take some time. Your download will start when ready. In the mean
                   time you can continue working.</p>
               </template>
