@@ -163,10 +163,12 @@ export class FormattedSegment extends LitElement {
             : `Vipassana Research Institute`;
         break;
       case LANGUAGE_CODES.SANSKRIT:
-        linkName =
-          externalLink && externalLink.match('dsbc')
-            ? `Digital Sanskrit Buddhist Canon`
-            : `GRETIL`;
+        linkName = `GRETIL`;
+        if (externalLink && externalLink.match('dsbc')) {
+          linkName = `Digital Sanskrit Buddhist Canon`;
+        } else if (externalLink && externalLink.match('suttacentral')) {
+          linkName = `SuttaCentral`;
+        }
         break;
       case LANGUAGE_CODES.CHINESE:
         linkName = `CBETA (OLD SITE)`;
