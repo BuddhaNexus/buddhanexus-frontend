@@ -283,6 +283,9 @@ const TextViewLayoutRight = (
   let number = -1;
   return textRight.map(segment => {
     const { segnr, segtext, parallel_ids } = segment;
+    if (segnr === 'source:0') {
+      return;
+    }
     let current_parallels = [];
     if (parallel_ids.length >= 1) {
       current_parallels = parallel_ids.map(id => {
