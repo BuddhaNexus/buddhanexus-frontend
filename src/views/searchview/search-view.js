@@ -3,6 +3,8 @@ import { css, customElement, html, LitElement, property } from 'lit-element';
 import sharedDataViewStyles from '../data/data-view-shared.styles';
 import { getSearchDataFromBackend } from '../../api/actions';
 import './search-view-list.js';
+import './search-view-filters.js';
+import '../components/side-sheet';
 
 @customElement('search-view')
 export class SearchView extends LitElement {
@@ -10,6 +12,7 @@ export class SearchView extends LitElement {
   @property({ type: Array }) searchResults = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
+  @property({ type: Boolean }) filterBarOpen;
 
   static get styles() {
     return [
@@ -29,6 +32,46 @@ export class SearchView extends LitElement {
           overflow: scroll;
           width: 100%;
           height: 100%;
+        }
+
+        .filter-bar-toggle-icon {
+          min-height: 22px;
+          min-width: 22px;
+          pointer-events: auto;
+          opacity: 1;
+          color: var(--material-secondary-text-color);
+        }
+
+        .filter-bar-toggle-icon.filter-bar-toggle-icon--filter-bar-open {
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .search__header-container {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        side-sheet {
+          height: calc(100% - 142px);
+          overflow-y: auto;
+          overflow-x: hidden;
+          transition: width var(--vaadin-app-layout-transition),
+            min-width var(--vaadin-app-layout-transition);
+          background-color: white;
+          position: absolute;
+          right: 0px;
+          top: 142px;
+          z-index: 1;
+        }
+
+        side-sheet.side-sheet--open {
+          min-width: var(--side-sheet-width);
+          width: var(--side-sheet-width);
+        }
+
+        side-sheet.side-sheet--closed {
+          display: none;
         }
       `,
     ];
@@ -71,16 +114,41 @@ export class SearchView extends LitElement {
     this.fetchError = error;
   }
 
+  toggleFilterBarOpen = () => {
+    this.filterBarOpen = !this.filterBarOpen;
+  };
+
   render() {
     //prettier-ignore
     return html`
       <div class="search-view-container">
-        <h1>Search Results:</h1>
         ${this.fetchLoading
           ? html`
               <bn-loading-spinner></bn-loading-spinner>
             `
           : null}
+        <div class="search__header-container">
+          <h1>Search Results:</h1>
+          <iron-icon
+            icon="vaadin:filter"
+            title="Filter Search Results"
+            @click="${this.toggleFilterBarOpen}"
+            class="filter-bar-toggle-icon ${this.filterBarOpen &&
+                  'filter-bar-toggle-icon--filter-bar-open'}">
+          </iron-icon>
+        </div>
+
+        <side-sheet
+          id="filter-menu"
+          class="${this.filterBarOpen
+            ? 'side-sheet--open'
+            : 'side-sheet--closed'}"
+          .handleClose="${() => {
+            this.filterBarOpen = false;
+          }}">
+          <search-view-filters>
+          </search-view-filters>
+        </side-sheet>
 
         <search-view-list
           .searchQuery="${this.searchQuery}"
