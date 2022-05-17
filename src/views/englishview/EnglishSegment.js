@@ -9,26 +9,44 @@ export function EnglishSegmentContainer({
   showSegmentNumbers,
   segmentDisplaySide,
   onClick,
+  language,
 }) {
   let highLightSegment = false;
-  if (
-    activeSegment &&
-    (segmentNr.split('_')[0] === activeSegment.split('_')[0] ||
-      segmentNr.split('_')[0] === activeSegment.substr(3))
-  ) {
-    highLightSegment = true;
+  let displayNumber = segmentNr.split(':')[1];
+  let firstDisplayNumber = true;
+
+  if (language == 'pli') {
+    if (
+      activeSegment &&
+      (segmentNr.split('_')[0] === activeSegment.split('_')[0] ||
+        segmentNr.split('_')[0] === activeSegment.substr(3))
+    ) {
+      highLightSegment = true;
+    }
+    let segmentNrList = segmentNr.split(':')[1].split('_');
+    displayNumber =
+      segmentNrList.length >= 2
+        ? `${segmentNrList[segmentNrList.length - 2]}`
+        : `${segmentNrList[0]}`;
+    firstDisplayNumber =
+      segmentNr.split(':')[1].match('_') && !segmentNr.endsWith('_0')
+        ? false
+        : true;
+  } else {
+    const lastIndex = segmentNr.lastIndexOf('_');
+    if (
+      activeSegment &&
+      (segmentNr === activeSegment ||
+        segmentNr === activeSegment.substr(3) ||
+        segmentNr.slice(0, lastIndex) === activeSegment ||
+        segmentNr.slice(0, lastIndex) === activeSegment.substr(3))
+    ) {
+      highLightSegment = true;
+    }
   }
-  let segmentNrList = segmentNr.split(':')[1].split('_');
-  const displayNumber =
-    segmentNrList.length >= 2
-      ? `${segmentNrList[segmentNrList.length - 2]}`
-      : `${segmentNrList[0]}`;
-  let firstDisplayNumber =
-    segmentNr.split(':')[1].match('_') && !segmentNr.endsWith('_0')
-      ? false
-      : true;
 
   let newSegText = PaliSegment(segText, segmentNr);
+
   return EnglishSegment({
     segmentNr: segmentNr,
     segText: newSegText,

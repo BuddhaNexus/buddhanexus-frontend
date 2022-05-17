@@ -1,10 +1,11 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import '@vaadin/vaadin-split-layout/theme/material/vaadin-split-layout';
 import { getFileText } from '../../api/actions';
+import { getLanguageFromFilename } from '../utility/views-common';
+import { NOENGLISHTRANSLATION } from '../utility/constants';
 
 import './english-view-header';
 import './english-view-table';
-import { NOENGLISHTRANSLATION } from '../utility/constants';
 
 @customElement('english-view')
 export class EnglishView extends LitElement {
@@ -67,6 +68,7 @@ export class EnglishView extends LitElement {
   };
 
   render() {
+    const language = getLanguageFromFilename(this.fileName);
     return html`
       ${this.fetchLoading
         ? html`
@@ -81,6 +83,7 @@ export class EnglishView extends LitElement {
       <english-view-table
         id="english-view-table"
         .fileName="${this.fileName}"
+        .language="${language}"
         .displaySCEnglish="${this.displaySCEnglish}"
         .leftTextData="${this.leftTextData}"
         .middleData="${this.middleData}"

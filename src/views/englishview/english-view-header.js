@@ -161,7 +161,7 @@ export class EnglishViewHeader extends LitElement {
           <source-link .filename="${this.fileName}"></source-link>
         </div>
 
-        <div>(Beta version) TML Translation</div>
+        <div>(Beta version) Machine Translation</div>
 
         ${this.displaySCEnglish
           ? EnglishViewHeaderRightColumn({

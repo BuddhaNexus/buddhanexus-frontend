@@ -7,6 +7,7 @@ import { EnglishSegmentContainer } from './EnglishSegment';
 @customElement('english-view-left')
 export class EnglishViewLeft extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: String }) language;
   @property({ type: Array }) leftTextData;
   @property({ type: String }) activeSegment;
   @property({ type: Boolean }) showSegmentNumbers;
@@ -42,10 +43,11 @@ export class EnglishViewLeft extends LitElement {
   render() {
     let newActiveSegment = this.activeSegment;
     if (this.activeSegment && this.activeSegment !== 'none') {
+      const lastIndex = this.activeSegment.lastIndexOf('_');
       if (this.activeSegment.startsWith('ai-')) {
-        newActiveSegment = this.activeSegment.substr(3).split('_')[0];
+        newActiveSegment = this.activeSegment.substr(3).slice(0, lastIndex);
       } else {
-        newActiveSegment = this.activeSegment.split('_')[0];
+        newActiveSegment = this.activeSegment.slice(0, lastIndex);
       }
     }
     return html`
@@ -57,6 +59,7 @@ export class EnglishViewLeft extends LitElement {
           showSegmentNumbers: this.showSegmentNumbers,
           segmentDisplaySide: this.segmentDisplaySide,
           onClick: this.handleSegmentClick,
+          language: this.language,
         })
       )}
     `;

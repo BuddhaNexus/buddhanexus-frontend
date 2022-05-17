@@ -74,4 +74,4 @@ export const SOURCE_BUTTONS = {
 };
 
 export const NOENGLISHTRANSLATION =
-  '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt|snp|pli-tv-b[ui]-p)';
+  '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt|snp|pli-tv-b[ui]-p|[TX])';

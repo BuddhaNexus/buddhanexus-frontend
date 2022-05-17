@@ -7,6 +7,7 @@ import { EnglishSegmentContainer } from './EnglishSegment';
 @customElement('english-view-middle')
 export class EnglishViewMiddle extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: String }) language;
   @property({ type: Object }) middleData;
   @property({ type: String }) activeSegment;
   @property({ type: Boolean }) showSegmentNumbers;
@@ -42,10 +43,12 @@ export class EnglishViewMiddle extends LitElement {
   render() {
     let newActiveSegment = this.activeSegment;
     if (this.activeSegment && this.activeSegment !== 'none') {
+      const lastIndex = this.activeSegment.lastIndexOf('_');
       if (this.activeSegment.startsWith('en-')) {
-        newActiveSegment = 'ai-' + this.activeSegment.substr(3).split('_')[0];
+        newActiveSegment =
+          'ai-' + this.activeSegment.substr(3).slice(0, lastIndex);
       } else {
-        newActiveSegment = 'ai-' + this.activeSegment.split('_')[0];
+        newActiveSegment = 'ai-' + this.activeSegment.slice(0, lastIndex);
       }
     }
     return html`
@@ -57,6 +60,7 @@ export class EnglishViewMiddle extends LitElement {
           showSegmentNumbers: this.showSegmentNumbers,
           segmentDisplaySide: this.segmentDisplaySide,
           onClick: this.handleSegmentClick,
+          language: this.language,
         })
       )}
     `;
