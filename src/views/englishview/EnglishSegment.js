@@ -45,7 +45,10 @@ export function EnglishSegmentContainer({
     }
   }
 
-  let newSegText = PaliSegment(segText, segmentNr);
+  let newSegText =
+    language == 'pli'
+      ? PaliSegment(segText, segmentNr)
+      : ChineseSegment(segText);
 
   return EnglishSegment({
     segmentNr: segmentNr,
@@ -56,6 +59,7 @@ export function EnglishSegmentContainer({
     showSegmentNumbers,
     segmentDisplaySide,
     onClick,
+    language,
   });
 }
 
@@ -78,6 +82,15 @@ const PaliSegment = (inputData, segmentNr) => {
       `;
 };
 
+const ChineseSegment = inputData => {
+  if (!inputData) {
+    return;
+  }
+  return html`
+    ${inputData.trim()}
+  `;
+};
+
 function convertSegment(segmentNr) {
   return segmentNr.startsWith('ai-') || segmentNr.startsWith('en-')
     ? (segmentNr = segmentNr.replace('ai-', '').replace('en-', '') + '_0')
@@ -93,11 +106,15 @@ export function EnglishSegment({
   showSegmentNumbers,
   segmentDisplaySide,
   onClick,
+  language,
 }) {
+  let lineBreak =
+    segmentNr.endsWith('_0') && language == 'chn' ? html`</p><p>` : '';
+
   // prettier-ignore
   return html`${firstDisplayNumber
                   ? html`
-                    <a class="segment-number ${segmentDisplaySide}"
+                    ${lineBreak}<a class="segment-number ${segmentDisplaySide}"
                       href="${createTextViewSegmentUrl(convertSegment(segmentNr))}"
                       target="_blank"
                       show-number="${showSegmentNumbers}">${displayNumber}</a>`
