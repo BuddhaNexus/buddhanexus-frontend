@@ -104,11 +104,16 @@ export class GuidelinesView extends LitElement {
                 The pie graph displays the distribution of the (approximate) matches according to the collection’s sections. 
                 The histogram shows the distribution of the top files that have matches with the Inquiry Text based on the 
                 accumulated length of the approximate matches. A maximum of 50 Hit Texts are shown.</li>
-                <li><b>English View</b>: This view-mode is only available for Pāli texts. It displays the original text
+                <li><b>English View</b>: This view-mode is only available for Pāli and Chinese texts. For Pāli it displays the original text
                 together with a machine translation into English created by the
                 <a target="_blank" class="content-link" href="https://github.com/tensorflow/tensor2tensor">Transformer machine learning model</a>.
                 This model is based on the English translations by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya).
-                Additionally, the original English translation is also offered if available.</li>
+                Additionally, the original English translation is also offered if available.
+                For Chinese it displays the original text together with a machine translation into English created by
+                <a target="_blank" class="content-link" href="https://github.com/tensorflow/tensor2tensor">DeepL</a> using an experimental model
+                that was trained as an internal, non-commercial research project. Given the sparsity of the training material and the diverse nature
+                of the corpus, the model might not always meet DeepL's usual quality standards. Please take extreme caution when interpreting the results.</p>
+                </li>
               </ul>
             </p>
             <h3>Links</h3>

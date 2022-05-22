@@ -41,7 +41,52 @@ function EnglishViewHeaderLeftColumn({
   isInfoDialogLeftOpen,
   setIsInfoDialogLeftOpen,
   openDialogLeft,
+  language,
 }) {
+  const paliEnglishText = html`
+    <p>
+      This view displays the original Pāli text in the left column together with
+      a machine translation into English created by the BuddhaNexus Transformer
+      machine learning model (TML).
+    </p>
+    <p>
+      Note: This view is experimental and the translations by the TML model
+      cannot be relied upon as actual correct translations.
+    </p>
+    <p>
+      This model is based on the English translations by Bhikkhu Sujato (Suttas)
+      or Bhikkhu Bhahmali (Vinaya). Additionally, the original English
+      translation is also offered if available.
+    </p>
+  `;
+
+  const chineseEnglishText = html`
+    <p>
+      This text was translated by DeepL using an experimental model that was
+      trained as an internal, non-commercial research project. Given the
+      sparsity of the training material and the diverse nature of the Taisho
+      corpus, the model might not always meet DeepL's usual quality standards.
+      Please take extreme caution when interpreting the results.
+    </p>
+    <p>
+      Sentences with more than 400 characters were not translated as the
+      resulting translations wouldn't be reliable at all.
+    </p>
+    <p>
+      You are free to publish these translations on your website. Please show
+      the above disclaimer (or a link to the disclaimer) with the translations
+      so people can put the results into context.
+    </p>
+    <p>
+      These translations are published under the Attribution 4.0 International
+      (CC BY 4.0) (https://creativecommons.org/licenses/by/4.0/). The
+      translations were created by: <br />
+      DeepL SE<br />
+      Maarweg 165<br />
+      50825 Cologne<br />
+      Germany
+    </p>
+  `;
   //prettier-ignore
   return html`
     <vaadin-dialog
@@ -51,16 +96,9 @@ function EnglishViewHeaderLeftColumn({
       @opened-changed="${setIsInfoDialogLeftOpen}">
       <template>
         <div>
+          ${language == 'pli' ? paliEnglishText : chineseEnglishText}
           <p>
-            This view displays the original Pāli text in the left column together with a machine
-            translation into English created by the Transformer machine learning model (TML).
-          </p><p>Note: This view is experimental and the translations by the TML model cannot be relied
-            upon as actual correct translations.
-          </p><p>
-            This model is based on the English translations by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya).
-            Additionally, the original English translation is also offered if available.
-          </p><p>
-            Click on any segment to show the matching segment in the other columns.
+            Click on any segment to show the matching segment in the other column(s).
           </p>
         </div>
       </template>
@@ -76,6 +114,7 @@ function EnglishViewHeaderLeftColumn({
 export class EnglishViewHeader extends LitElement {
   @property({ type: String }) fileName;
   @property({ type: Boolean }) displaySCEnglish;
+  @property({ type: String }) language;
 
   @property({ type: Boolean }) isInfoDialogRightOpen = false;
   @property({ type: Boolean }) isInfoDialogLeftOpen = false;
@@ -134,6 +173,16 @@ export class EnglishViewHeader extends LitElement {
             padding-bottom: 8px;
           }
         }
+
+        .subtext,
+        .warning-icon {
+          color: var(--bn-dark-red);
+          font-size: 0.8em;
+        }
+
+        .warning-icon {
+          height: 20px;
+        }
       `,
     ];
   }
@@ -156,12 +205,16 @@ export class EnglishViewHeader extends LitElement {
           ${EnglishViewHeaderLeftColumn({
             isInfoDialogLeftOpen: this.isInfoDialogLeftOpen,
             setIsInfoDialogLeftOpen: this.setIsInfoDialogLeftOpen,
-            openDialogLeft: this.openDialogLeft
+            openDialogLeft: this.openDialogLeft,
+            language: this.language
           })}
           <source-link .filename="${this.fileName}"></source-link>
         </div>
 
-        <div>(Beta version) Machine Translation</div>
+        <div>(Beta version) Machine Translation<br>
+        <iron-icon class="warning-icon" icon="vaadin:warning"></iron-icon>
+        <span class="subtext">This translation has been made by a machine and is not always reliable.<br>
+        Please take extreme caution when interpreting the results.</span></div>
 
         ${this.displaySCEnglish
           ? EnglishViewHeaderRightColumn({

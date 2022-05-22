@@ -78,6 +78,7 @@ export class EnglishView extends LitElement {
       <english-view-header
         .fileName="${this.fileName}"
         .displaySCEnglish="${this.displaySCEnglish}"
+        .language="${language}"
       ></english-view-header>
 
       <english-view-table

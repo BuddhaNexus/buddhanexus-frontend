@@ -86,8 +86,9 @@ const ChineseSegment = inputData => {
   if (!inputData) {
     return;
   }
+  const strippedSegment = inputData.trim();
   return html`
-    ${inputData.trim()}
+    ${strippedSegment}
   `;
 };
 
