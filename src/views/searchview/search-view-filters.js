@@ -2,24 +2,24 @@ import { customElement, html, css, LitElement, property } from 'lit-element';
 
 import '@vaadin/vaadin-checkbox/theme/material/vaadin-checkbox';
 
-// import { getMultilingualData } from '../../api/actions';
-// import { LANGUAGE_CODES } from '../utility/constants';
+import { getCollectionsForVisual } from '../menus/actions';
+import { LANGUAGE_CODES, LANGUAGE_NAMES } from '../utility/constants';
 
 @customElement('search-view-filters')
 export class DataViewFiltersMultilingual extends LitElement {
-  // @property({ type: String }) fileName;
-  // @property({ type: Array }) multiLingTotalList;
-  // @property({ type: Array }) mainLang;
-  // @property({ type: Array }) multiLingualMode = [];
-  // @property({ type: Array }) multiLingualBlockList = [];
-  // @property({ type: Function }) updateMultiLingualMode;
-  @property({ type: Boolean }) dataLoading = false;
-  @property({ type: String }) dataLoadError = false;
+  @property({ type: Function }) setFilterSelection;
+
+  @property({ type: Array }) multiLingTotalList = [];
+  @property({ type: Array }) collectionData;
+  @property({ type: Array }) collectionDataForDropdown;
+  @property({ type: Array }) selectedCollections;
+  @property({ type: Boolean }) fetchError;
 
   static get styles() {
     return [
       css`
-        vaadin-checkbox {
+        vaadin-checkbox,
+        .input-field {
           --material-primary-color: var(--bn-dark-red);
           --material-primary-text-color: var(--bn-dark-red);
         }
@@ -35,55 +35,74 @@ export class DataViewFiltersMultilingual extends LitElement {
           opacity: 0.8;
           display: block;
         }
+
+        .input-field {
+          padding-right: 16px;
+          width: calc(100% - 32px);
+        }
       `,
     ];
   }
 
-  firstUpdated() {
-    this.fetchSearchFilterData();
+  async firstUpdated(_changedProperties) {
+    super.firstUpdated(_changedProperties);
+    this.fetchData();
   }
 
-  // updated(_changedProperties) {
-  //   _changedProperties.forEach(async (oldValue, propName) => {
-  //     if (propName === 'fileName' && !this.dataLoading) {
-  //       this.fetchMultilingualData();
-  //     }
-  //   });
-  // }
+  updateMultiLingualEvent = e => {
+    let languageList = this.multiLingTotalList;
+    if (e.target.checked) {
+      languageList.push(e.target.value);
+    } else {
+      let index = languageList.indexOf(e.target.value);
+      languageList.splice(index, 1);
+    }
+    this.multiLingTotalList = languageList;
+    this.createDropdownData(this.collectionData);
+    // if (!this.selectedCollections || this.selectedCollections.length == 0) {
+    //     this.setFilterSelection(this.multiLingTotalList);
+    // }
+  };
 
-  // updateMultiLingualEvent = e => {
-  //   if (e.target.checked) {
-  //     this.multiLingualBlockList = this.multiLingualBlockList.filter(
-  //       x => x !== e.target.value
-  //     );
-  //   } else {
-  //     this.multiLingualBlockList.push(e.target.value);
-  //   }
-  //   this.multiLingualMode = this.multiLingTotalList.filter(
-  //     x => !this.multiLingualBlockList.includes(x)
-  //   );
-  //   this.multiLingualMode = [...new Set(this.multiLingualMode)];
-  //   this.multiLingualMode = this.multiLingualMode.filter(Boolean);
-  //   this.updateMultiLingualMode(this.multiLingualMode);
-  // };
+  async fetchData() {
+    const { result, error } = await getCollectionsForVisual();
+    this.collectionData = result;
+    this.createDropdownData(result);
+    this.fetchError = error;
+  }
 
-  // async fetchSearchFilterData() {
-  //   this.dataLoading = true;
-  //   // const { langList, error } = await getMultilingualData({
-  //   //   fileName: this.fileName,
-  //   // });
-  //   // langList.push(this.mainLang);
-  //   // this.multiLingTotalList = langList;
-  //   // this.multiLingualMode = langList;
-  //   // if (this.multiLingualBlockList) {
-  //   //   this.multiLingualMode.filter(
-  //   //     x => !this.multiLingualBlockList.includes(x)
-  //   //   );
-  //   // }
-  //   this.dataLoadError = error;
-  //   this.dataLoading = false;
-  //   // this.updateMultiLingualMode(this.multiLingTotalList);
-  // }
+  createDropdownData(collectionData) {
+    if (!collectionData) {
+      return;
+    }
+    let newCollectionData = [];
+    for (let languageCode in LANGUAGE_CODES) {
+      let newLanguageLabel = {};
+      if (this.multiLingTotalList.includes(LANGUAGE_CODES[languageCode])) {
+        newLanguageLabel['collectionname'] =
+          LANGUAGE_NAMES[languageCode].toUpperCase() + ' (All)';
+        newLanguageLabel['collectionkey'] =
+          LANGUAGE_CODES[languageCode] + '_all';
+        newCollectionData.push(newLanguageLabel);
+        collectionData.map(item => {
+          if (LANGUAGE_CODES[languageCode] == item.collectionlanguage) {
+            if (!item.collectionname.startsWith('• ')) {
+              item.collectionname = '• ' + item.collectionname;
+            }
+            newCollectionData.push(item);
+          }
+        });
+      }
+    }
+    this.collectionDataForDropdown = newCollectionData;
+  }
+
+  handleTargetCollectionChanged(e) {
+    this.selectedCollections = e.detail.value.map(item => item.collectionkey);
+    if (this.selectedCollections && this.selectedCollections.length > 0) {
+      this.setFilterSelection(this.selectedCollections);
+    }
+  }
 
   renderLanguages() {
     return html`
@@ -122,14 +141,18 @@ export class DataViewFiltersMultilingual extends LitElement {
           ${this.renderLanguages()}
         </div>
 
-      <multiselect-combo-box
-        Label="Filter by target collection:"
-        item-label-path="collectionname"
-        class="input-field"
-        @selected-items-changed="${this.handleTargetComboBoxChanged}"
-        .items="${this.targetCollectionData}"
-        item-value-path="collectionkey">
-      </multiselect-combo-box>
+        <multiselect-combo-box
+          Label="Filter by target collection:"
+          class="input-field"
+          item-label-path="collectionname"
+          @selected-items-changed="${this
+            .handleTargetCollectionChanged}"
+          .items="${this.collectionDataForDropdown}"
+          item-value-path="collectionkey">
+          <template>
+            <b>[[item.collectionname]]</b> [[item.collectionlanguage]]<br />
+          </template>
+        </multiselect-combo-box>
       `;
   }
 }

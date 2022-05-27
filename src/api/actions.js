@@ -9,6 +9,7 @@ import {
   getFileTextUrl,
   getParallelCountUrl,
   getTableDownloadUrl,
+  getSearchDataFromBackendUrl,
 } from './apiUtils';
 
 export const getSegmentsForFile = async ({
@@ -282,9 +283,9 @@ export const getDataForSidebarMenu = async ({ language }) => {
   }
 };
 
-export const getSearchDataFromBackend = async ({ query }) => {
+export const getSearchDataFromBackend = async ({ query, ...queryParams }) => {
   try {
-    const url = `${API_URL}/search/${query}`;
+    const url = getSearchDataFromBackendUrl(query, queryParams);
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {

@@ -10,6 +10,7 @@ import '../components/side-sheet';
 export class SearchView extends LitElement {
   @property({ type: String }) searchQuery;
   @property({ type: Array }) searchResults = [];
+  @property({ type: Array }) limitCollection = [];
   @property({ type: String }) fetchError;
   @property({ type: String }) fetchLoading = true;
   @property({ type: Boolean }) filterBarOpen;
@@ -88,8 +89,10 @@ export class SearchView extends LitElement {
     super.updated(_changedProperties);
 
     _changedProperties.forEach(async (oldValue, propName) => {
-      if (['queryString'].includes(propName) && !this.fetchLoading) {
-        this.resetView();
+      if (
+        ['queryString', 'limitCollection'].includes(propName) &&
+        !this.fetchLoading
+      ) {
         await this.fetchData();
       }
     });
@@ -100,9 +103,13 @@ export class SearchView extends LitElement {
       this.fetchLoading = false;
       return;
     }
+    if (this.limitCollection.length == 0) {
+      this.limitCollection = ['pli_all', 'skt_all', 'tib_all', 'chn_all'];
+    }
     this.fetchLoading = true;
     const { searchResults, error } = await getSearchDataFromBackend({
       query: this.searchQuery,
+      limitcollection: this.limitCollection,
     });
     this.fetchLoading = false;
     if (!searchResults || searchResults.length === 0) {
@@ -116,6 +123,13 @@ export class SearchView extends LitElement {
 
   toggleFilterBarOpen = () => {
     this.filterBarOpen = !this.filterBarOpen;
+  };
+
+  setLimitCollection = limitCollection => {
+    // if we don't do this check, limitCollection gets updated constantly and triggers refetching of the data which is very undesired.
+    if (this.limitCollection.toString() !== limitCollection.toString()) {
+      this.limitCollection = limitCollection;
+    }
   };
 
   render() {
@@ -146,7 +160,8 @@ export class SearchView extends LitElement {
           .handleClose="${() => {
             this.filterBarOpen = false;
           }}">
-          <search-view-filters>
+          <search-view-filters
+            .setFilterSelection="${this.setLimitCollection}">
           </search-view-filters>
         </side-sheet>
 
