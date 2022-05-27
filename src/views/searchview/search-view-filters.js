@@ -59,9 +59,6 @@ export class DataViewFiltersMultilingual extends LitElement {
     }
     this.multiLingTotalList = languageList;
     this.createDropdownData(this.collectionData);
-    // if (!this.selectedCollections || this.selectedCollections.length == 0) {
-    //     this.setFilterSelection(this.multiLingTotalList);
-    // }
   };
 
   async fetchData() {
