@@ -283,9 +283,17 @@ export const getDataForSidebarMenu = async ({ language }) => {
   }
 };
 
-export const getSearchDataFromBackend = async ({ query, ...queryParams }) => {
+export const getSearchDataFromBackend = async ({
+  query,
+  limit_collection,
+  ...queryParams
+}) => {
   try {
-    const url = getSearchDataFromBackendUrl(query, queryParams);
+    const url = getSearchDataFromBackendUrl(
+      query,
+      limit_collection,
+      queryParams
+    );
     const response = await fetch(url);
     const json = await response.json();
     if (!response.ok) {

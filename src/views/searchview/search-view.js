@@ -109,7 +109,7 @@ export class SearchView extends LitElement {
     this.fetchLoading = true;
     const { searchResults, error } = await getSearchDataFromBackend({
       query: this.searchQuery,
-      limitcollection: this.limitCollection,
+      limit_collection: this.limitCollection,
     });
     this.fetchLoading = false;
     if (!searchResults || searchResults.length === 0) {
