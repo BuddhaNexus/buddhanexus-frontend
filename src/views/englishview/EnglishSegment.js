@@ -92,10 +92,16 @@ const ChineseSegment = inputData => {
   `;
 };
 
-function convertSegment(segmentNr) {
-  return segmentNr.startsWith('ai-') || segmentNr.startsWith('en-')
-    ? (segmentNr = segmentNr.replace('ai-', '').replace('en-', '') + '_0')
-    : segmentNr;
+function convertSegment(segmentNr, language) {
+  let newSegmentNr = segmentNr;
+  newSegmentNr = segmentNr.replace('ai-', '').replace('en-', '');
+  let split = newSegmentNr.split('_');
+  if (language == 'chn') {
+    newSegmentNr = split[0] + '_' + split[1];
+  } else if (segmentNr.startsWith('en-')) {
+    newSegmentNr += '_0';
+  }
+  return newSegmentNr;
 }
 
 export function EnglishSegment({
@@ -116,7 +122,7 @@ export function EnglishSegment({
   return html`${firstDisplayNumber
                   ? html`
                     ${lineBreak}<a class="segment-number ${segmentDisplaySide}"
-                      href="${createTextViewSegmentUrl(convertSegment(segmentNr))}"
+                      href="${createTextViewSegmentUrl(convertSegment(segmentNr, language))}"
                       target="_blank"
                       show-number="${showSegmentNumbers}">${displayNumber}</a>`
                   : null

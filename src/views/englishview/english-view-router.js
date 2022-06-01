@@ -2,6 +2,7 @@
  * @class Switches between the normal english-view and the english-view search results.
  */
 import { customElement, html, LitElement, property } from 'lit-element';
+import { getLanguageFromFilename } from '../utility/views-common';
 
 import './english-view';
 
@@ -21,9 +22,11 @@ export class EnglishViewRouter extends LitElement {
   @property({ type: String }) transMethod;
 
   render() {
+    const language = getLanguageFromFilename(this.fileName);
     return html`
       <english-view
         .fileName="${this.fileName}"
+        .language="${language}"
         .folio="${this.folio}"
         .showSCEnglish="${this.showSCEnglish}"
         .showSegmentNumbers="${this.showSegmentNumbers}"

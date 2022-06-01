@@ -1,7 +1,7 @@
 import { customElement, html, LitElement, property } from 'lit-element';
 import '@vaadin/vaadin-split-layout/theme/material/vaadin-split-layout';
 import { getFileText } from '../../api/actions';
-import { getLanguageFromFilename } from '../utility/views-common';
+
 import { NOENGLISHTRANSLATION } from '../utility/constants';
 
 import './english-view-header';
@@ -10,6 +10,7 @@ import './english-view-table';
 @customElement('english-view')
 export class EnglishView extends LitElement {
   @property({ type: String }) fileName;
+  @property({ type: String }) language;
   @property({ type: String }) folio;
   @property({ type: String }) activeSegment;
   @property({ type: Boolean }) showSegmentNumbers;
@@ -33,6 +34,7 @@ export class EnglishView extends LitElement {
         } else {
           this.displaySCEnglish = this.showSCEnglish;
         }
+        this.folio = '';
         this.fetchNewText();
       }
       if (propName === 'showSCEnglish') {
@@ -43,6 +45,10 @@ export class EnglishView extends LitElement {
       }
       if (propName === 'folio') {
         this.activeSegment = this.folio.segment_nr;
+        if (this.language == 'chn') {
+          this.activeSegment += '_0';
+        }
+        this.fetchNewText();
       }
     });
   }
@@ -52,9 +58,16 @@ export class EnglishView extends LitElement {
       return;
     }
     this.fetchLoading = true;
+    let folioNumber = '';
+    if (this.folio && this.language == 'chn') {
+      folioNumber = this.folio.num;
+    } else if (this.language == 'chn') {
+      folioNumber = '001';
+    }
     const { textleft, textmiddle, textright } = await getFileText({
       fileName: this.fileName,
       transmode: this.transMethod,
+      folionr: folioNumber,
     });
     this.leftTextData = textleft;
     this.middleData = textmiddle;
@@ -68,7 +81,6 @@ export class EnglishView extends LitElement {
   };
 
   render() {
-    const language = getLanguageFromFilename(this.fileName);
     return html`
       ${this.fetchLoading
         ? html`
@@ -78,13 +90,13 @@ export class EnglishView extends LitElement {
       <english-view-header
         .fileName="${this.fileName}"
         .displaySCEnglish="${this.displaySCEnglish}"
-        .language="${language}"
+        .language="${this.language}"
       ></english-view-header>
 
       <english-view-table
         id="english-view-table"
         .fileName="${this.fileName}"
-        .language="${language}"
+        .language="${this.language}"
         .displaySCEnglish="${this.displaySCEnglish}"
         .leftTextData="${this.leftTextData}"
         .middleData="${this.middleData}"
