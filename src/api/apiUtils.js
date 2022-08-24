@@ -75,19 +75,8 @@ export const getFileTextUrl = (fileName, queryParams) => {
   return `${API_URL}/files/${fileName}/filetext${q}`;
 };
 
-export const getSearchDataFromBackendUrl = (
-  query,
-  limit_collection,
-  queryParams
-) => {
-  let q = stringifyQueryParams(queryParams);
-  if (limit_collection && limit_collection.length > 0) {
-    q += limit_collection
-      .map(collectionName => `&limit_collection=${collectionName}`)
-      .join('');
-  }
-
-  return `${API_URL}/search/${query}/s${q}`;
+export const getSearchDataFromBackendUrl = query => {
+  return `${API_URL}/search/${query}`;
 };
 
 export const getGraphDataUrl = (fileName, target_collection, queryParams) => {
@@ -100,12 +89,8 @@ export const getGraphDataUrl = (fileName, target_collection, queryParams) => {
   return `${API_URL}/files/${fileName}/graph${q}`;
 };
 
-export const getDataForVisualUrl = (searchTerm, selected, queryParams) => {
-  let q = '?' + qs.stringify(queryParams, { prefix: '&' });
-  if (selected && selected.length > 0) {
-    q += selected.map(collectionName => `&selected=${collectionName}`).join('');
-  }
-  return `${API_URL}/visual/${searchTerm}${q}`;
+export const getDataForVisualUrl = searchTerm => {
+  return `${API_URL}/visual/${searchTerm}`;
 };
 
 export const getParallelCountUrl = (
