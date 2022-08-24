@@ -89,8 +89,12 @@ export const getGraphDataUrl = (fileName, target_collection, queryParams) => {
   return `${API_URL}/files/${fileName}/graph${q}`;
 };
 
-export const getDataForVisualUrl = searchTerm => {
-  return `${API_URL}/visual/${searchTerm}`;
+export const getDataForVisualUrl = (searchTerm, selected, queryParams) => {
+  let q = '?' + qs.stringify(queryParams, { prefix: '&' });
+  if (selected && selected.length > 0) {
+    q += selected.map(collectionName => `&selected=${collectionName}`).join('');
+  }
+  return `${API_URL}/visual/${searchTerm}${q}`;
 };
 
 export const getParallelCountUrl = (
