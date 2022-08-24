@@ -21,7 +21,7 @@ export const DATA_VIEW_MODES = {
   MULTILING: 'multiling',
   GRAPH: 'graph',
   NEUTRAL: 'neutral',
-  ENGLISH: 'english',
+  //  ENGLISH: 'english',
 };
 
 @customElement('data-view-filters-container')
