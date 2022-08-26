@@ -72,6 +72,3 @@ export const SOURCE_BUTTONS = {
     'Click to go to Chinese Buddhist Canonical Attributions database listing (includes information about ascriptions).',
   ],
 };
-
-export const NOENGLISHTRANSLATION =
-  '^(atk|tik|any|[bkpv]v|th[ai]-|cp|[yj]a|[cm]nd|[dp][psa]|[np]e|mil|pli-tv-p|vb|dt|snp|pli-tv-b[ui]-p)';

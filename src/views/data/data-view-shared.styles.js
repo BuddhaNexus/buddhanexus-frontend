@@ -1,11 +1,6 @@
 import { css } from 'lit-element';
 
 export default css`
-  [lang='en'] {
-    text-transform: none;
-    font-family: var(--source-sans-font-stack);
-  }
-
   [lang='tib'] {
     font-family: var(--source-sans-font-stack);
   }
@@ -14,10 +9,6 @@ export default css`
   [lang='skt'],
   [lang='pli'] {
     font-family: var(--source-sans-font-stack);
-  }
-
-  [lang='en'] {
-    font-family: var(--source-serif-font-stack);
   }
 
   [lang='chn'] {
