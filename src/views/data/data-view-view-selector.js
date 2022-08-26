@@ -113,7 +113,7 @@ export class DataViewViewSelector extends LitElement {
                 filter !== 'neutral' &&
                 (filter !== 'multiling' || this.language === 'multi') &&
                 filter !== 'text-search' &&
-                (filter !== 'english' || this.language === 'pli')
+                this.language === 'pli'
               ) {
                 return html`
                   <vaadin-item style="text-transform: capitalize"
@@ -141,7 +141,7 @@ export class DataViewViewSelector extends LitElement {
             filter !== 'neutral' &&
             (filter !== 'multiling' || this.language === 'multi') &&
             filter !== 'text-search' &&
-            (filter !== 'english' || this.language === 'pli')
+            this.language === 'pli'
           ) {
             return html`
               <vaadin-radio-button value="${filter}">

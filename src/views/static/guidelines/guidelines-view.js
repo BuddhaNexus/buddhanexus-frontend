@@ -104,11 +104,6 @@ export class GuidelinesView extends LitElement {
                 The pie graph displays the distribution of the (approximate) matches according to the collection’s sections. 
                 The histogram shows the distribution of the top files that have matches with the Inquiry Text based on the 
                 accumulated length of the approximate matches. A maximum of 50 Hit Texts are shown.</li>
-                <li><b>English View</b>: This view-mode is only available for Pāli texts. It displays the original text
-                together with a machine translation into English created by the
-                <a target="_blank" class="content-link" href="https://github.com/tensorflow/tensor2tensor">Transformer machine learning model</a>.
-                This model is based on the English translations by Bhikkhu Sujato (Suttas) or Bhikkhu Bhahmali (Vinaya).
-                Additionally, the original English translation is also offered if available.</li>
               </ul>
             </p>
             <h3>Links</h3>

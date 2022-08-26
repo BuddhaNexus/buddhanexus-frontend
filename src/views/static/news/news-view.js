@@ -88,23 +88,6 @@ export class NewsView extends LitElement {
                 be achieved.
               </li>
               <li>
-                On the Pāli side, a new “English mode” was introduced. This view
-                mode displays the Pāli text together with a
-                <b>machine translation</b>
-                into English created by the
-                <a
-                  target="_blank"
-                  class="content-link"
-                  href="https://github.com/tensorflow/tensor2tensor"
-                  >Transformer machine learning model</a
-                >. This model is based on English translations by Bhikkhu Sujato
-                (Suttas) or Bhikkhu Bhahmali (Vinaya) that were made available
-                by SC. Additionally, the original English SC translations are
-                also offered whenever available. Note that the machine- made
-                translations merely aim at facilitating research and should by
-                no means be considered definite.
-              </li>
-              <li>
                 We have also widen our cooperation in terms of linking to other
                 databases. Currently links with the following websites are
                 available:

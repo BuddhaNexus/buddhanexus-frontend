@@ -75,19 +75,8 @@ export const getFileTextUrl = (fileName, queryParams) => {
   return `${API_URL}/files/${fileName}/filetext${q}`;
 };
 
-export const getSearchDataFromBackendUrl = (
-  query,
-  limit_collection,
-  queryParams
-) => {
-  let q = stringifyQueryParams(queryParams);
-  if (limit_collection && limit_collection.length > 0) {
-    q += limit_collection
-      .map(collectionName => `&limit_collection=${collectionName}`)
-      .join('');
-  }
-
-  return `${API_URL}/search/${query}/s${q}`;
+export const getSearchDataFromBackendUrl = query => {
+  return `${API_URL}/search/${query}`;
 };
 
 export const getGraphDataUrl = (fileName, target_collection, queryParams) => {
