@@ -14,15 +14,15 @@ import styles from './visual-view-graph.styles';
 
 @customElement('visual-view-graph')
 export class VisualViewGraph extends LitElement {
-  @property({ type: String }) searchItem;
+  @property({ type: String }) searchItem = "tib_Kangyur";
   @property({ type: String }) colorScheme = 'Gradient';
-  @property({ type: String }) selectedCollections;
+  @property({ type: String }) selectedCollections = "tib_Tengyur";
   @property({ type: Function }) setSelection;
   @property({ type: Array }) graphData;
   @property({ type: Array }) setOptions;
   @property({ type: Number }) pageSize = 30;
   @property({ type: Number }) lastPageSize;
-  @property({ type: String }) language;
+  @property({ type: String }) language = "tib";
   @property({ type: String }) targetItem;
   @property({ type: Number }) currentPage = 0;
   @property({ type: Number }) totalPages;
@@ -104,10 +104,10 @@ export class VisualViewGraph extends LitElement {
   }
 
   async fetchData() {
-    if (!this.searchItem) {
+     if (!this.searchItem) {
       this.fetchLoading = false;
       return;
-    }
+    }    
     this.currentPage = 0;
     this.fetchLoading = true;
     this.language = this.searchItem.split('_')[0];
@@ -115,11 +115,17 @@ export class VisualViewGraph extends LitElement {
       .split('_')
       .slice(1)
       .join('_');
+    console.log('searchTerm', searchTerm);
+    console.log('selectedCollections', this.selectedCollections);
+    console.log('language', this.language);
+
     let { graphdata, error } = await getDataForVisual({
       searchTerm: searchTerm,
       selected: this.selectedCollections,
       language: this.language,
     });
+    console.log("graphdata", graphdata)
+
     let paginatedData = paginateGraphData(graphdata, this.pageSize);
     this.graphData = paginatedData[0];
     this.lastPageSize = paginatedData[1];

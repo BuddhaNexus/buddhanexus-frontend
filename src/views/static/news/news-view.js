@@ -14,9 +14,19 @@ export class NewsView extends LitElement {
         <div class="main-border">
           <div class="main-content">
             <h2>
+              January 25, 2022:  Authors and Translators Identification Initiative (ATII)
+            </h2>
+<p style="text-align: justify;">The Khyentse Center is proud to announce the launch of the collaborative undertaking<strong> Authors and Translators Identification Initiative</strong> (ATII).</p>
+<p style="text-align: justify;">One of the goals of the BuddhaNexus project is to explore the Buddhist intellectual networks that were active both within and outside the Indic cultural sphere and that were behind the formation of the individual Buddhist scriptures and non-scriptures and of the Buddhist literary corpora containing them as a whole. Such an exploration requires first and foremost an identification, to the extent possible, of the persons involved, including Indic authors, indigenous translators, and <em>paṇḍita</em>s who were members of translation teams. For this purpose, the Authors and Translators Identification Initiative (ATII), which involves collaboration among several institutions and individuals, was launched at the beginning of 2021. </p>
+<p style="text-align: justify;">The goal of ATII is the creation of an open source database of all the persons (authors, translators, etc.) involved in the creation of Indic Buddhist texts and the literary corpora containing them, including particularly the Tibetan and Chinese Buddhist Canons. The ATII uses person records instead of name records, and thus disambiguates names when multiple persons have the same name or one person has multiple names. This methodology has never been applied before in the case of the Tibetan Canon.</p>
+<p style="text-align: justify;">ATII consists of a group of students and scholars based at the Universität Hamburg, who works, generally speaking, in two teams. The first team, which focuses on the Indo-Tibetan part of ATII, concentrates on identifying persons of relevance to the Tibetan Buddhist Canon, including mainly Indic authors, Tibetan <em>lo tsā bas</em>, and their collaborating <em>paṇḍita</em>s, by using primary and secondary sources. The team, which mainly consists of Orna Almogi, Nicola Bajetta, and Ryan Conlon, closely collaborates with Élie Roux from the Buddhist Digital Resource Center (BDRC). The basis of the data is BDRC’s person records and canonical texts attributions (authors and translators), which was compiled in collaboration with the Resources for Kangyur and Tengyur Studies (rKTs) project, University of Vienna. In the first stage, we extracted information from the colophons of the <em>sDe dge</em> edition of the <em>bKa’ ’gyur</em> and <em>bsTan ’gyur</em> and created a one of a kind database of 1050 persons (300 Tibetans and 750 non-Tibetans, including 500 authors). More than 250 person records have already been added to BUDA, and dozens of duplicate records have been merged. Many authors of Indic texts represented in the GRETIL corpus have also been added to the database during this first stage. The team has been thus far focusing on offering standardized Sanskrit names, adding dates of the persons involved (Indic authors, Tibetan translators, and <em>paṇḍita</em>-translators), and linking these persons to the works in whose creation or translation they were involved. In this context, the team has also created innovative tools to check the temporal coherence of the data, based on assumptions such as that the dates of a translator and a <em>paṇḍita</em> who worked together must necessarily overlap; translators cannot predate the author of the text they translated, and the like. The translation and authorship attributions visible now on BUDA all come from ATII, and is a significant refinement on the existing data. The data will continue to be refined until the end of the project. The data is open source and collaborations are envisioned with other projects, such as 84000.</p>
+<p style="text-align: justify;">The second team, which thus far concentrates on linking Indic persons and their works to the Chinese Buddhist Canon, includes Sebastian Nehrdich and Marco Hummel and enjoys collaboration with Michael Radich and Jamie Norrish of the Chinese Buddhist Canonical Attributions database (CBC@).</p><p style="text-align: justify;">The ATII is financially supported by Khyentse Center, Universität Hamburg under the directorship of Dorji Wangchuk.</p>
+
+
+            <h2>
               October 12, 2021:  update of the BuddhaNexus database
             </h2>
-            <p>
+            <p style="text-align: justify;">
               We are happy to announce an update of the BuddhaNexus
               database. The following functions have been added:
               <ol>
@@ -28,7 +38,7 @@ export class NewsView extends LitElement {
                <li>Various minor bugs have been fixed to increase the interface usability.</li>  
               </ol>
             </p>
-            <p>
+            <p style="text-align: justify;">
               For questions and/or feedback, please contact us under
               <a
                 href="mailto:buddhanexus.info@gmail.com"
@@ -37,7 +47,7 @@ export class NewsView extends LitElement {
                 >buddhanexus.info@gmail.com</a
               >.
             </p>
-            <p>
+            <p style="text-align: justify;">
               With regards,<br />
               BuddhaNexus Team
             </p>
@@ -46,7 +56,7 @@ export class NewsView extends LitElement {
             <h2>
               August 4, 2021: Major updates of BuddhaNexus
             </h2>
-            <p>
+            <p style="text-align: justify;">
               We are happy to announce several major updates of BuddhaNexus, as
               follows:
             </p>
@@ -175,11 +185,11 @@ export class NewsView extends LitElement {
                 for Chinese.
               </li>
             </ol>
-            <p>
+            <p style="text-align: justify;">
               We are currently working on further updates, which will be
               announced in due time.
             </p>
-            <p>
+            <p style="text-align: justify;">
               For questions and/or feedback, please contact us under
               <a
                 href="mailto:buddhanexus.info@gmail.com"
@@ -188,14 +198,14 @@ export class NewsView extends LitElement {
                 >buddhanexus.info@gmail.com</a
               >.
             </p>
-            <p>
+            <p style="text-align: justify;">
               With regards,<br />
               BuddhaNexus Team
             </p>
             <h2>
               January 19, 2021: Major update of the BuddhaNexus database
             </h2>
-            <p>
+            <p style="text-align: justify;">
               We are happy to announce a major update of the BuddhaNexus
               database. The Tibetan corpus has been enlarged and contains now
               the two paracanonical collections of the rNying ma rgyud ’bum
@@ -211,7 +221,7 @@ export class NewsView extends LitElement {
               Buddhist Canon (DSBC) and other projects, and generating
               translingual matches.
             </p>
-            <p>
+            <p style="text-align: justify;">
               For questions and/or feedback, please contact us under
               <a
                 href="mailto:buddhanexus.info@gmail.com"
@@ -220,7 +230,7 @@ export class NewsView extends LitElement {
                 >buddhanexus.info@gmail.com</a
               >.
             </p>
-            <p>
+            <p style="text-align: justify;">
               With regards,<br />
               BuddhaNexus Team
             </p>
@@ -229,7 +239,7 @@ export class NewsView extends LitElement {
               January 5, 2020: The BuddhaNexus in
               <i>The Digital Orientalist</i> (Part II)
             </h2>
-            <p>
+            <p style="text-align: justify;">
               Matthew Hayes, editor for Buddhist Studies at
               <i>The Digital Orientalist</i> continues to introduce readers to
               the BuddhaNexus project in his online article "<a
@@ -248,7 +258,7 @@ export class NewsView extends LitElement {
               <i>The Digital Orientalist</i> (Part I)
             </h2>
 
-            <p>
+            <p style="text-align: justify;">
               Matthew Hayes, editor for Buddhist Studies at
               <i>The Digital Orientalist</i> introduces readers to the
               BuddhaNexus project in his online article "<a
@@ -262,7 +272,7 @@ export class NewsView extends LitElement {
             </p>
 
             <h2>August 31, 2020: Addition of the GRETIL Sanskrit data</h2>
-            <p>
+            <p style="text-align: justify;">
               We are happy to announce that the Sanskrit data from the GRETIL
               collection is now available on BuddhaNexus:
               <a
@@ -274,7 +284,7 @@ export class NewsView extends LitElement {
             </p>
 
             <h2>August 21, 2020: Online publication of BuddhaNexus</h2>
-            <p>
+            <p style="text-align: justify;">
               We are happy to announce the online publication of the BuddhaNexus
               database at
               <a
@@ -284,7 +294,7 @@ export class NewsView extends LitElement {
                 >https://buddhanexus.net/</a
               >.
             </p>
-            <p>
+            <p style="text-align: justify;">
               BuddhaNexus, a collaborative project of the Khyentse Center,
               Universität Hamburg, is a database devoted to the study of
               Buddhist texts and literary corpora in Pāli, Sanskrit, Tibetan,
@@ -294,11 +304,11 @@ export class NewsView extends LitElement {
               texts. The current version includes material in Pāli, Tibetan, and
               Chinese. Sanskrit material will be published soon.
             </p>
-            <p>
+            <p style="text-align: justify;">
               Several other features are being currently developed, including
               linking to other databases and generating translingual matches.
             </p>
-            <p>
+            <p style="text-align: justify;">
               For questions and/or feedback, please contact us under
               <a
                 href="mailto:buddhanexus.info@gmail.com"
@@ -307,7 +317,7 @@ export class NewsView extends LitElement {
                 >buddhanexus.info@gmail.com</a
               >.
             </p>
-            <p>
+            <p style="text-align: justify;">
               With regards,<br />
               BuddhaNexus Team
             </p>

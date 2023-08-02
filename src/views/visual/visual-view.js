@@ -9,10 +9,10 @@ import './visual-view-selection-box';
 
 @customElement('visual-view')
 export class VisualView extends LitElement {
-  @property({ type: String }) searchItem;
+  @property({ type: String }) searchItem = 'tib_Kangyur';
   @property({ type: String }) colorScheme;
-  @property({ type: String }) activeLanguage;
-  @property({ type: Array }) selectedCollections;
+  @property({ type: String }) activeLanguage = "tib";
+  @property({ type: Array }) selectedCollections = ['tib_Tengyur'];
   @property({ type: String }) headerVisibility = '';
 
   static get styles() {
@@ -83,15 +83,6 @@ export class VisualView extends LitElement {
             <visual-view-selection-box></visual-view-selection-box>
           `
         : null}
-
-      <div class="visual-view-container" style="${this.setDisplay()}">
-        <visual-view-header
-          .setSelection="${this.setSelection}"
-          .setColorScheme="${this.setColorScheme}"
-          .activeLanguage="${this.activeLanguage}"
-          .toggleNavBar="${this.toggleNavBar}">
-        </visual-view-header>
-
         <visual-view-graph
           .searchItem="${this.searchItem}"
           .colorScheme="${this.colorScheme}"

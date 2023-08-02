@@ -26,6 +26,7 @@ export class PeopleView extends LitElement {
               Chinese matches)<br />
               Ven. Ayya Vimala (programmer frontend; Pāli data arrangement)<br />
               Hubert Dworczyński (programmer frontend and backend)<br />
+              Vladimir Angirov (programmer frontend and backend, matches generation)<br />
               Prof. Dr. Kiyonori Nagasaki (Tibetan visual charts)
             </p>
             <h3>Design</h3>

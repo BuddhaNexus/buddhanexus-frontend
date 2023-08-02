@@ -156,6 +156,14 @@ export class InstitutionsView extends LitElement {
               </a>
             </div>
 
+            <div><p>Authors and Translators Identification Initiative (ATII) </p></div>
+            <div class="partner">
+              <a href="https://www.kc-tbts.uni-hamburg.de/research/projects.html" target="blank">
+                <img src="./src/assets/img/atii_logo.png" alt="ATII" />
+              </a>
+            </div>
+
+
 
             <h2>FUNDING INSTITUTIONS</h2>
 

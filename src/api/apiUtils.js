@@ -87,7 +87,7 @@ export const getSearchDataFromBackendUrl = (
       .join('');
   }
 
-  return `${API_URL}/search/${query}/s${q}`;
+  return `${API_URL}/search/${query}`;
 };
 
 export const getGraphDataUrl = (fileName, target_collection, queryParams) => {
